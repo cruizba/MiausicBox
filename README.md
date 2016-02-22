@@ -29,7 +29,7 @@ Usuario: - Tendrá un perfil personal(información artistica, instrumentos, etc.
 
 Grupo de música - Perfil de grupo(Estilo, integrantes, blog).
 
-Mensjaería privada - Cada usuario puede enviar mensajes a otros usuarios.
+Mensajería privada - Cada usuario puede enviar mensajes a otros usuarios.
 
 Eventos musicales. - Cada usuario o grupo puede crear un evento musical.
 
@@ -41,7 +41,7 @@ Soraya Rama Castaño - s.rama@alumnos.urjc.es - sorayarc
 
 Carlos Ruiz Ballesteros - c.ruizba@alumnos.urjc.es - cruizba
 
-Luis León Gámez -  ice6294
+Luis León Gámez - lg.leon@alumnos.urjc.es - ice6294
   
   
   
