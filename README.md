@@ -1,4 +1,5 @@
 #MiausicBox || Social network for artists and fans
+Trello: https://trello.com/giraffe20
 
 #1. Red Social musical
 #2. Idea:	
