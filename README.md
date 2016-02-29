@@ -19,7 +19,7 @@ Como aficionados a la música:
 	
 1. Utilizar internet y las redes sociales para crear nuevos movimientos musicales e incluso sociales.
 2. Fomentar la creatividad y el arte, creando facilidad de contacto entre músicos.
-3. Que la musica suburbana e independiente se escuche un poco más debido a la toxicidad de los medios más comunes.
+3. Que la música suburbana e independiente se escuche un poco más debido a la toxicidad de los medios más comunes.
 
 #4. ENTIDADES
   
