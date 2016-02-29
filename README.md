@@ -1,4 +1,5 @@
 #MiausicBox || Social network for artists and fans
+Trello: https://trello.com/giraffe20
 
 #1. Red Social musical
 #2. Idea:	
@@ -23,7 +24,7 @@ Como aficionados a la música:
 
 #4. ENTIDADES
   
-Administrador: Sera capaz de administrar los eventos, eliminar usuarios, grupos, etc...
+Instrumento: - Cada usuario podrá tener asociados ciertos instrumentos, y ante estos puede tener baja-media-buen manejo de éste.
 
 Usuario: - Tendrá un perfil personal(información artistica, instrumentos, etc..) , podrá añadir bandas y visitarlas
 
