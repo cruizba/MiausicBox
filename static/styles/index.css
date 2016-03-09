@@ -1,0 +1,155 @@
+/*
+      /----------------------/
+     /----Estilos menu------/
+    /----------------------/
+*/
+
+/* navbar */
+.navbar-default {
+    background-color: #00BC8C;
+    border-color: #00BC8C;
+}
+/* title */
+.navbar-default .navbar-brand {
+    color: #FFFFFF;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #FFFFFF;
+    background-color: #00A379;
+}
+/* link */
+.navbar-default .navbar-nav > li > a {
+    color: #FFFFFF;
+}
+
+/*Cuando está el mouse encima de los botones */
+.navbar-default .navbar-nav > li:hover{
+    background-color: #00A379;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #FFFFFF;
+}
+
+/*Cuando está seleccionado el botón del nav */
+.navbar-default .navbar-nav > .active > a, 
+.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #FFFFFF;
+    background-color: #00A379;
+}
+.navbar-default .navbar-nav > .open > a, 
+.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #D5D5D5;
+}
+/* caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+.navbar-default .navbar-nav > .open > a .caret, 
+.navbar-default .navbar-nav > .open > a:hover .caret, 
+.navbar-default .navbar-nav > .open > a:focus .caret {
+    border-top-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+}
+/* mobile version */
+.navbar-default .navbar-toggle {
+    border-color: #DDD;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #DDD;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #CCC;
+}
+
+
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #00A379;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #00A379;
+    }
+}
+
+/*
+      /----------------------/
+     /-Estilos tipográficos-/
+    /----------------------/
+
+*/
+
+body {
+    background:#222222 !important;
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #ffffff;
+    background-color: #222222;
+}
+
+/* Los diferentes estilos de texto
+para notificaciones y demás */
+.text-muted{
+   font-weight: 900;
+}
+
+.text-primary{
+    font-weight: 900;
+}
+
+.text-warning{
+    font-weight: bold;
+    color: darkorange;
+}
+
+.text-danger{
+    font-weight: bold;
+    color: orangered;
+}
+
+.text-success{
+    font-weight: bold;
+    color: #00BC8C;
+}
+
+.text-info{
+    font-weight: bold;
+    color: royalblue;
+}
+
+
+.profile-info > .panel-heading{
+    background-color: #00BC8C;
+}
+
+.content-panel{
+    color: black;
+}
+
+/*Esto es necesario para que el nav,
+no tape un trozo de la página */
+
+#profile-page {
+   margin-top: 5em;
+}
+
+.image-blog{
+    float:left;
+    width:200px;
+    height:200px; 
+    margin-right:10px;
+}
