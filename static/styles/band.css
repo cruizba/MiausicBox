@@ -1,0 +1,32 @@
+/*
+      /----------------------/
+     /----Estilos banda-----/
+    /----------------------/
+*/
+
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+#member-image .img {
+    max-height: 60px;
+    max-width: 60px;
+}
+
+#song-name {
+    text-align: left;
+}
+
+#song-band {
+    text-align: center;
+}
+
+#song-link {
+    text-align: right;
+}
+
+#btn-suggest {
+    background-color: #CCC;
+    color: color: #00A379;;
+}
