@@ -74,7 +74,6 @@
 }
 
 
-
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #00A379;
@@ -99,6 +98,10 @@ body {
     line-height: 1.42857143;
     color: #ffffff;
     background-color: #222222;
+}
+
+#foot{
+    text-align: center;
 }
 
 /* Los diferentes estilos de texto
@@ -153,3 +156,37 @@ no tape un trozo de la página */
     height:200px; 
     margin-right:10px;
 }
+/*Portada*/
+#carousel {
+    height: 15em;
+}
+#TituloPortada {  
+    margin-top: 5%;
+}
+#TituloPortada h3 {   
+    text-align: center;
+    font-size: 3em;
+}
+#LogoMain{
+    width: 25%;
+    height: 25%;
+    float:left;
+}
+#enter {
+    margin-top: 5%;  
+}
+
+#signin {
+    background-color: #00BC8C;
+    border-radius: 1em;
+    padding-bottom: 1em;
+    margin-left: 10px;
+}
+
+#login {
+    background-color: #00BC8C;
+    border-radius: 1em;  
+    padding-bottom: 1em;
+}
+
+
