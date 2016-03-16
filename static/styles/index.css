@@ -153,3 +153,35 @@ no tape un trozo de la página */
     height:200px; 
     margin-right:10px;
 }
+/*Portada*/
+#TituloPortada {  
+    margin-top: 15%;
+}
+#TituloPortada h3 {   
+    text-align: center;
+    font-size: 3em;
+}
+#LogoMain{
+    width: 25%;
+    height: 25%;
+    float:left;
+}
+#enter {
+    margin-top: 15%;
+}
+#signin {
+    background-color: #00BC8C;
+    border-radius: 1em;
+    margin: 1em;
+    padding: 1em;
+    
+    width: 45%;
+}
+#login {
+    background-color: #00BC8C;
+     border-radius: 1em;
+    margin: 1em;
+    padding: 1em;
+    width: 45%;
+}
+
