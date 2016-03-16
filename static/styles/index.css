@@ -154,8 +154,11 @@ no tape un trozo de la página */
     margin-right:10px;
 }
 /*Portada*/
+#carousel {
+    height: 15em;
+}
 #TituloPortada {  
-    margin-top: 15%;
+    margin-top: 5%;
 }
 #TituloPortada h3 {   
     text-align: center;
@@ -167,21 +170,20 @@ no tape un trozo de la página */
     float:left;
 }
 #enter {
-    margin-top: 15%;
+    margin-top: 5%;  
 }
+
 #signin {
     background-color: #00BC8C;
     border-radius: 1em;
-    margin: 1em;
-    padding: 1em;
-    
-    width: 45%;
+    padding-bottom: 1em;
+    margin-left: 10px;
 }
+
 #login {
     background-color: #00BC8C;
-     border-radius: 1em;
-    margin: 1em;
-    padding: 1em;
-    width: 45%;
+    border-radius: 1em;  
+    padding-bottom: 1em;
 }
+
 
