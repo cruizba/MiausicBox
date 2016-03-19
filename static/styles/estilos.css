@@ -180,7 +180,6 @@ no tape un trozo de la página */
     background-color: #00BC8C;
     border-radius: 1em;
     padding-bottom: 1em;
-    margin-left: 10px;
 }
 
 #login {
@@ -188,5 +187,14 @@ no tape un trozo de la página */
     border-radius: 1em;  
     padding-bottom: 1em;
 }
+/*Artistas*/
+#ImagenArtistList {
+    height: 5em;
+}
+.table thead{
+    background-color: #00BC8C;
+}
+.pagination {
+    float: right;
 
-
+}
