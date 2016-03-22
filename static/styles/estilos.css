@@ -196,5 +196,7 @@ no tape un trozo de la página */
 }
 .pagination {
     float: right;
-
+}
+#InstrumentSimbol {
+    height: 1.3em;
 }
