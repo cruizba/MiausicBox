@@ -1,164 +1,248 @@
 <!DOCTYPE hml>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8"
-              http-equiv="Content-Type" >
-        <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="styles/estilos.css">
-        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-        <script src="libs/jquery-2.2.1.min.js"></script>
-        <script src="libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-        <title>MiasuicBox</title>
-    </head>
-    <body>
-        <div class="container">
-               <!--Menú-->
-               <!-- la clase se ha puesto a navbar-default, y posteriormente editada en css -->
-               <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                  <div class="container-fluid">
-                    <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/estilos.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <script src="libs/jquery-2.2.1.min.js"></script>
+    <script src="libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <title>MiasuicBox</title>
+</head>
+
+<body>
+    <div class="container">
+        <!--Menú-->
+        <!-- la clase se ha puesto a navbar-default, y posteriormente editada en css -->
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="index.html">MiausicBox</a>
-                    </div>
+                    </button>
+                    <a class="navbar-brand" href="index.html">MiausicBox</a>
+                </div>
 
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                      <ul class="nav navbar-nav">
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                    <ul class="nav navbar-nav">
                         <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>  Perfil</a></li>
                         <li><a href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>  Mensajes</a></li>
                         <li><a href="eventos.html"><span class="glyphicon glyphicon-pushpin"></span>  Eventos</a></li>
                         <li class="active"><a href="artista.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
                         <li><a href="grupos.html"><span class="glyphicon glyphicon-cd"></span>   Grupos</a></li>
-                      </ul>
-                      <form class="navbar-form navbar-left" role="search">
+                    </ul>
+                    <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Search">
+                            <input type="text" class="form-control" placeholder="Search">
                         </div>
                         <button type="submit" class="btn btn-default">Buscar</button>
-                      </form>
-                      <div class="nav navbar-nav navbar-right">
+                    </form>
+                    <div class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                               Configuración <span class="glyphicon glyphicon-cog"></span></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Salir</a></li>
-                          </ul>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">Salir</a></li>
+                            </ul>
                         </li>
-                      </div>
                     </div>
-                  </div>
-            </nav>
-           <!-- Fin menu -->
-           
-           <!-- Contenido página -->
-            <div class="container" id="profile-page">
-                <div class="row">
-                    
-                    <div class="col-ms-12">
-                        <div class="page-header">
-				            <h1><span class="glyphicon glyphicon-text-background"></span>rtistas<small> Follow them!</small></h1>
-                        </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Fin menu -->
+
+        <!-- Contenido página -->
+        <div class="container" id="profile-page">
+            <div class="row">
+                <!--Titulo contenido -->
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h1><span class="glyphicon glyphicon-text-background"></span>rtistas<small> Follow them!</small></h1>
                     </div>
-                
-                    <!--Menu Filtro-->
-                    <div class="col-md-4">
-                        <div class="panel panel-default profile-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Busqueda</h3>
-                            </div>
-                            <div class="panel-body">
-                               
-                            </div>
+                </div>
+
+                <!--Menu Lateral. Filtro de busqueda-->
+                <div class="col-md-4">
+
+                    <div class="panel panel-default profile-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Busqueda</h3>
                         </div>
 
+                        <div class="panel-body">
+                            
+                            <div class="col-lg-12">
+                                <h4 id="BusquedaInstrumentos">Nombre:</h4>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Nombre del artista">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+
+                            <div class="col-lg-12">
+                                <h4 id="BusquedaInstrumentos">Banda:</h4>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                            
+                            <h4 id="OpcionesInstrumentos">Instrumentos:</h4>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Voz
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Guitarra
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Bajo
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Bateria
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Piano
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Violin
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Trompeta
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label class="labelBusqueda">
+                                    <input type="checkbox">Otros
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <!--Lista de Artistas-->
-                
-                    <div class="col-md-8">
-			           
-                                
-			         <table class="table">
-				        <thead>
-					       <tr>
-                               <th>Perfil</th>
-                               <th>Nombre </th>
-                               <th>Instrumentos</th>
-                               <th>Bandas</th>
-					       </tr>
-				        </thead>
-				        <tbody>
-					       <tr>
-					           <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
-                               <td>Alex Turner</td>
-                               <td>
+                </div>
+
+                <!--Lista de Artistas-->
+                <div class="col-md-8">
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th>Perfil</th>
+                                <th>Nombre </th>
+                                <th>Instrumentos</th>
+                                <th>Bandas</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
+                                <td>Alex Turner</td>
+                                <td>
                                     <ul>
                                         <li>Voz <img src="img/instrumentoVoz.png" alt="Instrument" id="InstrumentSimbol"></li>
                                         <li>Piano</li>
                                         <li>Guitarra <img src="img/instrumentoGuitar.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                   </ul>
-                               </td>
-                               <td></td>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Arctic Monkeys</li>
+                                    </ul>
+                                </td>
                             </tr>
-                             <tr>
-					           <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
-                               <td>Jaime Cookr</td>
-                               <td>
+                            <tr>
+                                <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
+                                <td>Jaime Cookr</td>
+                                <td>
                                     <ul>
                                         <li>Guitarra <img src="img/instrumentoGuitar.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                   </ul>
-                               </td>
-                                 <td></td>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Arctic Monkeys</li>
+                                    </ul>
+                                </td>
                             </tr>
-                             <tr>
-					           <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
-                               <td>Nick O'Malley</td>
-                               <td>
+                            <tr>
+                                <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
+                                <td>Nick O'Malley</td>
+                                <td>
                                     <ul>
                                         <li>Bajo <img src="img/instrumentoBajo.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                   </ul>
-                               </td>
-                                 <td></td>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Arctic Monkeys</li>
+                                    </ul>
+                                </td>
                             </tr>
-                             <tr>
-					           <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
-                               <td>Matt Heldersr</td>
-                               <td>
+                            <tr>
+                                <td><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></td>
+                                <td>Matt Heldersr</td>
+                                <td>
                                     <ul>
                                         <li>Bateria</li>
-                                   </ul>
-                               </td>
-                                <td></td>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>Arctic Monkeys</li>
+                                    </ul>
+                                </td>
                             </tr>
-                         </tbody>
-			         </table>
-                        
-                        
-			         <ul class="pagination">
-				        <li><a href="#">Prev</a></li>
-				        <li><a href="#">1</a></li>
+                        </tbody>
+                    </table>
+                    <!--Paginas-->
+                    <ul class="pagination" id="paginasArtistas">
+                        <li><a href="#">Prev</a></li>
+                        <li class="active"><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
                         <li><a href="#">3</a></li>
-				        <li><a href="#">4</a></li>
+                        <li><a href="#">4</a></li>
                         <li><a href="#">5</a></li>
                         <li><a href="#">Next</a></li>
-                    </ul> 
+                    </ul>
                 </div>
-                    <!--Fin Lista de Artistas-->
+                <!--Fin Lista de Artistas-->
 
-                </div>
             </div>
-       </div>
-        
-       <footer>
-            <p id="foot">Giraffe Team Desing  &copy;</p>
-       </footer>
-    </body>
+        </div>
+    </div>
+
+    <footer>
+        <p id="foot">Giraffe Team Desing &copy;</p>
+    </footer>
+</body>
+
 </html>
