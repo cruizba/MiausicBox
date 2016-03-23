@@ -1,0 +1,145 @@
+<!DOCTYPE hml>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8"
+              http-equiv="Content-Type" >
+        <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="styles/estilos.css">
+        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+        <script src="libs/jquery-2.2.1.min.js"></script>
+        <script src="libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+        <title>MiasuicBox</title>
+    </head>
+    <body>
+        <div class="container">
+               <!--Menú-->
+               <!-- la clase se ha puesto a navbar-default, y posteriormente editada en css -->
+               <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="principal.html">MiausicBox</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                      <ul class="nav navbar-nav">
+                        <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>  Perfil</a></li>
+                        <li><a href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>  Mensajes</a></li>
+                        <li><a href="eventos.html"><span class="glyphicon glyphicon-pushpin"></span>  Eventos</a></li>
+                        <li><a href="artistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
+                        <li class="active"><a href="grupos.html"><span class="glyphicon glyphicon-cd"></span>   Grupos</a></li>
+                      </ul>
+                      <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                          <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">Buscar</button>
+                      </form>
+                      <div class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Salir</a></li>
+                          </ul>
+                        </li>
+                      </div>
+                    </div>
+                  </div>
+            </nav>
+           <!-- Fin menu -->
+           
+           <!-- Contenido página -->
+            <div class="container" id="profile-page">
+                <div class="row">
+                    
+                    <!-- Información del perfil -->
+                    
+                    <div class="col-md-4" id="profile_details">
+                        <img src="img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
+                        <h1>User Name</h1>
+                        <div class="alert alert-dismissible alert-success">
+                            <button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove"></span></button>
+                                Notificación.
+                        </div>
+                        <div class="panel panel-default profile-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Instrumentos</h3>
+                            </div>
+                            <div class="panel-body">
+                               <p class="content-panel">Aquí figuran los instrumentos que el usuario toca.</p> 
+                            </div>
+                        </div>
+                        <div class="panel panel-default profile-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Grupos</h3>
+                            </div>
+                            <div class="panel-body">
+                               <p class="content-panel">Aquí figuran los grupos en los que el usuario toca.</p> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- blog y acciones de los grupos en la red -->
+                    <div class="col-md-8" id="profile_blog">
+                            <div class="panel panel-default">
+                              <div class="panel-body">
+                                <h3 class="content-panel">Blog #1</h3>
+                              </div>
+                              <div class="panel-footer">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <img class="image-blog" src="img/muestra1.jpg" class="img-responsive img-rounded" alt="Profile image">
+                                          <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p> 
+                                      </div>
+                                  </div>              
+                                </div>    
+                            </div>
+                    <div class="panel panel-default">
+                              <div class="panel-body">
+                                <h3 class="content-panel">Blog #2</h3>
+                              </div>
+                              <div class="panel-footer">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <img class="image-blog" src="img/muestra2.jpg" class="img-responsive img-rounded" alt="Profile image">
+                                          <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p> 
+                                      </div>
+                                  </div>              
+                                </div>
+                                
+                            </div>
+                        
+                        <div class="panel panel-default">
+                              <div class="panel-body">
+                                <h3 class="content-panel">Blog #3</h3>
+                              </div>
+                              <div class="panel-footer">
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <img class="image-blog" src="img/muestra3.jpg" class="img-responsive img-rounded" alt="Profile image">
+                                          <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p> 
+                                      </div>
+                                  </div>              
+                                </div>
+                                
+                            </div>
+                    </div>
+                </div>
+            </div>
+       </div>
+        
+       <footer>
+            <p id="foot">Giraffe Team Desing  &copy;</p>
+       </footer>
+    </body>
+</html>
