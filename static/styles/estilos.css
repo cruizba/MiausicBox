@@ -101,6 +101,7 @@ body {
 }
 
 #foot{
+    margin-top: 5em;
     text-align: center;
 }
 
@@ -150,6 +151,10 @@ no tape un trozo de la página */
    margin-top: 5em;
 }
 
+#page {
+    margin-top: 17em;
+}
+
 .image-blog{
     float:left;
     width:200px;
@@ -159,6 +164,7 @@ no tape un trozo de la página */
 /*Portada*/
 #carousel {
     height: 15em;
+    position: fixed;
 }
 #TituloPortada {  
     margin-top: 5%;
@@ -188,5 +194,28 @@ no tape un trozo de la página */
     border-radius: 1em;  
     padding-bottom: 1em;
 }
-
+/*Entrar*/
+#logo {
+    width: 25%;
+    height: 25%;
+}
+#registro {
+    color: aliceblue;
+    font-size: 0.80em;
+    text-decoration: underline;
+}
+#boton {
+    float: right;
+}
+/*principalSinLogIn*/
+#nombre {   
+    color: aliceblue;
+    margin-right: 2em; 
+    font-size: 2em;
+}
+#entrar {  
+    color: aliceblue;
+    text-align: right;
+    margin-top: 1em;
+}
 
