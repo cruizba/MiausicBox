@@ -187,61 +187,6 @@ no tape un trozo de la página */
     border-radius: 1em;  
     padding-bottom: 1em;
 }
-/***********************************Artistas***********************************/
-.panel-title {
-    font-weight: bold;
-    color:white;
-}
-.labelBusqueda {
-    color: black;
-}
-#BotonBusqueda {
-    background-color: #00BC8C;
-}
-#BotonBusqueda:hover {
-   background-color: #00A379;
-}
-#BusquedaInstrumentos {
-    color:black;
-    font-weight: bold;
-}
-#OpcionesInstrumentos {
-    color:black;
-    font-weight: bold;
-    margin-left: 1em;    
-}
 
-.checkbox {
-    margin-left: 1.3em;
-}
-
-#ImagenArtistList {
-    height: 5em;
-}
-
-.table thead tr{
-    background-color: #00BC8C;
-    border-top-left-radius: 10px;
-}
-#esquinaTablaArtista1{
-    border-top-left-radius: 5px;
-}
-#esquinaTablaArtista2{
-    border-top-right-radius: 5px;
-}
-#paginasArtistas {
-    float: right;
-    
-}
-#paginasArtistas a{
-    background-color: #00BC8C;
-    color:white;
-}
-#paginasArtistas a:hover{
-    background-color: #00A379;
-}
-#InstrumentSimbol {
-    height: 1.3em;
-}
 
 
