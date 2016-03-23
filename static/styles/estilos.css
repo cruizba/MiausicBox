@@ -156,7 +156,7 @@ no tape un trozo de la página */
     height:200px; 
     margin-right:10px;
 }
-/*Portada*/
+/***********************************Portada***********************************/
 #carousel {
     height: 15em;
 }
@@ -180,7 +180,6 @@ no tape un trozo de la página */
     background-color: #00BC8C;
     border-radius: 1em;
     padding-bottom: 1em;
-    margin-left: 10px;
 }
 
 #login {
@@ -188,5 +187,6 @@ no tape un trozo de la página */
     border-radius: 1em;  
     padding-bottom: 1em;
 }
+
 
 
