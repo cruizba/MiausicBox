@@ -218,8 +218,16 @@ no tape un trozo de la página */
 #ImagenArtistList {
     height: 5em;
 }
-.table thead{
+
+.table thead tr{
     background-color: #00BC8C;
+    border-top-left-radius: 10px;
+}
+#esquinaTablaArtista1{
+    border-top-left-radius: 5px;
+}
+#esquinaTablaArtista2{
+    border-top-right-radius: 5px;
 }
 #paginasArtistas {
     float: right;
