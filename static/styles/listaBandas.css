@@ -35,7 +35,7 @@
 }
 
 /*******************************************************************************************/
-#ImagenArtistList {
+#ImagenBandaList {
     height: 5em;
 }
 
@@ -48,23 +48,27 @@
 #esquinaTablaBandas2{
     border-top-right-radius: 5px;
 }
-.enlaceListaArtista {
+.enlaceListaBanda {
     color:white;
 }
-.enlaceListaArtista:hover {
+.enlaceListaBanda:hover {
     color:#00BC8C;
     text-decoration: none;
 }
-#paginasArtistas {
+.enlacePerfilArtista{
+    color: white;
+}
+.enlacePerfilArtista:hover {
+    color:#00BC8C;
+    text-decoration: none;
+}
+#paginasBandas {
     float: right; 
 }
-#paginasArtistas a{
+#paginasBandas a{
     background-color: #00BC8C;
     color:white;
 }
-#paginasArtistas a:hover{
+#paginasBandas a:hover{
     background-color: #00A379;
-}
-#InstrumentSimbol {
-    height: 1.3em;
 }
