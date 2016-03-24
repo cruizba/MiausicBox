@@ -100,8 +100,13 @@
 }
 
 #AutorBlog {
-    float: left;
+    text-align: left;
 }
+
+#BandaBlog {
+    text-align: center;
+}
+
 #FechaBlog {
-    float: right;
+    text-align: right;
 }
