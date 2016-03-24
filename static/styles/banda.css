@@ -1,10 +1,107 @@
-/*
-      /----------------------/
-     /----Estilos banda-----/
-    /----------------------/
+/**
+      /------------------------/
+     /---- Estilos banda -----/
+    /------------------------/
 */
 
+.panel-title {
+    font-weight: bold;
+    color:white;
+}
+
+.panel-default {
+    border: 0px;
+    border-radius: 5px;
+}
+
+.panel-head {
+    padding: 0.5em;
+    padding-left: 2em;
+}
+
+#Informacion {
+    color: black;
+}
+
+#Informacion a {
+    display: block;
+    color:black;
+}
+
+#Informacion a:hover {
+    color: #00BC8C;
+    text-decoration: none;
+}
+
+#ListaGeneros {
+    list-style: none;
+}
+
+#Eventos {
+    color:black;
+}
+
+#Eventos a {
+    color:black;
+}
+
+#Eventos a:hover {
+    color: #00BC8C;
+    text-decoration: none;
+}
+
+#ListaItems {
+    color: black;
+    background-color: #222222;
+}
+
+.table thead tr{
+    background-color: #00BC8C;
+}
+
+.enlaceArtista {
+    color: white;
+}
+
+.enlaceArtista:hover {
+    color:#00BC8C;
+    text-decoration: none;
+}
+
+#EsquinaIzqTabla {
+    border-top-left-radius: 5px;
+}
+
+#EsquinaDerTabla {
+    border-top-right-radius: 5px;
+}
+
 #ImagenArtistList {
-    height: 5em;
+    height: 4em;
+    width: 4em;
+}
+
+#InstrumentSimbol {
+    height: 1.3em;
+}
+
+.linkButton {
+    color: black;
     width: 5em;
+}
+
+.linkButton:hover {
+    background-color: #00BC8C;
+}
+
+#BlogFooter {
+    color: black;
+    height: 3em;
+}
+
+#AutorBlog {
+    float: left;
+}
+#FechaBlog {
+    float: right;
 }
