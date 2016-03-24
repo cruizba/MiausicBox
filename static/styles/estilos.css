@@ -144,6 +144,25 @@ para notificaciones y demás */
     color: black;
 }
 
+.text-artistname{
+    color: darkgreen;
+}
+
+.text-bandname{
+    color: darkorange;
+}
+
+.date{
+    background-color: grey;
+    text-align: center;
+    padding-left: 0.6em;
+}
+
+.news{
+    color:black;
+    text-align: center;
+}
+
 /*Esto es necesario para que el nav,
 no tape un trozo de la página */
 
@@ -161,6 +180,7 @@ no tape un trozo de la página */
     height:200px; 
     margin-right:10px;
 }
+
 /***********************************Portada***********************************/
 #carousel {
     height: 15em;
@@ -219,3 +239,7 @@ no tape un trozo de la página */
 }
 
 
+
+.ubicacion {
+    list-style-type: none;
+}
