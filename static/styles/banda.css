@@ -33,12 +33,29 @@
     text-decoration: none;
 }
 
+#Informacion button:hover {
+    background-color: #00BC8C;
+}
+
 #PrimeraFila {
-    border-top-style: hidden;
+    border-top-style: none;
 }
 
 #ListaGeneros {
     list-style: none;
+}
+
+#TablaSites tr td {
+    border-top-width: 0px;
+    border-top-style: none;
+}
+
+#TablaSites button {
+    text-align: right;
+}
+
+#TablaSites button:hover {
+    background-color: #00BC8C;
 }
 
 #Eventos {
