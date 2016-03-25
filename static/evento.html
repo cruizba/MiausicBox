@@ -4,6 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
     <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="libs/bootstrap-3.3.6-dist/css/bootstrap-social.css" rel="stylesheet">
+    <link href="libs/bootstrap-3.3.6-dist/css/assets/css/docs.css" rel="stylesheet">
+    <link href="libs/bootstrap-3.3.6-dist/css/assets/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles/estilos.css">
     <link rel="stylesheet" type="text/css" href="styles/evento.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -37,7 +40,7 @@
                         </li>
                         <li><a href="../listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a>
                         </li>
-                        <li ><a href="../listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Grupos</a>
+                        <li><a href="../listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Grupos</a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
@@ -46,19 +49,19 @@
                         </div>
                         <button type="submit" class="btn btn-default">Buscar</button>
                     </form>
-                     <div class="nav navbar-nav navbar-right">
+                    <div class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                               Configuración <span class="glyphicon glyphicon-cog"></span></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
-                          </ul>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
+                            </ul>
                         </li>
-                      </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -68,10 +71,11 @@
         <div class="container" id="profile-page">
             <div class="row">
 
-                <!-- Información del perfil -->
+                <!-- Información del evento -->
                 <div class="col-md-4" id="profile_details">
                     <img src="img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
                     <h1>EVENTO</h1>
+
                     <!-- Información General -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
@@ -81,68 +85,89 @@
                             <table class="table" id="Informacion">
                                 <tbody>
                                     <tr>
-                                        <td>Géneros
-                                        </td>
+                                        <td>Géneros</td>
                                         <td>
                                             <ul>
-                                                <li><a href="#" class="enlaceInfo">Indie
-                                                    </a></li>
-                                                <li><a href="#" class="enlaceInfo">Rock
-                                                    </a></li>
+                                                <li>Indie</li>
+                                                <li>Rock</li>
                                             </ul>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ciudad
-                                        </td>
-                                        <td>Alcorcón, Madrid
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Web
-                                        </td>
-                                        <td><a href="#" class="enlaceInfo">www.exampleweb.com</a>
+                                        <td>
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
                                         </td>
                                     </tr>
+
                                     <tr>
-                                        <td>Fecha
+                                        <td>Web</td>
+                                        <td><a href="#" class="enlaceInfo">www.exampleweb.com</a></td>
+                                        <td>
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
                                         </td>
-                                        <td>20/07/2017
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha</td>
+                                        <td>20/07/2017</td>
+                                        <td>
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
+                            </table>
+                            <table class="table" id="TablaSites">
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-block btn-social btn-facebook">
+                                            <span class="fa fa-facebook"></span>Follow in Facebook
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-block btn-social btn-twitter">
+                                            <span class="fa fa-twitter"></span>Follow in Twitter
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-block btn-social btn-pinterest">
+                                            <span class="fa fa-youtube"></span>Follow in Youtube
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
                     <!-- Fin Información General -->
 
-                    <!-- Eventos próximos -->
-                    <div class="panel panel-default profile-info">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Localizacion</h3>
-                        </div>
-                        <div class="panel-body">
-                            
-                            
-                            
-                            
-                            
-                            <p style="color:black">Aqui iria una geolocalizacion con google map</p>
-                            
-                            
-                            
-                            
-                            
-                        </div>
-                    </div>
-                    <!-- Fin Eventos próximos -->
                 </div>
-                <!-- Fin Información del perfil -->
+                <!-- Fin Información del evento -->
 
-                <!-- Información banda -->
+                <!-- Información del evento -->
                 <div class="col-md-8" id="profile_blog">
 
-                    <!-- Descripción banda -->
+                    <!-- Descripción del evento -->
                     <div class="panel panel-default">
                         <div class="panel-head">
                             <h3 class="content-panel">Descripción</h3>
@@ -155,64 +180,67 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Fin Descripción banda -->
+                    <!-- Fin Descripción evento -->
 
-                    <!-- Miembros banda -->
+                    <!-- Bandas del evento -->
                     <div class="panel panel-default" id="Lista">
                         <div class="panel-head">
-                            <h3 class="content-panel">Grupos</h3>
+                            <h3 class="content-panel">Bandas</h3>
                         </div>
                         <div class="panel-body" id="ListaItems">
                             <table class="table">
                                 <thead id="TableHead">
                                     <tr>
                                         <th id="EsquinaIzqTabla">Perfil</th>
-                                        <th>Nombre</th>
-                                        <th id="EsquinaDerTabla">Instrumento</th>
+                                        <th>Bandas</th>
+                                        <th id="EsquinaDerTabla">Miembros</th>
                                     </tr>
                                 </thead>
                                 <tbody id="TableBody">
                                     <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Alex Turner</a></td>
+                                        <td>
+                                            <a href="#" class="enlaceListaBanda"><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
+                                        </td>
+                                        <td><a href="#" class="enlaceListaBanda">The Eagles</a></td>
                                         <td>
                                             <ul>
-                                                <li>Voz <img src="../img/instrumentoVozB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                                <li>Piano <img src="../img/instrumentoPianoB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                                <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
+                                                <li><a href="#" class="enlacePerfilArtista">Glenn Frey</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Don Henley</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Joe Walsh</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Timothy B. Schmit</a></li>
                                             </ul>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Jaime Cookr</a></td>
                                         <td>
-                                            <ul>
-                                                <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                            </ul>
+                                            <a href="#" class="enlaceListaBanda"><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
                                         </td>
-                                    </tr>   
-                                    <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Nick O'Malley</a></td>
+                                        <td><a href="#" class="enlaceListaBanda">Pink Floyd</a></td>
                                         <td>
                                             <ul>
-                                                <li>Bajo <img src="../img/instrumentoBajoB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
+                                                <li><a href="#" class="enlacePerfilArtista">Syd Barret</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Roger Waters</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Richard Wright</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Bob Klose</a></li>
                                             </ul>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Matt Heldersr</a></td>
+                                        <td>
+                                            <a href="#" class="enlaceListaBanda"><img src="img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
+                                        </td>
+                                        <td><a href="#" class="enlaceListaBanda">Dire Straits</a></td>
                                         <td>
                                             <ul>
-                                                <li>Bateria <img src="../img/instrumentoBateriaB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
+                                                <li><a href="#" class="enlacePerfilArtista">Mark Knopfler</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">John Illsley</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Alan Clark</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Guy Fletcher</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">David Knopfler</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Pick Withers</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Hal Linds</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Jack Sonni</a></li>
+                                                <li><a href="#" class="enlacePerfilArtista">Mel Collins</a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -220,74 +248,58 @@
                             </table>
                         </div>
                     </div>
-                    <!-- Fin Miembros banda -->
-
-                    <!-- Tracklist banda -->
-                    <div class="panel panel-default" id="Lista">
-                        <div class="panel-head">
-                            <h3 class="content-panel">Tracklist</h3>
-                        </div>
-                        <div class="panel-body" id="ListaItems">
-                            <table class="table">
-                                <thead id="TableHead">
-                                    <tr>
-                                        <th id="EsquinaIzqTabla">Canción</th>
-                                        <th>Grupo</th>
-                                        <th id="EsquinaDerTabla">Link</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="TableBody">
-                                    <tr>
-                                        <td>Hotel California</td>
-                                        <td>The Eagles</td>
-                                        <td>
-                                            <button class="linkButton">Link</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pigs (Three Different Ones)</td>
-                                        <td>Pink Floyd</td>
-                                        <td>
-                                            <button class="linkButton">Link</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tunnel Of Love</td>
-                                        <td>Dire Straits</td>
-                                        <td>
-                                            <button class="linkButton">Link</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Fin Tracklist banda -->
-
-                    <!-- Blog banda -->
+                    <!-- Fin bandas del evento -->
+                    <!-- Localizacion del evento -->
                     <div class="panel panel-default">
                         <div class="panel-head">
-                            <h3 class="content-panel">Blog #1</h3>
+                            <h3 class="content-panel">Localizacion</h3>
                         </div>
-                        <div class="panel-body" id="BlogDescripcion">
+                        <div class="panel-body" id="Descripcion">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <img class="image-blog img-responsive img-rounded" src="../img/muestra3.jpg" alt="Profile image">
-                                    <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
+                                <div class="col-md-5">
+                                    <!--Informacion localizacion -->
+                                    <table class="table" id="Informacion">
+                                        <tbody>
+                                            <tr>
+                                                <td>Direccion</td>
+                                                <td>C/Bernardino Obregon
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ciudad
+                                                </td>
+                                                <td>Madrid
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cercanias
+                                                </td>
+                                                <td> C-5
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Metro
+                                                </td>
+                                                <td> Linea 3 y 5 - Embajadores
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div class="col-md-7">
+                                    <!--Se trata de una imagen de google map simplemente para simular como quedaria y la idea que queremos desarrollar, ya que esto sera implementado en la fase del frontend-->
+                                    <img src="http://static.android.es/wp-content/uploads/2012/06/Google-Maps.gif" />
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer" id="BlogFooter">
-                            <div class="row">
-                                <div class="col-md-4" id="AutorBlog">Artista</div>
-                                <div class="col-md-4" id="BandaBlog">Arctic Monkets</div>
-                                <div class="col-md-4" id="FechaBlog">24/3/2016</div>
-                            </div>
-                        </div>
                     </div>
-                    <!-- Fin Blog banda -->
+
+
                 </div>
-                <!-- Fin Información banda -->
+                <!-- Fin Información evento -->
             </div>
         </div>
         <!-- Fin Contenido página -->
