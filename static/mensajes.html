@@ -4,7 +4,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8"
               http-equiv="Content-Type" >
         <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="styles/estilos.css">
+        <link rel="stylesheet" type="text/css" href="styles/estilos.css">        
+        <link rel="stylesheet" type="text/css" href="styles/mensajes.css">
         <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
         <script src="libs/jquery-2.2.1.min.js"></script>
         <script src="libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
@@ -59,6 +60,8 @@
            <!-- Fin menu -->
            
            <!-- Contenido página -->
+            
+            
             <div class="container" id="profile-page">
                 <div class="row">
                     <div class="col-md-12">
@@ -70,50 +73,73 @@
                       <div class="row">
                           <div class="col-md-12">
                               <!-- Mensajes -->
-                              <div class="panel panel-success">
-                                  <div class="panel-heading">                                            
+                              <div class="panel panel-default">
+                                  <div class="panel-heading" id="panelHeading">                                            
                                       <ul class="nav nav-tabs">
-                                          <li class="active"><a href="#home" data-toggle="tab" aria-expanded="true"><h3 class="panel-title">Recibidos <span class="badge"></span></h3></a></li>
-                                          <li><a href="#profile" data-toggle="tab" aria-expanded="false"><h3 class="panel-title">Enviados</h3></a></li>
+                                          <li class="active"><a href="" data-toggle="tab"><h3 class="panel-title"><span class="glyphicon glyphicon-inbox"></span> Recibidos  <span class="badge">1</span></h3></a></li>
+                                          <li><a href="" data-toggle="tab"><h3 class="panel-title"><span class="glyphicon glyphicon-log-out"></span> Enviados</h3></a></li>
                                       </ul> 
                                   </div>
                                   <div class="panel-body">                                                                               
                                       <div class="row">
                                           <div class="col-md-4">
+                                              <p><a class="btn btn-default btn-lg btn-block" id="botonRedactar">Redactar</a></p>
                                               <div class="list-group">
                                                 <a href="#" class="list-group-item">
-                                                <h4 class="list-group-item-heading">Pepe</h4>
-                                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                                    <table>
+                                                        <tr>
+                                                            <td><img src="img/profile_image.png" alt="Profile image" id="imagenUsuario"></td>
+                                                            <td id="alineacionMensajes">
+                                                                <h4 class="list-group-item-heading">Pepe</h4>
+                                                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>                                                    
                                                 </a>
                                                 <a href="#" class="list-group-item">
-                                                <h4 class="list-group-item-heading">Manolo</h4>
-                                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                                    <table>
+                                                        <tr>
+                                                            <td><img src="img/profile_image.png" alt="Profile image" id="imagenUsuario"></td>
+                                                            <td id="alineacionMensajes">
+                                                                <h4 class="list-group-item-heading">Marta</h4>
+                                                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
+                                                            </td>
+                                                        </tr>
+                                                    </table> 
                                                 </a>
                                               </div>
                                           </div>
                                           <div class="col-md-8">
-                                              <div class="panel panel-default">
-                                                <h4 class="list-group-item-heading">List group item heading</h4>
-                                                <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                              <div class="panel panel-default">                                                  
+                                                  <div class="panel-heading">  
+                                                      <span class="glyphicon glyphicon-arrow-left" id="responder"></span>
+                                                      <span class="glyphicon glyphicon-share-alt" id="reenviar"></span>
+                                                      <span class="glyphicon glyphicon-trash" id="eliminar"></span>
+                                                  </div>
+                                                  <div class="panel-body" id="correo" data-spy="scroll"> 
+                                                    <h4 class="list-group-item-heading" id="origencorreo">List group item heading</h4>
+                                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                                                  </div>                                                
                                               </div>
                                           </div>
+                                          
                                           <div class="modal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        <p>One fine body…</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">Modal title</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <p>One fine body…</p>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
                                       </div>
                                   </div>
                               </div>  
