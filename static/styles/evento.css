@@ -1,6 +1,6 @@
 /**
       /------------------------/
-     /---- Estilos banda -----/
+     /---- Estilos Evento ----/
     /------------------------/
 */
 
@@ -33,39 +33,26 @@
     text-decoration: none;
 }
 
-#ListaGeneros {
-    list-style: none;
-}
 
-#Eventos {
-    color:black;
-}
-
-#Eventos a {
-    color:black;
-}
-
-#Eventos a:hover {
-    color: #00BC8C;
-    text-decoration: none;
-}
 
 #ListaItems {
-    color: black;
     background-color: #222222;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .table thead tr{
     background-color: #00BC8C;
 }
 
-.enlaceArtista {
-    color: white;
-}
 
-.enlaceArtista:hover {
-    color:#00BC8C;
-    text-decoration: none;
+
+#TableHead tr {
+    background-color: #222222;
+    color: #00BC8C;
 }
 
 #EsquinaIzqTabla {
@@ -80,33 +67,19 @@
     height: 4em;
     width: 4em;
 }
-
-#InstrumentSimbol {
-    height: 1.3em;
+.enlaceListaBanda {
+    color:white;
+}
+.enlaceListaBanda:hover {
+    color:#00BC8C;
+    text-decoration: none;
+}
+.enlacePerfilArtista{
+    color: white;
+}
+.enlacePerfilArtista:hover {
+    color:#00BC8C;
+    text-decoration: none;
 }
 
-.linkButton {
-    color: black;
-    width: 5em;
-}
 
-.linkButton:hover {
-    background-color: #00BC8C;
-}
-
-#BlogFooter {
-    color: black;
-    height: 3em;
-}
-
-#AutorBlog {
-    text-align: left;
-}
-
-#BandaBlog {
-    text-align: center;
-}
-
-#FechaBlog {
-    text-align: right;
-}
