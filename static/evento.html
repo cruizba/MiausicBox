@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
     <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="styles/estilos.css">
-    <link rel="stylesheet" type="text/css" href="styles/banda.css">
+    <link rel="stylesheet" type="text/css" href="styles/evento.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <script src="libs/jquery-2.2.1.min.js"></script>
     <script src="libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
@@ -44,19 +44,21 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
                         </div>
-                        <button type="submit" class="btn btn-default">Buscar Grupo</button>
+                        <button type="submit" class="btn btn-default">Buscar</button>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Configuración</a>
+                     <div class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
+                          </ul>
                         </li>
-                        <li><a href="#">Another action</a>
-                        </li>
-                        <li><a href="#">Something else here</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#">Salir</a>
-                        </li>
-                    </ul>
+                      </div>
                 </div>
             </div>
         </nav>
@@ -68,8 +70,8 @@
 
                 <!-- Información del perfil -->
                 <div class="col-md-4" id="profile_details">
-                    <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
-                    <h1>BANDA</h1>
+                    <img src="img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
+                    <h1>EVENTO</h1>
                     <!-- Información General -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
@@ -82,10 +84,12 @@
                                         <td>Géneros
                                         </td>
                                         <td>
-                                            <a href="#" class="enlaceInfo">Indie
-                                            </a>
-                                            <a href="#" class="enlaceInfo">Rock
-                                            </a>
+                                            <ul>
+                                                <li><a href="#" class="enlaceInfo">Indie
+                                                    </a></li>
+                                                <li><a href="#" class="enlaceInfo">Rock
+                                                    </a></li>
+                                            </ul>
                                         </td>
                                     </tr>
                                     <tr>
@@ -100,6 +104,12 @@
                                         <td><a href="#" class="enlaceInfo">www.exampleweb.com</a>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>Fecha
+                                        </td>
+                                        <td>20/07/2017
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -109,25 +119,20 @@
                     <!-- Eventos próximos -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Eventos próximos</h3>
+                            <h3 class="panel-title">Localizacion</h3>
                         </div>
                         <div class="panel-body">
-                            <table class="table" id="Eventos">
-                                <tbody>
-                                    <tr>
-                                        <td>20/7/2017
-                                        </td>
-                                        <td><a href="#">HellFest</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>15/10/2017
-                                        </td>
-                                        <td><a href="#">IndieFest</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            
+                            
+                            
+                            
+                            
+                            <p style="color:black">Aqui iria una geolocalizacion con google map</p>
+                            
+                            
+                            
+                            
+                            
                         </div>
                     </div>
                     <!-- Fin Eventos próximos -->
@@ -155,7 +160,7 @@
                     <!-- Miembros banda -->
                     <div class="panel panel-default" id="Lista">
                         <div class="panel-head">
-                            <h3 class="content-panel">Miembros</h3>
+                            <h3 class="content-panel">Grupos</h3>
                         </div>
                         <div class="panel-body" id="ListaItems">
                             <table class="table">
