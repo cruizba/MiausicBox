@@ -4,6 +4,9 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
     <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap-social.css" rel="stylesheet">
+    <link href="../libs/bootstrap-3.3.6-dist/css/assets/css/docs.css" rel="stylesheet">
+    <link href="../libs/bootstrap-3.3.6-dist/css/assets/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../styles/estilos.css">
     <link rel="stylesheet" type="text/css" href="../styles/artista.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
@@ -44,23 +47,25 @@
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
                         </div>
-                        <button type="submit" class="btn btn-default">Buscar Grupo</button>
+                        <button type="submit" class="btn btn-default">Buscar</button>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Configuración</a>
+                     <div class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
+                          </ul>
                         </li>
-                        <li><a href="#">Another action</a>
-                        </li>
-                        <li><a href="#">Something else here</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#">Salir</a>
-                        </li>
-                    </ul>
+                      </div>
                 </div>
             </div>
         </nav>
-        <!-- Fin menu -->
+        <!-- Fin menu -->   
 
         <!-- Contenido página -->
         <div class="container" id="profile-page">
@@ -78,7 +83,7 @@
                         <div class="panel-body">
                             <table class="table" id="Informacion">
                                 <tbody>
-                                    <tr>
+                                    <tr id="PrimeraFila">
                                         <td>Géneros
                                         </td>
                                         <td>
@@ -87,17 +92,21 @@
                                             <a href="#" class="enlaceInfo">Rock
                                             </a>
                                         </td>
+                                        <td>
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>Ciudad
                                         </td>
                                         <td>Alcorcón, Madrid
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Web
-                                        </td>
-                                        <td><a href="#" class="enlaceInfo">www.exampleweb.com</a>
+                                        <td>
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -107,8 +116,51 @@
                                             <img src="../img/instrumentoBajoN.png" alt="Profile image" id="ImagenInstrumento">
                                             <img src="../img/instrumentoPianoN.png" alt="Profile image" id="ImagenInstrumento">
                                         </td>
+                                        <td>
+                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
+                            </table>
+                            <table class="table" id="TablaSites">
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-block btn-social btn-facebook">
+                                            <span class="fa fa-facebook"></span>Follow in Facebook
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-block btn-social btn-twitter">
+                                            <span class="fa fa-twitter"></span>Follow in Twitter    
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a class="btn btn-block btn-social btn-pinterest">
+                                            <span class="fa fa-youtube"></span>Follow in Youtube
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>
@@ -121,7 +173,7 @@
                         </div>
                         <div class="panel-body">
                             <table class="table" id="ListaBandas">
-                                <tr>
+                                <tr  id="PrimeraFila">
                                     <td><a href="#" class="enlaceBanda"><img src="../img/muestra1.jpg" alt="Profile image" class="img-circle" id="ImagenBanda"></a></td>
                                     <td><a href="#" class="enlaceBanda">Arctic Monkeys</a></td>
                                 </tr>
@@ -142,7 +194,7 @@
                         <div class="panel-body">
                             <table class="table" id="Eventos">
                                 <tbody>
-                                    <tr>
+                                    <tr id="PrimeraFila">
                                         <td>20/7/2017
                                         </td>
                                         <td><a href="#">HellFest</a>
@@ -195,9 +247,9 @@
                         </div>
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
-                                <div class="col-md-4" id="AutorBlog">Artista</div>
-                                <div class="col-md-4" id="BandaBlog">Arctic Monkets</div>
-                                <div class="col-md-4" id="FechaBlog">24/3/2016</div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Artista</a></div>
+                                <div class="col-md-4 col-xs-4" id="BandaBlog"><a href="#">Arctic Monkets</a></div>
+                                <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
                             </div>
                         </div>
                     </div>
@@ -218,9 +270,9 @@
                         </div>
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
-                                <div class="col-md-4" id="AutorBlog">Artista</div>
-                                <div class="col-md-4" id="BandaBlog">Arctic Monkets</div>
-                                <div class="col-md-4" id="FechaBlog">24/3/2016</div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Artista</a></div>
+                                <div class="col-md-4 col-xs-4" id="BandaBlog"><a href="#">Arctic Monkets</a></div>
+                                <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
                             </div>
                         </div>
                     </div>
@@ -232,5 +284,9 @@
         <!-- Fin Contenido página -->
     </div>
 </body>
+    
+<footer>
+    <p id="foot">Giraffe Team Desing &copy;</p>
+</footer>
 
 </html>
