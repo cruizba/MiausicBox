@@ -33,6 +33,10 @@
     text-decoration: none;
 }
 
+#PrimeraFila {
+    border-top-style: hidden;
+}
+
 #ListaGeneros {
     list-style: none;
 }
@@ -51,8 +55,12 @@
 }
 
 #ListaItems {
-    color: black;
     background-color: #222222;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .table thead tr{
@@ -66,6 +74,11 @@
 .enlaceArtista:hover {
     color:#00BC8C;
     text-decoration: none;
+}
+
+#TableHead tr {
+    background-color: #222222;
+    color: #00BC8C;
 }
 
 #EsquinaIzqTabla {
@@ -103,8 +116,26 @@
     text-align: left;
 }
 
+#AutorBlog a {
+    color: black;
+    text-decoration: none;
+}
+
+#AutorBlog a:hover {
+    color: #00BC8C;
+}
+
 #BandaBlog {
     text-align: center;
+}
+
+#BandaBlog a {
+    color: black;
+    text-decoration: none;
+}
+
+#BandaBlog a:hover {
+    color: #00BC8C;
 }
 
 #FechaBlog {

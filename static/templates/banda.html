@@ -33,30 +33,32 @@
                         </li>
                         <li><a href="../mensajes.html"><span class="glyphicon glyphicon-envelope"></span>Mensajes</a>
                         </li>
-                        <li><a href="../eventos.html"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a>
+                        <li class="active"><a href="../eventos.html"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a>
                         </li>
                         <li><a href="../listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a>
                         </li>
-                        <li class="active"><a href="../listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Grupos</a>
+                        <li ><a href="../listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Grupos</a>
                         </li>
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Search">
                         </div>
-                        <button type="submit" class="btn btn-default">Buscar Grupo</button>
+                        <button type="submit" class="btn btn-default">Buscar</button>
                     </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Configuración</a>
+                     <div class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
+                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
+                          </ul>
                         </li>
-                        <li><a href="#">Another action</a>
-                        </li>
-                        <li><a href="#">Something else here</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#">Salir</a>
-                        </li>
-                    </ul>
+                      </div>
                 </div>
             </div>
         </nav>
@@ -78,7 +80,7 @@
                         <div class="panel-body">
                             <table class="table" id="Informacion">
                                 <tbody>
-                                    <tr>
+                                    <tr id="PrimeraFila">
                                         <td>Géneros
                                         </td>
                                         <td>
@@ -92,6 +94,18 @@
                                         <td>Ciudad
                                         </td>
                                         <td>Alcorcón, Madrid
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Facebook
+                                        </td>
+                                        <td><a href="#" class="enlaceInfo">www.facebook.com</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Twitter
+                                        </td>
+                                        <td><a href="#" class="enlaceInfo">www.twitter.com</a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -114,7 +128,7 @@
                         <div class="panel-body">
                             <table class="table" id="Eventos">
                                 <tbody>
-                                    <tr>
+                                    <tr id="PrimeraFila">
                                         <td>20/7/2017
                                         </td>
                                         <td><a href="#">HellFest</a>
@@ -274,9 +288,9 @@
                         </div>
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
-                                <div class="col-md-4" id="AutorBlog">Artista</div>
-                                <div class="col-md-4" id="BandaBlog">Arctic Monkets</div>
-                                <div class="col-md-4" id="FechaBlog">24/3/2016</div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Artista</a></div>
+                                <div class="col-md-4 col-xs-4" id="BandaBlog"><a href="#">Arctic Monkets</a></div>
+                                <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
                             </div>
                         </div>
                     </div>
@@ -288,5 +302,9 @@
         <!-- Fin Contenido página -->
     </div>
 </body>
+        
+<footer>
+    <p id="foot">Giraffe Team Desing &copy;</p>
+</footer>
 
 </html>
