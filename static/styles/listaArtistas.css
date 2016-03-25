@@ -1,0 +1,69 @@
+/***********************************Artistas***********************************/
+.panel-title {
+    font-weight: bold;
+    color:white;
+}
+.labelBusqueda {
+    color: black;
+}
+.panel-default {
+    border: 0px;
+    border-radius: 5px;
+}
+.panel-heading{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#BotonBusqueda {
+    background-color: #00BC8C;
+}
+#BotonBusqueda:hover {
+   background-color: #00A379;
+}
+#BusquedaInstrumentos {
+    color:black;
+    font-weight: bold;
+}
+#OpcionesInstrumentos {
+    color:black;
+    font-weight: bold;
+    margin-left: 1em;    
+}
+
+#checkboxInstrumentos {
+    margin-left: 1.3em;
+}
+
+#ImagenArtistList {
+    height: 5em;
+}
+
+.table thead tr{
+    background-color: #00BC8C;
+}
+#esquinaTablaArtista1{
+    border-top-left-radius: 5px;
+}
+#esquinaTablaArtista2{
+    border-top-right-radius: 5px;
+}
+.enlaceListaArtista {
+    color:white;
+}
+.enlaceListaArtista:hover {
+    color:#00BC8C;
+    text-decoration: none;
+}
+#paginasArtistas {
+    float: right; 
+}
+#paginasArtistas a{
+    background-color: #00BC8C;
+    color:white;
+}
+#paginasArtistas a:hover{
+    background-color: #00A379;
+}
+#InstrumentSimbol {
+    height: 1.3em;
+}
