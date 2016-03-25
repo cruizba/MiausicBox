@@ -13,11 +13,7 @@
 }
 
 .nav-tabs > li > a:hover {
-    color: #00BC8C;
-}
-
-.nav-tabs > li > a > h3:hover {
-    color: #00BC8C;    
+    background-color: #00A379;
 }
 
 #botonRedactar {
@@ -72,7 +68,20 @@
 
 #correo {
     color: dimgrey;
-    padding-bottom: 10.5em;
+    padding-bottom: 16em;
+}
+
+#paginas {
+    padding-left: 2.5em;    
+}
+
+#paginas a {
+    background-color: #00BC8C;
+    color:white;    
+}
+
+#paginas a:hover{
+    background-color: #00A379;
 }
 
 
