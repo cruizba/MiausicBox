@@ -8,7 +8,7 @@
     <link href="../libs/bootstrap-3.3.6-dist/css/assets/css/docs.css" rel="stylesheet">
     <link href="../libs/bootstrap-3.3.6-dist/css/assets/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../styles/estilos.css">
-    <link rel="stylesheet" type="text/css" href="../styles/banda.css">
+    <link rel="stylesheet" type="text/css" href="../styles/artista.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <script src="../libs/jquery-2.2.1.min.js"></script>
     <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
@@ -30,15 +30,15 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">MiausicBox</a>
+                    <a class="navbar-brand" href="principal.html">MiausicBox</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                     <ul class="nav navbar-nav">
-                        <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
+                        <li class="active"><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
                         <li><a href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>Mensajes</a></li>
                         <li><a href="eventos.html"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a></li>
                         <li><a href="listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
-                        <li class="active"><a href="listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Bandas</a></li>
+                        <li><a href="listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Bandas</a></li>
                     </ul>
                     <form class="navbar-form navbar-left" role="search">
                         <div class="form-group">
@@ -62,7 +62,7 @@
                 </div>
             </div>
         </nav>
-        <!-- Fin menu -->
+        <!-- Fin menu -->   
 
         <!-- Contenido página -->
         <div class="container" id="profile-page">
@@ -71,8 +71,12 @@
                 <!-- Información del perfil -->
                 <div class="col-md-4" id="profile_details">
                     <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
-                    <h1>BANDA</h1>
-                    <!-- Información General -->
+                        <h1>User Name</h1>
+                        <div class="alert alert-dismissible alert-success">
+                            <button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove"></span></button>
+                                Notificación.
+                        </div>
+                    <!-- Información general -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">Información</h3>
@@ -107,9 +111,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Web
+                                        <td>Instrumentos
                                         </td>
-                                        <td><a href="#" class="enlaceInfo">www.exampleweb.com</a>
+                                        <td>
+                                            <img src="../img/instrumentoBajoN.png" alt="Profile image" id="ImagenInstrumento">
+                                            <img src="../img/instrumentoPianoN.png" alt="Profile image" id="ImagenInstrumento">
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-default" aria-label="Left Align">
@@ -159,8 +165,28 @@
                             </table>
                         </div>
                     </div>
-                    <!-- Fin Información General -->
-
+                    <!-- Fin Información general -->
+                    
+                    <!-- Bandas -->
+                    <div class="panel panel-default profile-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Bandas</h3>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table" id="ListaBandas">
+                                <tr  id="PrimeraFila">
+                                    <td><a href="#" class="enlaceBanda"><img src="../img/muestra1.jpg" alt="Profile image" class="img-circle" id="ImagenBanda"></a></td>
+                                    <td><a href="#" class="enlaceBanda">Arctic Monkeys</a></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="#" class="enlaceBanda"><img src="../img/muestra2.jpg" alt="Profile image" class="img-circle" id="ImagenBanda"></a></td>
+                                    <td><a href="#" class="enlaceBanda">The Strokes</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Fin Bandas -->
+                    
                     <!-- Eventos próximos -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
@@ -189,10 +215,10 @@
                 </div>
                 <!-- Fin Información del perfil -->
 
-                <!-- Información banda -->
+                <!-- Información Artista -->
                 <div class="col-md-8" id="profile_blog">
 
-                    <!-- Descripción banda -->
+                    <!-- Descripción Artista -->
                     <div class="panel panel-default">
                         <div class="panel-head">
                             <h3 class="content-panel">Descripción</h3>
@@ -207,113 +233,6 @@
                     </div>
                     <!-- Fin Descripción banda -->
                     
-                    <!-- Miembros banda -->
-                    <div class="panel panel-default" id="Lista">
-                        <div class="panel-head">
-                            <h3 class="content-panel">Miembros</h3>
-                        </div>
-                        <div class="panel-body" id="ListaItems">
-                            <table class="table">
-                                <thead id="TableHead">
-                                    <tr>
-                                        <th id="EsquinaIzqTabla">Perfil</th>
-                                        <th>Nombre</th>
-                                        <th id="EsquinaDerTabla">Instrumento</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="TableBody">
-                                    <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Alex Turner</a></td>
-                                        <td>
-                                            <ul>
-                                                <li>Voz <img src="../img/instrumentoVozB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                                <li>Piano <img src="../img/instrumentoPianoB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                                <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Jaime Cookr</a></td>
-                                        <td>
-                                            <ul>
-                                                <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>   
-                                    <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Nick O'Malley</a></td>
-                                        <td>
-                                            <ul>
-                                                <li>Bajo <img src="../img/instrumentoBajoB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                        <td><a href="#" class="enlaceArtista">Matt Heldersr</a></td>
-                                        <td>
-                                            <ul>
-                                                <li>Bateria <img src="../img/instrumentoBateriaB.png" alt="Instrument" id="InstrumentSimbol">
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Fin Miembros banda -->
-
-                    <!-- Tracklist banda -->
-                    <div class="panel panel-default" id="Lista">
-                        <div class="panel-head">
-                            <h3 class="content-panel">Tracklist</h3>
-                        </div>
-                        <div class="panel-body" id="ListaItems">
-                            <table class="table">
-                                <thead id="TableHead">
-                                    <tr>
-                                        <th id="EsquinaIzqTabla">Canción</th>
-                                        <th>Grupo</th>
-                                        <th id="EsquinaDerTabla">Link</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="TableBody">
-                                    <tr>
-                                        <td>Hotel California</td>
-                                        <td>The Eagles</td>
-                                        <td>
-                                            <button class="linkButton">Link</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pigs (Three Different Ones)</td>
-                                        <td>Pink Floyd</td>
-                                        <td>
-                                            <button class="linkButton">Link</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tunnel Of Love</td>
-                                        <td>Dire Straits</td>
-                                        <td>
-                                            <button class="linkButton">Link</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Fin Tracklist banda -->
-
                     <!-- Boton Añadir Blog -->
                     <div class="divInsertarBlog">
                         <button class="btn btn-default" id="formButton">
@@ -328,7 +247,7 @@
                         </button>
                     </div>
                     <!-- Fin Boton Añadir Blog -->
-                    
+
                     <!-- Blog banda -->
                     <div class="panel panel-default">
                         <div class="panel-head">
@@ -351,14 +270,39 @@
                         </div>
                     </div>
                     <!-- Fin Blog banda -->
+                    
+                    <!-- Blog banda -->
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Blog #2</h3>
+                        </div>
+                        <div class="panel-body" id="BlogDescripcion">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="image-blog img-responsive img-rounded" src="../img/muestra2.jpg" alt="Profile image">
+                                    <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer" id="BlogFooter">
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Artista</a></div>
+                                <div class="col-md-4 col-xs-4" id="BandaBlog"><a href="#">Arctic Monkets</a></div>
+                                <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin Blog banda -->
                 </div>
                 <!-- Fin Información banda -->
             </div>
         </div>
+        
         <!-- Fin Contenido página -->
     </div>
     
-    <!-- Formulario agregar blog -->
+    
+        <!-- Formulario agregar blog -->
     <div id="FormularioBlog">
         <div class="panel panel-default">
             <div class="panel-head">
@@ -393,8 +337,9 @@
     </div>
     <!-- Fin formulario -->
     
+    
 </body>
-        
+    
 <footer>
     <p id="foot">Giraffe Team Desing &copy;</p>
 </footer>

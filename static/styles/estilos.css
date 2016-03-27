@@ -135,7 +135,6 @@ para notificaciones y demás */
     color: royalblue;
 }
 
-
 .profile-info > .panel-heading{
     background-color: #00BC8C;
 }
@@ -181,11 +180,11 @@ no tape un trozo de la página */
     height:200px; 
     margin-right:10px;
 }
+
 #imagenEvento{
     height: 10em;
 
 }
-
 
 .ubicacion {
     list-style-type: none;
@@ -210,13 +209,9 @@ no tape un trozo de la página */
     color:black;
 }
 
-
-
 .BotonFormulario {
     text-align: right;
 }
-
-
 
 #FormularioBlog {
     display: none;
