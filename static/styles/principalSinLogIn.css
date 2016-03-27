@@ -1,0 +1,42 @@
+#logo {
+    height: 1.35em;
+    width: 2em;
+}
+
+#nombre {   
+    color: aliceblue;
+    margin-right: 2em;  
+    font-size: 3em;
+    text-decoration: none; 
+}
+
+#nombre:hover {   
+    color: #00A379;
+}
+
+#entrar {  
+    color: #00BC8C;
+    text-align: right;
+    margin-top: 2em;
+    text-decoration: none; 
+}
+
+#entrar:hover {  
+    color: aliceblue;    
+}
+
+#page {
+    position: fixed;
+    z-index: 2;
+    margin-top: 12em;
+    background-color: #222222;
+}
+
+#contenido {
+    margin-top: 17.5em;
+}
+
+#capa {
+    position: fixed;
+    z-index: 1;
+}
