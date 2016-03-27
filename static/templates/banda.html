@@ -12,6 +12,8 @@
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <script src="../libs/jquery-2.2.1.min.js"></script>
     <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script src="../libs/jquery.bpopup.min.js"></script>
+    <script src="../libs/popupAnimation.js"></script>
     <title>MiasuicBox</title>
 </head>
 
@@ -209,7 +211,7 @@
                         </div>
                     </div>
                     <!-- Fin Descripción banda -->
-
+                    
                     <!-- Miembros banda -->
                     <div class="panel panel-default" id="Lista">
                         <div class="panel-head">
@@ -317,6 +319,21 @@
                     </div>
                     <!-- Fin Tracklist banda -->
 
+                    <!-- Boton Añadir Blog -->
+                    <div class="divInsertarBlog">
+                        <button class="btn btn-default" id="formButton">
+                        <div class="row">
+                            <div class="col-md-10 textAddBlog">
+                                Insertar nuevo Blog
+                            </div>
+                            <div class="col-md-2 iconAddBlog">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
+                        </div>
+                        </button>
+                    </div>
+                    <!-- Fin Boton Añadir Blog -->
+                    
                     <!-- Blog banda -->
                     <div class="panel panel-default">
                         <div class="panel-head">
@@ -345,6 +362,42 @@
         </div>
         <!-- Fin Contenido página -->
     </div>
+    
+    <!-- Formulario agregar blog -->
+    <div id="FormularioBlog">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Nuevo Blog</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Enviar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
 </body>
         
 <footer>

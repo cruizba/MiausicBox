@@ -223,3 +223,52 @@ no tape un trozo de la página */
 .ubicacion {
     list-style-type: none;
 }
+
+.formulario {
+    text-align: left;
+}
+
+
+
+
+
+
+
+.formLabel {
+    color:black;
+}
+
+
+
+.BotonFormulario {
+    text-align: right;
+}
+
+
+
+#FormularioBlog {
+    display: none;
+    width: 80%;
+    height: 60%;
+}
+
+.divInsertarBlog {
+    padding-bottom: 14px;
+    text-align: center;
+}
+
+
+#formButton {
+    width: 100%;
+}
+
+.iconAddBlog {
+    text-align: right;
+    font-size: 20;
+}
+
+.textAddBlog {
+    text-align: left;
+    font-size: 20;
+    padding-left: 30px;
+}
