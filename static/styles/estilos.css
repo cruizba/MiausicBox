@@ -163,6 +163,11 @@ para notificaciones y demás */
     text-align: center;
 }
 
+#titulo h3 {   
+    text-align: center;
+    font-size: 3em;
+}
+
 /*Esto es necesario para que el nav,
 no tape un trozo de la página */
 
