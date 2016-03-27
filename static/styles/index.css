@@ -41,3 +41,8 @@
 #boton {
     float: right;
 }
+
+/*Para Login y Signin*/
+#titulo {
+    padding-top: 6em;
+}
