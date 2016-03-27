@@ -170,22 +170,18 @@ no tape un trozo de la página */
    margin-top: 5em;
 }
 
-#page {
-    margin-top: 17em;
-}
-
 .image-blog{
     float:left;
     width:200px;
     height:200px; 
     margin-right:10px;
 }
+#imagenEvento{
+    height: 10em;
+
+}
 
 /***********************************Portada***********************************/
-#carousel {
-    height: 15em;
-    position: fixed;
-}
 #TituloPortada {  
     margin-top: 5%;
 }
@@ -226,18 +222,6 @@ no tape un trozo de la página */
 #boton {
     float: right;
 }
-/*principalSinLogIn*/
-#nombre {   
-    color: aliceblue;
-    margin-right: 2em; 
-    font-size: 2em;
-}
-#entrar {  
-    color: aliceblue;
-    text-align: right;
-    margin-top: 1em;
-}
-
 
 
 .ubicacion {
