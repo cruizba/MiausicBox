@@ -176,6 +176,10 @@ no tape un trozo de la página */
     height:200px; 
     margin-right:10px;
 }
+#imagenEvento{
+    height: 10em;
+
+}
 
 /***********************************Portada***********************************/
 #TituloPortada {  
