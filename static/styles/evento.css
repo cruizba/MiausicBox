@@ -1,0 +1,85 @@
+/**
+      /------------------------/
+     /---- Estilos Evento ----/
+    /------------------------/
+*/
+
+.panel-title {
+    font-weight: bold;
+    color:white;
+}
+
+.panel-default {
+    border: 0px;
+    border-radius: 5px;
+}
+
+.panel-head {
+    padding: 0.5em;
+    padding-left: 2em;
+}
+
+#Informacion {
+    color: black;
+}
+
+#Informacion a {
+    display: block;
+    color:black;
+}
+
+#Informacion a:hover {
+    color: #00BC8C;
+    text-decoration: none;
+}
+
+
+
+#ListaItems {
+    background-color: #222222;
+    border-width: 5px;
+    border-style: solid;
+    border-color: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.table thead tr{
+    background-color: #00BC8C;
+}
+
+
+
+#TableHead tr {
+    background-color: #222222;
+    color: #00BC8C;
+}
+
+#EsquinaIzqTabla {
+    border-top-left-radius: 5px;
+}
+
+#EsquinaDerTabla {
+    border-top-right-radius: 5px;
+}
+
+#ImagenArtistList {
+    height: 4em;
+    width: 4em;
+}
+.enlaceListaBanda {
+    color:white;
+}
+.enlaceListaBanda:hover {
+    color:#00BC8C;
+    text-decoration: none;
+}
+.enlacePerfilArtista{
+    color: white;
+}
+.enlacePerfilArtista:hover {
+    color:#00BC8C;
+    text-decoration: none;
+}
+
+
