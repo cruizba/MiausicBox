@@ -6,9 +6,12 @@
     <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../styles/estilos.css">
     <link rel="stylesheet" type="text/css" href="../styles/listaArtistas.css">
+    <link rel="stylesheet" type="text/css" href="../styles/artista.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <script src="../libs/jquery-2.2.1.min.js"></script>
     <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+    <script src="../libs/jquery.bpopup.min.js"></script>
+    <script src="../libs/popupAnimation.js"></script>
     <title>MiasuicBox</title>
 </head>
 
@@ -24,13 +27,9 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-
-
                       </button>
                       <a class="navbar-brand" href="principal.html">MiausicBox</a>
                     </div>
-
-
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                     <ul class="nav navbar-nav">
                         <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>  Perfil</a></li>
@@ -50,9 +49,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                               Configuración <span class="glyphicon glyphicon-cog"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
+                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
+                            <li><a href="#" id="passButton">Editar contraseña</a></li>
                                 <li class="divider"></li>
                                 <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
                             </ul>
@@ -243,7 +241,71 @@
             </div>
         </div>
     </div>
-
+    
+    <!-- Formulario configuracion -->
+    <div class="formulario" id="formularioConfiguracion">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Ajustes de perfil</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
+                        <div class="col-sm-10">
+                            <input type="url" class="form-control" id="email" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Aceptar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
+    <!-- Formulario editar contraseña -->
+    <div class="formulario" id="formularioContraseña">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Editar contraseña</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Aceptar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
     <footer>
         <p id="foot">Giraffe Team Desing &copy;</p>
     </footer>

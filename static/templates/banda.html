@@ -9,6 +9,7 @@
     <link href="../libs/bootstrap-3.3.6-dist/css/assets/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../styles/estilos.css">
     <link rel="stylesheet" type="text/css" href="../styles/banda.css">
+    <link rel="stylesheet" type="text/css" href="../styles/artista.css">
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <script src="../libs/jquery-2.2.1.min.js"></script>
     <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
@@ -50,13 +51,20 @@
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                               Configuración <span class="glyphicon glyphicon-cog"></span></a>
+<<<<<<< HEAD
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
+                            <li><a href="#" id="passButton">Editar contraseña</a></li>
                             <li class="divider"></li>
                             <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
                           </ul>
+=======
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" id="confButton">Ajustes de perfil</a></li>
+                                <li class="divider"></li>
+                                <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
+                              </ul>
+>>>>>>> 40eb2f1db69af86b42679f68f970ba10cd9c0737
                         </li>
                       </div>
                 </div>
@@ -314,9 +322,14 @@
                     </div>
                     <!-- Fin Tracklist banda -->
 
+<<<<<<< HEAD
+                    <!-- Boton Añadir Blog -->                    
+                    <div class="insertarDiv">
+=======
                     <!-- Boton Añadir Blog -->
-                    <div class="divInsertarBlog">
-                        <button class="btn btn-default" id="formButton">
+                    <div class="insertarButton">
+>>>>>>> 40eb2f1db69af86b42679f68f970ba10cd9c0737
+                        <button class="formButton btn btn-default" id="insertBlogButton">
                         <div class="row">
                             <div class="col-md-10 textAddBlog">
                                 Insertar nuevo Blog
@@ -358,8 +371,49 @@
         <!-- Fin Contenido página -->
     </div>
     
+    <!-- Formulario configuracion -->
+    <div class="formulario" id="formularioConfiguracion">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Ajustes de perfil</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
+                        <div class="col-sm-10">
+                            <input type="url" class="form-control" id="email" placeholder="">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Enviar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
     <!-- Formulario agregar blog -->
-    <div id="FormularioBlog">
+    <div class="formulario" id="formularioBlog">
         <div class="panel panel-default">
             <div class="panel-head">
                 <h3 class="content-panel">Nuevo Blog</h3>
@@ -369,13 +423,13 @@
                     <div class="form-group">
                         <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                            <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                            <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
                         </div>
                     </div>
                      <div class="form-group">
@@ -386,6 +440,70 @@
                     </div>
                     <div class="BotonFormulario">
                         <button type="submit" class="btn btn-default">Enviar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
+    <!-- Formulario configuracion -->
+    <div class="formulario" id="formularioConfiguracion">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Ajustes de perfil</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
+                        <div class="col-sm-10">
+                            <input type="url" class="form-control" id="email" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Aceptar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
+    <!-- Formulario editar contraseña -->
+    <div class="formulario" id="formularioContraseña">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Editar contraseña</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Aceptar</button>
                     </div>
                </form>
            </div>

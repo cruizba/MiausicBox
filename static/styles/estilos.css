@@ -194,11 +194,15 @@ no tape un trozo de la página */
 /* Para fijar el carousel en las páginas sin usuario logeado */
 #capa {
     position: fixed;
-    z-index: 1;
+    z-index: 2;
 }
 /* Situar los contenidos bajo el carousel */
+#top {
+    height: 13em;
+    background-color: #222222;
+}
 #TituloPortada {  
-    margin-top: 13em;
+    margin-top: 3em;
 }
 
 .formulario {
@@ -213,20 +217,15 @@ no tape un trozo de la página */
     text-align: right;
 }
 
-#FormularioBlog {
+.formulario {
     display: none;
     width: 80%;
     height: 60%;
 }
 
-.divInsertarBlog {
+.insertarDiv {
     padding-bottom: 14px;
     text-align: center;
-}
-
-
-#formButton {
-    width: 100%;
 }
 
 .iconAddBlog {
@@ -240,3 +239,16 @@ no tape un trozo de la página */
     padding-left: 30px;
 }
 
+.insertarDiv {
+    padding-bottom: 14px;
+    text-align: center;
+}
+
+.formButton {
+    width: 100%;
+}
+
+.insertarButton{
+    padding-bottom: 14px;
+    width: 100%;
+}

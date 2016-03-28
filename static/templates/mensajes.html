@@ -1,4 +1,4 @@
-<!DOCTYPE hml>
+<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8"
@@ -9,6 +9,8 @@
         <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
         <script src="../libs/jquery-2.2.1.min.js"></script>
         <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+        <script src="../libs/jquery.bpopup.min.js"></script>
+        <script src="../libs/popupAnimation.js"></script>
         <title>MiasuicBox</title>
     </head>
     <body>
@@ -46,9 +48,8 @@
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                               Configuración <span class="glyphicon glyphicon-cog"></span></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
+                            <li><a href="#" id="passButton">Editar contraseña</a></li>
                             <li class="divider"></li>
                             <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
                           </ul>
@@ -81,7 +82,7 @@
                                   <div class="panel-body">                                                                               
                                       <div class="row">
                                           <div class="col-md-4">
-                                              <p><a class="btn btn-default btn-lg btn-block" id="botonRedactar">Redactar</a></p>
+                                              <p><a class="btn btn-default btn-lg btn-block" id="writeButton">Redactar</a></p>
                                               <div class="list-group">
                                                 <!--Bandeja de entrada-->
                                                 <a href="#" class="list-group-item">
@@ -133,8 +134,8 @@
                                           <div class="col-md-8">
                                               <div class="panel panel-default">                                                  
                                                   <div class="panel-heading">  
-                                                      <span class="glyphicon glyphicon-arrow-left" id="responder"></span>
-                                                      <span class="glyphicon glyphicon-share-alt" id="reenviar"></span>
+                                                      <a id="sendButton"><span class="glyphicon glyphicon-share-alt" id="reenviar"></span></a>
+                                                      <a id="answerButton"><span class="glyphicon glyphicon-arrow-left" id="responder"></span></a>
                                                       <span class="glyphicon glyphicon-trash" id="eliminar"></span>
                                                   </div>
                                                   <div class="panel-body" id="correo" data-spy="scroll"> 
@@ -144,24 +145,6 @@
                                                   </div>                                                
                                               </div>
                                           </div>
-                                          
-                                          <div class="modal">
-                                              <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                    <h4 class="modal-title">Modal title</h4>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                    <p>One fine body…</p>
-                                                  </div>
-                                                  <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
                                       </div>
                                   </div>
                               </div>  
@@ -171,6 +154,145 @@
                 </div>                    
             </div>
        </div>
+        
+        <!-- Formulario Redactar Mensaje -->
+        <div class="formulario" id="formularioRedactar">
+            <div class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">Nuevo mensaje</h3>
+               </div>
+               <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="ipara">To:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="para" placeholder="destinatario">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
+                            </div>
+                        </div>
+                        <div class="BotonFormulario">
+                            <button type="submit" class="btn btn-default">Enviar</button>
+                        </div>
+                   </form>
+               </div>
+            </div>
+        </div>
+        <!-- Fin formulario -->
+        
+        <!-- Formulario Reenviar Mensaje -->
+        <div class="formulario" id="formularioReenviar">
+            <div class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">Reenviar mensaje</h3>
+               </div>
+               <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="para">To:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="para" placeholder="destinatario">
+                            </div>
+                        </div>
+                        <div class="BotonFormulario">
+                            <button type="submit" class="btn btn-default">Enviar</button>
+                        </div>
+                   </form>
+               </div>
+            </div>
+        </div>
+        <!-- Fin formulario -->
+        
+        <!-- Formulario Contestar Mensaje -->
+        <div class="formulario" id="formularioResponder">
+            <div class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">Responder mensaje</h3>
+               </div>
+               <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                         <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
+                            </div>
+                        </div>
+                        <div class="BotonFormulario">
+                            <button type="submit" class="btn btn-default">Enviar</button>
+                        </div>
+                   </form>
+               </div>
+            </div>
+        </div>
+        <!-- Fin formulario -->
+    
+        <!-- Formulario configuracion -->
+        <div class="formulario" id="formularioConfiguracion">
+            <div class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">Ajustes de perfil</h3>
+               </div>
+               <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="email">Email</label>
+                            <div class="col-sm-10">
+                                <input type="url" class="form-control" id="email" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                            </div>
+                        </div>
+                        <div class="BotonFormulario">
+                            <button type="submit" class="btn btn-default">Aceptar</button>
+                        </div>
+                   </form>
+               </div>
+            </div>
+        </div>
+        <!-- Fin formulario -->
+
+        <!-- Formulario editar contraseña -->
+        <div class="formulario" id="formularioContraseña">
+            <div class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">Editar contraseña</h3>
+               </div>
+               <div class="panel-body">
+                    <form class="form-horizontal" role="form">
+                         <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="contraseña" placeholder="">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="contraseña" placeholder="">
+                            </div>
+                        </div>
+                        <div class="BotonFormulario">
+                            <button type="submit" class="btn btn-default">Aceptar</button>
+                        </div>
+                   </form>
+               </div>
+            </div>
+        </div>
+        <!-- Fin formulario -->
         
        <footer>
             <p id="foot">Giraffe Team Desing  &copy;</p>

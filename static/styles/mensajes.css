@@ -16,7 +16,7 @@
     background-color: #00A379;
 }
 
-#botonRedactar {
+#writeButton {
     background-color: #00BC8C;
     color: aliceblue;
     font-weight: bold;
@@ -36,14 +36,16 @@
 }
 
 #responder {
-    padding-left: 41em;
     padding-right: 0.5em;
     position: right;
+    color: dimgray;
 }
 
 #reenviar {
+    padding-left: 41em;
     padding-right: 0.5em;
     position: right;
+    color: dimgray;
 }
 
 #eliminar {

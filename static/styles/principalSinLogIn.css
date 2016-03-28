@@ -14,25 +14,25 @@
     color: #00A379;
 }
 
-#entrar {  
+#entrarButton {  
     color: #00BC8C;
     text-align: right;
     margin-top: 2em;
     text-decoration: none; 
 }
 
-#entrar:hover {  
+#entrarButton:hover {  
     color: aliceblue;    
 }
 
 #page {
     position: fixed;
-    z-index: 2;
-    margin-top: 12em;
+    z-index: 1;
+    padding-top: 2em;
     background-color: #222222;
 }
 
 #contenido {
-    margin-top: 17.5em;
+    margin-top: 7.5em;
 }
 
