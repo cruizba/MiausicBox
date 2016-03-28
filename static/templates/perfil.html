@@ -1,4 +1,3 @@
-<!DOCTYPE hml>
 <html>
 
 <head>
@@ -51,9 +50,7 @@
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
                               Configuración <span class="glyphicon glyphicon-cog"></span></a>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
                             <li class="divider"></li>
                             <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
                           </ul>
@@ -183,6 +180,18 @@
                                     <td><a href="#" class="enlaceBanda">The Strokes</a></td>
                                 </tr>
                             </table>
+                            <div class="insertarButton">
+                                <button class="formButton btn btn-default" id="crearBandaButton">
+                                <div class="row">
+                                    <div class="col-md-10 textAddBlog">
+                                        Crear Banda
+                                    </div>
+                                    <div class="col-md-2 iconAddBlog">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </div>
+                                </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <!-- Fin Bandas -->
@@ -234,8 +243,8 @@
                     <!-- Fin Descripción banda -->
                     
                     <!-- Boton Añadir Blog -->
-                    <div class="divInsertarBlog">
-                        <button class="btn btn-default" id="formButton">
+                    <div class="insertarDiv">
+                        <button class="formButton btn btn-default" id="insertBlogButton">
                         <div class="row">
                             <div class="col-md-10 textAddBlog">
                                 Insertar nuevo Blog
@@ -303,7 +312,7 @@
     
     
         <!-- Formulario agregar blog -->
-    <div id="FormularioBlog">
+    <div class="formulario" id="formularioBlog">
         <div class="panel panel-default">
             <div class="panel-head">
                 <h3 class="content-panel">Nuevo Blog</h3>
@@ -313,13 +322,13 @@
                     <div class="form-group">
                         <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                            <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                            <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
                         </div>
                     </div>
                      <div class="form-group">
@@ -336,6 +345,79 @@
         </div>
     </div>
     <!-- Fin formulario -->
+    
+    <!-- Formulario configuracion -->
+    <div class="formulario" id="formularioConfiguracion">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Ajustes de perfil</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
+                        <div class="col-sm-10">
+                            <input type="url" class="form-control" id="email" placeholder="">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Enviar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
+    <!-- Formulario Crear Banda -->
+    <div class="formulario" id="formularioCrearBanda">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Crear Banda</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="nombreBanda">Nombre Banda</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombreBanda" placeholder="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="desripcionBanda">Descripción</label>
+                        <div class="col-sm-10">
+                                <textarea class="form-control" rows="5" id="descripcionBanda" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="BotonFormulario">
+                        <div class="BotonFormulario">
+                            <button type="submit" class="btn btn-default">Enviar</button>
+                        </div>
+                    </div>
+               </form>
+           </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+    
     
     
 </body>
