@@ -192,10 +192,7 @@ no tape un trozo de la página */
 
 /***************************************************************************/
 /* Para fijar el carousel en las páginas sin usuario logeado */
-#capa {
-    position: fixed;
-    z-index: 2;
-}
+
 /* Situar los contenidos bajo el carousel */
 #top {
     height: 13em;
