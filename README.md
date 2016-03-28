@@ -1,3 +1,4 @@
+
 #MiausicBox || Social network for artists and fans
 Trello: https://trello.com/giraffe20
 
@@ -34,8 +35,55 @@ Mensajería privada - Cada usuario puede enviar mensajes a otros usuarios.
 
 Eventos musicales. - Cada usuario o grupo puede crear un evento musical.
 
+#5. DIAGRAMA DE NAVEGACIÓN
 
-#5. INTEGRANTES
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/Diagrama.jpg?raw=true" />
+<br>
+
+index.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/index.jpg?raw=true" />
+
+signin.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/signin.jpg?raw=true" />
+
+evento.html : 
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/Evento.jpg?raw=true" />
+
+eventos.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/Eventos.jpg?raw=true" />
+
+artista.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/artista.jpg?raw=true" />
+
+artistas.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/artistas.jpg?raw=true" />
+
+banda.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/banda.jpg?raw=true" />
+
+bandas.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/bandas.jpg?raw=true" />
+
+mensajes.html : 
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/mensajes.jpg?raw=true" />
+
+perfi.html :
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/perfil.jpg?raw=true" />
+
+principal.html / novedades
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/principal-novedades.jpg?raw=true" />
+
+Principal sin entrar:
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/principalSinLogin.jpg?raw=true" />
+
+
+
+
+
+
+
+
+#6. INTEGRANTES
 Thais Méndez Otero - t.mendez@alumnos.urjc.es - ThaisM
 
 Soraya Rama Castaño - s.rama@alumnos.urjc.es - sorayarc
