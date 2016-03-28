@@ -1,37 +1,41 @@
 #carousel-example-generic {
     text-align: center;
 }
+
 #imagenCarousel{
     width: 100%;
 }
-#contenidoIndex{
-}
+
 #TituloPortada h3 {
     text-align: center;
     font-size: 3em;
 }
+
 #LogoMain{
     width: 25%;
     height: 25%;
     float:left;
+    margin-left: 2em;
 }
 #enter{
     margin-top: 1em;
 }
 
-
 #signin {
     background-color: #00BC8C;
     border-radius: 1em;
-   padding-bottom: 1em; 
-
+    padding-bottom: 1em; 
 }
 
 #login {
     background-color: #00BC8C;
     border-radius: 1em;  
     padding-bottom: 1em;
- 
+
+}
+
+#botonEntrar {
+    margin-left: 10em;
 }
 
 /*Entrar*/
@@ -48,7 +52,7 @@
     float: right;
 }
 
-/*Para Login y Signin*/
-#titulo {
-    padding-top: 6em;
+/*Para Signin*/
+#imgperfil {
+    float: left;
 }

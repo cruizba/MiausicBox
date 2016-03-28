@@ -194,11 +194,15 @@ no tape un trozo de la página */
 /* Para fijar el carousel en las páginas sin usuario logeado */
 #capa {
     position: fixed;
-    z-index: 1;
+    z-index: 2;
 }
 /* Situar los contenidos bajo el carousel */
+#top {
+    height: 13em;
+    background-color: #222222;
+}
 #TituloPortada {  
-    margin-top: 13em;
+    margin-top: 3em;
 }
 
 .formulario {
@@ -224,9 +228,6 @@ no tape un trozo de la página */
     text-align: center;
 }
 
-
-
-
 .iconAddBlog {
     text-align: right;
     font-size: 20;
@@ -237,7 +238,6 @@ no tape un trozo de la página */
     font-size: 20;
     padding-left: 30px;
 }
-
 
 .insertarDiv {
     padding-bottom: 14px;

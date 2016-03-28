@@ -18,7 +18,7 @@
     <!--------------------------------------------------------------------------->
     <div class="container-fluid">
         <div class="row">            
-            
+            <div id="capa">
                 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
@@ -39,55 +39,33 @@
                         </div>
                     </div>
                 </div>
-            
+            </div>
         </div>
         <!------------------------------------------------------------------------------>
-        <div class="row" >       
+        <div class="row" id="top"></div>
+        
+        <div class="row">               
             <div  id="TituloPortada">
                 <!-- Lateral izquierdo -->
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6">                
                     <h3>MiausicBox</h3>
-                    <img alt="Bootstrap Image Preview" src="../img/Cat%2004.png" id="LogoMain">
+                    <img alt="Bootstrap Image Preview" src="../img/Cat%2004.png" id="LogoMain"> 
                     <div align="center">
                         <br>
                         <p>Sigue de cerca a tus artistas y bandas favoritos. Aquí encontrarás su música, noticias y novedades.<br>   
                         Si eres artista o miembro de una banda, ¡únete a la comunidad y promociónate!<br>   
-                        ¡SI TE GUSTA LA MÚSICA, ESTE ES TU SITIO!</p>
+                        ¡SI TE GUSTA LA MÚSICA,  ESTE ES TU SITIO!</p>
                         <br>
                         <a href="principalSinLogIn.html" class="btn btn-default btn-lg" role="button" id="botonEntrar">Enter</a>
                         <br>
                     </div>
                 </div>
-                <!-- Cuadros de registro -->
-                <div class="col-md-6 col-xs-12" id="enter">
+                <div class="col-md-6" id="enter">
+                    <div class="col-md-4"></div>
                     <div class="row">
-                        <!-- Cuadro Sing in -->
-                        <div class="col-md-5 col-xs-12" id="signin">
-                            <h3>Sign in</h3>
-                            <form role="form">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Confirm Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="confirm">
-                                </div>
-                                <div class="pull-right">
-                                    <a href="perfil.html" class="btn btn-default" role="button" id="botonEntrar">Sign in</a>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="col-md-1 col-xs-12" id="middle"><br></div>
-
                         <!-- Cuadro Log in -->
-                        <div class="col-md-5 col-xs-12" id="login">
-                            <h3>Login</h3>
+                        <div class="col-md-5" id="login">
+                            <h3>Log in</h3>
                             <form role="form">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
@@ -96,15 +74,17 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
                                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
-                                </div>
-                                <div class="pull-right">
-                                    <a href="principal.html" class="btn btn-default" role="button" id="botonEntrar">Log in</a>
+                                </div>	
+
+                                <div>
+                                    <a href="signin.html" id="registro">No estoy registrado</a>
+                                    <a href="principal.html" class="btn btn-default" role="button" id="boton">Log in</a>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
     <footer>
