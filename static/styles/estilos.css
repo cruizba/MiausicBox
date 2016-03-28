@@ -213,21 +213,19 @@ no tape un trozo de la página */
     text-align: right;
 }
 
-#FormularioBlog {
+.formulario {
     display: none;
     width: 80%;
     height: 60%;
 }
 
-.divInsertarBlog {
+.insertarDiv {
     padding-bottom: 14px;
     text-align: center;
 }
 
 
-#formButton {
-    width: 100%;
-}
+
 
 .iconAddBlog {
     text-align: right;
@@ -240,3 +238,12 @@ no tape un trozo de la página */
     padding-left: 30px;
 }
 
+
+.insertarDiv {
+    padding-bottom: 14px;
+    text-align: center;
+}
+
+.formButton {
+    width: 100%;
+}
