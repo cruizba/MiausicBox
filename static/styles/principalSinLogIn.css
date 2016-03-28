@@ -26,13 +26,10 @@
 }
 
 #page {
-    position: fixed;
-    z-index: 1;
-    padding-top: 2em;
-    background-color: #222222;
+    padding-top: 1.5em;
 }
 
 #contenido {
-    margin-top: 7.5em;
+    margin-top: 2em;
 }
 
