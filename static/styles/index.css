@@ -1,4 +1,12 @@
-#TituloPortada h3 {   
+#carousel-example-generic {
+    text-align: center;
+}
+#imagenCarousel{
+    width: 100%;
+}
+#contenidoIndex{
+}
+#TituloPortada h3 {
     text-align: center;
     font-size: 3em;
 }
@@ -7,27 +15,25 @@
     height: 25%;
     float:left;
 }
-#botonEntrar {
-    margin-left: 17em;
+#enter{
+    margin-top: 1em;
 }
 
-#enter {
-    margin-top: 5%;  
-}
 
 #signin {
     background-color: #00BC8C;
     border-radius: 1em;
-    padding-bottom: 1em;
-    margin-top: -2em;
+   padding-bottom: 1em; 
+
 }
 
 #login {
     background-color: #00BC8C;
     border-radius: 1em;  
     padding-bottom: 1em;
-    margin-top: -2em;
+ 
 }
+
 /*Entrar*/
 #logo {
     width: 25%;
