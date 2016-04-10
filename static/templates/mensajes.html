@@ -1,68 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8"
-              http-equiv="Content-Type" >
-        <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="../styles/estilos.css">        
-        <link rel="stylesheet" type="text/css" href="../styles/mensajes.css"> 
-        <link rel="stylesheet" type="text/css" href="../styles/artista.css">
-        <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-        <script src="../libs/jquery-2.2.1.min.js"></script>
-        <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-        <script src="../libs/jquery.bpopup.min.js"></script>
-        <script src="../libs/popupAnimation.js"></script>
-        <title>MiasuicBox</title>
-    </head>
-    <body>
-        <div class="container">
-               <!--Menú-->
-               <!-- la clase se ha puesto a navbar-default, y posteriormente editada en css -->
-               <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                  <div class="container-fluid">
-                    <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="principal.html">MiausicBox</a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                      <ul class="nav navbar-nav">
-                        <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>  Perfil</a></li>
-                        <li class="active"><a href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>  Mensajes</a></li>
-                        <li><a href="eventos.html"><span class="glyphicon glyphicon-pushpin"></span>  Eventos</a></li>
-                        <li><a href="listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
-                        <li><a href="listaBandas.html"><span class="glyphicon glyphicon-cd"></span>   Bandas</a></li>
-                      </ul>
-                      <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                          <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                      </form>
-                      <div class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
-                          <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
-                            <li><a href="#" id="passButton">Editar contraseña</a></li>
-                            <li class="divider"></li>
-                            <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
-                          </ul>
-                        </li>
-                      </div>
-                    </div>
-                  </div>
-            </nav>
-           <!-- Fin menu -->
-           
-           <!-- Contenido página --> 
-            <div class="container" id="profile-page">
+  <div class="content-page container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="page-header">
@@ -74,13 +10,13 @@
                           <div class="col-md-12">
                               <!-- Mensajes -->
                               <div class="panel panel-default">
-                                  <div class="panel-heading" id="panelHeading">                                            
+                                  <div class="panel-heading" id="panelHeading">
                                       <ul class="nav nav-tabs">
                                           <li class="active"><a href="" data-toggle="tab"><h3 class="panel-title"><span class="glyphicon glyphicon-inbox"></span> Recibidos  <span class="badge">1</span></h3></a></li>
                                           <li><a href="" data-toggle="tab"><h3 class="panel-title"><span class="glyphicon glyphicon-log-out"></span> Enviados</h3></a></li>
-                                      </ul> 
+                                      </ul>
                                   </div>
-                                  <div class="panel-body">                                                                               
+                                  <div class="panel-body">
                                       <div class="row">
                                           <div class="col-md-4">
                                               <p><a class="btn btn-default btn-lg btn-block" id="writeButton">Redactar</a></p>
@@ -95,7 +31,7 @@
                                                                 <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
                                                             </td>
                                                         </tr>
-                                                    </table>                                                    
+                                                    </table>
                                                 </a>
                                                 <a href="#" class="list-group-item">
                                                     <table>
@@ -106,7 +42,7 @@
                                                                 <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
                                                             </td>
                                                         </tr>
-                                                    </table> 
+                                                    </table>
                                                 </a>
                                                 <a href="#" class="list-group-item">
                                                     <table>
@@ -117,9 +53,9 @@
                                                                 <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
                                                             </td>
                                                         </tr>
-                                                    </table> 
+                                                    </table>
                                                 </a>
-                                              </div>  
+                                              </div>
                                               <!--Paginas-->
                                               <ul class="pagination" id="paginas">
                                                 <li><a href="#">Prev</a></li>
@@ -133,29 +69,28 @@
                                           </div>
                                           <!--Contenido del mensaje-->
                                           <div class="col-md-8">
-                                              <div class="panel panel-default">                                                  
-                                                  <div class="panel-heading">  
+                                              <div class="panel panel-default">
+                                                  <div class="panel-heading">
                                                       <a id="sendButton"><span class="glyphicon glyphicon-share-alt" id="reenviar"></span></a>
                                                       <a id="answerButton"><span class="glyphicon glyphicon-arrow-left" id="responder"></span></a>
                                                       <span class="glyphicon glyphicon-trash" id="eliminar"></span>
                                                   </div>
-                                                  <div class="panel-body" id="correo" data-spy="scroll"> 
+                                                  <div class="panel-body" id="correo" data-spy="scroll">
                                                     <h4 class="list-group-item-heading" id="origencorreo">List group item heading</h4>
                                                     <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
                                                     Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</p>
-                                                  </div>                                                
+                                                  </div>
                                               </div>
                                           </div>
                                       </div>
                                   </div>
-                              </div>  
-                          </div>              
-                      </div>    
+                              </div>
+                          </div>
+                      </div>
                      </div>
-                </div>                    
+                </div>
             </div>
-       </div>
-        
+
         <!-- Formulario Redactar Mensaje -->
         <div class="formulario" id="formularioRedactar">
             <div class="panel panel-default">
@@ -184,7 +119,7 @@
             </div>
         </div>
         <!-- Fin formulario -->
-        
+
         <!-- Formulario Reenviar Mensaje -->
         <div class="formulario" id="formularioReenviar">
             <div class="panel panel-default">
@@ -207,7 +142,7 @@
             </div>
         </div>
         <!-- Fin formulario -->
-        
+
         <!-- Formulario Contestar Mensaje -->
         <div class="formulario" id="formularioResponder">
             <div class="panel panel-default">
@@ -230,7 +165,7 @@
             </div>
         </div>
         <!-- Fin formulario -->
-    
+
         <!-- Formulario configuracion -->
         <div class="formulario" id="formularioConfiguracion">
             <div class="panel panel-default">
@@ -294,9 +229,3 @@
             </div>
         </div>
         <!-- Fin formulario -->
-        
-       <footer>
-            <p id="foot">Giraffe Team Desing  &copy;</p>
-       </footer>
-    </body>
-</html>
