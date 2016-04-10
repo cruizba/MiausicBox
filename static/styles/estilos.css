@@ -33,14 +33,14 @@
 }
 
 /*Cuando está seleccionado el botón del nav */
-.navbar-default .navbar-nav > .active > a, 
-.navbar-default .navbar-nav > .active > a:hover, 
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
     color: #FFFFFF;
     background-color: #00A379;
 }
-.navbar-default .navbar-nav > .open > a, 
-.navbar-default .navbar-nav > .open > a:hover, 
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
     color: #555;
     background-color: #D5D5D5;
@@ -55,8 +55,8 @@
     border-top-color: #FFFFFF;
     border-bottom-color: #FFFFFF;
 }
-.navbar-default .navbar-nav > .open > a .caret, 
-.navbar-default .navbar-nav > .open > a:hover .caret, 
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
 .navbar-default .navbar-nav > .open > a:focus .caret {
     border-top-color: #FFFFFF;
     border-bottom-color: #FFFFFF;
@@ -73,6 +73,17 @@
     background-color: #CCC;
 }
 
+#navPag{
+  visibility: hidden;
+}
+
+nav a.router-link-active  {
+  background-color: #00A379;
+}
+
+nav ul li.router-link-active  {
+  background-color: #00A379;
+}
 
 @media (max-width: 767px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
@@ -90,6 +101,10 @@
     /----------------------/
 
 */
+a {
+  cursor: pointer;
+  cursor: hand
+}
 
 body {
     background:#222222 !important;
@@ -162,7 +177,7 @@ para notificaciones y demás */
     text-align: center;
 }
 
-#titulo h3 {   
+#titulo h3 {
     text-align: center;
     font-size: 3em;
 }
@@ -170,14 +185,15 @@ para notificaciones y demás */
 /*Esto es necesario para que el nav,
 no tape un trozo de la página */
 
-#profile-page {
+.content-page {
    margin-top: 5em;
+   width: 90%;
 }
 
 .image-blog{
     float:left;
     width:200px;
-    height:200px; 
+    height:200px;
     margin-right:10px;
 }
 
@@ -198,7 +214,7 @@ no tape un trozo de la página */
     height: 13em;
     background-color: #222222;
 }
-#TituloPortada {  
+#TituloPortada {
     margin-top: 3em;
 }
 
@@ -212,12 +228,6 @@ no tape un trozo de la página */
 
 .BotonFormulario {
     text-align: right;
-}
-
-.formulario {
-    display: none;
-    width: 80%;
-    height: 60%;
 }
 
 .insertarDiv {
@@ -248,4 +258,8 @@ no tape un trozo de la página */
 .insertarButton{
     padding-bottom: 14px;
     width: 100%;
+}
+
+.loading{
+  margin: auto;
 }
