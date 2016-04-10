@@ -19,7 +19,7 @@
                                   <div class="panel-body">
                                       <div class="row">
                                           <div class="col-md-4">
-                                              <p><a class="btn btn-default btn-lg btn-block" id="writeButton">Redactar</a></p>
+                                              <p><a class="btn btn-default btn-lg btn-block"  data-toggle="modal" data-target="#sendMessage" id="writeButton">Redactar</a></p>
                                               <div class="list-group">
                                                 <!--Bandeja de entrada-->
                                                 <a href="#" class="list-group-item">
@@ -71,8 +71,7 @@
                                           <div class="col-md-8">
                                               <div class="panel panel-default">
                                                   <div class="panel-heading">
-                                                      <a id="sendButton"><span class="glyphicon glyphicon-share-alt" id="reenviar"></span></a>
-                                                      <a id="answerButton"><span class="glyphicon glyphicon-arrow-left" id="responder"></span></a>
+                                                      <a id="answerButton" data-toggle="modal" data-target="#answerMessage"><span class="glyphicon glyphicon-arrow-left" id="responder"></span></a>
                                                       <span class="glyphicon glyphicon-trash" id="eliminar"></span>
                                                   </div>
                                                   <div class="panel-body" id="correo" data-spy="scroll">
@@ -91,141 +90,66 @@
                 </div>
             </div>
 
-        <!-- Formulario Redactar Mensaje -->
-        <div class="formulario" id="formularioRedactar">
-            <div class="panel panel-default">
-                <div class="panel-head">
-                    <h3 class="content-panel">Nuevo mensaje</h3>
-               </div>
-               <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="ipara">To:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="para" placeholder="destinatario">
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
-                            </div>
-                        </div>
-                        <div class="BotonFormulario">
-                            <button type="submit" class="btn btn-default">Enviar</button>
-                        </div>
-                   </form>
-               </div>
+        <!-- Formulario Enviar Mensaje -->
+        <div id="sendMessage" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+              <div class="formulario" id="formularioRedactar">
+                  <div class="panel panel-default">
+                      <div class="panel-head">
+                          <h3 class="content-panel">Nuevo mensaje</h3>
+                     </div>
+                     <div class="panel-body">
+                          <form class="form-horizontal" role="form">
+                              <div class="form-group">
+                                  <label class="formLabel control-label col-sm-2" for="ipara">To:</label>
+                                  <div class="col-sm-10">
+                                      <input type="text" class="form-control" id="para" placeholder="destinatario">
+                                  </div>
+                              </div>
+                               <div class="form-group">
+                                  <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
+                                  <div class="col-sm-10">
+                                      <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
+                                  </div>
+                              </div>
+                              <div class="BotonFormulario">
+                                  <button type="submit" class="btn btn-default">Enviar</button>
+                              </div>
+                         </form>
+                     </div>
+                  </div>
+              </div>
             </div>
-        </div>
-        <!-- Fin formulario -->
-
-        <!-- Formulario Reenviar Mensaje -->
-        <div class="formulario" id="formularioReenviar">
-            <div class="panel panel-default">
-                <div class="panel-head">
-                    <h3 class="content-panel">Reenviar mensaje</h3>
-               </div>
-               <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="para">To:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="para" placeholder="destinatario">
-                            </div>
-                        </div>
-                        <div class="BotonFormulario">
-                            <button type="submit" class="btn btn-default">Enviar</button>
-                        </div>
-                   </form>
-               </div>
-            </div>
+          </div>
         </div>
         <!-- Fin formulario -->
 
         <!-- Formulario Contestar Mensaje -->
-        <div class="formulario" id="formularioResponder">
-            <div class="panel panel-default">
-                <div class="panel-head">
-                    <h3 class="content-panel">Responder mensaje</h3>
-               </div>
-               <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                         <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
-                            </div>
-                        </div>
-                        <div class="BotonFormulario">
-                            <button type="submit" class="btn btn-default">Enviar</button>
-                        </div>
-                   </form>
-               </div>
+        <div id="answerMessage" class="modal fade" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+              <div class="formulario" id="formularioResponder">
+                  <div class="panel panel-default">
+                      <div class="panel-head">
+                          <h3 class="content-panel">Responder mensaje</h3>
+                     </div>
+                     <div class="panel-body">
+                          <form class="form-horizontal" role="form">
+                               <div class="form-group">
+                                  <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
+                                  <div class="col-sm-10">
+                                      <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
+                                  </div>
+                              </div>
+                              <div class="BotonFormulario">
+                                  <button type="submit" class="btn btn-default">Enviar</button>
+                              </div>
+                         </form>
+                     </div>
+                  </div>
+              </div>
             </div>
-        </div>
-        <!-- Fin formulario -->
-
-        <!-- Formulario configuracion -->
-        <div class="formulario" id="formularioConfiguracion">
-            <div class="panel panel-default">
-                <div class="panel-head">
-                    <h3 class="content-panel">Ajustes de perfil</h3>
-               </div>
-               <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nombrePerfil" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                            <div class="col-sm-10">
-                                <input type="url" class="form-control" id="email" placeholder="">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                            </div>
-                        </div>
-                        <div class="BotonFormulario">
-                            <button type="submit" class="btn btn-default">Aceptar</button>
-                        </div>
-                   </form>
-               </div>
-            </div>
-        </div>
-        <!-- Fin formulario -->
-
-        <!-- Formulario editar contraseña -->
-        <div class="formulario" id="formularioContraseña">
-            <div class="panel panel-default">
-                <div class="panel-head">
-                    <h3 class="content-panel">Editar contraseña</h3>
-               </div>
-               <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                         <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" id="contraseña" placeholder="">
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" id="contraseña" placeholder="">
-                            </div>
-                        </div>
-                        <div class="BotonFormulario">
-                            <button type="submit" class="btn btn-default">Aceptar</button>
-                        </div>
-                   </form>
-               </div>
-            </div>
+          </div>
         </div>
         <!-- Fin formulario -->
