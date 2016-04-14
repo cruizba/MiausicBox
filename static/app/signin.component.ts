@@ -16,5 +16,3 @@ export class SignInComponent{
   }
 
 }
-
-export var variableglobalquesesaltatodaslasnormas = 10;
