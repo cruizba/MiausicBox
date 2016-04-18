@@ -3,6 +3,7 @@
  *  @class BlogBand
  */
 import { Blog } from './Blog';
+import { Band } from './Band';
 
 
 export class BlogBand extends Blog {
