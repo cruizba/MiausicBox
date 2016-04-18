@@ -12,6 +12,9 @@ import { EventsComponent } from './events.component';
 import { ListArtistComponent } from './list-artist.component'
 import { ListBandsComponent } from './list-bands.component'
 
+//
+import { Instrument } from './classes/Instrument'
+
 
 
 @Component({
@@ -31,7 +34,7 @@ import { ListBandsComponent } from './list-bands.component'
 
 @RouteConfig([
     {
-      path: '/index',
+      path: '/',
       name: 'Index',
       component: IndexComponent,
       useAsDefault: true
@@ -83,6 +86,9 @@ export class AppComponent{
 
   constructor(private _router: Router){
     this.routerSuscription();
+    //var data = JSON.parse('{"name": "Cosa", "num": 44}')
+    //var instrument:Instrument = new Instrument(data.name);
+    //alert(instrument.toString());
   }
 
 
@@ -90,7 +96,7 @@ export class AppComponent{
   //and change navbar
   routerSuscription(){
     this._router.subscribe((val) => {
-      if(val == "index" || val == "visitor" || val == "signin"){
+      if(val == "" || val == "visitor" || val == "signin"){
         $("#navPag").css("visibility", "");
       }
       else{
