@@ -4,7 +4,6 @@
  */
 export class Instrument{
    private _name:string;
-   private _num:number;
 
   constructor(name:string){
     this._name = name;

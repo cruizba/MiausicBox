@@ -65,7 +65,7 @@ export class Event {
       var event:Event = object;
       return (event.name == this.name &&
               event.date == this.date &&
-              event.creator == this.creator);
+              event.creator.equals(this.creator));
     }
   }
 

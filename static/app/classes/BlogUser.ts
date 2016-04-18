@@ -36,7 +36,7 @@ export class BlogUser extends Blog {
     } else {
       var blog:BlogUser = object;
       return (super.equals &&
-              blog.author == this.author);
+              blog.author.equals(this.author));
     }
   }
 

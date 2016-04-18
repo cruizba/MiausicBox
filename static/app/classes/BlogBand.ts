@@ -37,7 +37,7 @@ export class BlogBand extends Blog {
     } else {
       var blog:BlogBand = object;
       return (super.equals &&
-              blog.author == this.author);
+              blog.author.equals(this.author));
     }
   }
 
