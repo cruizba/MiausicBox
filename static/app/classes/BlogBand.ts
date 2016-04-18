@@ -5,6 +5,7 @@
 import { Blog } from './Blog';
 import { Band } from './User';
 
+
 export class BlogBand extends Blog {
 
   /* Attributes */

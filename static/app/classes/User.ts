@@ -5,4 +5,5 @@ export class User{
   isArtist: boolean;
   city:string;
   instrument:string;
+
 }
