@@ -68,7 +68,6 @@ export class ArtistaComponent {
 
     genres(){
         var allGenres:GenreList = new GenreList();
-
         for(let i = 0; i < allGenres.genres.length; i++){
             if(this.user.genres.indexOf(i) != -1){
                 this.genresUser.push(allGenres.genres[i].name);
@@ -77,5 +76,10 @@ export class ArtistaComponent {
         }
     }
 
-}
+    goToURL (){
+      console.log(this.user.twitter);
+        console.log("Entro en click");
+      window.open(this.user.twitter);
+    }
 
+}
