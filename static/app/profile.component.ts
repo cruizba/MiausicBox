@@ -6,12 +6,14 @@ import {Info} from "./classes/Info";
 import {Instrument} from "./classes/Instrument";
 import {IntrumentList} from "./classes/InstrumentList";
 import {GenreList} from "./classes/GenreList";
+import {BlogService} from "./services/blog.service";
+import {BlogUser} from "./classes/BlogUser";
 
 
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
-  providers: [UserService]
+  providers: [UserService,BlogService]
 })
 
 export class ArtistaComponent {
@@ -24,7 +26,9 @@ export class ArtistaComponent {
   genresUser:string[] = [];
   id;
 
-  constructor(private _routeParams: RouteParams, private _userService: UserService){
+  blogs:BlogUser[] = [];
+
+  constructor(private _routeParams: RouteParams, private _userService: UserService, private _blogService: BlogService){
 
   }
 
@@ -52,6 +56,11 @@ export class ArtistaComponent {
         )
         //Check if is an artist
         this.isArtist = this.user.isArtist;
+
+        //Get user blogs
+        this._blogService.getBlogsByUser(this.user).subscribe(
+            blogs => this.blogs = blogs
+        )
     }
 
     instrumentsUser() {
@@ -78,4 +87,3 @@ export class ArtistaComponent {
     }
 
 }
-

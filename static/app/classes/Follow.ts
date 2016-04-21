@@ -44,7 +44,7 @@ export class Follow {
     } else {
       var follow:Follow = object;
       return (follow.emisor.equals(this.emisor) &&
-              follow.receptor.equals(this.receptor);
+              follow.receptor.equals(this.receptor));
     }
   }
 

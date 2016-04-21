@@ -191,6 +191,27 @@
                     <!-- Fin Boton Añadir Blog -->
 
                     <!-- Blog banda -->
+                    <div *ngFor="#blog of blogs" class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">{{blog.name}}</h3>
+                        </div>
+                        <div class="panel-body" id="BlogDescripcion">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="image-blog img-responsive img-rounded" src="../img/muestra3.jpg" alt="Profile image">
+                                    <p class="content-panel">{{blog.text}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer" id="BlogFooter">
+                            <div class="row">
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">{{blog.author.userName}}</a></div>
+                                <div class="col-md-4 col-xs-4" id="FechaBlog">{{blog.date}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--
                     <div class="panel panel-default">
                         <div class="panel-head">
                             <h3 class="content-panel">Blog #1</h3>
@@ -211,9 +232,11 @@
                             </div>
                         </div>
                     </div>
+                    -->
                     <!-- Fin Blog banda -->
 
                     <!-- Blog banda -->
+                    <!--
                     <div class="panel panel-default">
                         <div class="panel-head">
                             <h3 class="content-panel">Blog #2</h3>
@@ -234,6 +257,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
                     <!-- Fin Blog banda -->
                 </div>
                 <!-- Fin Información banda -->
