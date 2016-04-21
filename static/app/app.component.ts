@@ -12,8 +12,12 @@ import { EventsComponent } from './events.component';
 import { ListArtistComponent } from './list-artist.component'
 import { ListBandsComponent } from './list-bands.component'
 
-//
-import { Instrument } from './classes/Instrument'
+//Services
+//import { UserService } from './services/user.service';
+
+// Classes
+import { Instrument } from './classes/Instrument';
+import { User } from './classes/User';
 
 
 
@@ -27,9 +31,7 @@ import { Instrument } from './classes/Instrument'
     <router-outlet></router-outlet>
     `,
     directives: [ROUTER_DIRECTIVES, LoggedComponent],
-    providers: [
-        ROUTER_PROVIDERS
-    ]
+    providers: [ROUTER_PROVIDERS]
 })
 
 @RouteConfig([
@@ -41,7 +43,7 @@ import { Instrument } from './classes/Instrument'
     },
     {
         path: '/visitor',
-        name: 'Visitor',
+    name: 'Visitor',
         component: VisitorComponent
     },
     {
@@ -55,7 +57,7 @@ import { Instrument } from './classes/Instrument'
       component: PrincipalComponent
     },
     {
-      path: '/artist',
+      path: '/artist/:id',
       name: 'Artist',
       component: ArtistaComponent
     },
@@ -83,6 +85,8 @@ import { Instrument } from './classes/Instrument'
 
 export class AppComponent{
 
+  //Common variables of the application
+
 
   constructor(private _router: Router){
     this.routerSuscription();
@@ -104,6 +108,5 @@ export class AppComponent{
       }
     });
   }
-
 
 }

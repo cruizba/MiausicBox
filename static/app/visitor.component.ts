@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { Router } from 'angular2/router';
 
 
@@ -7,7 +7,7 @@ import { Router } from 'angular2/router';
   selector: 'visitor',
   templateUrl: 'templates/principalSinLogIn.html'
 })
-export class VisitorComponent {
+export class VisitorComponent{
 
   constructor(private _router: Router){};
 

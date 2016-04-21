@@ -34,7 +34,7 @@ export class Message {
     return this._message;
   }
 
-  get dte():Date {
+  get date():Date {
     return this._date;
   }
 
