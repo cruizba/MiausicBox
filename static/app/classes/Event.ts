@@ -66,7 +66,7 @@ export class Event {
       return (event.name == this.name &&
               event.date == this.date &&
               event.creator == this.creator);
-    }
+    };
   }
 
 }

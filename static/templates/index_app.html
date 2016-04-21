@@ -44,21 +44,22 @@
                 <!-- Cuadro Log in -->
                 <div class="col-md-5" id="login">
                     <h3>Log in</h3>
-                    <form role="form">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email">
+                            <label>Email address</label>
+                            <input [(ngModel)]="username" type="email" class="form-control" placeholder="Nombre de usuario">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password">
+                            <label>Password</label>
+                            <input [(ngModel)]="password" type="password" class="form-control" placeholder="password">
                         </div>
 
                         <div>
-                            <a (click)="goTo(['SignIn'])"id="registro">No estoy registrado</a>
-                            <a href="principal.html" class="btn btn-default" role="button" id="boton">Log in</a>
+                            <a (click)="goTo(['SignIn'])" id="registro">No estoy registrado</a>
+                            <button (click)="login()" class="btn btn-default" role="button" id="buttonLogin">Log in</button>
                         </div>
-                    </form>
+                        <div id="userLoginError">
+                          <p>El usuario no está registrado </p>
+                        </div>
                 </div>
             </div>
         </div>

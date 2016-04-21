@@ -95,7 +95,8 @@ export class User{
     }
     else{
       var user:User = object;
-      return (user.userName == this.userName);
+      return (user.userName == this.userName &&
+              user.password == this.password);
     }
   }
 }
