@@ -57,7 +57,7 @@ import { User } from './classes/User';
       component: PrincipalComponent
     },
     {
-      path: '/artist',
+      path: '/artist/:id',
       name: 'Artist',
       component: ArtistaComponent
     },

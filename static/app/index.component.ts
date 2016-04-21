@@ -27,12 +27,18 @@ export class IndexComponent {
     }
 
     login() {
-        this._userService.getUserByIdAndPass(this.username, this.password).subscribe(
+        this._userService.getUserByUserNameAndPass(this.username, this.password).subscribe(
         (user => Info.userLogged = user),
         (error => alert("User Not Found"))
         );
         if(Info.userLogged != null){
-            this._router.navigate(['Artist']);
+            
+            //Only necessary on simulation
+            this._userService.getUserId(Info.userLogged).subscribe(
+                id => Info.userId = id)
+            //Only necessay on simulation
+            
+            this._router.navigate(['Artist', {id: Info.userId}]);
         }
         else{
             $("#userLoginError").fadeIn(1000);

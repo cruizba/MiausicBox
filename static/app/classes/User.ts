@@ -12,11 +12,12 @@ export class User{
   private _isArtist: boolean;
   private _city:string;
   private _instruments:number[] = [];
+  private _genres:number[] = [];
   private _bands: Band[] = [];
 
   constructor(userName:string, password:string, completeName:string,
               description:string, isArtist:boolean, city:string,
-              instruments:number[], bands: Band[]){
+              instruments:number[], genres:number[], bands: Band[]){
     this._userName = userName;
     this._password = password;
     this._completeName = completeName;
@@ -24,6 +25,7 @@ export class User{
     this._isArtist = isArtist;
     this._city = city;
     this._instruments = instruments;
+    this._genres = genres;
     this._bands = bands;
   }
 
@@ -52,12 +54,21 @@ export class User{
     return this._instruments;
   }
 
+  get genres():number[]{
+    return this._genres;
+  }
+
+
   public get city():string{
     return this._city;
   }
 
   public set instruments(instrument: number[]){
     this._instruments = instrument;
+  }
+
+  set genres(value:Array){
+    this._genres=value;
   }
 
   public set userName(userName: string){
