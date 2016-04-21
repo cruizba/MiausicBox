@@ -3,6 +3,8 @@ import { Injectable } from 'angular2/core';
 import { User } from '../classes/User'
 //Observer simulation
 import { withObserver } from '../classes/Utils';
+import {Instrument} from "../classes/Instrument";
+import {IntrumentList} from "../classes/InstrumentList";
 
 @Injectable()
 export class UserService {
@@ -34,6 +36,19 @@ export class UserService {
 
   getUserById(id){
     return withObserver(userList[id]);
+  }
+
+  getInstrumentById (id){
+      var allInstrument:IntrumentList = new IntrumentList();
+      var user:User = userList[id];
+      var instrumentUserList:Instrument[] = [];
+      for(let i = 0; i < allInstrument.instruments.length; i++){
+        if(user.instruments.indexOf(i) != -1){
+          instrumentUserList.push(allInstrument.instruments[i]);
+        }
+      }
+      return withObserver(instrumentUserList);
+  
   }
 
 }

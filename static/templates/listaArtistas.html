@@ -101,61 +101,17 @@
                         </thead>
 
                         <tbody>
-                            <tr>
+                            <tr *ngFor="#us of lista; #i = index">
                                 <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Alex Turner</a></td>
+                                <td><a href="artista.html" class="enlaceListaArtista">{{us.userName}}</a></td>
                                 <td>
                                     <ul>
-                                        <li>Voz <img src="../img/instrumentoVozB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                        <li>Piano <img src="../img/instrumentoPianoB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                        <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol"></li>
+                                        <li *ngFor="#ins of instruments[i].listaInst" > <img src="{{ins.image_url_white}}" alt="Profile image" id="ImagenInstrumento"/> {{ins.name}} </li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Jaime Cookr</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Nick O'Malley</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Bajo <img src="../img/instrumentoBajoB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Matt Heldersr</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Bateria <img src="../img/instrumentoBateriaB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
+                                        <li *ngFor="#b of us.band">{{b}}</li>
                                     </ul>
                                 </td>
                             </tr>

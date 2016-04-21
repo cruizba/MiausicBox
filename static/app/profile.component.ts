@@ -25,11 +25,9 @@ export class ArtistaComponent {
   instruments_url:string[] = [];
   genresUser:string[] = [];
   id;
-
   blogs:BlogUser[] = [];
 
   constructor(private _routeParams: RouteParams, private _userService: UserService, private _blogService: BlogService){
-
   }
 
   ngOnInit() {
@@ -77,13 +75,18 @@ export class ArtistaComponent {
 
     genres(){
         var allGenres:GenreList = new GenreList();
-
         for(let i = 0; i < allGenres.genres.length; i++){
             if(this.user.genres.indexOf(i) != -1){
                 this.genresUser.push(allGenres.genres[i].name);
                 console.log(allGenres.genres[i].name);
             }
         }
+    }
+
+    goToURL (){
+      console.log(this.user.twitter);
+        console.log("Entro en click");
+      window.open(this.user.twitter);
     }
 
 }
