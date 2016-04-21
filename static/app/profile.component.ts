@@ -25,7 +25,7 @@ export class ArtistaComponent {
   id;
 
   constructor(private _routeParams: RouteParams, private _userService: UserService){
-
+    
   }
 
   ngOnInit() {

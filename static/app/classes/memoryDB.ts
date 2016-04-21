@@ -9,3 +9,4 @@ export var userList:User[] = [
   new User("sorayeison", "a", "Soraya Rama", "Esto es una descripción", false, "Orcasitas City","","twitter.com/Soryrc","", [],[8], []),
   new User("thaisthais", "prueba1234", "Thais", "Esto es una descripción", false, "Madrid","","","", [],[8],[])
 ];
+
