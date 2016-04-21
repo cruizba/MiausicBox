@@ -1,4 +1,5 @@
 import { User } from './User';
+import {BlogUser} from "./BlogUser";
 
 
 

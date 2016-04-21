@@ -11,11 +11,11 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
-              <li><a [routerLink]="['Artist', {id: 'null'}]" href="perfil.html"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
-              <li><a [routerLink]="['Messages']" href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>Mensajes</a></li>
-              <li><a [routerLink]="['Events']" href="eventos.html"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a></li>
-              <li><a [routerLink]="['ListArtist']"  href="listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
-              <li><a [routerLink]="['ListBands']" href="listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Bandas</a></li>
+              <li><a (click)="goToProfile()"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
+              <li><a [routerLink]="['Messages']"><span class="glyphicon glyphicon-envelope"></span>Mensajes</a></li>
+              <li><a [routerLink]="['Events']"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a></li>
+              <li><a [routerLink]="['ListArtist']"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
+              <li><a [routerLink]="['ListBands']"><span class="glyphicon glyphicon-cd"></span>Bandas</a></li>
           </ul>
           <form class="navbar-form navbar-left" role="search">
               <div class="form-group">
