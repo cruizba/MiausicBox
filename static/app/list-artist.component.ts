@@ -61,21 +61,14 @@ export class ListArtistComponent {
     
     findByName (name:String){
         this.userList = [];
-        var allUsers: User [] = [];
-        this._userService.getAllUsers().subscribe(
-            //If we have a result
-            users => allUsers = users,
-            //If an error has ocurred receiving data
-            error => {
-                allUsers = null;
-                alert("list not found");
-            });
 
-        for (let i = 0; i < allUsers.length; i++){
-            if (allUsers[i].userName == name){
-                this.userList.push(allUsers[i]);
-            }
-        }
+        this._userService.getUserByUserName(name).subscribe(
+            users => this.userList = users,
+            error => {
+                this.userList = null;
+                alert ("list not found");
+            });
+        
         this.instrumentsAllUsers();
     }
 }

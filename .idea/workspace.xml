@@ -26,8 +26,8 @@
           <file leaf-file-name="list-artist.component.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/static/app/list-artist.component.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="818">
-                  <caret line="78" column="35" selection-start-line="78" selection-start-column="35" selection-end-line="78" selection-end-column="35" />
+                <state relative-caret-position="721">
+                  <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="8" />
                   <folding>
                     <element signature="e#0#57#0" expanded="true" />
                   </folding>
@@ -65,19 +65,6 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="user.service.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/static/app/services/user.service.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="680">
-                  <caret line="40" column="2" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
-                  <folding>
-                    <element signature="e#0#47#0" expanded="true" />
-                    <element signature="e#153#201#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
@@ -85,9 +72,22 @@
           <file leaf-file-name="listaArtistas.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/static/templates/listaArtistas.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="578">
-                  <caret line="34" column="76" selection-start-line="34" selection-start-column="76" selection-end-line="34" selection-end-column="76" />
+                <state relative-caret-position="241">
+                  <caret line="22" column="86" selection-start-line="22" selection-start-column="86" selection-end-line="22" selection-end-column="86" />
                   <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="user.service.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/static/app/services/user.service.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="680">
+                  <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+                  <folding>
+                    <element signature="e#0#47#0" expanded="true" />
+                    <element signature="e#153#201#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -107,8 +107,8 @@
         <option value="$PROJECT_DIR$/static/app/profile.component.ts" />
         <option value="$PROJECT_DIR$/static/app/classes/Instrument.ts" />
         <option value="$PROJECT_DIR$/static/app/classes/InstrumentList.ts" />
-        <option value="$PROJECT_DIR$/static/app/services/user.service.ts" />
         <option value="$PROJECT_DIR$/static/app/classes/memoryDB.ts" />
+        <option value="$PROJECT_DIR$/static/app/services/user.service.ts" />
         <option value="$PROJECT_DIR$/static/app/list-artist.component.ts" />
         <option value="$PROJECT_DIR$/static/templates/listaArtistas.html" />
       </list>
@@ -367,10 +367,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16489000" />
+    <option name="totallyTimeSpent" value="18024000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18020834" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -652,17 +652,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/app/services/user.service.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="2" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#47#0" expanded="true" />
-            <element signature="e#153#201#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/app/classes/User.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -687,10 +676,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/app/services/user.service.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#47#0" expanded="true" />
+            <element signature="e#153#201#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/static/app/list-artist.component.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="818">
-          <caret line="78" column="35" selection-start-line="78" selection-start-column="35" selection-end-line="78" selection-end-column="35" />
+        <state relative-caret-position="721">
+          <caret line="70" column="8" selection-start-line="70" selection-start-column="8" selection-end-line="70" selection-end-column="8" />
           <folding>
             <element signature="e#0#57#0" expanded="true" />
           </folding>
@@ -699,8 +699,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/static/templates/listaArtistas.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="76" selection-start-line="34" selection-start-column="76" selection-end-line="34" selection-end-column="76" />
+        <state relative-caret-position="241">
+          <caret line="22" column="86" selection-start-line="22" selection-start-column="86" selection-end-line="22" selection-end-column="86" />
           <folding />
         </state>
       </provider>
