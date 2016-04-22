@@ -5,6 +5,7 @@ import {UserService} from "./services/user.service";
 import {User} from "./classes/User"
 import {Instrument} from "./classes/Instrument";
 import {IntrumentList} from "./classes/InstrumentList";
+import {userList} from "./classes/memoryDB";
 
 @Component({
   selector: 'list-artis',
@@ -14,8 +15,9 @@ import {IntrumentList} from "./classes/InstrumentList";
 
 export class ListArtistComponent {
 
-    lista :User[] = []
+    userList :User[] = [];
     instruments = [];
+    findUsers: User[] = [];
 
 
   constructor(private _userService:UserService){
@@ -25,13 +27,14 @@ export class ListArtistComponent {
     ngOnInit () {
         this._userService.getAllUsers().subscribe(
             //If we have a result
-            users => this.lista = users,
+            users => this.userList = users,
             //If an error has ocurred receiving data
             error => {
-                this.lista = null;
+                this.userList = null;
                 alert("list not found");
             });
         this.instrumentsAllUsers();
+
     }
 
     instrumentsUser(user:User, num:number){
@@ -50,9 +53,29 @@ export class ListArtistComponent {
 
 
     instrumentsAllUsers() {
-        for(let i = 0; i < this.lista.length; i++){
-            this.instrumentsUser(this.lista[i], i);
+        for(let i = 0; i < this.userList.length; i++){
+            this.instrumentsUser(this.userList[i], i);
             console.log(this.instruments[i]);
         }
+    }
+    
+    findByName (name:String){
+        this.userList = [];
+        var allUsers: User [] = [];
+        this._userService.getAllUsers().subscribe(
+            //If we have a result
+            users => allUsers = users,
+            //If an error has ocurred receiving data
+            error => {
+                allUsers = null;
+                alert("list not found");
+            });
+
+        for (let i = 0; i < allUsers.length; i++){
+            if (allUsers[i].userName == name){
+                this.userList.push(allUsers[i]);
+            }
+        }
+        this.instrumentsAllUsers();
     }
 }
