@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from 'angular2/core';
-import { Router} from 'angular2/router';
+import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import { AppComponent } from './app.component';
 import {UserService} from "./services/user.service";
 import {User} from "./classes/User"
@@ -9,7 +9,8 @@ import {IntrumentList} from "./classes/InstrumentList";
 @Component({
   selector: 'list-artis',
   templateUrl: 'templates/listaArtistas.html',
-  providers: [UserService]
+  providers: [UserService],
+  directives: [ROUTER_DIRECTIVES]
 })
 
 export class ListArtistComponent {
@@ -18,7 +19,7 @@ export class ListArtistComponent {
     instruments = [];
 
 
-  constructor(private _userService:UserService){
+  constructor(private _userService:UserService, private _router: Router){
 
   }
 

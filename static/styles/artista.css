@@ -130,3 +130,8 @@
 #FechaBlog {
     text-align: right;
 }
+
+#followButton {
+    background-color: #00BC8C;
+    color: aliceblue;
+}
