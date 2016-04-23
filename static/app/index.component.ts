@@ -22,7 +22,7 @@ export class IndexComponent {
     constructor(private _router: Router,
         private _userService: UserService) { }
 
-    goTo(paramsRoute: any[]) {
+    goTo(paramsRoute: any[]){
         this._router.navigate(paramsRoute);
     }
 
@@ -44,7 +44,5 @@ export class IndexComponent {
             $("#userLoginError").fadeIn(1000);
         }
     }
-
-
 
 }

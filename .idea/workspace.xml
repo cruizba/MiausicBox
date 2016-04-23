@@ -60,8 +60,10 @@
           <file leaf-file-name="memoryDB.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/static/app/classes/memoryDB.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+
+                <state relative-caret-position="820">
+                  <caret line="62" column="49" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+
                   <folding>
                     <element signature="e#0#30#0" expanded="true" />
                   </folding>
@@ -125,6 +127,8 @@
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="WARN_ABOUT_CRLF" value="false" />
+    <option name="WARN_ABOUT_DETACHED_HEAD" value="false" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -291,12 +295,16 @@
       <option name="presentableId" value="Default" />
       <updated>1461261612815</updated>
       <workItem from="1461261616077" duration="11651000" />
-      <workItem from="1461318339814" duration="1547000" />
+      <workItem from="1461318339814" duration="2192000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="22206000" />
+=======
+    <option name="totallyTimeSpent" value="13843000" />
+>>>>>>> 90032c1ce998db720e9d269b5df945ba3e9a476d
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
