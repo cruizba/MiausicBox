@@ -106,11 +106,11 @@
 
 
                             <tr *ngFor="#us of userList; #i = index">
-                                <td><a [routerLink]="['Artist', {id: i}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a [routerLink]="['Artist', {id: i}]" class="enlaceListaArtista">{{us.userName}}</a></td>
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista">{{us.userObj.userName}}</a></td>
 
                                 <td>
-                                    <div *ngIf="us.isArtist">Si</div>
+                                    <div *ngIf="us.userObj.isArtist">Si</div>
                                 </td>
                                 <td>
                                     <ul>
@@ -119,7 +119,8 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#b of us.band">{{b}}</li>
+                                        <!-- <li *ngFor="#b of us.userObj.band">{{b}}</li> -->
+                                        Hola
                                     </ul>
                                 </td>
 
