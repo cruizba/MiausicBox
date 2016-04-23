@@ -38,5 +38,14 @@ export class UserService {
     return withObserver(userList[id]);
   }
   
-
+  getUserByUserName(name:String){
+    
+    var allUsers: User [] = [];
+    for (let i = 0; i < userList.length; i++){
+      if(userList[i].userName == name){
+        allUsers.push(userList[i]);
+      }
+    }
+    return withObserver (allUsers);
+  }
 }

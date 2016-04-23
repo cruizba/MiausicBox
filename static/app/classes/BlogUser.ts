@@ -11,8 +11,8 @@ export class BlogUser extends Blog {
   private _author:User;
 
   /* Constructor */
-  constructor(name:string, image:string, text:string, date:Date, author:User) {
-    super(name, image, text, date);
+  constructor(name:string, image:string, title:string, text:string, date:Date, author:User) {
+    super(name, image, title, text, date);
     this._author = author;
   }
 
