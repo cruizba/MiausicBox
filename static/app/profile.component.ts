@@ -1,17 +1,19 @@
 import { Component, OnInit } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
-import { RouteParams } from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Info} from "./classes/Info";
 import {Instrument} from "./classes/Instrument";
 import {IntrumentList} from "./classes/InstrumentList";
 import {GenreList} from "./classes/GenreList";
+import {FollowService} from "./services/follow.service";
 
 
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
-  providers: [UserService]
+  providers: [UserService, FollowService],
+  directives: [ROUTER_DIRECTIVES]
 })
 
 export class ArtistaComponent {
@@ -24,7 +26,12 @@ export class ArtistaComponent {
   genresUser:string[] = [];
   id;
 
-  constructor(private _routeParams: RouteParams, private _userService: UserService){
+  //Follows variables
+  numFollowing:number;
+  numFollowers:number;
+
+  constructor(private _routeParams: RouteParams, private _userService: UserService,
+                private _followService: FollowService){
     
   }
 
@@ -52,6 +59,8 @@ export class ArtistaComponent {
         )
         //Check if is an artist
         this.isArtist = this.user.isArtist;
+        
+        this.updateFollows();
     }
 
     instrumentsUser() {
@@ -82,4 +91,16 @@ export class ArtistaComponent {
       window.open(this.user.twitter);
     }
 
+    updateFollows(){
+        this._followService.getNumFollowersById(this.id).subscribe(
+            (followers => this.numFollowers = followers),
+            (error => alert("numFollowers error"))
+        )
+        this._followService.getNumFollowingByID(this.id).subscribe(
+            (followings => this.numFollowing = followings),
+            (error => alert("numFollowings error"))
+        );
+    }
+    
+    
 }
