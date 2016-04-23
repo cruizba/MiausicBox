@@ -129,9 +129,9 @@
                         </thead>
 
                         <tbody>
-                            <tr>
+                            <tr *ngFor="#ev of events">
                                 <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Indie Week</a></td>
+                                <td><a href="#" class="enlaceListaArtista">{{ev.eventObj.name}}</a></td>
                                 <td>
                                     <ul>
                                         <li>Indie</li>
@@ -151,71 +151,7 @@
                                     </ul>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Trash toor</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Trash Metal</li>
-                                        <li>Heavy</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Metalica</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="ubicacion">
-                                        <li>29/03/2016</li>
-                                        <li>Barcelona</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Trash toor</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Trash Metal</li>
-                                        <li>Heavy</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Megadeth</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="ubicacion">
-                                        <li>29/03/2016</li>
-                                        <li>Barcelona</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Punkicide</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Punk</li>
-                                        <li>Grunge</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Potaje de gusanos</li>
-                                        <li>La abuela punk</li>
-                                        <li>Chaos Theory</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="ubicacion">
-                                        <li>01/04/2016</li>
-                                        <li>Madrid</li>
-                                    </ul>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                     <!--Paginas-->

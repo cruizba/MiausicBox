@@ -45,3 +45,9 @@ export var bandList:Band[] = [
     new Band ("Strokes", "Toledo", "www.thestrokes.com", "", "", ""),
     new Band ("Flower Power", "Parla", "", "", "","")
 ];
+
+export var eventList: Event [] = [
+    new Event ("Indie Week", new Date("Abril 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie" ),
+    new Event ("Trash toor", new Date("Abril 14, 2016 20:16:37"), userList[1], "lolololololololo"),
+    new Event ("Pinkicide", new Date("Abril 15, 2016 20:16:37"), userList[0], "asdfasdfasdf")
+];
