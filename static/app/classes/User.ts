@@ -83,7 +83,7 @@ export class User{
   public set instruments(instrument: number[]){
     this._instruments = instrument;
   }
-
+  
   public set genres(genres:number[]){
     this._genres=genres;
   }

@@ -20,9 +20,9 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Nombre:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre del artista">
+                                    <input #findName type="text" class="form-control" >
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findByName(findName.value); findName.value=' '"  >Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
@@ -32,7 +32,7 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Banda:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <input type="text" class="form-control" >
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
                                     </span>
@@ -95,15 +95,23 @@
                             <tr>
                                 <th id="esquinaTablaArtista1">Perfil</th>
                                 <th>Nombre </th>
+                                <th>Es Artista</th>
                                 <th>Instrumentos</th>
                                 <th id="esquinaTablaArtista2">Bandas</th>
+
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr *ngFor="#us of lista; #i = index">
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">{{us.userName}}</a></td>
+
+
+                            <tr *ngFor="#us of userList; #i = index">
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista">{{us.userObj.userName}}</a></td>
+
+                                <td>
+                                    <div *ngIf="us.userObj.isArtist">Si</div>
+                                </td>
                                 <td>
                                     <ul>
                                         <li *ngFor="#ins of instruments[i].listaInst" > <img src="{{ins.image_url_white}}" alt="Profile image" id="ImagenInstrumento"/> {{ins.name}} </li>
@@ -111,9 +119,11 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#b of us.band">{{b}}</li>
+                                        <!-- <li *ngFor="#b of us.userObj.band">{{b}}</li> -->
+                                        Hola
                                     </ul>
                                 </td>
+
                             </tr>
                         </tbody>
                     </table>

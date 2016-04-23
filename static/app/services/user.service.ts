@@ -10,7 +10,11 @@ import {IntrumentList} from "../classes/InstrumentList";
 export class UserService {
 
   getAllUsers(){
-    return withObserver(userList);
+    var result = [];
+    for(let i = 0; i < userList.length; i++){
+      result.push({"userId": i, "userObj": userList[i]});
+    }
+    return withObserver(result);
   }
 
   getUserByUserNameAndPass(username:string, pass:string){
@@ -37,18 +41,15 @@ export class UserService {
   getUserById(id){
     return withObserver(userList[id]);
   }
-
-  getInstrumentById (id){
-      var allInstrument:IntrumentList = new IntrumentList();
-      var user:User = userList[id];
-      var instrumentUserList:Instrument[] = [];
-      for(let i = 0; i < allInstrument.instruments.length; i++){
-        if(user.instruments.indexOf(i) != -1){
-          instrumentUserList.push(allInstrument.instruments[i]);
-        }
-      }
-      return withObserver(instrumentUserList);
   
+  getUserByUserName(name:String){
+    
+    var allUsers: User [] = [];
+    for (let i = 0; i < userList.length; i++){
+      if(userList[i].userName == name){
+        allUsers.push({"userId": i, "userObj": userList[i]});
+      }
+    }
+    return withObserver (allUsers);
   }
-
 }
