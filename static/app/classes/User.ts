@@ -84,7 +84,7 @@ export class User{
     this._instruments = instrument;
   }
 
-  set genres(value: Array){
+  set genres(value:number[]){
     this._genres=value;
   }
 
