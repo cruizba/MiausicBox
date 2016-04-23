@@ -16,7 +16,7 @@ import {userList} from "./classes/memoryDB";
 
 export class ListArtistComponent {
 
-    userList :User[] = [];
+    userList = [];
     instruments = [];
     findUsers: User[] = [];
 
@@ -38,16 +38,16 @@ export class ListArtistComponent {
 
     }
 
-    instrumentsUser(user:User, num:number){
+    instrumentsUser(user, num:number){
         var allInstruments:IntrumentList = new IntrumentList();
         var instrumentList = []
         for (let i = 0; i < allInstruments.instruments.length; i++) {
-            if (user.instruments.indexOf(i) != -1) {
+            if (user.userObj.instruments.indexOf(i) != -1) {
                 instrumentList.push(allInstruments.instruments[i]);
             }
         }
         this.instruments[num] = ({
-            "user" : user,
+            "user" : user.userObj,
             "listaInst" : instrumentList
         });
     }
