@@ -39,6 +39,7 @@ export class UserService {
   }
   
   getUserByUserName(name:String){
+    
     var allUsers: User [] = [];
     for (let i = 0; i < userList.length; i++){
       if(userList[i].userName == name){
