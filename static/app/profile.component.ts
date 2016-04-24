@@ -8,12 +8,14 @@ import {IntrumentList} from "./classes/InstrumentList";
 import {GenreList} from "./classes/GenreList";
 import {FollowService} from "./services/follow.service";
 import {MessageService} from "./services/message.service";
+import { BlogUser } from "./classes/BlogUser";
+import { BlogService } from "./services/blog.service"
 
 
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
-  providers: [UserService, FollowService, MessageService],
+  providers: [UserService, FollowService, MessageService, BlogService],
   directives: [ROUTER_DIRECTIVES]
 })
 
@@ -26,6 +28,7 @@ export class ArtistaComponent {
   instruments_url:string[] = [];
   genresUser:string[] = [];
   id;
+  blogList:BlogUser[] = [];
 
   //Follows variables
   numFollowing:number;
@@ -35,8 +38,9 @@ export class ArtistaComponent {
   numMessages:number;
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
-                private _followService: FollowService, private _messageService: MessageService){
-    
+                private _followService: FollowService, private _messageService: MessageService,
+                private _blogService: BlogService){
+
   }
 
   ngOnInit() {
@@ -63,12 +67,16 @@ export class ArtistaComponent {
         )
         //Check if is an artist
         this.isArtist = this.user.isArtist;
-        
+
         this.updateFollows();
 
         this._messageService.getNumNonRead(Info.userId).subscribe(
             (num => this.numMessages = num),
             (error => alert("Error notifications"))
+        )
+
+        this._blogService.getBlogsByUser(this.id).subscribe(
+          blogList => this.blogList = blogList
         )
     }
 
@@ -110,6 +118,6 @@ export class ArtistaComponent {
             (error => alert("numFollowings error"))
         );
     }
-    
-    
+
+
 }
