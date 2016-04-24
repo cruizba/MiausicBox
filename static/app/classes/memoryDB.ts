@@ -14,7 +14,7 @@ var blog2:string = "Blog 2 de Muestra. Lorem ipsum dolor sit amet, consectetur a
 export var userList:User[] = [
   new User("DarwinTB", "1234", "Carlos Ruiz Ballesteros", description, true, "Fuenlabrada, Madrid","","","", [1,2,3,4], [0], []),
   new User("ice6294", "9876", "Luis León Gámez", description, true, "Alcorcón, Madrid","","","", [1,2,3,4],[0,1,2,3,4,5,6,7,8,9,10,11], []),
-  new User("sorayeison", "a", "Soraya Rama", description, false, "Orcasitas City","","twitter.com/Soryrc","", [],[8], []),
+  new User("sor", "a", "Soraya Rama", description, false, "Orcasitas City","","twitter.com/Soryrc","", [],[8], []),
   new User("thaisthais", "prueba1234", "Thais", description, false, "Madrid","","","", [],[8],[])
 ];
 
@@ -42,16 +42,16 @@ export var followsList:Follow[] = [
 ];
 
 export var bandList:Band[] = [
-    new Band ("Arctic Monkeys", "Sevilla", "www.arcticmonkeys.com", "", "", ""),
-    new Band ("Strokes", "Toledo", "www.thestrokes.com", "", "", ""),
-    new Band ("Flower Power", "Parla", "", "", "","")
+    new Band ("Arctic Monkeys", "Sevilla", "www.arcticmonkeys.com", "", "", "", [userList[0]], [userList[0], userList[1], userList[2]]),
+    new Band ("Strokes", "Toledo", "www.thestrokes.com", "", "", "", [userList[1]], [userList[1], userList[3]]),
+    new Band ("Flower Power", "Parla", "", "", "","", [userList[0], userList[1]],[userList[0],userList[1]])
 ];
 
 
 export var eventList: Event [] = [
-    new Event ("Indie Week", new Date("Abril 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie" ),
-    new Event ("Trash toor", new Date("Abril 14, 2016 20:16:37"), userList[1], "lolololololololo"),
-    new Event ("Pinkicide", new Date("Abril 15, 2016 20:16:37"), userList[0], "asdfasdfasdf")
+    new Event ("Indie Week", new Date("April 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie", [bandList[0], bandList[1]],"Calle de la piruleta" ),
+    new Event ("Trash toor", new Date("April 14, 2016 20:16:37"), userList[1], "lolololololololo", [bandList[2]], "Wonderland"),
+    new Event ("Pinkicide", new Date("April 15, 2016 20:16:37"), userList[0], "asdfasdfasdf", [bandList[1], bandList[2]], "Es un mundo maravilloso")
 ];
 
 export var messageList:Message[] = [

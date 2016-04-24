@@ -9,6 +9,7 @@ import { PrincipalComponent } from './principal.component';
 import { ArtistaComponent } from './profile.component';
 import { MessagesComponent } from './messages.component';
 import { EventsComponent } from './events.component';
+import { EventComponent } from './event.component';
 import { ListArtistComponent } from './list-artist.component'
 import { ListBandsComponent } from './list-bands.component'
 
@@ -72,6 +73,11 @@ import {FollowersComponent} from "./followers.component";
       path: '/events',
       name: 'Events',
       component: EventsComponent
+    },
+    {
+        path: '/event/:id',
+        name: 'Event',
+        component: EventComponent
     },
     {
       path: '/listArtist',

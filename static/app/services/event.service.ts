@@ -15,4 +15,8 @@ export class EventService {
         console.log(result);
         return withObserver (result);
     }
+    
+    getEventByID (id){
+        return withObserver (eventList[id]);
+    }
 }

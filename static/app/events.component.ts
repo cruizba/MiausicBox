@@ -1,12 +1,14 @@
 import { Component, OnInit } from 'angular2/core';
 import { EventService } from './services/event.service';
 import {UserService} from "./services/user.service";
+import {ROUTER_DIRECTIVES} from "angular2/router";
 
 
 @Component({
   selector: 'events',
   templateUrl: 'templates/eventos.html',
-    providers: [EventService]
+    providers: [EventService],
+    directives: [ROUTER_DIRECTIVES]
 })
 
 export class EventsComponent {
