@@ -4,6 +4,7 @@
     /----------------------/
 */
 
+
 /* navbar */
 .navbar-default {
     background-color: #00BC8C;
@@ -268,4 +269,12 @@ no tape un trozo de la página */
 
 .loading{
   margin: auto;
+}
+
+.panel_evento{
+    background-color: #222222;
+}
+
+.titleBandas{
+    color: white;
 }

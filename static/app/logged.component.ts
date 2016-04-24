@@ -1,6 +1,7 @@
 import { Component, OnInit } from 'angular2/core';
 import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import {Info} from "./classes/Info";
+import {MessageService} from "./services/message.service";
 
 
 @Component({
@@ -12,11 +13,17 @@ import {Info} from "./classes/Info";
 
 export class LoggedComponent{
 
-  constructor(private _router: Router){};
+
+  constructor(private _router: Router){
+
+  };
 
   goToProfile(){
-    var id = Info.userId;
-
-    this._router.navigate(['Artist', {id: Info.userId}])
+    this._router.navigate(['Artist', {id: Info.userId}]);
   }
+
+  goToMessage(){
+    this._router.navigate(['Messages', {id: Info.userId}]);
+  }
+
 }
