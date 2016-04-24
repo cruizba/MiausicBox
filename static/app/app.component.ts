@@ -18,6 +18,8 @@ import { ListBandsComponent } from './list-bands.component'
 // Classes
 import { Instrument } from './classes/Instrument';
 import { User } from './classes/User';
+import {FollowingComponent} from "./following.component";
+import {FollowersComponent} from "./followers.component";
 
 
 
@@ -62,7 +64,7 @@ import { User } from './classes/User';
       component: ArtistaComponent
     },
     {
-      path: '/messages',
+      path: '/messages/:id',
       name: 'Messages',
       component: MessagesComponent
     },
@@ -80,6 +82,16 @@ import { User } from './classes/User';
       path: '/listBands',
       name: 'ListBands',
       component: ListBandsComponent
+    },
+    {
+        path: '/following/:id',
+        name: 'Following',
+        component: FollowingComponent
+    },
+    {
+        path: '/followers/:id',
+        name: 'Followers',
+        component: FollowersComponent
     }
 ])
 
