@@ -73,7 +73,7 @@ export class ArtistaComponent {
             (error => alert("Error notifications"))
         )
 
-        this._blogService.getBlogsByUser(this.id).subscribe(
+        this._blogService.getBlogsByUser(this.user).subscribe(
           blogList => this.blogList = blogList
         )
     }

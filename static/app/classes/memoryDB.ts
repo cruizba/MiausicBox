@@ -16,7 +16,7 @@ export var userList:User[] = [
   new User("DarwinTB", "1234", "Carlos Ruiz Ballesteros", description, true, "Fuenlabrada, Madrid","","","", [1,2,3,4], [0], []),
   new User("ice6294", "9876", "Luis León Gámez", description, true, "Alcorcón, Madrid","","","", [1,2,3,4],[0,1,2,3,4,5,6,7,8,9,10,11], []),
   new User("sorayeison", "a", "Soraya Rama", description, false, "Orcasitas City","","twitter.com/Soryrc","", [],[8], []),
-  new User("thais", "prueba1234", "Thais", description, false, "Madrid","","","", [],[8],[])
+  new User("thais", "prueba1234", "Thais Méndez", description, false, "Madrid","","","", [],[8],[])
 ];
 
 export var blogUserList:BlogUser[] = [

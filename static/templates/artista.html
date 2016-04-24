@@ -196,9 +196,7 @@
                     <!-- Fin Boton Añadir Blog -->
 
                     <!-- Blog banda -->
-                    <div *ngFor="#blog of blogs" class="panel panel-default">
-<<<<<<< HEAD
-=======
+                    <div *ngFor="#blog of blogList" class="panel panel-default">
                         <div class="panel-head">
                             <h3 class="content-panel">{{blog.name}}</h3>
                         </div>
@@ -212,8 +210,9 @@
                         </div>
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
-                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">{{blog.author.userName}}</a></div>
-                                <div class="col-md-4 col-xs-4" id="FechaBlog">{{blog.date}}</div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Autor</a></div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">{{blog.author.completeName}}</a></div>
+                                <div class="col-md-4 col-xs-4" id="FechaBlog">{{blog.date.getDay()}}/{{blog.date.getMonth()}}/{{blog.date.getFullYear()}}</div>
                             </div>
                         </div>
                     </div>
