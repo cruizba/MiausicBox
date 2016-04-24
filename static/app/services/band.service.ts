@@ -1,4 +1,4 @@
-import {bandList} from '../classes/memoryDB';
+import {bandList, userList} from '../classes/memoryDB';
 import {Injectable} from 'angular2/core';
 import {withObserver} from '../classes/Utils';
 
@@ -16,7 +16,7 @@ export class BandService {
   getMembers (id){
     var memberList = [];
     for(let i = 0; i < bandList[id].members.length; i++){
-      memberList.push({"userId": i, "userObj": bandList[id].members[i]});
+      memberList.push({"id":userList.indexOf(bandList[id].members[i]), "user":bandList[id].members[i]});
     }
     return withObserver(memberList);
   }
@@ -24,5 +24,5 @@ export class BandService {
   getBandById (id){
     return withObserver(bandList[id]);
   }
-  
+
 }
