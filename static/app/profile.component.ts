@@ -11,7 +11,6 @@ import {MessageService} from "./services/message.service";
 import { BlogUser } from "./classes/BlogUser";
 import { BlogService } from "./services/blog.service"
 
-
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
@@ -40,7 +39,6 @@ export class ArtistaComponent {
   constructor(private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
                 private _blogService: BlogService){
-
   }
 
   ngOnInit() {

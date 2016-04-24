@@ -197,21 +197,22 @@
 
                     <!-- Blog banda -->
                     <div *ngFor="#blog of blogs" class="panel panel-default">
+<<<<<<< HEAD
+=======
                         <div class="panel-head">
                             <h3 class="content-panel">{{blog.name}}</h3>
                         </div>
                         <div class="panel-body" id="BlogDescripcion">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img class="image-blog img-responsive img-rounded" src="../img/muestra3.jpg" alt="Profile image">
+                                    <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image">
                                     <p class="content-panel">{{blog.text}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
-                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Artista</a></div>
-                                <div class="col-md-4 col-xs-4" id="BandaBlog"><a href="#">{{blog.author}}</a></div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">{{blog.author.userName}}</a></div>
                                 <div class="col-md-4 col-xs-4" id="FechaBlog">{{blog.date}}</div>
                             </div>
                         </div>
