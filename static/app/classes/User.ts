@@ -58,7 +58,7 @@ export class User{
     return this._instruments;
   }
 
-  get genres(): number[]{
+  public get genres(): number[]{
     return this._genres;
   }
 
@@ -84,8 +84,8 @@ export class User{
     this._instruments = instrument;
   }
 
-  set genres(value:number[]){
-    this._genres=value;
+  public set genres(genres:number[]){
+    this._genres=genres;
   }
 
   public set userName(userName: string){
