@@ -63,6 +63,11 @@ import {FollowersComponent} from "./followers.component";
       name: 'Artist',
       component: ArtistaComponent
     },
+    //{
+    //  path: '/band/:id',
+    //  name: 'Band',
+    //  component: BandComponent
+    //},
     {
       path: '/messages/:id',
       name: 'Messages',
