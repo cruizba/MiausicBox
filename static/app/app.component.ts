@@ -1,3 +1,4 @@
+import {BandComponent} from "./band.component";
 import {Component, OnInit} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router } from 'angular2/router';
 
@@ -63,11 +64,11 @@ import {FollowersComponent} from "./followers.component";
       name: 'Artist',
       component: ArtistaComponent
     },
-    //{
-    //  path: '/band/:id',
-    //  name: 'Band',
-    //  component: BandComponent
-    //},
+    {
+      path: '/band/:id',
+      name: 'Band',
+      component: BandComponent
+    },
     {
       path: '/messages/:id',
       name: 'Messages',

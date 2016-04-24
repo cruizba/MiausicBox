@@ -24,4 +24,5 @@ export class BandService {
   getBandById (id){
     return withObserver(bandList[id]);
   }
+  
 }

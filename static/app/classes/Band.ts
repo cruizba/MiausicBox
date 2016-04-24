@@ -1,6 +1,7 @@
 import {User} from './User';
 
 export class Band{
+  private _administrador: User;
   private _groupName: string;
   private _city: string;
   private _web: string;
@@ -10,8 +11,9 @@ export class Band{
   private _members: User[];
   private _followers: User[];
 
-  constructor(groupName:string, city:string, web:string, facebook:string,
+  constructor(administrador:User, groupName:string, city:string, web:string, facebook:string,
               twitter:string, youtube:string){
+    this._administrador = administrador;
     this._groupName = groupName;
     this._city = city;
     this._web = web;
@@ -21,6 +23,10 @@ export class Band{
     this._members = [];
     this._followers = [];
   };
+
+  public get administrador():User{
+    return this._administrador;
+  }
 
   public get groupName():string{
     return this._groupName;
@@ -52,6 +58,10 @@ export class Band{
 
   public get followers():User[]{
     return this._followers;
+  }
+
+  public set administrador(administrador:User){
+    this._administrador = administrador;
   }
 
   public set groupName(groupName:string){
