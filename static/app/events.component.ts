@@ -14,19 +14,19 @@ export class EventsComponent {
   events = [];
   id;
 
-  constructor (private _userService: UserService){
+  constructor (private _eventService: EventService){
 
   }
 
   ngOnInit () {
-      console.log("ngOnInit cargando cosas blablabla");
-    //this._eventService.getAllEvent().subscribe(
-      //  list => this.events = list,
-       // error => {
-         // this.events = null;
-         // alert ("list events not found");
-       // }
-    //)
+    console.log("ngOnInit cargando cosas blablabla");
+    this._eventService.getAllEvent().subscribe(
+        (list => this.events = list),
+        (error => {
+          this.events = null;
+          alert("List events not found");
+        })
+    );
   }
 
 }
