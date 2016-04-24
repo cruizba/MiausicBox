@@ -64,7 +64,7 @@ import {FollowersComponent} from "./followers.component";
       component: ArtistaComponent
     },
     {
-      path: '/messages',
+      path: '/messages/:id',
       name: 'Messages',
       component: MessagesComponent
     },
