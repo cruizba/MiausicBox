@@ -7,12 +7,13 @@ import {Instrument} from "./classes/Instrument";
 import {IntrumentList} from "./classes/InstrumentList";
 import {GenreList} from "./classes/GenreList";
 import {FollowService} from "./services/follow.service";
+import {MessageService} from "./services/message.service";
 
 
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
-  providers: [UserService, FollowService],
+  providers: [UserService, FollowService, MessageService],
   directives: [ROUTER_DIRECTIVES]
 })
 
@@ -30,8 +31,11 @@ export class ArtistaComponent {
   numFollowing:number;
   numFollowers:number;
 
+  //Notification
+  numMessages:number;
+
   constructor(private _routeParams: RouteParams, private _userService: UserService,
-                private _followService: FollowService){
+                private _followService: FollowService, private _messageService: MessageService){
     
   }
 
@@ -61,6 +65,11 @@ export class ArtistaComponent {
         this.isArtist = this.user.isArtist;
         
         this.updateFollows();
+
+        this._messageService.getNumNonRead(Info.userId).subscribe(
+            (num => this.numMessages = num),
+            (error => alert("Error notifications"))
+        )
     }
 
     instrumentsUser() {

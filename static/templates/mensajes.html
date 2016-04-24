@@ -12,8 +12,8 @@
                               <div class="panel panel-default">
                                   <div class="panel-heading" id="panelHeading">
                                       <ul class="nav nav-tabs">
-                                          <li class="active"><a href="" data-toggle="tab"><h3 class="panel-title"><span class="glyphicon glyphicon-inbox"></span> Recibidos  <span class="badge">1</span></h3></a></li>
-                                          <li><a href="" data-toggle="tab"><h3 class="panel-title"><span class="glyphicon glyphicon-log-out"></span> Enviados</h3></a></li>
+                                          <li><a [class.active]="receivedOption" (click)="clickReceived()" data-toggle="tab"><h3 class="panel-title" id="receivedButton"><span class="glyphicon glyphicon-inbox"></span> Recibidos  <span class="badge">{{nonReadMessages}}</span></h3></a></li>
+                                          <li><a [class.active]="!receivedOption" (click)="clickSended()" data-toggle="tab"><h3 class="panel-title"><span class="glyphicon glyphicon-log-out"></span> Enviados</h3></a></li>
                                       </ul>
                                   </div>
                                   <div class="panel-body">
@@ -22,12 +22,13 @@
                                               <p><a class="btn btn-default btn-lg btn-block"  data-toggle="modal" data-target="#sendMessage" id="writeButton">Redactar</a></p>
                                               <div class="list-group">
                                                 <!--Bandeja de entrada-->
-                                                <a *ngFor="#mes of messagesShowed"class="list-group-item" (click)="clickOnMessage(mes)">
+                                                <a *ngFor="#mes of messagesShowed" [class.activeMessage]="mes === actualMessage" class="list-group-item" (click)="clickOnMessage(mes)">
                                                     <table>
                                                         <tr>
                                                             <td><img src="../img/profile_image.png" alt="Profile image" id="imagenUsuario"></td>
                                                             <td id="alineacionMensajes">
-                                                                <h4 class="list-group-item-heading">{{mes.message.sender.userName}}</h4>
+                                                                <h4 *ngIf="receivedOption" [class.nonReadMessage]="!mes.message.read" class="list-group-item-heading">{{mes.message.sender.userName}}</h4>
+                                                                <h4 *ngIf="!receivedOption" class="list-group-item-heading">{{mes.message.destiny.userName}}</h4>
                                                                 <p class="list-group-item-text">{{mes.message.subject}}</p>
                                                             </td>
                                                         </tr>
@@ -52,10 +53,11 @@
                                                       <a id="answerButton" data-toggle="modal" data-target="#answerMessage"><span class="glyphicon glyphicon-arrow-left" id="responder"></span></a>
                                                       <span class="glyphicon glyphicon-trash" id="eliminar"></span>
                                                   </div>
-                                                  <div *ngIf=(messagesShowed.length != 0)class="panel-body" id="correo" data-spy="scroll">
-                                                    <h4 class="list-group-item-heading" id="origencorreo">{{actualMessage.subject}}</h4>
-                                                    <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-                                                    {{actualMessage.message}}
+                                                  <div *ngIf="actualMessage" class="panel-body" id="correo" data-spy="scroll">
+                                                    <h4 class="list-group-item-heading" id="origencorreo">{{actualMessage.message.subject}}</h4>
+                                                    <p class="list-group-item-text">
+                                                    {{actualMessage.message.message}}
+                                                    </p>
                                                   </div>
                                               </div>
                                           </div>

@@ -19,6 +19,7 @@ export class MessagesComponent {
   id: string;
   receivedMessages;
   sendedMessages;
+  nonReadMessages:number;
 
   messagesShowed = [];
 
@@ -39,10 +40,20 @@ export class MessagesComponent {
     this._messageService.getReceivedMessages(this.id).subscribe(
         (receivedMessages => this.receivedMessages = receivedMessages),
         (error => alert("error received messages"))
-    )
+    );
+    this._messageService.getNumNonRead(this.id).subscribe(
+          (num => this.nonReadMessages = num),
+          (error => alert("Error non read messages"))
+      );
 
     this.receivedOption = true;
     this.updateMessages();
+
+    if(this.messagesShowed.length > 0){
+      this.actualMessage = this.messagesShowed[0];
+    }
+
+    $("#receivedButton").click();
   }
 
   updateMessages(){
@@ -64,7 +75,13 @@ export class MessagesComponent {
     this.updateMessages();
   }
 
-
-
+  clickOnMessage(mes){
+    this.actualMessage = mes;
+    if(!mes.message.read && mes.message.destiny.equals(Info.userLogged)){
+        this.nonReadMessages--;
+        this._messageService.setRead(this.id, mes.message);
+        //Don't substract if you are de receptor
+    }
+  }
 
 }
