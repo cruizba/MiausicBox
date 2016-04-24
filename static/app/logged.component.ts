@@ -15,8 +15,10 @@ export class LoggedComponent{
   constructor(private _router: Router){};
 
   goToProfile(){
-    var id = Info.userId;
+    this._router.navigate(['Artist', {id: Info.userId}]);
+  }
 
-    this._router.navigate(['Artist', {id: Info.userId}])
+  goToMessage(){
+    this._router.navigate(['Messages', {id: Info.userId}]);
   }
 }
