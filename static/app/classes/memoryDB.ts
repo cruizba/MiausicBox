@@ -6,6 +6,7 @@ import { Band } from "./Band";
 import { Event } from "./Event";
 import { Message } from "./Message";
 import {Track} from "./Track";
+import {Novelty} from "./Novelty";
 
 var description:string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.";
 var blog1:string = "Blog 1 de Muestra. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.";
@@ -89,3 +90,8 @@ export var messageList:Message[] = [
     new Message(userList[2], userList[3], "Mensaje de Soraya a Thais", "Contenido Mensaje de Soraya a Thais", new Date("April 24, 2016 18:20:12"), false),
     new Message(userList[3], userList[0], "Mensaje de Thais a Carlos", "Contenido Mensaje de Thais a Carlos", new Date("April 24, 2016 19:20:12"), false)
 ];
+
+export var noveltyList:Novelty[] = [
+    new Novelty(userList[0], bandList[0], new Date("April 25, 2016 12:20:57"), true),
+    new Novelty(userList[1], bandList[0], new Date("April 27, 2016 10:20:57"), false)
+]
