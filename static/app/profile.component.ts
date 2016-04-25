@@ -22,6 +22,7 @@ export class ArtistaComponent {
 
   isUserLogged: boolean;
   isArtist: boolean;
+  isFollowed: boolean;
   user: User;
   instruments: Instrument[] = [];
   instruments_url:string[] = [];
@@ -48,6 +49,7 @@ export class ArtistaComponent {
           this.instrumentsUser();
       }
       this.genres();
+      this.isFollowedBy();
   }
 
 
@@ -117,5 +119,23 @@ export class ArtistaComponent {
         );
     }
 
+    isFollowedBy() {
+      this._followService.isUserFollowedBy(Info.userLogged, this.user).subscribe(
+        (followed => this.isFollowed = followed),
+        (error => alert("isUserFollowedBy error"))
+      );
+    }
+
+    setFollow() {
+      this._followService.setFollow(Info.userLogged, this.user);
+      this.isFollowed = true;
+      this.numFollowers++;
+    }
+
+    setUnfollow() {
+      this._followService.setUnfollow(Info.userLogged, this.user);
+      this.isFollowed = false;
+      this.numFollowers--;
+    }
 
 }

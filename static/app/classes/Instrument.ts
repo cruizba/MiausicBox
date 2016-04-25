@@ -5,8 +5,8 @@
 export class Instrument{
 
   private _name:string;
-   private _image_url: string;
-    private _image_url_white: string;
+  private _image_url: string;
+  private _image_url_white: string;
 
   constructor(name:string, image_url: string, image_url_white:string){
     this._name = name;
