@@ -30,5 +30,49 @@ export class EventsComponent {
         })
     );
   }
+    
+    findEventsByName(name:String){
+        this.events = [];
+
+        if (0==name.length){
+            this._eventService.getAllEvent().subscribe(
+                (list => this.events = list),
+                (error => {
+                    this.events = null;
+                    alert("List events not found");
+                })
+            );
+        }else{
+            this._eventService.getEventsByName(name).subscribe(
+                list => this.events = list,
+                error =>{
+                    this.events = null;
+                    alert ("ERROR");
+                }
+            )
+        }
+    }
+    
+    findEventsByBand(name:String){
+        this.events = [];
+        if (0==name.length){
+            this._eventService.getAllEvent().subscribe(
+                (list => this.events = list),
+                (error => {
+                    this.events = null;
+                    alert("List events not found");
+                })
+            );
+        }else{
+            this._eventService.getEventsByBandName(name).subscribe(
+                list => this.events = list,
+                error =>{
+                    this.events = null;
+                    alert ("ERROR");
+                }
+            )
+        }
+        console.log(this.events);
+    }
 
 }
