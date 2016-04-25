@@ -8,7 +8,7 @@ import {FollowService} from "./services/follow.service";
 @Component ({
     selector: 'Event',
     templateUrl: 'templates/evento.html',
-    providers: [EventService, BandService, FollowService],
+    providers: [EventService, BandService],
     directives: [ROUTER_DIRECTIVES]
 })
 
@@ -19,14 +19,22 @@ export class EventComponent {
     members = [[]];
     numberFollows:number;
     followers=[];
+    isFollower:boolean;
+    isCreator:boolean;
 
     
-    constructor ( private _eventService:EventService, private _bandService:BandService,
-                  private _followService: FollowService, private _routerParams:RouteParams){}
+    constructor ( private _eventService:EventService, private _bandService:BandService, private _routerParams:RouteParams){}
 
     ngOnInit (){
         this.id = this._routerParams.get('id');
 
+        this.inizialitationEvent();
+        this.inizialitationIsFollower();
+        this.inizialitationIsCreator();
+        this.numberOfFollowers();
+    }
+
+    inizialitationEvent (){
         this._eventService.getEventByID(this.id).subscribe(
             event => this.event = event,
             error =>{
@@ -38,10 +46,27 @@ export class EventComponent {
         for (let i = 0; i < this.event.bands.length; i++){
             this.members.push(this.membersBand(i));
         }
-        
-        this.numberOfFollowers();
+    }
+    inizialitationIsFollower(){
+        this._eventService.getIsFollower(this.id).subscribe(
+            follow => this.isFollower = follow,
+            error=> {
+                this.isFollower=null;
+                alert("Error");
+            }
+        );
+
     }
 
+    inizialitationIsCreator(){
+        this._eventService.getIsCreator(this.id).subscribe(
+            creator => this.isCreator = creator,
+            error => {
+                this.isCreator = null;
+                alert ("Error");
+            }
+        );
+    }
     membersBand (i) {
         console.log("me meto en memberBand");
         var result = [];
@@ -62,6 +87,18 @@ export class EventComponent {
                     this.numberFollows = null;
                     alert("Error");
                 });
+    }
+    
+    unFollowEvent(){
+        this._eventService.unFollow(this.id);
+        this.isFollower = false;
+        this.numberOfFollowers();
+    }
+
+    followEvent(){
+        this._eventService.follow(this.id);
+        this.isFollower = true;
+        this.numberOfFollowers();
     }
     
 }
