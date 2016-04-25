@@ -78,4 +78,46 @@ export class FollowService{
         console.log(numFollowing);
         return withObserver(numFollowing);
     }
+
+    // <------------------ NEW ------------------>
+    /**
+     * Get if user follows other user
+     */
+    isUserFollowedBy(us_emisor, us_receptor) {
+        for (let i = 0; i < followsList.length; i++){
+            var follow = followsList[i];
+            if (follow.emisor.equals(us_emisor) &&
+                follow.receptor.equals(us_receptor)) {
+                return withObserver(true);
+            }
+        }
+        return withObserver(false);
+    }
+
+    /**
+     * Follow this user
+     */
+    setFollow(us_emisor, us_receptor) {
+      if (!this.isUserFollowedBy(us_emisor, us_receptor)) {
+          console.log("(service) Agregando follow " + us_emisor.name + " -> " + us_receptor.name);
+          followsList.push(new Follow(us_emisor, us_receptor));
+      }
+    }
+
+    /**
+     * Unfollow this user
+     */
+    setUnfollow(us_emisor, us_receptor) {
+        if (this.isUserFollowedBy(us_emisor, us_receptor)) {
+            for (let i = 0; i < followsList.length; i++){
+                var follow = followsList[i];
+                if (follow.emisor.equals(us_emisor) && follow.receptor.equals(us_receptor)) {
+                  console.log("(service) Eliminando follow " + us_emisor.name + " -> " + us_receptor.name);
+                  followsList.splice(i, 1);
+                  return;
+                }
+            }
+        }
+    }
+    // <------------------ END ------------------>
 }
