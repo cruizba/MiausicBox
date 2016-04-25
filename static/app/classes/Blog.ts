@@ -9,15 +9,13 @@ export class Blog {
   /* Attributes */
   protected _name:string;
   protected _image:string;
-  private _title:string;
   protected _text:string;
   protected _date:Date;
 
   /* Constructor */
-  constructor(name:string, image:string, title:string, text:string, date:Date) {
+  constructor(name:string, image:string, text:string, date:Date) {
     this._name = name;
     this._image = image;
-    this._image = title;
     this._text = text;
     this._date = date;
   }
@@ -39,10 +37,6 @@ export class Blog {
     return this._date;
   }
 
-  get title():string{
-    return this._title;
-  }
-
   set name(name:string) {
     this._name = name;
   }
@@ -57,10 +51,6 @@ export class Blog {
 
   set date(date:Date) {
     this._date = date;
-  }
-
-  set title(value:string){
-    this._title=value;
   }
 
   /** Return if an Blog is equal to other

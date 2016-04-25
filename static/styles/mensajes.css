@@ -9,7 +9,7 @@
 }
 
 .nav-tabs > li > a > h3 {
-    color: aliceblue;    
+    color: aliceblue;
 }
 
 .nav-tabs > li > a:hover {
@@ -19,7 +19,6 @@
 #writeButton {
     background-color: #00BC8C;
     color: aliceblue;
-    font-weight: bold;
 }
 
 #botonRedactar:hover {
@@ -74,12 +73,12 @@
 }
 
 #paginas {
-    padding-left: 2.5em;    
+    padding-left: 2.5em;
 }
 
 #paginas a {
     background-color: #00BC8C;
-    color:white;    
+    color:white;
 }
 
 #paginas a:hover{
@@ -93,6 +92,3 @@
 .activeMessage{
     background: #f5f5f5;
 }
-
-
-
