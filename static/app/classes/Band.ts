@@ -10,9 +10,10 @@ export class Band{
   private _youtube: string;
   private _members: User[];
   private _followers: User[];
+  private _genres:number[] = [];
 
   constructor(administrador:User, groupName:string, city:string, web:string, facebook:string,
-              twitter:string, youtube:string, members:User[], followers:User[]){
+              twitter:string, youtube:string, members:User[], followers:User[], genres:number[]){
     this._administrador = administrador;
     this._groupName = groupName;
     this._city = city;
@@ -22,6 +23,7 @@ export class Band{
     this._youtube = youtube;
     this._members = members;
     this._followers = followers;
+    this._genres = genres;
   };
 
   public get administrador():User{
