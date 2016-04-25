@@ -25,4 +25,15 @@ export class BandService {
     return withObserver(bandList[id]);
   }
 
+  getBandByName(username) {
+      var result = [];
+      for (let i = 0; i < bandList.length; i++) {
+          if (bandList[i].groupName == username) {
+              result.push({"bandId": bandList.indexOf(bandList[i]), "bandObj": bandList[i]});
+              break;
+          }
+      }
+      console.log(result);
+      return withObserver(result);
+  }
 }

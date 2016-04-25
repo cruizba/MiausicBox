@@ -24,6 +24,7 @@ export class MessagesComponent {
   messagesShowed = [];
 
   actualMessage;
+  actualUserMessage;
 
   constructor(private _routeParams: RouteParams, private _messageService: MessageService){
 
@@ -31,16 +32,8 @@ export class MessagesComponent {
 
   ngOnInit(){
     this.id = this._routeParams.get('id');
-    
-    this._messageService.getSendedMessagesById(this.id).subscribe(
-        (sendedMessages => this.sendedMessages = sendedMessages),
-        (error => alert("error sended messages"))
-    );
 
-    this._messageService.getReceivedMessages(this.id).subscribe(
-        (receivedMessages => this.receivedMessages = receivedMessages),
-        (error => alert("error received messages"))
-    );
+    this.updateData();
     this._messageService.getNumNonRead(this.id).subscribe(
           (num => this.nonReadMessages = num),
           (error => alert("Error non read messages"))
@@ -49,9 +42,7 @@ export class MessagesComponent {
     this.receivedOption = true;
     this.updateMessages();
 
-    if(this.messagesShowed.length > 0){
-      this.actualMessage = this.messagesShowed[0];
-    }
+
 
     $("#receivedButton").click();
   }
@@ -77,11 +68,40 @@ export class MessagesComponent {
 
   clickOnMessage(mes){
     this.actualMessage = mes;
+    this.actualUserMessage = mes.message.sender.userName;
+    console.log(this.actualUserMessage);
     if(!mes.message.read && mes.message.destiny.equals(Info.userLogged)){
         this.nonReadMessages--;
         this._messageService.setRead(this.id, mes.message);
         //Don't substract if you are de receptor
     }
   }
+
+
+
+  sendMessage(userName:string,subject:string ,message:string){
+    this._messageService.sendMessage(userName, subject, new Date, message);
+    this.updateData();
+    this.updateMessages()
+  }
+
+  deleteMessage(){
+    this._messageService.deleteMessage(this.actualMessage.message);
+    this.updateData();
+    this.updateMessages()
+  }
+
+  updateData(){
+    this._messageService.getSendedMessagesById(this.id).subscribe(
+        (sendedMessages => this.sendedMessages = sendedMessages),
+        (error => alert("error sended messages"))
+    );
+
+    this._messageService.getReceivedMessages(this.id).subscribe(
+        (receivedMessages => this.receivedMessages = receivedMessages),
+        (error => alert("error received messages"))
+    );
+  }
+
 
 }
