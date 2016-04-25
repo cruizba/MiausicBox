@@ -10,6 +10,7 @@ import {FollowService} from "./services/follow.service";
 import {MessageService} from "./services/message.service";
 import { BlogUser } from "./classes/BlogUser";
 import { BlogService } from "./services/blog.service"
+import {blogUserList} from "./classes/memoryDB";
 
 @Component({
   selector: 'artista',
@@ -39,7 +40,7 @@ export class ArtistaComponent {
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
-                private _blogService: BlogService){
+                private _blogUserList:BlogService, private _blogService: BlogService){
   }
 
   ngOnInit() {
@@ -139,5 +140,14 @@ export class ArtistaComponent {
       this.numFollowers--;
     }
     
+    submitBlog(title, img, text){
+        var user: User=Info.userLogged;
+        this._blogService.addBlogUsser(title, img, text, new Date, user);
+        console.log(blogUserList);
+        this._blogService.getBlogsByUser(this.user).subscribe(
+            blogList => this.blogList = blogList
+        )
+
+    }
 
 }
