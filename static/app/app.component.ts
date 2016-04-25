@@ -11,6 +11,7 @@ import { ArtistaComponent } from './profile.component';
 import { MessagesComponent } from './messages.component';
 import { EventsComponent } from './events.component';
 import { EventComponent } from './event.component';
+import { FollowersEvent } from './followersEvent.component';
 import { ListArtistComponent } from './list-artist.component'
 import { ListBandsComponent } from './list-bands.component'
 
@@ -84,6 +85,11 @@ import {FollowersComponent} from "./followers.component";
         component: EventComponent
     },
     {
+        path: '/followersEvent/:id',
+        name: 'FollowersEvent',
+        component: FollowersEvent
+    },
+    {
       path: '/listArtist',
       name: 'ListArtist',
       component: ListArtistComponent
@@ -101,7 +107,7 @@ import {FollowersComponent} from "./followers.component";
     {
         path: '/followers/:id',
         name: 'Followers',
-        component: FollowersComponent
+        component: FollowersComponent,
     }
 ])
 

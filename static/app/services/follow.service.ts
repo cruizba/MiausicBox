@@ -1,6 +1,6 @@
 import {Injectable} from "angular2/core";
 import {User} from "../classes/User";
-import {followsList, userList} from "../classes/memoryDB"
+import {followsList, userList, eventList} from "../classes/memoryDB"
 import {Follow} from "../classes/Follow";
 import {withObserver} from "../classes/Utils";
 

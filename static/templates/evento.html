@@ -10,11 +10,13 @@
                 <div class="col-md-4" id="profile_details">
                     <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
                     <h1>{{event.name}}</h1>
-
+                    <p>
+                        <a class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                    </p>
                     <!-- Información General -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Direccion</h3>
+                            <h3 class="panel-title">Información</h3>
                         </div>
                         <div class="panel-body">
                             <table class="table" id="Informacion">
@@ -53,6 +55,10 @@
                                     <tr>
                                         <td>Dirección</td>
                                         <td>{{event.direction}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numberFollows}}</span></a>
+                                       </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -113,6 +119,7 @@
                         </div>
                     </div>
                     <!-- Fin bandas del evento -->
+
                     <!-- Localizacion del evento -->
                     <!--<div class="panel panel-default">
                         <div class="panel-head">
