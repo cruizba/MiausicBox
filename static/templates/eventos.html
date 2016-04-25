@@ -20,9 +20,9 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Nombre del Evento:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre del artista">
+                                    <input #findName type="text" class="form-control" placeholder="Nombre del evento">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByName(findName.value); findName.value=null">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
@@ -32,9 +32,9 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Banda:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <input #findBand type="text" class="form-control" placeholder="Nombre de la banda">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByBand(findBand.value); findBand.value=null">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
