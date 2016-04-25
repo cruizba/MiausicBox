@@ -39,7 +39,7 @@
                           <tr>
                               <td>Web
                               </td>
-                              <td><a href="#" class="enlaceInfo">www.exampleweb.com</a>
+                              <td><a href="#" class="enlaceInfo">{{band.web}}</a>
                               </td>
                               <td>
                                   <button type="button" class="btn btn-default" aria-label="Left Align">
@@ -230,7 +230,7 @@
             <!-- Fin Boton Añadir Blog -->
 
             <!-- Blog banda -->
-            <div *ngFor="#blog of blogBandList" class="panel panel-default">
+            <div *ngFor="#blog of blogList" class="panel panel-default">
                 <div class="panel-head">
                     <h3 class="content-panel">{{blog.name}}</h3>
                 </div>

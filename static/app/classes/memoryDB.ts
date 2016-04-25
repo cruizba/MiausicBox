@@ -6,16 +6,9 @@ import { Band } from "./Band";
 import { Event } from "./Event";
 import { Message } from "./Message";
 
-
 var description:string = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.";
 var blog1:string = "Blog 1 de Muestra. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.";
 var blog2:string = "Blog 2 de Muestra. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.";
-var banda1:User[] = [userList[0], userList[2]];
-var banda2:User[] = [userList[1], userList[2]];
-var banda3:User[] = [userList[1], userList[3]];
-var followers1:User[] = [userList[1], userList[3]];
-var followers2:User[] = [userList[3]];
-var followers3:User[] = [userList[0], userList[2]];
 
 export var userList:User[] = [
   new User("DarwinTB", "1234", "Carlos Ruiz Ballesteros", description, true, "Fuenlabrada, Madrid","","","", [1,2,3,4], [0], []),
@@ -35,10 +28,17 @@ export var blogUserList:BlogUser[] = [
   new BlogUser("Blog #2", "../img/img2.jpg",  blog2, new Date("March 15, 2016 12:20:57"), userList[3])
 ];
 
+var banda1:User[] = [userList[0], userList[2]];
+var banda2:User[] = [userList[1], userList[2]];
+var banda3:User[] = [userList[1], userList[3]];
+var followers1:User[] = [userList[1], userList[3]];
+var followers2:User[] = [userList[3]];
+var followers3:User[] = [userList[0], userList[2]];
+
 export var bandList:Band[] = [
-    new Band (userList[3],"Arctic Monkeys", "Sevilla", "www.arcticmonkeys.com", "", "", "", banda1, followers1),
-    new Band (userList[3], "Strokes", "Toledo", "www.thestrokes.com", "", "", "", banda2, followers2),
-    new Band (userList[3], "Flower Power", "Parla", "", "", "","", banda3, followers3)
+    new Band (userList[3],"Arctic Monkeys", "Sevilla", "www.arcticmonkeys.com", "", "", "", banda1, followers1, [1,2]),
+    new Band (userList[3], "Strokes", "Toledo", "www.thestrokes.com", "", "", "", banda2, followers2, [0,3]),
+    new Band (userList[3], "Flower Power", "Parla", "", "", "","", banda3, followers3, [0,1,3])
 ];
 
 export var blogBandList:BlogBand[] = [
