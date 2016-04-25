@@ -41,47 +41,7 @@
                             </div>
                             <!-- /.col-lg-6 -->
 
-                            <h4 id="OpcionesInstrumentos">Instrumentos:</h4>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Voz <img src="../img/instrumentoVozN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Guitarra <img src="../img/instrumentoGuitarN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Bajo <img src="../img/instrumentoBajoN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Bateria <img src="../img/instrumentoBateriaN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Piano <img src="../img/instrumentoPianoN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxInstrumentos">
-                                    <input type="checkbox">Violin <img src="../img/instrumentoViolinN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxInstrumentos">
-                                    <input type="checkbox">Trompeta <img src="../img/instrumentoTrompetaN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxInstrumentos">
-                                    <input type="checkbox">Otros <img src="../img/instrumentoOtroN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -119,8 +79,9 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        <!-- <li *ngFor="#b of us.userObj.band">{{b}}</li> -->
-                                        Hola
+                                       <a *ngFor="#band of bands[i]" [routerLink]="['Band', {id: id}]" >
+                                           <li>{{band.bandObj.groupName}}</li>
+                                       </a>
                                     </ul>
                                 </td>
 
