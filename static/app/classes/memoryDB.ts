@@ -83,5 +83,4 @@ export var messageList:Message[] = [
     new Message(userList[2], userList[1], "Mensaje de Soraya a Luis", "Contenido Mensaje de Soraya a Luis", new Date("April 24, 2016 17:20:57"), false),
     new Message(userList[2], userList[3], "Mensaje de Soraya a Thais", "Contenido Mensaje de Soraya a Thais", new Date("April 24, 2016 18:20:12"), false),
     new Message(userList[3], userList[0], "Mensaje de Thais a Carlos", "Contenido Mensaje de Thais a Carlos", new Date("April 24, 2016 19:20:12"), false)
-
 ];

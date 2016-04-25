@@ -8,7 +8,7 @@ import {FollowService} from "./services/follow.service";
 @Component ({
     selector: 'Event',
     templateUrl: 'templates/evento.html',
-    providers: [EventService, BandService, FollowService],
+    providers: [EventService, BandService],
     directives: [ROUTER_DIRECTIVES]
 })
 
@@ -20,18 +20,17 @@ export class EventComponent {
     numberFollows:number;
     followers=[];
     isFollower:boolean;
+    isCreator:boolean;
 
     
-    constructor ( private _eventService:EventService, private _bandService:BandService,
-                  private _followService: FollowService, private _routerParams:RouteParams){}
+    constructor ( private _eventService:EventService, private _bandService:BandService, private _routerParams:RouteParams){}
 
     ngOnInit (){
         this.id = this._routerParams.get('id');
 
         this.inizialitationEvent();
-        this.inizialitationIsFollower()
-        console.log("Valor isFollower");
-        console.log(this.isFollower);
+        this.inizialitationIsFollower();
+        this.inizialitationIsCreator();
         this.numberOfFollowers();
     }
 
@@ -55,10 +54,19 @@ export class EventComponent {
                 this.isFollower=null;
                 alert("Error");
             }
-        )
+        );
 
     }
 
+    inizialitationIsCreator(){
+        this._eventService.getIsCreator(this.id).subscribe(
+            creator => this.isCreator = creator,
+            error => {
+                this.isCreator = null;
+                alert ("Error");
+            }
+        );
+    }
     membersBand (i) {
         console.log("me meto en memberBand");
         var result = [];
@@ -79,6 +87,18 @@ export class EventComponent {
                     this.numberFollows = null;
                     alert("Error");
                 });
+    }
+    
+    unFollowEvent(){
+        this._eventService.unFollow(this.id);
+        this.isFollower = false;
+        this.numberOfFollowers();
+    }
+
+    followEvent(){
+        this._eventService.follow(this.id);
+        this.isFollower = true;
+        this.numberOfFollowers();
     }
     
 }

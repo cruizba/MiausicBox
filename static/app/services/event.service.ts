@@ -64,12 +64,33 @@ export class EventService {
     getIsFollower (id){
         var isFollower = false;
         var followers = eventList[id].followers;
-        for (let i = 0; i < followers.length; i++){
-            if(Info.userLogged.equals(followers[i])){
-                isFollower=true;
+        for (let i = 0; i < followers.length; i++) {
+            if (Info.userLogged.equals(followers[i])) {
+                isFollower = true;
             }
         }
-        console.log(isFollower);
         return withObserver(isFollower);
+    }
+    
+    unFollow (id){
+        
+        for(let i = 0; i < eventList[id].followers.length; i++){
+            if(eventList[id].followers[i].equals(Info.userLogged)){
+                eventList[id].followers.splice(i, 1);
+            }
+        }
+        console.log(eventList[id].followers);
+    }
+    
+    follow (id){
+        eventList[id].followers.push(Info.userLogged);
+    }
+    
+    getIsCreator(id){
+        var isCreator = false;
+        if (eventList[id].creator.equals(Info.userLogged)){
+            isCreator = true;
+        }
+        return withObserver (isCreator);
     }
 }
