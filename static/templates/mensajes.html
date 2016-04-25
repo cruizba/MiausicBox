@@ -50,8 +50,8 @@
                                           <div class="col-md-8">
                                               <div class="panel panel-default">
                                                   <div class="panel-heading">
-                                                      <a id="answerButton" data-toggle="modal" data-target="#answerMessage"><span class="glyphicon glyphicon-arrow-left" id="responder"></span></a>
-                                                      <span class="glyphicon glyphicon-trash" id="eliminar"></span>
+                                                      <a *ngIf="receivedOption" id="answerButton" data-toggle="modal" data-target="#answerMessage"><span class="glyphicon glyphicon-arrow-left" id="responder"></span></a>
+                                                      <span class="glyphicon glyphicon-trash" id="eliminar" (click)="deleteMessage()"></span>
                                                   </div>
                                                   <div *ngIf="actualMessage" class="panel-body" id="correo" data-spy="scroll">
                                                     <h4 class="list-group-item-heading" id="origencorreo">{{actualMessage.message.subject}}</h4>
@@ -82,19 +82,25 @@
                      <div class="panel-body">
                           <form class="form-horizontal" role="form">
                               <div class="form-group">
-                                  <label class="formLabel control-label col-sm-2" for="ipara">To:</label>
+                                  <label class="formLabel control-label col-sm-2">To:</label>
                                   <div class="col-sm-10">
-                                      <input type="text" class="form-control" id="para" placeholder="destinatario">
+                                      <input #userName type="text" class="form-control" placeholder="destinatario">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="formLabel control-label col-sm-2">Asunto:</label>
+                                  <div class="col-sm-10">
+                                      <input #subject type="text" class="form-control" placeholder="Asunto">
                                   </div>
                               </div>
                                <div class="form-group">
-                                  <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
+                                  <label class="formLabel control-label col-sm-2">Mensaje</label>
                                   <div class="col-sm-10">
-                                      <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
+                                      <textarea #message class="form-control" rows="5" placeholder=""></textarea>
                                   </div>
                               </div>
                               <div class="BotonFormulario">
-                                  <button type="submit" class="btn btn-default">Enviar</button>
+                                  <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="sendMessage(userName.value,subject.value,message.value)">Enviar</button>
                               </div>
                          </form>
                      </div>
@@ -116,14 +122,20 @@
                      </div>
                      <div class="panel-body">
                           <form class="form-horizontal" role="form">
-                               <div class="form-group">
-                                  <label class="formLabel control-label col-sm-2" for="texto">Mensaje</label>
+                              <div class="form-group">
+                                  <label class="formLabel control-label col-sm-2">Asunto:</label>
                                   <div class="col-sm-10">
-                                      <textarea class="form-control" rows="5" id="texto" placeholder=""></textarea>
+                                      <input #subject2 type="text" class="form-control" placeholder="Asunto">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <label class="formLabel control-label col-sm-2">Mensaje</label>
+                                  <div class="col-sm-10">
+                                      <textarea #message2 class="form-control" rows="5" placeholder=""></textarea>
                                   </div>
                               </div>
                               <div class="BotonFormulario">
-                                  <button type="submit" class="btn btn-default">Enviar</button>
+                                  <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="sendMessage(actualUserMessage,subject2.value,message2.value)">Enviar</button>
                               </div>
                          </form>
                      </div>

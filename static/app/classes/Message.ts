@@ -87,7 +87,7 @@ export class Message {
       var message:Message = object;
       return (message.sender.equals(this.sender) &&
               message.destiny.equals(this.destiny) &&
-              message.date == this.date);
+              message.message == this.message);
     }
   }
 
