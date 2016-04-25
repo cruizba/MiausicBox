@@ -116,24 +116,20 @@
                         </thead>
 
                         <tbody>
-                            <tr *ngFor="#ba of bands">
+                            <tr *ngFor="#ba of bands; #i = index">
                                 <td>
-                                    <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
+                                    <a  class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
                                 </td>
-                                <td><a href="banda.html" class="enlaceListaBanda">{{ba.groupName}}</a></td>
+                                <td><a [routerLink]="['Band', {id: ba.bandId}]" class="enlaceListaBanda">{{ba.bandObj.groupName}}</a></td>
                                 <td>
-                                    <!--<ul>
-                                        <li><a href="#" class="enlacePerfilArtista">Alex Turner</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Matt Helders</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Jaime Cook</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Nick O'Malley</a></li>
-                                    </ul>-->
+                                    <ul>
+                                        <li *ngFor="#mem of members[i]" ><a [routerLink]="['Artist',  {id: mem.id}]" class="enlacePerfilArtista">{{mem.user.userName}}</a></li>
+                                    </ul>
                                 </td>
                                 <td>
-                                    <!--<ul>
-                                        <li>Indie</li>
-                                        <li>Rock</li>
-                                    </ul>-->
+                                    <ul>
+                                        <li *ngFor="#gen of genres[i]">{{gen.name}}</li>
+                                    </ul>
                                 </td>
                             </tr>
                         </tbody>

@@ -37,9 +37,9 @@ export var blogUserList:BlogUser[] = [
 ];
 
 export var bandList:Band[] = [
-    new Band (userList[3],"Arctic Monkeys", "Sevilla", "www.arcticmonkeys.com", "", "", "", banda1, followers1),
-    new Band (userList[3], "Strokes", "Toledo", "www.thestrokes.com", "", "", "", banda2, followers2),
-    new Band (userList[3], "Flower Power", "Parla", "", "", "","", banda3, followers3)
+    new Band (userList[3],"Arctic Monkeys", "Sevilla", "www.arcticmonkeys.com", "", "", "", banda1, followers1, [0, 8]),
+    new Band (userList[3], "Strokes", "Toledo", "www.thestrokes.com", "", "", "", banda2, followers2, [0]),
+    new Band (userList[3], "Flower Power", "Parla", "", "", "","", banda3, followers3, [1])
 ];
 
 export var blogBandList:BlogBand[] = [
