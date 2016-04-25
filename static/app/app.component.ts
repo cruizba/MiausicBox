@@ -1,3 +1,4 @@
+import {BandComponent} from "./band.component";
 import {Component, OnInit} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router } from 'angular2/router';
 
@@ -9,6 +10,7 @@ import { PrincipalComponent } from './principal.component';
 import { ArtistaComponent } from './profile.component';
 import { MessagesComponent } from './messages.component';
 import { EventsComponent } from './events.component';
+import { EventComponent } from './event.component';
 import { ListArtistComponent } from './list-artist.component'
 import { ListBandsComponent } from './list-bands.component'
 
@@ -16,8 +18,8 @@ import { ListBandsComponent } from './list-bands.component'
 //import { UserService } from './services/user.service';
 
 // Classes
-import { Instrument } from './classes/Instrument';
-import { User } from './classes/User';
+import {FollowingComponent} from "./following.component";
+import {FollowersComponent} from "./followers.component";
 
 
 
@@ -62,7 +64,12 @@ import { User } from './classes/User';
       component: ArtistaComponent
     },
     {
-      path: '/messages',
+      path: '/band/:id',
+      name: 'Band',
+      component: BandComponent
+    },
+    {
+      path: '/messages/:id',
       name: 'Messages',
       component: MessagesComponent
     },
@@ -70,6 +77,11 @@ import { User } from './classes/User';
       path: '/events',
       name: 'Events',
       component: EventsComponent
+    },
+    {
+        path: '/event/:id',
+        name: 'Event',
+        component: EventComponent
     },
     {
       path: '/listArtist',
@@ -80,6 +92,16 @@ import { User } from './classes/User';
       path: '/listBands',
       name: 'ListBands',
       component: ListBandsComponent
+    },
+    {
+        path: '/following/:id',
+        name: 'Following',
+        component: FollowingComponent
+    },
+    {
+        path: '/followers/:id',
+        name: 'Followers',
+        component: FollowersComponent
     }
 ])
 

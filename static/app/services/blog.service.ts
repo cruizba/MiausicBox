@@ -17,8 +17,8 @@ export class BlogService {
   getBlogsByUser(user:User){
     var result:BlogUser[] = [];
     for(let i = 0; i < blogUserList.length;i++) {
-      if (blogUserList[i].author == user) {
-        result.push(blogUserList[i])
+      if (blogUserList[i].author.equals(user)){
+        result.push(blogUserList[i]);
       }
     }
     result.sort(function(a,b) {
@@ -30,7 +30,7 @@ export class BlogService {
   getBlogsByBand(band:Band){
     var result:BlogBand[] = [];
     for(let i = 0; i < blogBandList.length;i++) {
-      if (blogBandList[i].author == band) {
+      if (blogBandList[i].author.equals(band)) {
         result.push(blogBandList[i])
       }
     }
@@ -41,7 +41,6 @@ export class BlogService {
   }
 
   getAllBlogsRelatedToUser(){
-    
   }
 
 }

@@ -18,7 +18,7 @@ export class Follow {
 
   /* Getters & Setters */
   get emisor():User {
-    return this.emisor;
+    return this._emisor;
   }
 
   get receptor():User {

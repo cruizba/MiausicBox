@@ -1,19 +1,21 @@
 import { Component, OnInit } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
-import { RouteParams } from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Info} from "./classes/Info";
 import {Instrument} from "./classes/Instrument";
 import {IntrumentList} from "./classes/InstrumentList";
 import {GenreList} from "./classes/GenreList";
-import {BlogService} from "./services/blog.service";
-import {BlogUser} from "./classes/BlogUser";
-
+import {FollowService} from "./services/follow.service";
+import {MessageService} from "./services/message.service";
+import { BlogUser } from "./classes/BlogUser";
+import { BlogService } from "./services/blog.service"
 
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
-  providers: [UserService,BlogService]
+  providers: [UserService, FollowService, MessageService, BlogService],
+  directives: [ROUTER_DIRECTIVES]
 })
 
 export class ArtistaComponent {
@@ -25,9 +27,18 @@ export class ArtistaComponent {
   instruments_url:string[] = [];
   genresUser:string[] = [];
   id;
-  blogs:BlogUser[] = [];
+  blogList:BlogUser[] = [];
 
-  constructor(private _routeParams: RouteParams, private _userService: UserService, private _blogService: BlogService){
+  //Follows variables
+  numFollowing:number;
+  numFollowers:number;
+
+  //Notification
+  numMessages:number;
+
+  constructor(private _routeParams: RouteParams, private _userService: UserService,
+                private _followService: FollowService, private _messageService: MessageService,
+                private _blogService: BlogService){
   }
 
   ngOnInit() {
@@ -55,9 +66,15 @@ export class ArtistaComponent {
         //Check if is an artist
         this.isArtist = this.user.isArtist;
 
-        //Get user blogs
+        this.updateFollows();
+
+        this._messageService.getNumNonRead(Info.userId).subscribe(
+            (num => this.numMessages = num),
+            (error => alert("Error notifications"))
+        )
+
         this._blogService.getBlogsByUser(this.user).subscribe(
-            blogs => this.blogs = blogs
+          blogList => this.blogList = blogList
         )
     }
 
@@ -88,5 +105,17 @@ export class ArtistaComponent {
         console.log("Entro en click");
       window.open(this.user.twitter);
     }
+
+    updateFollows(){
+        this._followService.getNumFollowersById(this.id).subscribe(
+            (followers => this.numFollowers = followers),
+            (error => alert("numFollowers error"))
+        )
+        this._followService.getNumFollowingByID(this.id).subscribe(
+            (followings => this.numFollowing = followings),
+            (error => alert("numFollowings error"))
+        );
+    }
+
 
 }
