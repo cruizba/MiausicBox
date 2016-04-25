@@ -1,4 +1,4 @@
-import {userList, blogUserList, blogBandList} from '../classes/memoryDB';
+import {userList, blogUserList, blogBandList, followsList} from '../classes/memoryDB';
 import { Injectable } from 'angular2/core';
 import { User } from '../classes/User'
 //Observer simulation
@@ -6,6 +6,7 @@ import { withObserver } from '../classes/Utils';
 import {Band} from "../classes/Band";
 import {BlogUser} from "../classes/BlogUser";
 import {BlogBand} from "../classes/BlogBand";
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class BlogService {
@@ -38,9 +39,6 @@ export class BlogService {
       return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
     });
     return withObserver(result);
-  }
-
-  getAllBlogsRelatedToUser(){
   }
 
 }
