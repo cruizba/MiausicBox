@@ -7,3 +7,4 @@ static/npm-debug.log
 .idea/PracticaDAW.iml
 .idea/vcs.xml
 .idea/workspace.xml
+static/.idea/modules.xml
