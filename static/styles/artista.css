@@ -110,6 +110,7 @@
     text-decoration: none;
 }
 
+
 #AutorBlog a:hover {
     color: #00BC8C;
 }
@@ -129,4 +130,9 @@
 
 #FechaBlog {
     text-align: right;
+}
+
+#followButton {
+    background-color: #00BC8C;
+    color: aliceblue;
 }

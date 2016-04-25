@@ -4,10 +4,17 @@
                 <!-- Información del perfil -->
                 <div class="col-md-4" id="profile_details">
                     <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
-                        <h1>{{user.userName}}</h1>
-                        <div class="alert alert-dismissible alert-success">
-                            <button type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove"></span></button>
-                                Notificación.
+                        <h1>{{user.completeName}}</h1>
+                        <h2>{{user.userName}} </h2>
+                        <p>
+                            <a *ngIf="(!isUserLogged && !isFollowed)" (click)="setFollow()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                            <a *ngIf="(!isUserLogged && isFollowed)" (click)="setUnfollow()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus-signtel"></span></a>
+                            <a [routerLink]="['Followers', {id: id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollowers}}</span></a>
+                            <a [routerLink]="['Following', {id: id}]" class="btn btn-default btn-lg"  id="followButton">Seguidos <span class="badge">{{numFollowing}}</span></a>
+                        </p>
+                        <div *ngIf="numMessages > 0" class="alert alert-dismissible alert-success">
+                            <button [routerLink]="['Messages', {id: id}]" type="button" class="close" data-dismiss="alert"><span class="glyphicon glyphicon-remove"></span></button>
+                                Tienes un total de {{numMessages}} sin leer.
                         </div>
                     <!-- Información general -->
                     <div class="panel panel-default profile-info">
@@ -21,13 +28,10 @@
                                         <td>Géneros
                                         </td>
                                         <td>
-                                            <a href="#" class="enlaceInfo">Indie
-                                            </a>
-                                            <a href="#" class="enlaceInfo">Rock
-                                            </a>
+                                            <span *ngFor="#genre of genresUser">{{genre + ", "}}</span>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
                                         </td>
@@ -35,23 +39,22 @@
                                     <tr>
                                         <td>Ciudad
                                         </td>
-                                        <td>Alcorcón, Madrid
+                                        <td>{{user.city}}
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr *ngIf="isArtist">
                                         <td>Instrumentos
                                         </td>
                                         <td>
-                                            <img src="../img/instrumentoBajoN.png" alt="Profile image" id="ImagenInstrumento">
-                                            <img src="../img/instrumentoPianoN.png" alt="Profile image" id="ImagenInstrumento">
+                                            <img *ngFor="#image_url of instruments_url" src="{{image_url}}" alt="Profile image" id="ImagenInstrumento">
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-default" aria-label="Left Align">
+                                            <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
                                         </td>
@@ -62,11 +65,11 @@
                                 <tr>
                                     <td>
                                         <a class="btn btn-block btn-social btn-facebook">
-                                            <span class="fa fa-facebook"></span>Follow in Facebook
+                                            <span class="fa fa-facebook"></span>Follow in Facebook <div>{{user.facebook}}</div>
                                         </a>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                        <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
                                     </td>
@@ -74,11 +77,11 @@
                                 <tr>
                                     <td>
                                         <a class="btn btn-block btn-social btn-twitter">
-                                            <span class="fa fa-twitter"></span>Follow in Twitter
+                                            <span></span><a (click)="goToURL()">Follow in Twitter </a>
                                         </a>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                        <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
                                     </td>
@@ -86,11 +89,11 @@
                                 <tr>
                                     <td>
                                         <a class="btn btn-block btn-social btn-pinterest">
-                                            <span class="fa fa-youtube"></span>Follow in Youtube
+                                            <span class="fa fa-youtube"></span>Follow in Youtube <div>{{user.youtube}}</div>
                                         </a>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                        <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
                                     </td>
@@ -171,7 +174,7 @@
                         <div class="panel-body" id="Descripcion">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
+                                    <p class="content-panel">{{user.description}}</p>
                                 </div>
                             </div>
                         </div>
@@ -194,46 +197,23 @@
                     <!-- Fin Boton Añadir Blog -->
 
                     <!-- Blog banda -->
-                    <div class="panel panel-default">
+                    <div *ngFor="#blog of blogList" class="panel panel-default">
                         <div class="panel-head">
-                            <h3 class="content-panel">Blog #1</h3>
+                            <h3 class="content-panel">{{blog.name}}</h3>
                         </div>
                         <div class="panel-body" id="BlogDescripcion">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <img class="image-blog img-responsive img-rounded" src="../img/muestra3.jpg" alt="Profile image">
-                                    <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
+                                    <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image">
+                                    <p class="content-panel">{{blog.text}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
-                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Artista</a></div>
-                                <div class="col-md-4 col-xs-4" id="BandaBlog"><a href="#">Arctic Monkets</a></div>
-                                <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Fin Blog banda -->
-
-                    <!-- Blog banda -->
-                    <div class="panel panel-default">
-                        <div class="panel-head">
-                            <h3 class="content-panel">Blog #2</h3>
-                        </div>
-                        <div class="panel-body" id="BlogDescripcion">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <img class="image-blog img-responsive img-rounded" src="../img/muestra2.jpg" alt="Profile image">
-                                    <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer" id="BlogFooter">
-                            <div class="row">
-                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Artista</a></div>
-                                <div class="col-md-4 col-xs-4" id="BandaBlog"><a href="#">Arctic Monkets</a></div>
-                                <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Autor</a></div>
+                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">{{blog.author.completeName}}</a></div>
+                                <div class="col-md-4 col-xs-4" id="FechaBlog">{{blog.date.getDay()}}/{{blog.date.getMonth()}}/{{blog.date.getFullYear()}}</div>
                             </div>
                         </div>
                     </div>
@@ -302,7 +282,7 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label class="formLabel control-label col-sm-2" for="desripcionBanda">Descripción</label>
+                              <label class="formLabel control-label col-sm-2" for="descripcionBanda">Descripción</label>
                               <div class="col-sm-10">
                                       <textarea class="form-control" rows="5" id="descripcionBanda" placeholder=""></textarea>
                               </div>

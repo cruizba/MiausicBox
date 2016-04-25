@@ -6,19 +6,23 @@ import { User } from './User';
 
 export class Message {
 
+
   /* Attributes */
   private _sender:User;
   private _destiny:User;
+  private _subject: string;
   private _message:string;
   private _date:Date;
-  private _instrument:string;
+  private _read:boolean;
 
   /* Constructor */
-  constructor(sender:User, destiny:User, message:string, date:Date, instrument:string) {
+  constructor(sender:User, destiny:User, subject:string, message:string, date:Date, read:boolean) {
     this._sender = sender;
-    this._destiny = sender;
+    this._destiny = destiny;
+    this._subject = subject;
+    this._message = message;
     this._date = date;
-    this._instrument = instrument;
+    this._read = read;
   }
 
   /* Getters & Setters */
@@ -30,16 +34,21 @@ export class Message {
     return this._destiny;
   }
 
+  get subject():string{
+    return this._subject;
+  }
+
+
   get message():string {
     return this._message;
   }
 
-  get dte():Date {
+  get date():Date {
     return this._date;
   }
 
-  get instrument():string {
-    return this.instrument;
+  get read():boolean{
+    return this._read;
   }
 
   set sender(sender:User) {
@@ -50,6 +59,10 @@ export class Message {
     this._destiny = destiny;
   }
 
+  set subject(value:string){
+    this._subject=value;
+  }
+
   set message(message:string) {
     this._message = message;
   }
@@ -58,8 +71,8 @@ export class Message {
     this._date = date;
   }
 
-  set instrument(instrument:string) {
-    this._instrument = instrument;
+  set read(value:boolean){
+    this._read=value;
   }
 
   /** Return if an Message is equal to other

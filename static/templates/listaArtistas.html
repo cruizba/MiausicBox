@@ -20,9 +20,9 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Nombre:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre del artista">
+                                    <input #findName type="text" class="form-control" >
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findByName(findName.value); findName.value=' '"  >Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
@@ -32,7 +32,7 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Banda:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <input type="text" class="form-control" >
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
                                     </span>
@@ -95,69 +95,35 @@
                             <tr>
                                 <th id="esquinaTablaArtista1">Perfil</th>
                                 <th>Nombre </th>
+                                <th>Es Artista</th>
                                 <th>Instrumentos</th>
                                 <th id="esquinaTablaArtista2">Bandas</th>
+
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Alex Turner</a></td>
+
+
+                            <tr *ngFor="#us of userList; #i = index">
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista">{{us.userObj.userName}}</a></td>
+
+                                <td>
+                                    <div *ngIf="us.userObj.isArtist">Si</div>
+                                </td>
                                 <td>
                                     <ul>
-                                        <li>Voz <img src="../img/instrumentoVozB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                        <li>Piano <img src="../img/instrumentoPianoB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                        <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol"></li>
+                                        <li *ngFor="#ins of instruments[i].listaInst" > <img src="{{ins.image_url_white}}" alt="Profile image" id="ImagenInstrumento"/> {{ins.name}} </li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        <li>Arctic Monkeys</li>
+                                        <!-- <li *ngFor="#b of us.userObj.band">{{b}}</li> -->
+                                        Hola
                                     </ul>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Jaime Cookr</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Nick O'Malley</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Bajo <img src="../img/instrumentoBajoB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Matt Heldersr</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Bateria <img src="../img/instrumentoBateriaB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
+
                             </tr>
                         </tbody>
                     </table>

@@ -4,6 +4,7 @@
     /----------------------/
 */
 
+
 /* navbar */
 .navbar-default {
     background-color: #00BC8C;
@@ -197,14 +198,20 @@ no tape un trozo de la página */
     margin-right:10px;
 }
 
+.ubicacion {
+    list-style-type: none;
+}
+
 #imagenEvento{
     height: 10em;
 
 }
 
-.ubicacion {
-    list-style-type: none;
+#userLoginError{
+    display: none;
 }
+
+
 
 /***************************************************************************/
 /* Para fijar el carousel en las páginas sin usuario logeado */
@@ -262,4 +269,12 @@ no tape un trozo de la página */
 
 .loading{
   margin: auto;
+}
+
+.panel_evento{
+    background-color: #222222;
+}
+
+.titleBandas{
+    color: white;
 }

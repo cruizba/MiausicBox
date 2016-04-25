@@ -11,12 +11,17 @@ export class User{
   private _description:string;
   private _isArtist: boolean;
   private _city:string;
+  private _facebook:string;
+  private _twitter:string;
+  private _youtube:string;
   private _instruments:number[] = [];
+  private _genres:number[] = [];
   private _bands: Band[] = [];
 
   constructor(userName:string, password:string, completeName:string,
               description:string, isArtist:boolean, city:string,
-              instruments:number[], bands: Band[]){
+              facebook:string, twitter:string, youtube:string,
+              instruments:number[], genres:number[], bands: Band[]){
     this._userName = userName;
     this._password = password;
     this._completeName = completeName;
@@ -24,6 +29,7 @@ export class User{
     this._isArtist = isArtist;
     this._city = city;
     this._instruments = instruments;
+    this._genres = genres;
     this._bands = bands;
   }
 
@@ -52,12 +58,34 @@ export class User{
     return this._instruments;
   }
 
+  public get genres(): number[]{
+    return this._genres;
+  }
+
+
   public get city():string{
     return this._city;
   }
 
+  public get facebook():string{
+    return this._facebook;
+  }
+
+  public get twitter():string{
+    return this._twitter;
+  }
+
+  public get youtube():string{
+    return this._youtube;  }
+
+
+
   public set instruments(instrument: number[]){
     this._instruments = instrument;
+  }
+
+  public set genres(genres:number[]){
+    this._genres=genres;
   }
 
   public set userName(userName: string){
@@ -84,6 +112,18 @@ export class User{
     this._city = city;
   }
 
+  public setFacebook(facebook:string){
+    this._facebook = facebook;
+  }
+
+  public setTwitter(twitter:string){
+    this._twitter = twitter;
+  }
+
+  public setYoutube(youtube:string){
+    this._youtube = youtube;
+  }
+
   /** Return if an User is equal to other
     @method equals
     @param {User} User
@@ -95,7 +135,8 @@ export class User{
     }
     else{
       var user:User = object;
-      return (user.userName == this.userName);
+      return (user.userName == this.userName &&
+              user.password == this.password);
     }
   }
 }

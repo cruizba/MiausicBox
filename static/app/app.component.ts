@@ -1,3 +1,4 @@
+import {BandComponent} from "./band.component";
 import {Component, OnInit} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router } from 'angular2/router';
 
@@ -9,11 +10,17 @@ import { PrincipalComponent } from './principal.component';
 import { ArtistaComponent } from './profile.component';
 import { MessagesComponent } from './messages.component';
 import { EventsComponent } from './events.component';
+import { EventComponent } from './event.component';
+import { FollowersEvent } from './followersEvent.component';
 import { ListArtistComponent } from './list-artist.component'
 import { ListBandsComponent } from './list-bands.component'
 
-//
-import { Instrument } from './classes/Instrument'
+//Services
+//import { UserService } from './services/user.service';
+
+// Classes
+import {FollowingComponent} from "./following.component";
+import {FollowersComponent} from "./followers.component";
 
 
 
@@ -27,9 +34,7 @@ import { Instrument } from './classes/Instrument'
     <router-outlet></router-outlet>
     `,
     directives: [ROUTER_DIRECTIVES, LoggedComponent],
-    providers: [
-        ROUTER_PROVIDERS
-    ]
+    providers: [ROUTER_PROVIDERS]
 })
 
 @RouteConfig([
@@ -41,7 +46,7 @@ import { Instrument } from './classes/Instrument'
     },
     {
         path: '/visitor',
-        name: 'Visitor',
+    name: 'Visitor',
         component: VisitorComponent
     },
     {
@@ -55,12 +60,17 @@ import { Instrument } from './classes/Instrument'
       component: PrincipalComponent
     },
     {
-      path: '/artist',
+      path: '/artist/:id',
       name: 'Artist',
       component: ArtistaComponent
     },
     {
-      path: '/messages',
+      path: '/band/:id',
+      name: 'Band',
+      component: BandComponent
+    },
+    {
+      path: '/messages/:id',
       name: 'Messages',
       component: MessagesComponent
     },
@@ -68,6 +78,16 @@ import { Instrument } from './classes/Instrument'
       path: '/events',
       name: 'Events',
       component: EventsComponent
+    },
+    {
+        path: '/event/:id',
+        name: 'Event',
+        component: EventComponent
+    },
+    {
+        path: '/followersEvent/:id',
+        name: 'FollowersEvent',
+        component: FollowersEvent
     },
     {
       path: '/listArtist',
@@ -78,10 +98,22 @@ import { Instrument } from './classes/Instrument'
       path: '/listBands',
       name: 'ListBands',
       component: ListBandsComponent
+    },
+    {
+        path: '/following/:id',
+        name: 'Following',
+        component: FollowingComponent
+    },
+    {
+        path: '/followers/:id',
+        name: 'Followers',
+        component: FollowersComponent,
     }
 ])
 
 export class AppComponent{
+
+  //Common variables of the application
 
 
   constructor(private _router: Router){
@@ -104,6 +136,5 @@ export class AppComponent{
       }
     });
   }
-
 
 }

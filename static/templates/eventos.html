@@ -20,9 +20,9 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Nombre del Evento:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre del artista">
+                                    <input #findName type="text" class="form-control" placeholder="Nombre del evento">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByName(findName.value); findName.value=null">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
@@ -32,16 +32,16 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Banda:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <input #findBand type="text" class="form-control" placeholder="Nombre de la banda">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByBand(findBand.value); findBand.value=null">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
                             </div>
                             <!-- /.col-lg-6 -->
 
-                            <div class="col-lg-12">
+                            <!--<div class="col-lg-12">
                                 <h4 id="opciones">Genero:</h4>
                                 <div class="checkbox" id="checkboxGenero">
                                     <label class="labelBusqueda">
@@ -108,7 +108,7 @@
                                         <input type="checkbox">Otros
                                     </label>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -122,100 +122,35 @@
                             <tr>
                                 <th id="esquinaTablaArtista1"></th>
                                 <th>Evento</th>
-                                <th>Generos</th>
+                                <!--<th>Generos</th>-->
                                 <th>Bandas</th>
                                 <th id="esquinaTablaArtista2">Fecha y localización</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Indie Week</a></td>
-                                <td>
+                            <tr *ngFor="#ev of events">
+                                <td><a [routerLink]="['Event', {id: ev.eventID}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['Event', {id: ev.eventID}]" class="enlaceListaArtista">{{ev.eventObj.name}}</a></td>
+                                <!--<td>
                                     <ul>
                                         <li>Indie</li>
                                         <li>Rock</li>
                                         <li>Otros</li>
                                     </ul>
-                                </td>
+                                </td>-->
                                 <td>
                                     <ul>
-                                        <li>Arctic Monkeys</li>
+                                        <li *ngFor="#ba of ev.eventObj.bands">{{ba.groupName}}</li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="ubicacion">
-                                        <li>29/03/2016</li>
-                                        <li>Madrid</li>
+                                        <li >{{ev.eventObj.date.getDay() + "/" + ev.eventObj.date.getMonth() + "/" + ev.eventObj.date.getFullYear()}}</li>
                                     </ul>
                                 </td>
                             </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Trash toor</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Trash Metal</li>
-                                        <li>Heavy</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Metalica</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="ubicacion">
-                                        <li>29/03/2016</li>
-                                        <li>Barcelona</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Trash toor</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Trash Metal</li>
-                                        <li>Heavy</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Megadeth</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="ubicacion">
-                                        <li>29/03/2016</li>
-                                        <li>Barcelona</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceListaArtista">Punkicide</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Punk</li>
-                                        <li>Grunge</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Potaje de gusanos</li>
-                                        <li>La abuela punk</li>
-                                        <li>Chaos Theory</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="ubicacion">
-                                        <li>01/04/2016</li>
-                                        <li>Madrid</li>
-                                    </ul>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                     <!--Paginas-->

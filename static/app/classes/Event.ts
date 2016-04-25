@@ -3,6 +3,7 @@
  *  @class Event
  */
 import { User } from './User';
+import {Band} from "./Band";
 
 export class Event {
 
@@ -11,13 +12,20 @@ export class Event {
   private _date:Date;
   private _creator:User;
   private _description:string;
+  private _bands:Band[];
+  private _direction:string;
+  private _followers:User[];
 
   /* Constructor */
-  constructor(name:string, date:Date, creator:User, description:string) {
+  constructor(name:string, date:Date, creator:User, description:string, bands:Band[],
+              direction:string, followers:User[]) {
     this._name = name;
     this._date = date;
     this._creator = creator;
     this._description = description;
+    this._bands = bands;
+    this._direction=direction;
+    this._followers=followers;
   }
 
   /* Getters & Setters */
@@ -37,8 +45,19 @@ export class Event {
     return this._description;
   }
 
+  get bands():Band[]{
+    return this._bands;
+  }
+
+  get direction():string{
+    return this._direction;
+  }
+
   set name(name:string) {
     this._name = name;
+  }
+  get followers():User[]{
+    return this._followers;
   }
 
   set date(date:Date) {
@@ -53,6 +72,18 @@ export class Event {
     this._description = description;
   }
 
+  set bands(value:Band[]){
+    this._bands=value;
+  }
+
+  set direction(value:string){
+    this._direction=value;
+  }
+
+  set followers(value:Array){
+    this._followers=value;
+  }
+
   /** Return if an Event is equal to other
    *  @method equals
    *  @param {object} object
@@ -65,8 +96,8 @@ export class Event {
       var event:Event = object;
       return (event.name == this.name &&
               event.date == this.date &&
-              event.creator.equals(this.creator));
-    }
+              event.creator == this.creator);
+    };
   }
 
 }

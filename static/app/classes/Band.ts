@@ -1,6 +1,9 @@
 import {User} from './User';
 
 export class Band{
+
+
+  private _administrador: User;
   private _groupName: string;
   private _city: string;
   private _web: string;
@@ -9,18 +12,25 @@ export class Band{
   private _youtube: string;
   private _members: User[];
   private _followers: User[];
+  private _genres: number[];
 
-  constructor(groupName:string, city:string, web:string, facebook:string,
-              twitter:string, youtube:string){
+  constructor(administrador:User, groupName:string, city:string, web:string, facebook:string,
+              twitter:string, youtube:string, members:User[], followers:User[], genres:number[]){
+    this._administrador = administrador;
     this._groupName = groupName;
     this._city = city;
     this._web = web;
     this._facebook = facebook;
     this._twitter = twitter;
     this._youtube = youtube;
-    this._members = [];
-    this._followers = [];
+    this._members = members;
+    this._followers = followers;
+    this._genres = genres;
   };
+
+  public get administrador():User{
+    return this._administrador;
+  }
 
   public get groupName():string{
     return this._groupName;
@@ -54,6 +64,14 @@ export class Band{
     return this._followers;
   }
 
+  get genres():number[]{
+    return this._genres;
+  }
+
+  public set administrador(administrador:User){
+    this._administrador = administrador;
+  }
+
   public set groupName(groupName:string){
     this._groupName = groupName;
   }
@@ -76,6 +94,10 @@ export class Band{
 
   public set youtube(youtube: string){
     this._youtube = youtube;
+  }
+
+  set genres(value:number[]){
+    this._genres=value;
   }
 
 
