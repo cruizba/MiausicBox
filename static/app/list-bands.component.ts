@@ -3,6 +3,7 @@ import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import { AppComponent } from './app.component';
 import {BandService} from './services/band.service';
 import {Band} from './classes/Band';
+import {GenreList} from "./classes/GenreList";
 
 @Component({
   selector: 'list-bands',
@@ -13,17 +14,51 @@ import {Band} from './classes/Band';
 
 export class ListBandsComponent {
 
-  bands: Band[]=[];
+    bands= [];
+    members = [];
+    genres = [];
 
-  constructor (private _bandService:BandService){}
+    constructor(private _bandService:BandService) {
+    }
 
-  ngOnInit () {
-    this._bandService.getAllBands().subscribe(
-        list=> this.bands = list,
-        error=> {
-          this.bands = null;
-          alert("List not found");
-        });
-  }
+    ngOnInit() {
+        this.initBands();
+        this.members = this.initMembers();
+        this.genres = this.initGenres();
+        console.log(this.genres);
+    }
 
+
+    initBands() {
+        this._bandService.getAllBands().subscribe(
+            list=> this.bands = list,
+            error=> {
+                this.bands = null;
+                alert("List not found");
+            });
+    }
+
+    initMembers() {
+        var result = [];
+        for (let i = 0; i < this.bands.length; i++) {
+            this._bandService.getMembers(i).subscribe(
+                members => result.push(members),
+                error => alert("Error members")
+            );
+        }
+        return result;
+    }
+
+    initGenres(){
+        var result = [];
+        var allGenres: GenreList = new GenreList();
+        for(let i = 0; i < this.bands.length; i++){
+            var genres = [];
+            for(let j = 0; j < this.bands[i].bandObj.genres.length ;j++){
+                genres.push(allGenres.genres[this.bands[i].bandObj.genres[j]]);
+            }
+            result.push(genres)
+        }
+        return result;
+    }
 }
