@@ -21,7 +21,7 @@ export class EventsComponent {
   }
 
   ngOnInit () {
-    console.log("ngOnInit cargando cosas blablabla");
+    
     this._eventService.getAllEvent().subscribe(
         (list => this.events = list),
         (error => {

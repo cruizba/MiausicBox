@@ -14,7 +14,7 @@
                     <!-- Información General -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Direccion</h3>
+                            <h3 class="panel-title">Información</h3>
                         </div>
                         <div class="panel-body">
                             <table class="table" id="Informacion">
@@ -53,6 +53,10 @@
                                     <tr>
                                         <td>Dirección</td>
                                         <td>{{event.direction}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numberFollows}}</span></a>
+                                       </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -113,6 +117,7 @@
                         </div>
                     </div>
                     <!-- Fin bandas del evento -->
+
                     <!-- Localizacion del evento -->
                     <!--<div class="panel panel-default">
                         <div class="panel-head">
