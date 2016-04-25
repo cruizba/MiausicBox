@@ -1,6 +1,8 @@
 import {bandList, userList, blogBandList} from '../classes/memoryDB';
 import {Injectable} from 'angular2/core';
 import {withObserver} from '../classes/Utils';
+import {Band} from "../classes/Band";
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class BandService {
@@ -41,4 +43,20 @@ export class BandService {
     return withObserver(bandBlogs);
   }
 
+  addNewBand(nameBand, description){
+    var user=Info.userLogged;
+    var newBand = new Band(user, nameBand, description, "", "", "", "", "", [user], [user], [], []);
+    user.bands.push(newBand);
+    bandList.push(newBand);
+  }
+
+  getBandsByUser(id){
+    var result = [];
+    var bands = userList[id].bands;
+    console.log(bands);
+    for (let i = 0; i < bands.length; i++){
+      result.push({"bandId":bandList.indexOf(bands[i]), "bandObj":bands[i]});
+    }
+    return withObserver(result);
+  }
 }

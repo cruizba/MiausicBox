@@ -9,13 +9,13 @@ import {GenreList} from "./classes/GenreList";
 import {FollowService} from "./services/follow.service";
 import {MessageService} from "./services/message.service";
 import { BlogUser } from "./classes/BlogUser";
-import { BlogService } from "./services/blog.service"
-import {blogUserList} from "./classes/memoryDB";
+import { BlogService } from "./services/blog.service";
+import { BandService } from "./services/band.service";
 
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
-  providers: [UserService, FollowService, MessageService, BlogService],
+  providers: [UserService, FollowService, MessageService, BlogService, BandService],
   directives: [ROUTER_DIRECTIVES]
 })
 
@@ -30,6 +30,7 @@ export class ArtistaComponent {
   genresUser:string[] = [];
   id;
   blogList:BlogUser[] = [];
+  bands = [];  
 
   //Follows variables
   numFollowing:number;
@@ -40,7 +41,7 @@ export class ArtistaComponent {
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
-                private _blogUserList:BlogService, private _blogService: BlogService){
+                private _bandService:BandService, private _blogService: BlogService){
   }
 
   ngOnInit() {
@@ -51,6 +52,7 @@ export class ArtistaComponent {
       }
       this.genres();
       this.isFollowedBy();
+      this.bandsUser();
   }
 
 
@@ -79,6 +81,19 @@ export class ArtistaComponent {
         this._blogService.getBlogsByUser(this.user).subscribe(
           blogList => this.blogList = blogList
         )
+
+
+    }
+
+    bandsUser(){
+        this._bandService.getBandsByUser(this.id).subscribe(
+            list => this.bands = list,
+            error => {
+                this.bands = null;
+                alert ("Error");
+            }
+        );
+        console.log(this.bands);
     }
 
     instrumentsUser() {
@@ -143,11 +158,16 @@ export class ArtistaComponent {
     submitBlog(title, img, text){
         var user: User=Info.userLogged;
         this._blogService.addBlogUsser(title, img, text, new Date, user);
-        console.log(blogUserList);
+        
         this._blogService.getBlogsByUser(this.user).subscribe(
             blogList => this.blogList = blogList
         )
 
+    }
+    
+    newBand (nameBand, description){
+        this._bandService.addNewBand(nameBand,description);
+        this.bandsUser();
     }
 
 }

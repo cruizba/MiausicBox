@@ -5,6 +5,7 @@ import {Band} from './Band'
  */
 export class User{
 
+
   private _userName:string;
   private _password:string;
   private _completeName:string;
@@ -78,6 +79,9 @@ export class User{
   public get youtube():string{
     return this._youtube;  }
 
+  get bands():Band[]{
+    return this._bands;
+  }
 
 
   public set instruments(instrument: number[]){
@@ -122,6 +126,11 @@ export class User{
 
   public setYoutube(youtube:string){
     this._youtube = youtube;
+  }
+
+
+  set bands(value:Array){
+    this._bands=value;
   }
 
   /** Return if an User is equal to other
