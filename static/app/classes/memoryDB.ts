@@ -17,6 +17,13 @@ export var userList:User[] = [
   new User("thais", "prueba1234", "Thais Méndez", description, false, "Madrid","","","", [],[8],[])
 ];
 
+var banda1:User[] = [userList[0], userList[2]];
+var banda2:User[] = [userList[1], userList[2]];
+var banda3:User[] = [userList[1], userList[3]];
+var followers1:User[] = [userList[1], userList[3]];
+var followers2:User[] = [userList[3]];
+var followers3:User[] = [userList[0], userList[2]];
+
 export var blogUserList:BlogUser[] = [
   new BlogUser("Blog #1", "../img/img6.jpg",  blog1, new Date("April 13, 2016 20:16:37"), userList[0]),
   new BlogUser("Blog #1", "../img/muestra2.jpg",  blog1, new Date("December 3, 2015 15:28:05"), userList[1]),
@@ -61,11 +68,11 @@ export var followsList:Follow[] = [
     new Follow(userList[3],userList[1])
 ];
 
-export var eventList: Event [] = [
-    new Event ("Indie Week", new Date("April 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie", [bandList[0], bandList[1]],"Calle de la piruleta" ),
-    new Event ("Trash toor", new Date("April 14, 2016 20:16:37"), userList[1], "lolololololololo", [bandList[2]], "Wonderland"),
-    new Event ("Pinkicide", new Date("April 15, 2016 20:16:37"), userList[0], "asdfasdfasdf", [bandList[1], bandList[2]], "Es un mundo maravilloso")
-];
+//export var eventList: Event [] = [
+//    new Event ("Indie Week", new Date("April 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie", [bandList[0], bandList[1]],"Calle de la piruleta",[userList[0], userList[1], userList[2], userList[3]]),
+//    new Event ("Trash toor", new Date("April 14, 2016 20:16:37"), userList[1], "lolololololololo", [bandList[2]], "Wonderland",[userList[0], userList[1]]),
+//    new Event ("Pinkicide", new Date("April 15, 2016 20:16:37"), userList[0], "asdfasdfasdf", [bandList[1], bandList[2]], "Es un mundo maravilloso", [userList[2], userList[3]])
+//];
 
 export var messageList:Message[] = [
     new Message(userList[0], userList[1], "Luis envíame eso", "Necesito la base rítimica ya, pásamela", new Date("April 23, 2016 12:20:57"), false),

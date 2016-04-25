@@ -1,6 +1,8 @@
 import {User} from './User';
 
 export class Band{
+
+
   private _administrador: User;
   private _groupName: string;
   private _city: string;
@@ -10,7 +12,7 @@ export class Band{
   private _youtube: string;
   private _members: User[];
   private _followers: User[];
-  private _genres:number[] = [];
+  private _genres: number[];
 
   constructor(administrador:User, groupName:string, city:string, web:string, facebook:string,
               twitter:string, youtube:string, members:User[], followers:User[], genres:number[]){
@@ -62,6 +64,10 @@ export class Band{
     return this._followers;
   }
 
+  get genres():number[]{
+    return this._genres;
+  }
+
   public set administrador(administrador:User){
     this._administrador = administrador;
   }
@@ -88,6 +94,10 @@ export class Band{
 
   public set youtube(youtube: string){
     this._youtube = youtube;
+  }
+
+  set genres(value:number[]){
+    this._genres=value;
   }
 
 
