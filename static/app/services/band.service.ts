@@ -5,17 +5,24 @@ import {withObserver} from '../classes/Utils';
 @Injectable()
 export class BandService {
 
-    getAllBands (){
-        console.log(bandList[1].groupName);
-        return withObserver (bandList);
+  getAllBands (){
+      var result = [];
+      for(let i = 0; i < bandList.length; i++){
+        result.push({"bandId": i, "bandObj": bandList[i]});
+      }
+      return withObserver(result);
+  }
+
+  getMembers (id){
+    var memberList = [];
+    for(let i = 0; i < bandList[id].members.length; i++){
+      memberList.push({"id":userList.indexOf(bandList[id].members[i]), "user":bandList[id].members[i]});
     }
-    
-    getMembersByBandID(id){
-        var members = [];
-        var band = bandList[id];
-        for(let i = 0; i < band.members.length; i++){
-            members.push({"id":userList.indexOf(band.members[i]), "user":band.members[i]});
-        }
-        return withObserver(members);
-    }
+    return withObserver(memberList);
+  }
+
+  getBandById (id){
+    return withObserver(bandList[id]);
+  }
+
 }

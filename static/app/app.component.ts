@@ -1,3 +1,4 @@
+import {BandComponent} from "./band.component";
 import {Component, OnInit} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router } from 'angular2/router';
 
@@ -18,8 +19,6 @@ import { ListBandsComponent } from './list-bands.component'
 //import { UserService } from './services/user.service';
 
 // Classes
-import { Instrument } from './classes/Instrument';
-import { User } from './classes/User';
 import {FollowingComponent} from "./following.component";
 import {FollowersComponent} from "./followers.component";
 
@@ -64,6 +63,11 @@ import {FollowersComponent} from "./followers.component";
       path: '/artist/:id',
       name: 'Artist',
       component: ArtistaComponent
+    },
+    {
+      path: '/band/:id',
+      name: 'Band',
+      component: BandComponent
     },
     {
       path: '/messages/:id',
