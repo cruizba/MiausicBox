@@ -138,5 +138,6 @@ export class ArtistaComponent {
       this.isFollowed = false;
       this.numFollowers--;
     }
+    
 
 }
