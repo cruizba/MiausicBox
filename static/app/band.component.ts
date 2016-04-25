@@ -21,21 +21,18 @@ import { Band } from './classes/Band'
 
 export class BandComponent {
 
-  isUserLogged: boolean;
-  user: User;
+  isAdmin:boolean;
   band: Band;
   genresBand:string[] = [];
   id;
   blogList:BlogBand[] = [];
   membersList: User[];
-  followersList: User[];
+  instruments: Instrument[] = [];
 
   //Follows variables
-  numFollowing:number;
   numFollowers:number;
 
-  constructor(private _routeParams: RouteParams, private _userService: UserService,
-                private _followService: FollowService, private _blogService: BlogService){
+  constructor(private _routeParams: RouteParams, private _bandService: BandService, private _blogService: BlogService){
   }
 
   ngOnInit() {
@@ -45,48 +42,50 @@ export class BandComponent {
 
 
     initialization(){
-        //Get id from route
+        // Get id from route
         this.id = this._routeParams.get('id')
 
-        //Check if is userLogged to show edit buttons
-        this.isUserLogged = (this.id == Info.userId);
+        // Check if is admin to show edit buttons
+        this._bandService.isAdmin(this.id, Info.userLogged).subscribe(
+          (isAdmin => this.isAdmin = isAdmin),
+          (error => alert("getAdmin error"))
+        )
 
-        //Get user information
-        this._userService.getUserById(this.id).subscribe(
-            user => this.user = user
+        // Get band information
+        this._bandService.getBandById(this.id).subscribe(
+          (band => this.band = band),
+          (error => alert("getBandById error"))
+        )
+
+        // Get members
+        this._bandService.getMembers(this.id).subscribe(
+          (members => this.membersList = members),
+          (error => alert("getMembers error"))
         )
 
         this.updateFollows();
+
+        var inss = new IntrumentList();
+        this.instruments = inss.instruments;
+
         this._blogService.getBlogsByBand(this.band).subscribe(
-          blogList => this.blogList = blogList
+          (blogList => this.blogList = blogList),
+          (error => alert("getBlogsByBand error"))
         )
     }
 
     genres(){
         var allGenres:GenreList = new GenreList();
         for(let i = 0; i < allGenres.genres.length; i++){
-            if(this.user.genres.indexOf(i) != -1){
+            if(this.band.genres.indexOf(i) != -1){
                 this.genresBand.push(allGenres.genres[i].name);
                 console.log(allGenres.genres[i].name);
             }
         }
     }
 
-    goToURL (){
-      console.log(this.user.twitter);
-      console.log("Entro en click");
-      window.open(this.user.twitter);
-    }
-
     updateFollows(){
-        this._followService.getNumFollowersById(this.id).subscribe(
-            (followers => this.numFollowers = followers),
-            (error => alert("numFollowers error"))
-        )
-        this._followService.getNumFollowingByID(this.id).subscribe(
-            (followings => this.numFollowing = followings),
-            (error => alert("numFollowings error"))
-        );
+      this.numFollowers = this.band.followers.length;
     }
 
 }

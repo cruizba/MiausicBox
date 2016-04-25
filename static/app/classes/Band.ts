@@ -1,10 +1,11 @@
 import {User} from './User';
+import {Track} from "./Track";
 
 export class Band{
 
-
   private _administrador: User;
   private _groupName: string;
+  private _description: string;
   private _city: string;
   private _web: string;
   private _facebook: string;
@@ -13,11 +14,13 @@ export class Band{
   private _members: User[];
   private _followers: User[];
   private _genres: number[];
+  private _tracks:Track[];
 
-  constructor(administrador:User, groupName:string, city:string, web:string, facebook:string,
-              twitter:string, youtube:string, members:User[], followers:User[], genres:number[]){
+  constructor(administrador:User, groupName:string, description: string, city:string, web:string, facebook:string,
+              twitter:string, youtube:string, members:User[], followers:User[], genres:number[], tracks:Track[]){
     this._administrador = administrador;
     this._groupName = groupName;
+    this._description = description;
     this._city = city;
     this._web = web;
     this._facebook = facebook;
@@ -26,6 +29,7 @@ export class Band{
     this._members = members;
     this._followers = followers;
     this._genres = genres;
+    this._tracks = tracks;
   };
 
   public get administrador():User{
@@ -34,6 +38,10 @@ export class Band{
 
   public get groupName():string{
     return this._groupName;
+  }
+
+  public get description():string{
+    return this._description;
   }
 
   public get city():string{
@@ -64,8 +72,12 @@ export class Band{
     return this._followers;
   }
 
-  get genres():number[]{
+  public get genres():number[]{
     return this._genres;
+  }
+
+  public get tracks():Track[]{
+    return this._tracks;
   }
 
   public set administrador(administrador:User){
@@ -74,6 +86,10 @@ export class Band{
 
   public set groupName(groupName:string){
     this._groupName = groupName;
+  }
+
+  public set description(description:string){
+    this._description =  description;
   }
 
   public set city(city:string){
@@ -98,6 +114,10 @@ export class Band{
 
   set genres(value:number[]){
     this._genres=value;
+  }
+
+  set tracks(tracks:Track[]){
+    this._tracks=tracks;
   }
 
 

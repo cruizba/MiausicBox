@@ -7,7 +7,8 @@
                         <h1>{{user.completeName}}</h1>
                         <h2>{{user.userName}} </h2>
                         <p>
-                            <a *ngIf="!isUserLogged" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                            <a *ngIf="(!isUserLogged && !isFollowed)" (click)="setFollow()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                            <a *ngIf="(!isUserLogged && isFollowed)" (click)="setUnfollow()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus-signtel"></span></a>
                             <a [routerLink]="['Followers', {id: id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollowers}}</span></a>
                             <a [routerLink]="['Following', {id: id}]" class="btn btn-default btn-lg"  id="followButton">Seguidos <span class="badge">{{numFollowing}}</span></a>
                         </p>
@@ -195,7 +196,7 @@
                     </div>
                     <!-- Fin Boton Añadir Blog -->
 
-                    <!-- Blog banda -->
+                    <!-- Blog artista -->
                     <div *ngFor="#blog of blogList" class="panel panel-default">
                         <div class="panel-head">
                             <h3 class="content-panel">{{blog.name}}</h3>
@@ -210,9 +211,8 @@
                         </div>
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
-                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">Autor</a></div>
-                                <div class="col-md-4 col-xs-4" id="AutorBlog"><a href="#">{{blog.author.completeName}}</a></div>
-                                <div class="col-md-4 col-xs-4" id="FechaBlog">{{blog.date.getDay()}}/{{blog.date.getMonth()}}/{{blog.date.getFullYear()}}</div>
+                                <div class="col-md-6 col-xs-6" id="AutorBlog"><a href="#">{{blog.author.completeName}}</a></div>
+                                <div class="col-md-6 col-xs-6" id="FechaBlog">{{blog.date.getDay()}}/{{blog.date.getMonth()}}/{{blog.date.getFullYear()}}</div>
                             </div>
                         </div>
                     </div>
