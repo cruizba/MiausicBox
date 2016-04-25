@@ -63,9 +63,9 @@ export var followsList:Follow[] = [
 ];
 
 export var eventList: Event [] = [
-    new Event ("Indie Week", new Date("April 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie", [bandList[0], bandList[1]],"Calle de la piruleta" ),
-    new Event ("Trash toor", new Date("April 14, 2016 20:16:37"), userList[1], "lolololololololo", [bandList[2]], "Wonderland"),
-    new Event ("Pinkicide", new Date("April 15, 2016 20:16:37"), userList[0], "asdfasdfasdf", [bandList[1], bandList[2]], "Es un mundo maravilloso")
+    new Event ("Indie Week", new Date("April 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie", [bandList[0], bandList[1]],"Calle de la piruleta",[userList[0], userList[1], userList[2], userList[3]] ),
+    new Event ("Trash toor", new Date("April 14, 2016 20:16:37"), userList[1], "lolololololololo", [bandList[2]], "Wonderland",[userList[0],userList[1] ]),
+    new Event ("Pinkicide", new Date("April 15, 2016 20:16:37"), userList[0], "asdfasdfasdf", [bandList[1], bandList[2]], "Es un mundo maravilloso", [userList[2], userList[3]])
 ];
 
 export var messageList:Message[] = [
