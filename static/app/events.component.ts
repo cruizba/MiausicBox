@@ -16,20 +16,28 @@ export class EventsComponent {
   events = [];
   id;
 
+
   constructor (private _eventService: EventService){
 
   }
 
   ngOnInit () {
     
-    this._eventService.getAllEvent().subscribe(
-        (list => this.events = list),
-        (error => {
-          this.events = null;
-          alert("List events not found");
-        })
-    );
+    this.initialization();
   }
+
+    initialization(){
+        this._eventService.getAllEvent().subscribe(
+            (list => this.events = list),
+            (error => {
+                this.events = null;
+                alert("List events not found");
+            })
+        );
+        
+    }
+    
+    
     
     findEventsByName(name:String){
         this.events = [];

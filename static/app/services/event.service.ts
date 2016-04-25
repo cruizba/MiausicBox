@@ -3,6 +3,7 @@ import { Injectable } from 'angular2/core';
 import { Event } from '../classes/Event'
 import { withObserver } from '../classes/Utils';
 import {User} from "../classes/User";
+import {Info} from "../classes/Info";
 
 
 @Injectable()
@@ -58,5 +59,17 @@ export class EventService {
             }
         }
         return withObserver(result);
+    }
+
+    getIsFollower (id){
+        var isFollower = false;
+        var followers = eventList[id].followers;
+        for (let i = 0; i < followers.length; i++){
+            if(Info.userLogged.equals(followers[i])){
+                isFollower=true;
+            }
+        }
+        console.log(isFollower);
+        return withObserver(isFollower);
     }
 }

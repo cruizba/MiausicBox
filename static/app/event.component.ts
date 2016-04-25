@@ -19,6 +19,7 @@ export class EventComponent {
     members = [[]];
     numberFollows:number;
     followers=[];
+    isFollower:boolean;
 
     
     constructor ( private _eventService:EventService, private _bandService:BandService,
@@ -27,6 +28,14 @@ export class EventComponent {
     ngOnInit (){
         this.id = this._routerParams.get('id');
 
+        this.inizialitationEvent();
+        this.inizialitationIsFollower()
+        console.log("Valor isFollower");
+        console.log(this.isFollower);
+        this.numberOfFollowers();
+    }
+
+    inizialitationEvent (){
         this._eventService.getEventByID(this.id).subscribe(
             event => this.event = event,
             error =>{
@@ -38,8 +47,16 @@ export class EventComponent {
         for (let i = 0; i < this.event.bands.length; i++){
             this.members.push(this.membersBand(i));
         }
-        
-        this.numberOfFollowers();
+    }
+    inizialitationIsFollower(){
+        this._eventService.getIsFollower(this.id).subscribe(
+            follow => this.isFollower = follow,
+            error=> {
+                this.isFollower=null;
+                alert("Error");
+            }
+        )
+
     }
 
     membersBand (i) {
