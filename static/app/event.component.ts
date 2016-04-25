@@ -41,7 +41,7 @@ export class EventComponent {
     membersBand (i){
         console.log("me meto en memberBand");
         var result = [];
-        this._bandService.getMembersByBandID(i).subscribe(
+        this._bandService.getMembers(i).subscribe(
             mem => result = mem,
             error =>{
                 result = null;

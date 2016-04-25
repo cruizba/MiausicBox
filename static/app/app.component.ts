@@ -18,8 +18,6 @@ import { ListBandsComponent } from './list-bands.component'
 //import { UserService } from './services/user.service';
 
 // Classes
-import { Instrument } from './classes/Instrument';
-import { User } from './classes/User';
 import {FollowingComponent} from "./following.component";
 import {FollowersComponent} from "./followers.component";
 

@@ -68,7 +68,7 @@ export class Event {
     this._description = description;
   }
 
-  set bands(value:Array){
+  set bands(value:Band[]){
     this._bands=value;
   }
 
