@@ -116,6 +116,7 @@ export class ArtistaComponent {
             (error => alert("numFollowings error"))
         );
     }
+    
 
 
 }
