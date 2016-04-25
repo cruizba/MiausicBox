@@ -1,4 +1,4 @@
-<div class="container" id="profile-page">
+<div class="content-page container" id="profile-page">
   <div class="row">
       <!-- Información del perfil -->
       <div class="col-md-4" id="profile_details">
@@ -151,7 +151,7 @@
                                 <th id="EsquinaDerTabla">Instrumento</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="#member of memberList" id="TableBody">
+                        <tbody *ngFor="#member of membersList" id="TableBody">
                             <tr>
                                 <td><a href="#" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
                                 <td><a href="#" class="enlaceArtista">Alex Turner</a></td>
@@ -254,145 +254,146 @@
         </div>
         <!-- Fin Información banda -->
     </div>
-</div>
-<!-- Fin Contenido página -->
+    <!-- Fin Contenido página -->
 
-<!-- Formulario configuracion -->
-<div class="formulario" id="formularioConfiguracion">
-    <div class="panel panel-default">
-        <div class="panel-head">
-            <h3 class="content-panel">Ajustes de perfil</h3>
-       </div>
-       <div class="panel-body">
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+    <!-- Formulario configuracion -->
+    <div class="formulario" id="formularioConfiguracion">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Ajustes de perfil</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                    <div class="col-sm-10">
-                        <input type="url" class="form-control" id="email" placeholder="">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
+                        <div class="col-sm-10">
+                            <input type="url" class="form-control" id="email" placeholder="">
+                        </div>
                     </div>
-                </div>
-                 <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="contraseña" placeholder="">
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="BotonFormulario">
-                    <button type="submit" class="btn btn-default">Enviar</button>
-                </div>
-           </form>
-       </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Enviar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
     </div>
-</div>
-<!-- Fin formulario -->
+    <!-- Fin formulario -->
 
-<!-- Formulario agregar blog -->
-<div class="formulario" id="formularioBlog">
-    <div class="panel panel-default">
-        <div class="panel-head">
-            <h3 class="content-panel">Nuevo Blog</h3>
-       </div>
-       <div class="panel-body">
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+    <!-- Formulario agregar blog -->
+    <div class="formulario" id="formularioBlog">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Nuevo Blog</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
-                    <div class="col-sm-10">
-                        <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
+                        <div class="col-sm-10">
+                            <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                        </div>
                     </div>
-                </div>
-                 <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="BotonFormulario">
-                    <button type="submit" class="btn btn-default">Enviar</button>
-                </div>
-           </form>
-       </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Enviar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
     </div>
-</div>
-<!-- Fin formulario -->
+    <!-- Fin formulario -->
 
-<!-- Formulario configuracion -->
-<div class="formulario" id="formularioConfiguracion">
-    <div class="panel panel-default">
-        <div class="panel-head">
-            <h3 class="content-panel">Ajustes de perfil</h3>
-       </div>
-       <div class="panel-body">
-            <form class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+    <!-- Formulario configuracion -->
+    <div class="formulario" id="formularioConfiguracion">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Ajustes de perfil</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                    <div class="col-sm-10">
-                        <input type="url" class="form-control" id="email" placeholder="">
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
+                        <div class="col-sm-10">
+                            <input type="url" class="form-control" id="email" placeholder="">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                    <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="BotonFormulario">
-                    <button type="submit" class="btn btn-default">Aceptar</button>
-                </div>
-           </form>
-       </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Aceptar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
     </div>
-</div>
-<!-- Fin formulario -->
+    <!-- Fin formulario -->
 
-<!-- Formulario editar contraseña -->
-<div class="formulario" id="formularioContraseña">
-    <div class="panel panel-default">
-        <div class="panel-head">
-            <h3 class="content-panel">Editar contraseña</h3>
-       </div>
-       <div class="panel-body">
-            <form class="form-horizontal" role="form">
-                 <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="contraseña" placeholder="">
+    <!-- Formulario editar contraseña -->
+    <div class="formulario" id="formularioContraseña">
+        <div class="panel panel-default">
+            <div class="panel-head">
+                <h3 class="content-panel">Editar contraseña</h3>
+           </div>
+           <div class="panel-body">
+                <form class="form-horizontal" role="form">
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
                     </div>
-                </div>
-                 <div class="form-group">
-                    <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="contraseña" placeholder="">
+                     <div class="form-group">
+                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="contraseña" placeholder="">
+                        </div>
                     </div>
-                </div>
-                <div class="BotonFormulario">
-                    <button type="submit" class="btn btn-default">Aceptar</button>
-                </div>
-           </form>
-       </div>
+                    <div class="BotonFormulario">
+                        <button type="submit" class="btn btn-default">Aceptar</button>
+                    </div>
+               </form>
+           </div>
+        </div>
     </div>
+    <!-- Fin formulario -->
+
 </div>
-<!-- Fin formulario -->
