@@ -1,4 +1,4 @@
-import { eventList } from '../classes/memoryDB';
+import {eventList, userList} from '../classes/memoryDB';
 import { Injectable } from 'angular2/core';
 import { Event } from '../classes/Event'
 import { withObserver } from '../classes/Utils';
@@ -93,4 +93,26 @@ export class EventService {
         }
         return withObserver (isCreator);
     }
+
+    getEventsByUserId(id){
+        var result = [];
+        
+        for(let i = 0; i < eventList.length; i++){
+            var follows = eventList[i].followers;
+            for(let j = 0; j < follows.length; j++ ){
+                if( id == userList.indexOf(follows[j])){
+                    result.push({"eventId":i, "eventObj":eventList[i]});
+                }
+            }
+        }
+        return withObserver(result);
+    }
+    
+    addNewEvent(name, date, direction, description){
+        var user = Info.userLogged;
+        var newEvent = new Event (name, date, user, description, [], direction, [user]);
+        user.events.push(newEvent);
+        eventList.push(newEvent);
+    }
+
 }
