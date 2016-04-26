@@ -11,11 +11,12 @@ import { BlogBand } from "./classes/BlogBand";
 import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
 import { Band } from './classes/Band'
+import {NoveltyService} from "./services/novelty.service";
 
 @Component({
   selector: 'band',
   templateUrl: 'templates/banda.html',
-  providers: [BandService, UserService, FollowService, BlogService],
+  providers: [BandService, UserService, FollowService, BlogService, NoveltyService],
   directives: [ROUTER_DIRECTIVES]
 })
 
@@ -33,7 +34,8 @@ export class BandComponent {
   numFollowers:number;
 
   constructor(private _routeParams: RouteParams, private _bandService: BandService,
-              private _blogService: BlogService, private _userService:UserService){
+              private _blogService: BlogService, private _userService:UserService,
+              private _noveltyService: NoveltyService){
   }
 
   ngOnInit() {
@@ -96,6 +98,7 @@ export class BandComponent {
             (members => this.membersList = members),
             (error => alert("getMembers error"))
         )
+        this._noveltyService.newNovelty(userName, this.band, new Date(), true);
     }
     
     newTrack (name, group, link){
