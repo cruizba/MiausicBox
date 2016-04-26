@@ -1,67 +1,6 @@
-<!DOCTYPE hml>
-<html>
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
-    <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap-social.css" rel="stylesheet">
-    <link href="../libs/bootstrap-3.3.6-dist/css/assets/css/docs.css" rel="stylesheet">
-    <link href="../libs/bootstrap-3.3.6-dist/css/assets/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../styles/estilos.css">
-    <link rel="stylesheet" type="text/css" href="../styles/evento.css">
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <script src="../libs/jquery-2.2.1.min.js"></script>
-    <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-    <script src="../libs/jquery.bpopup.min.js"></script>
-    <script src="../libs/popupAnimation.js"></script>
-    <title>MiasuicBox</title>
-</head>
+    <div class="content-page container">
 
-<body>
-    <div class="container">
-        <!--Menú-->
-        <!-- la clase se ha puesto a navbar-default, y posteriormente editada en css -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">MiausicBox</a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                    <ul class="nav navbar-nav">
-                        <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
-                        <li><a href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>Mensajes</a></li>
-                        <li class="active"><a href="../eventos.html"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a></li>
-                        <li><a href="listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
-                        <li><a href="listaBandas.html"><span class="glyphicon glyphicon-cd"></span>Bandas</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                    </form>
-                    <div class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
-                            <li><a href="#" id="passButton">Editar contraseña</a></li>
-                                <li class="divider"></li>
-                                <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
-                            </ul>
-                        </li>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!-- Fin menu -->
 
         <!-- Contenido página -->
         <div class="container" id="profile-page">
@@ -70,8 +9,11 @@
                 <!-- Información del evento -->
                 <div class="col-md-4" id="profile_details">
                     <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
-                    <h1>EVENTO</h1>
-
+                    <h1>{{event.name}}</h1>
+                    <p >
+                        <a *ngIf="(!isFollower && !isCreator)"  (click)="followEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton" >Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                        <a *ngIf="(isFollower && !isCreator)" (click)="unFollowEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus"></span></a>
+                    </p>
                     <!-- Información General -->
                     <div class="panel panel-default profile-info">
                         <div class="panel-heading">
@@ -80,7 +22,7 @@
                         <div class="panel-body">
                             <table class="table" id="Informacion">
                                 <tbody>
-                                    <tr>
+                                    <!--<tr>
                                         <td>Géneros</td>
                                         <td>
                                             <ul>
@@ -96,63 +38,32 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Web</td>
-                                        <td><a href="#" class="enlaceInfo">www.exampleweb.com</a></td>
                                         <td>
                                             <button type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                    </tr>-->
+                                    <tr>
+                                        <td>Fecha</td>
+                                        <td>{{event.date.getDay() + "/" + event.date.getMonth() + "/" + event.date.getFullYear()}}</td>
+                                        <td>
+                                            <button *ngIf="isCreator" type="button" class="btn btn-default" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Fecha</td>
-                                        <td>20/07/2017</td>
-                                        <td>
-                                            <button type="button" class="btn btn-default" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
+                                        <td>Dirección</td>
+                                        <td>{{event.direction}}</td>
+                                    </tr>
+                                    <tr>
+                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numberFollows}}</span></a>
+                                       </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <table class="table" id="TablaSites">
-                                <tr>
-                                    <td>
-                                        <a class="btn btn-block btn-social btn-facebook">
-                                            <span class="fa fa-facebook"></span>Follow in Facebook
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
-                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a class="btn btn-block btn-social btn-twitter">
-                                            <span class="fa fa-twitter"></span>Follow in Twitter
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
-                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a class="btn btn-block btn-social btn-pinterest">
-                                            <span class="fa fa-youtube"></span>Follow in Youtube
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-default" aria-label="Left Align">
-                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </table>
+
                         </div>
                     </div>
                     <!-- Fin Información General -->
@@ -171,7 +82,7 @@
                         <div class="panel-body" id="Descripcion">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
+                                    <p class="content-panel">{{event.description}}</p>
                                 </div>
                             </div>
                         </div>
@@ -179,9 +90,9 @@
                     <!-- Fin Descripción evento -->
 
                     <!-- Bandas del evento -->
-                    <div class="panel panel-default" id="Lista">
+                    <div class="panel_evento panel panel-default">
                         <div class="panel-head">
-                            <h3 class="content-panel">Bandas</h3>
+                            <h3 class="titleBandas content-panel">Bandas</h3>
                         </div>
                         <div class="panel-body" id="ListaItems">
                             <table class="table">
@@ -193,50 +104,14 @@
                                     </tr>
                                 </thead>
                                 <tbody id="TableBody">
-                                    <tr>
+                                    <tr *ngFor="#ba of event.bands">
                                         <td>
-                                            <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
+                                            <a href="#" ><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
                                         </td>
-                                        <td><a href="#" class="enlaceListaBanda">The Eagles</a></td>
+                                        <td><a href="#"  class="enlaceListaBanda" >{{ba.groupName}}</a></td>
                                         <td>
                                             <ul>
-                                                <li><a href="#" class="enlacePerfilArtista">Glenn Frey</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Don Henley</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Joe Walsh</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Timothy B. Schmit</a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
-                                        </td>
-                                        <td><a href="#" class="enlaceListaBanda">Pink Floyd</a></td>
-                                        <td>
-                                            <ul>
-                                                <li><a href="#" class="enlacePerfilArtista">Syd Barret</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Roger Waters</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Richard Wright</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Bob Klose</a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
-                                        </td>
-                                        <td><a href="#" class="enlaceListaBanda">Dire Straits</a></td>
-                                        <td>
-                                            <ul>
-                                                <li><a href="#" class="enlacePerfilArtista">Mark Knopfler</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">John Illsley</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Alan Clark</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Guy Fletcher</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">David Knopfler</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Pick Withers</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Hal Linds</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Jack Sonni</a></li>
-                                                <li><a href="#" class="enlacePerfilArtista">Mel Collins</a></li>
+                                                <li *ngFor="#mem of ba.members"><a class="enlacePerfilArtista">{{mem.userName}}</a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -245,15 +120,16 @@
                         </div>
                     </div>
                     <!-- Fin bandas del evento -->
+
                     <!-- Localizacion del evento -->
-                    <div class="panel panel-default">
+                    <!--<div class="panel panel-default">
                         <div class="panel-head">
                             <h3 class="content-panel">Localizacion</h3>
                         </div>
                         <div class="panel-body" id="Descripcion">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <!--Informacion localizacion -->
+                                    <!--Informacion localizacion
                                     <table class="table" id="Informacion">
                                         <tbody>
                                             <tr>
@@ -287,11 +163,11 @@
                                 </div>
                                 <div class="col-md-7">
                                     <!--Se trata de una imagen de google map simplemente para simular como quedaria y la idea que queremos desarrollar, ya que esto sera implementado en la fase del frontend-->
-                                    <img src="http://static.android.es/wp-content/uploads/2012/06/Google-Maps.gif" />
+                                    <!--<img src="http://static.android.es/wp-content/uploads/2012/06/Google-Maps.gif" />
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
 
                 </div>
@@ -300,103 +176,8 @@
         </div>
         <!-- Fin Contenido página -->
     </div>
-    
-    <!-- Formulario configuracion -->
-    <div class="formulario" id="formularioConfiguracion">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Ajustes de perfil</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-    
-    <!-- Formulario editar contraseña -->
-    <div class="formulario" id="formularioContraseña">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Editar contraseña</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-    
-    <!-- Formulario editar contraseña -->
-    <div class="formulario" id="formularioContraseña">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Editar contraseña</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-    <footer>
-        <p id="foot">Giraffe Team Desing &copy;</p>
-    </footer>
-    
-</body>
 
-</html>
+    
+
+    
+

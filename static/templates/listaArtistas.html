@@ -1,68 +1,4 @@
-<!DOCTYPE hml>
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
-    <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../styles/estilos.css">
-    <link rel="stylesheet" type="text/css" href="../styles/listaArtistas.css">
-    <link rel="stylesheet" type="text/css" href="../styles/artista.css">
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <script src="../libs/jquery-2.2.1.min.js"></script>
-    <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-    <script src="../libs/jquery.bpopup.min.js"></script>
-    <script src="../libs/popupAnimation.js"></script>
-    <title>MiasuicBox</title>
-</head>
-
-<body>
-    <div class="container">
-        <!--Menú-->
-        <!-- la clase se ha puesto a navbar-default, y posteriormente editada en css -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                      </button>
-                      <a class="navbar-brand" href="principal.html">MiausicBox</a>
-                    </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                    <ul class="nav navbar-nav">
-                        <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>  Perfil</a></li>
-                        <li><a href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>  Mensajes</a></li>
-                        <li><a href="eventos.html"><span class="glyphicon glyphicon-pushpin"></span>  Eventos</a></li>
-                        <li class="active"><a href="listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
-                        <li><a href="listaBandas.html"><span class="glyphicon glyphicon-cd"></span>   Bandas</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                    </form>
-                    <div class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
-                            <li><a href="#" id="passButton">Editar contraseña</a></li>
-                                <li class="divider"></li>
-                                <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
-                            </ul>
-                        </li>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!-- Fin menu -->
-
-        <!-- Contenido página -->
-        <div class="container" id="profile-page">
+<div class="content-page container">
             <div class="row">
                 <!--Titulo contenido -->
                 <div class="col-md-12">
@@ -80,13 +16,13 @@
                         </div>
 
                         <div class="panel-body">
-                            
+
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Nombre:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre del artista">
+                                    <input #findName type="text" class="form-control" >
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findByName(findName.value); findName.value=' '"  >Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
@@ -96,7 +32,7 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaInstrumentos">Banda:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <input type="text" class="form-control" >
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
                                     </span>
@@ -104,48 +40,8 @@
                                 <!-- /input-group -->
                             </div>
                             <!-- /.col-lg-6 -->
-                            
-                            <h4 id="OpcionesInstrumentos">Instrumentos:</h4>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Voz <img src="../img/instrumentoVozN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Guitarra <img src="../img/instrumentoGuitarN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Bajo <img src="../img/instrumentoBajoN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Bateria <img src="../img/instrumentoBateriaN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxInstrumentos">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Piano <img src="../img/instrumentoPianoN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxInstrumentos">
-                                    <input type="checkbox">Violin <img src="../img/instrumentoViolinN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxInstrumentos">
-                                    <input type="checkbox">Trompeta <img src="../img/instrumentoTrompetaN.png" alt="Instrument" id="InstrumentSimbol">
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxInstrumentos">
-                                    <input type="checkbox">Otros <img src="../img/instrumentoOtroN.png" alt="Instrument" id="InstrumentSimbol">  
-                                </label>
-                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -159,69 +55,34 @@
                             <tr>
                                 <th id="esquinaTablaArtista1">Perfil</th>
                                 <th>Nombre </th>
+                                <th>Es Artista</th>
                                 <th>Instrumentos</th>
                                 <th id="esquinaTablaArtista2">Bandas</th>
+
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Alex Turner</a></td>
+
+
+                            <tr *ngFor="#us of userList; #i = index">
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['Artist', {id: us.userId}]" class="enlaceListaArtista">{{us.userObj.userName}}</a></td>
+
+                                <td>
+                                    <div *ngIf="us.userObj.isArtist">Si</div>
+                                </td>
                                 <td>
                                     <ul>
-                                        <li>Voz <img src="../img/instrumentoVozB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                        <li>Piano <img src="../img/instrumentoPianoB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                        <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol"></li>
+                                        <li *ngFor="#ins of instruments[i].listaInst" > <img src="{{ins.image_url_white}}" alt="Profile image" id="ImagenInstrumento"/> {{ins.name}} </li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        <li>Arctic Monkeys</li>
+                                        <li *ngFor="#band of bands[i]" [routerLink]="['Band', {id: band.id}]" >{{band.bandObj.groupName}}</li>
                                     </ul>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Jaime Cookr</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Guitarra <img src="../img/instrumentoGuitarB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Nick O'Malley</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Bajo <img src="../img/instrumentoBajoB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><a href="#" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="artista.html" class="enlaceListaArtista">Matt Heldersr</a></td>
-                                <td>
-                                    <ul>
-                                        <li>Bateria <img src="../img/instrumentoBateriaB.png" alt="Instrument" id="InstrumentSimbol"></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Arctic Monkeys</li>
-                                    </ul>
-                                </td>
+
                             </tr>
                         </tbody>
                     </table>
@@ -240,75 +101,3 @@
 
             </div>
         </div>
-    </div>
-    
-    <!-- Formulario configuracion -->
-    <div class="formulario" id="formularioConfiguracion">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Ajustes de perfil</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-    
-    <!-- Formulario editar contraseña -->
-    <div class="formulario" id="formularioContraseña">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Editar contraseña</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-    
-    <footer>
-        <p id="foot">Giraffe Team Desing &copy;</p>
-    </footer>
-</body>
-
-</html>

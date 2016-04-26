@@ -83,6 +83,13 @@
     text-decoration: none;
 }
 
+.formulButtonModification{
+    margin-right: 50px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+
 #Eventos {
     color:black;
 }
@@ -110,6 +117,7 @@
     text-decoration: none;
 }
 
+
 #AutorBlog a:hover {
     color: #00BC8C;
 }
@@ -129,4 +137,13 @@
 
 #FechaBlog {
     text-align: right;
+}
+
+#followButton {
+    background-color: #00BC8C;
+    color: aliceblue;
+}
+
+#inst{
+    width: 70%;
 }

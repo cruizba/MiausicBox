@@ -1,0 +1,10 @@
+typings/
+node_modules/
+*.js
+*.js.map
+static/npm-debug.log
+.idea/modules.xml
+.idea/PracticaDAW.iml
+.idea/vcs.xml
+.idea/workspace.xml
+static/.idea/modules.xml

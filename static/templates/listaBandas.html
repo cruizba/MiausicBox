@@ -1,71 +1,6 @@
-<!DOCTYPE hml>
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
-    <link href="../libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../styles/estilos.css">
-    <link rel="stylesheet" type="text/css" href="../styles/listaBandas.css">
-    <link rel="stylesheet" type="text/css" href="../styles/artista.css">
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <script src="../libs/jquery-2.2.1.min.js"></script>
-    <script src="../libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
-    <script src="../libs/jquery.bpopup.min.js"></script>
-    <script src="../libs/popupAnimation.js"></script>
-    <title>MiasuicBox</title>
-</head>
-
-<body>
-    <div class="container">
-        <!--Menú-->
-        <!-- la clase se ha puesto a navbar-default, y posteriormente editada en css -->
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="principal.html">MiausicBox</a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-                    <ul class="nav navbar-nav">
-                        <li><a href="perfil.html"><span class="glyphicon glyphicon-user"></span>  Perfil</a></li>
-                        <li><a href="mensajes.html"><span class="glyphicon glyphicon-envelope"></span>  Mensajes</a></li>
-                        <li><a href="eventos.html"><span class="glyphicon glyphicon-pushpin"></span>  Eventos</a></li>
-                        <li><a href="listaArtistas.html"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
-                        <li class="active"><a href="listaBandas.html"><span class="glyphicon glyphicon-cd"></span>   Bandas</a></li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                    </form>
-                    <div class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">
-                              Configuración <span class="glyphicon glyphicon-cog"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" id="confButton">Ajustes de perfil</a></li>
-                            <li><a href="#" id="passButton">Editar contraseña</a></li>
-                                <li class="divider"></li>
-                                <li><a href="index.html"><span class="glyphicons glyphicons-door"></span> Salir</a></li>
-                              </ul>
-                        </li>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!-- Fin menu -->
-
-        <!-- Contenido página -->
-        <div class="container" id="profile-page">
+  <div class="content-page container">
             <div class="row">
-                
+
                 <!--Titulo contenido -->
                 <div class="col-md-12">
                     <div class="page-header">
@@ -86,82 +21,13 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaBanda">Nombre:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <input #name type="text" class="form-control" placeholder="Nombre de la banda">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findName(name.value); name.value=null">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
                             </div>
-                            
-
-                            <h4 id="opcionesGenero">Genero:</h4>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Rock
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Pop
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Jazz 
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Rap
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Reggae
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero"> 
-                                    <input type="checkbox">Metal
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Hard Rock
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Punk
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Indie
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Blues
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Grunge
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Trash Metal
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Otros
-                                </label>
-                            </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -181,86 +47,19 @@
                         </thead>
 
                         <tbody>
-                            <tr>
+                            <tr *ngFor="#ba of bands; #i = index">
                                 <td>
-                                    <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
+                                    <a  class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
                                 </td>
-                                <td><a href="banda.html" class="enlaceListaBanda">Arctic Monkeys</a></td>
+                                <td><a [routerLink]="['Band', {id: ba.bandId}]" class="enlaceListaBanda">{{ba.bandObj.groupName}}</a></td>
                                 <td>
                                     <ul>
-                                        <li><a href="#" class="enlacePerfilArtista">Alex Turner</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Matt Helders</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Jaime Cook</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Nick O'Malley</a></li>
+                                        <li *ngFor="#mem of members[i]" ><a [routerLink]="['Artist',  {id: mem.id}]" class="enlacePerfilArtista">{{mem.user.userName}}</a></li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        <li>Indie</li>
-                                        <li>Rock</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
-                                </td>
-                                <td><a href="banda.html" class="enlaceListaBanda">Supersubmarina</a></td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#" class="enlacePerfilArtista">Jose Chino</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Jaime</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Pope</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Juanca</a></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Indie</li>
-                                        <li>Rock</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
-                                </td>
-                                <td><a href="banda.html" class="enlaceListaBanda">Linkin Park</a></td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#" class="enlacePerfilArtista">Chester Bennington</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Mike Shinoda</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Joe Hahn</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Brad Delson</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Rob Bourdon</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">David Farrel</a></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Metal</li>
-                                        <li>Rock</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#" class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
-                                </td>
-                                <td><a href="#" class="enlaceListaBanda">Fall Out Boy</a></td>
-                                <td>
-                                    <ul>
-                                        <li><a href="#" class="enlacePerfilArtista">Patrick Stump</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Pete Wentz</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Joe Trohman</a></li>
-                                        <li><a href="#" class="enlacePerfilArtista">Andrew Hurley</a></li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul>
-                                        <li>Punk</li>
-                                        <li>Rock</li>
-                                        <li>Pop</li>
+                                        <li *ngFor="#gen of genres[i]">{{gen.name}}</li>
                                     </ul>
                                 </td>
                             </tr>
@@ -282,75 +81,3 @@
 
             </div>
         </div>
-    </div>
-    
-    <!-- Formulario configuracion -->
-    <div class="formulario" id="formularioConfiguracion">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Ajustes de perfil</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-    
-    <!-- Formulario editar contraseña -->
-    <div class="formulario" id="formularioContraseña">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Editar contraseña</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-    
-    <footer>
-        <p id="foot">Giraffe Team Desing &copy;</p>
-    </footer>
-</body>
-
-</html>

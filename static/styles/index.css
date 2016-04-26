@@ -24,12 +24,12 @@
 #signin {
     background-color: #00BC8C;
     border-radius: 1em;
-    padding-bottom: 1em; 
+    padding-bottom: 1em;
 }
 
 #login {
     background-color: #00BC8C;
-    border-radius: 1em;  
+    border-radius: 1em;
     padding-bottom: 1em;
 
 }
@@ -55,4 +55,9 @@
 /*Para Signin*/
 #imgperfil {
     float: left;
+}
+
+/* Checkbox isArtist */
+#check{
+    text-align: left;
 }

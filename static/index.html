@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <title>MiausicBox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- IE required polyfills, in this exact order -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.20/system-polyfills.js"></script>
+    <script src="https://npmcdn.com/angular2@2.0.0-beta.13/es6/dev/src/testing/shims_for_IE.js"></script>
+
+    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2-polyfills.js"></script>
+    <script src="https://code.angularjs.org/tools/system.js"></script>
+    <script src="https://npmcdn.com/typescript@1.8.9/lib/typescript.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.13/Rx.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.13/angular2.dev.js"></script>
+    <script src="https://code.angularjs.org/2.0.0-beta.13/router.dev.js"></script>
+
+    <!-- MiausicBox head -->
+      <meta name="viewport" content="width=device-width, initial-scale=1 text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/estilos.css">
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <link rel="stylesheet" type="text/css" href="../styles/principalSinLogIn.css">
+    <link rel="stylesheet" type="text/css" href="../styles/artista.css">
+    <link rel="stylesheet" type="text/css" href="../styles/banda.css">
+    <link rel="stylesheet" type="text/css" href="../styles/mensajes.css">
+    <link rel="stylesheet" type="text/css" href="../styles/listaArtistas.css">
+    <link rel="stylesheet" type="text/css" href="../styles/listaBandas.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <script src="libs/jquery-2.2.1.min.js"></script>
+    <script src="libs/bootstrap-3.3.6-dist/js/bootstrap.min.js"></script>
+
+    <!-- Pop Up effect -->
+    <script src="libs/jquery.bpopup.min.js"></script>
+    <script src="libs/popupAnimation.js"></script>
+
+    <!-- Web app -->
+    <title>MiasuicBox</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/icon1.ico" />
+    <script>
+      System.config({
+        transpiler: 'typescript',
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: {'app': {defaultExtension: 'ts'}}
+      });
+      System.import('app/main')
+            .then(null, console.error.bind(console));
+    </script>
+  </head>
+    <body>
+      <my-app>Loading...</my-app>
+    </body>
+    <footer>
+        <p id="foot">Giraffe Team Desing &copy;</p>
+    </footer>
+</html>

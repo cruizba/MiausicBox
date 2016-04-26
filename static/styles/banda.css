@@ -129,21 +129,8 @@
     height: 3em;
 }
 
-#AutorBlog {
-    text-align: left;
-}
-
-#AutorBlog a {
-    color: black;
-    text-decoration: none;
-}
-
-#AutorBlog a:hover {
-    color: #00BC8C;
-}
-
 #BandaBlog {
-    text-align: center;
+    text-align: left;
 }
 
 #BandaBlog a {
