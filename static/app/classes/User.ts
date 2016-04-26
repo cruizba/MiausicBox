@@ -4,8 +4,7 @@ import {Band} from './Band'
  * @class User
  */
 export class User{
-
-
+  
   private _userName:string;
   private _password:string;
   private _completeName:string;
@@ -18,6 +17,7 @@ export class User{
   private _instruments:number[] = [];
   private _genres:number[] = [];
   private _bands: Band[] = [];
+  private _events:Event[] = [];
 
   constructor(userName:string, password:string, completeName:string,
               description:string, isArtist:boolean, city:string,
@@ -83,6 +83,9 @@ export class User{
     return this._bands;
   }
 
+  get events():Event[]{
+    return this._events;
+  }
 
   public set instruments(instrument: number[]){
     this._instruments = instrument;
@@ -132,6 +135,10 @@ export class User{
   set bands(value:Array){
     this._bands=value;
   }
+  set events(value:Array){
+    this._events=value;
+  }
+
 
   /** Return if an User is equal to other
     @method equals
