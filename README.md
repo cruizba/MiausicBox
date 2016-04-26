@@ -77,13 +77,11 @@ Principal sin entrar:
 <img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/principalSinLogin.jpg?raw=true" />
 
 
+#6 DIAGRAMA DE CLASES (desactualizado)
 
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/uml.jpg?raw=true" />
 
-
-
-
-
-#6. INTEGRANTES
+#7. INTEGRANTES
 Thais Méndez Otero - t.mendez@alumnos.urjc.es - ThaisM
 
 Soraya Rama Castaño - s.rama@alumnos.urjc.es - sorayarc
