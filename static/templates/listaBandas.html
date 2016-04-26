@@ -21,82 +21,13 @@
                             <div class="col-lg-12">
                                 <h4 id="BusquedaBanda">Nombre:</h4>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <input #name type="text" class="form-control" placeholder="Nombre de la banda">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findName(name.value); name.value=null">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
                             </div>
-
-
-                            <h4 id="opcionesGenero">Genero:</h4>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Rock
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Pop
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Jazz
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Rap
-                                </label>
-                            </div>
-                            <div class="checkbox" id="checkboxGenero">
-                                <label class="labelBusqueda">
-                                    <input type="checkbox">Reggae
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Metal
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Hard Rock
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Punk
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Indie
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Blues
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Grunge
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Trash Metal
-                                </label>
-                            </div>
-                            <div class="checkbox">
-                                <label class="labelBusqueda" id="checkboxGenero">
-                                    <input type="checkbox">Otros
-                                </label>
-                            </div>
-
                         </div>
                     </div>
                 </div>

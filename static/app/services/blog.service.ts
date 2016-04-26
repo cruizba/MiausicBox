@@ -40,5 +40,11 @@ export class BlogService {
     });
     return withObserver(result);
   }
+  
+  addBlogUsser (title, img, text, date, user){
+    img="../img/img6.jpg";
+    var newBlog = new BlogUser(title, img, text, date, user );
+    blogUserList.push(newBlog);
+  }
 
 }

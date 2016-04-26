@@ -9,12 +9,14 @@ import {GenreList} from "./classes/GenreList";
 import {FollowService} from "./services/follow.service";
 import {MessageService} from "./services/message.service";
 import { BlogUser } from "./classes/BlogUser";
-import { BlogService } from "./services/blog.service"
+import { BlogService } from "./services/blog.service";
+import { BandService } from "./services/band.service";
+import {EventService} from "./services/event.service";
 
 @Component({
   selector: 'artista',
   templateUrl: 'templates/artista.html',
-  providers: [UserService, FollowService, MessageService, BlogService],
+  providers: [UserService, FollowService, MessageService, BlogService, BandService, EventService],
   directives: [ROUTER_DIRECTIVES]
 })
 
@@ -29,6 +31,8 @@ export class ArtistaComponent {
   genresUser:string[] = [];
   id;
   blogList:BlogUser[] = [];
+  bands = [];
+  events = [];
 
   //Follows variables
   numFollowing:number;
@@ -39,7 +43,8 @@ export class ArtistaComponent {
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
-                private _blogService: BlogService){
+                private _bandService:BandService, private _blogService: BlogService,
+                private _eventService:EventService){
   }
 
   ngOnInit() {
@@ -50,6 +55,8 @@ export class ArtistaComponent {
       }
       this.genres();
       this.isFollowedBy();
+      this.bandsUser();
+      this.eventsUser();
   }
 
 
@@ -77,6 +84,29 @@ export class ArtistaComponent {
 
         this._blogService.getBlogsByUser(this.user).subscribe(
           blogList => this.blogList = blogList
+        )
+
+
+    }
+
+    bandsUser(){
+        this._bandService.getBandsByUserId(this.id).subscribe(
+            list => this.bands = list,
+            error => {
+                this.bands = null;
+                alert ("Error");
+            }
+        );
+        console.log(this.bands);
+    }
+
+    eventsUser(){
+        this._eventService.getEventsByUserId(this.id).subscribe(
+            list => this.events = list,
+            error => {
+                this.events = null;
+                alert ("Error al cargar eventos");
+            }
         )
     }
 
@@ -118,6 +148,7 @@ export class ArtistaComponent {
             (error => alert("numFollowings error"))
         );
     }
+    
 
     isFollowedBy() {
       this._followService.isUserFollowedBy(Info.userLogged, this.user).subscribe(
@@ -136,6 +167,27 @@ export class ArtistaComponent {
       this._followService.setUnfollow(Info.userLogged, this.user);
       this.isFollowed = false;
       this.numFollowers--;
+    }
+    
+    submitBlog(title, img, text){
+        var user: User=Info.userLogged;
+        this._blogService.addBlogUsser(title, img, text, new Date, user);
+        
+        this._blogService.getBlogsByUser(this.user).subscribe(
+            blogList => this.blogList = blogList
+        )
+
+    }
+    
+    newBand (nameBand, description){
+        this._bandService.addNewBand(nameBand,description);
+        this.bandsUser();
+    }
+
+    newEvent (name, date, direction, description){
+        var auxdate = new Date (date);
+        this._eventService.addNewEvent(name, auxdate, direction, description);
+        this.eventsUser();
     }
 
 }

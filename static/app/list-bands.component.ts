@@ -41,7 +41,7 @@ export class ListBandsComponent {
     initMembers() {
         var result = [];
         for (let i = 0; i < this.bands.length; i++) {
-            this._bandService.getMembers(i).subscribe(
+            this._bandService.getMembers(this.bands[i].bandId).subscribe(
                 members => result.push(members),
                 error => alert("Error members")
             );
@@ -60,5 +60,26 @@ export class ListBandsComponent {
             result.push(genres)
         }
         return result;
+    }
+
+    findName(username){
+        this.bands = [];
+        this.members = [];
+        this.genres = [];
+        if(username.length != 0){
+            this._bandService.getBandByName(username).subscribe(
+                bands => this.bands = bands,
+                error => alert("error bands")
+            );
+            console.log(this.members);
+            console.log(this.genres);
+            this.members = this.initMembers();
+            this.genres = this.initGenres();
+        }
+        else{
+            this.initBands();
+            this.members = this.initMembers();
+            this.genres = this.initGenres();
+        }
     }
 }
