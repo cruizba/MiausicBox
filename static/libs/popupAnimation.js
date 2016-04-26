@@ -23,6 +23,11 @@
            popupForm(event, "#formularioCrearBanda");
         });
     });
+    $(function(){
+        $('#crearEventoButton').bind('click', function(event){
+            popupForm(event, "#formularioCrearEvento");
+        });
+    });
     
     $(function(){
        $('#writeButton').bind('click', function(event){

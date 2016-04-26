@@ -53,7 +53,7 @@ export class UserService {
     }
     return withObserver (allUsers);
   }
-
+  
   checkUserByUsername(username:string){
     for(let i = 0; i < userList.length; i++) {
       if (userList[i].userName == username) {
@@ -92,4 +92,26 @@ export class UserService {
     userList[Info.userId].description = description;
   }
 
+  setInstrument(num){
+    var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
+    if(instruments.indexOf(num) == -1) {
+      userList[userList.indexOf(Info.userLogged)].instruments.push(parseInt(num));
+      console.log(Info.userLogged);
+    }
+  }
+
+  deleteInstrument(num){
+    var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
+    var index = instruments.indexOf(parseInt(num))
+    if(index != 0){
+      userList[userList.indexOf(Info.userLogged)].instruments.splice(index, 1)
+      Info.userLogged.instruments.splice(index, 1);
+      console.log(Info.userLogged.instruments)
+    }
+  }
+
+  setCity(city){
+    userList[userList.indexOf(Info.userLogged)].setCity(city);
+    console.log(userList.indexOf(Info.userLogged));
+  }
 }

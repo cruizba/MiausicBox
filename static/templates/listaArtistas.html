@@ -79,9 +79,7 @@
                                 </td>
                                 <td>
                                     <ul>
-                                       <a *ngFor="#band of bands[i]" [routerLink]="['Band', {id: id}]" >
-                                           <li>{{band.bandObj.groupName}}</li>
-                                       </a>
+                                        <li *ngFor="#band of bands[i]" [routerLink]="['Band', {id: band.id}]" >{{band.bandObj.groupName}}</li>
                                     </ul>
                                 </td>
 
