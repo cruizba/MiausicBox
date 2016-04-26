@@ -52,11 +52,17 @@ export class BandService {
 
   getBandsByUser(id){
     var result = [];
-    var bands = userList[id].bands;
-    console.log(bands);
-    for (let i = 0; i < bands.length; i++){
-      result.push({"bandId":bandList.indexOf(bands[i]), "bandObj":bands[i]});
+
+    for (let i = 0; i < bandList.length; i++){
+      var list = bandList[i].followers;
+      for (let j = 0; j <list.length; j++){
+        if(id == userList.indexOf(list[j])){
+          result.push({"bandId":i, "bandObj":bandList[i]});
+        }
+      }
+
     }
+    
     return withObserver(result);
   }
 }
