@@ -26,6 +26,7 @@ export class ArtistaComponent {
   user: User;
   instruments: Instrument[] = [];
   instruments_url:string[] = [];
+  allInstruments = new IntrumentList().instruments;
   genresUser:string[] = [];
   id;
   blogList:BlogUser[] = [];
@@ -36,6 +37,9 @@ export class ArtistaComponent {
 
   //Notification
   numMessages:number;
+
+  //Variables modify instruments
+    intInstrument;
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
@@ -139,4 +143,21 @@ export class ArtistaComponent {
       this.numFollowers--;
     }
 
+    addInstrument(num){
+        this._userService.setInstrument(num);
+        this.instruments = [];
+        this.instruments_url = [];
+        this.instrumentsUser();
+    }
+
+    deleteInstrument(num){
+        this._userService.deleteInstrument(num);
+        this.instruments = [];
+        this.instruments_url = [];
+        this.instrumentsUser();
+    }
+
+    setCity(city:string){
+        this._userService.setCity(city).subscribe();
+    }
 }

@@ -83,6 +83,13 @@
     text-decoration: none;
 }
 
+.formulButtonModification{
+    margin-right: 50px;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+
 #Eventos {
     color:black;
 }
@@ -135,4 +142,8 @@
 #followButton {
     background-color: #00BC8C;
     color: aliceblue;
+}
+
+#inst{
+    width: 70%;
 }
