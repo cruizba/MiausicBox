@@ -32,7 +32,8 @@ export class BandComponent {
   //Follows variables
   numFollowers:number;
 
-  constructor(private _routeParams: RouteParams, private _bandService: BandService, private _blogService: BlogService){
+  constructor(private _routeParams: RouteParams, private _bandService: BandService,
+              private _blogService: BlogService, private _userService:UserService){
   }
 
   ngOnInit() {
@@ -86,6 +87,16 @@ export class BandComponent {
 
     updateFollows(){
       this.numFollowers = this.band.followers.length;
+    }
+
+    newMember(userName){
+
+        this._bandService.addNewMember(userName, this.id);
+        this._bandService.getMembers(this.id).subscribe(
+            (members => this.membersList = members),
+            (error => alert("getMembers error"))
+        )
+        
     }
 
 }
