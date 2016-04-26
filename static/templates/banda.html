@@ -199,7 +199,7 @@
             <!-- Boton Añadir Blog -->
             <div class="insertarButton">
                 <button class="formButton btn btn-default" id="insertBlogButton">
-                <div class="row">
+                <div data-toggle="modal" data-target="#agregarBlog" class="row">
                     <div class="col-md-10 textAddBlog">
                         Insertar nuevo Blog
                     </div>
@@ -237,142 +237,48 @@
     </div>
     <!-- Fin Contenido página -->
 
-    <!-- Formulario configuracion -->
-    <div class="formulario" id="formularioConfiguracion">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Ajustes de perfil</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-
     <!-- Formulario agregar blog -->
-    <div class="formulario" id="formularioBlog">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Nuevo Blog</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
+
     <!-- Fin formulario -->
 
-    <!-- Formulario configuracion -->
-    <div class="formulario" id="formularioConfiguracion">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Ajustes de perfil</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+    <!-- Formulario Crear Banda -->
+    <div id="agregarBlog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioBlog">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Nuevo Blog</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
+                                    <div class="col-sm-10">
+                                        <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
+                                    </div>
+                                </div>
+                                <div class="BotonFormulario">
+                                    <button type="submit" class="btn btn-default">Enviar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
+                </div>
 
-    <!-- Formulario editar contraseña -->
-    <div class="formulario" id="formularioContraseña">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Editar contraseña</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
+            </div>
         </div>
     </div>
     <!-- Fin formulario -->
