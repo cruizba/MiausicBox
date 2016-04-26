@@ -5,6 +5,7 @@ import { User } from '../classes/User'
 import { withObserver } from '../classes/Utils';
 import {Instrument} from "../classes/Instrument";
 import {IntrumentList} from "../classes/InstrumentList";
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class UserService {
@@ -51,5 +52,66 @@ export class UserService {
       }
     }
     return withObserver (allUsers);
+  }
+  
+  checkUserByUsername(username:string){
+    for(let i = 0; i < userList.length; i++) {
+      if (userList[i].userName == username) {
+        return withObserver (false);
+      }
+    }
+    return withObserver (true);
+  }
+
+  addUser(user:User){
+    userList.push(user);
+    return withObserver (userList.length-1);
+  }
+
+  changePassword(password:string){
+    userList[Info.userId].password = password;
+  }
+
+  changeUser(user:string){
+    userList[Info.userId].userName = user;
+  }
+
+  changeName(name:string) {
+    userList[Info.userId].completeName = name;
+  }
+
+  changeEmail(email:string) {
+    userList[Info.userId].email = email;
+  }
+
+  changeIsArtist(artist:boolean) {
+    userList[Info.userId].isArtist = artist;
+  }
+
+  changeDescription(description:string) {
+    userList[Info.userId].description = description;
+  }
+
+  setInstrument(num){
+    var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
+    if(instruments.indexOf(num) == -1) {
+      userList[userList.indexOf(Info.userLogged)].instruments.push(parseInt(num));
+      console.log(Info.userLogged);
+    }
+  }
+
+  deleteInstrument(num){
+    var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
+    var index = instruments.indexOf(parseInt(num))
+    if(index != 0){
+      userList[userList.indexOf(Info.userLogged)].instruments.splice(index, 1)
+      Info.userLogged.instruments.splice(index, 1);
+      console.log(Info.userLogged.instruments)
+    }
+  }
+
+  setCity(city){
+    userList[userList.indexOf(Info.userLogged)].setCity(city);
+    console.log(userList.indexOf(Info.userLogged));
   }
 }

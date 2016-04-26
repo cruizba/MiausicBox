@@ -62,6 +62,12 @@ export class PrincipalService{
                 /* Omitimos aquellas novedades de los grupos que seguimos */
             }
         }
+        /* Agregamos las novedades a las que perteneco */
+        for(let i = 0; i < noveltyList.length; i++) {
+            if (Info.userLogged.equals(noveltyList[i].user)) {
+                result.push(noveltyList[i]);
+            }
+        }
 
         result.sort(function(a,b) {
             return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();

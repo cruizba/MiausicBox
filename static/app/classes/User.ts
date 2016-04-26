@@ -4,10 +4,11 @@ import {Band} from './Band'
  * @class User
  */
 export class User{
-
+  
   private _userName:string;
   private _password:string;
   private _completeName:string;
+  private _email:string;
   private _description:string;
   private _isArtist: boolean;
   private _city:string;
@@ -17,14 +18,16 @@ export class User{
   private _instruments:number[] = [];
   private _genres:number[] = [];
   private _bands: Band[] = [];
+  private _events:Event[] = [];
 
-  constructor(userName:string, password:string, completeName:string,
+  constructor(userName:string, password:string, completeName:string, email:string,
               description:string, isArtist:boolean, city:string,
               facebook:string, twitter:string, youtube:string,
               instruments:number[], genres:number[], bands: Band[]){
     this._userName = userName;
     this._password = password;
     this._completeName = completeName;
+    this._email = email;
     this._description = description;
     this._isArtist = isArtist;
     this._city = city;
@@ -44,6 +47,10 @@ export class User{
 
   public get completeName():string{
     return this._completeName;
+  }
+
+  public get email():string{
+    return this._email;
   }
 
   public get description():string{
@@ -78,7 +85,13 @@ export class User{
   public get youtube():string{
     return this._youtube;  }
 
+  get bands():Band[]{
+    return this._bands;
+  }
 
+  get events():Event[]{
+    return this._events;
+  }
 
   public set instruments(instrument: number[]){
     this._instruments = instrument;
@@ -98,6 +111,10 @@ export class User{
 
   public set completeName(completeName: string){
     this._completeName = completeName;
+  }
+
+  public set email(email:string){
+    this._email = email;
   }
 
   public set description(description: string){
@@ -123,6 +140,15 @@ export class User{
   public setYoutube(youtube:string){
     this._youtube = youtube;
   }
+
+
+  set bands(value:Array){
+    this._bands=value;
+  }
+  set events(value:Array){
+    this._events=value;
+  }
+
 
   /** Return if an User is equal to other
     @method equals
