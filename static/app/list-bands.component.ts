@@ -8,8 +8,8 @@ import {GenreList} from "./classes/GenreList";
 @Component({
   selector: 'list-bands',
   templateUrl: 'templates/listaBandas.html',
-  providers: [BandService],
-    directives: [ROUTER_DIRECTIVES]
+  providers: [BandService], 
+  directives: [ROUTER_DIRECTIVES]
 })
 
 export class ListBandsComponent {
@@ -67,7 +67,7 @@ export class ListBandsComponent {
         this.members = [];
         this.genres = [];
         if(username.length != 0){
-            this._bandService.getBandByName(username).subscribe(
+            this._bandService.getBandsByUsers(username).subscribe(
                 bands => this.bands = bands,
                 error => alert("error bands")
             );

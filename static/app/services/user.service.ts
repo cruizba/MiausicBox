@@ -5,6 +5,7 @@ import { User } from '../classes/User'
 import { withObserver } from '../classes/Utils';
 import {Instrument} from "../classes/Instrument";
 import {IntrumentList} from "../classes/InstrumentList";
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class UserService {
@@ -52,4 +53,43 @@ export class UserService {
     }
     return withObserver (allUsers);
   }
+
+  checkUserByUsername(username:string){
+    for(let i = 0; i < userList.length; i++) {
+      if (userList[i].userName == username) {
+        return withObserver (false);
+      }
+    }
+    return withObserver (true);
+  }
+
+  addUser(user:User){
+    userList.push(user);
+    return withObserver (userList.length-1);
+  }
+
+  changePassword(password:string){
+    userList[Info.userId].password = password;
+  }
+
+  changeUser(user:string){
+    userList[Info.userId].userName = user;
+  }
+
+  changeName(name:string) {
+    userList[Info.userId].completeName = name;
+  }
+
+  changeEmail(email:string) {
+    userList[Info.userId].email = email;
+  }
+
+  changeIsArtist(artist:boolean) {
+    userList[Info.userId].isArtist = artist;
+  }
+
+  changeDescription(description:string) {
+    userList[Info.userId].description = description;
+  }
+
 }

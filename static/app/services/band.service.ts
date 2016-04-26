@@ -34,7 +34,7 @@ export class BandService {
 
   getBlogsByBand(band) {
     var bandBlogs = [];
-    for (let i = 0; i < blogBandList; i++) {
+    for (let i = 0; i < blogBandList.length; i++) {
       if (blogBandList[i].author.equals(band)) {
         bandBlogs.push(blogBandList[i]);
       }

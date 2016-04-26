@@ -112,11 +112,11 @@ export class Band{
     this._youtube = youtube;
   }
 
-  set genres(value:number[]){
+  public set genres(value:number[]){
     this._genres=value;
   }
 
-  set tracks(tracks:Track[]){
+  public set tracks(tracks:Track[]){
     this._tracks=tracks;
   }
 

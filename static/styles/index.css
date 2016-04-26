@@ -56,3 +56,8 @@
 #imgperfil {
     float: left;
 }
+
+/* Checkbox isArtist */
+#check{
+    text-align: left;
+}
