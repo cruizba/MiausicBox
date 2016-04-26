@@ -1,121 +1,121 @@
 <div class="content-page container" id="profile-page">
-  <div class="row">
-      <!-- Información del perfil -->
-      <div class="col-md-4" id="profile_details">
-          <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
-          <h1>{{band.groupName}}</h1>
+    <div class="row">
+        <!-- Información del perfil -->
+        <div class="col-md-4" id="profile_details">
+            <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
+            <h1>{{band.groupName}}</h1>
 
-          <!-- Información General -->
-          <div class="panel panel-default profile-info">
-              <div class="panel-heading">
-                  <h3 class="panel-title">Información</h3>
-              </div>
-              <div class="panel-body">
-                  <table class="table" id="Informacion">
-                      <tbody>
-                          <tr id="PrimeraFila">
-                              <td>Géneros
-                              </td>
-                              <td>
-                                  <span *ngFor="#genre of genresBand">{{genre + ", "}}</span>
-                              </td>
-                              <td>
-                                  <button type="button" class="btn btn-default" aria-label="Left Align">
-                                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                  </button>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Ciudad
-                              </td>
-                              <td>{{band.city}}
-                              </td>
-                              <td>
-                                  <button type="button" class="btn btn-default" aria-label="Left Align">
-                                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                  </button>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>Web
-                              </td>
-                              <td><a href="#" class="enlaceInfo">{{band.web}}</a>
-                              </td>
-                              <td>
-                                  <button type="button" class="btn btn-default" aria-label="Left Align">
-                                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                  </button>
-                              </td>
-                          </tr>
-                      </tbody>
-                  </table>
-                  <table class="table" id="TablaSites">
-                      <tr>
-                          <td>
-                              <a class="btn btn-block btn-social btn-facebook">
-                                  <span class="fa fa-facebook"></span>Follow in Facebook
-                              </a>
-                          </td>
-                          <td>
-                              <button type="button" class="btn btn-default" aria-label="Left Align">
-                                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                              </button>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <a class="btn btn-block btn-social btn-twitter">
-                                  <span class="fa fa-twitter"></span>Follow in Twitter
-                              </a>
-                          </td>
-                          <td>
-                              <button type="button" class="btn btn-default" aria-label="Left Align">
-                                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                              </button>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <a class="btn btn-block btn-social btn-pinterest">
-                                  <span class="fa fa-youtube"></span>Follow in Youtube
-                              </a>
-                          </td>
-                          <td>
-                              <button type="button" class="btn btn-default" aria-label="Left Align">
-                                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                              </button>
-                          </td>
-                      </tr>
-                  </table>
-              </div>
-          </div>
-          <!-- Fin Información General -->
-
-          <!-- Eventos próximos -->
-          <div class="panel panel-default profile-info">
-              <div class="panel-heading">
-                  <h3 class="panel-title">Eventos próximos</h3>
-              </div>
-              <div class="panel-body">
-                  <table class="table" id="Eventos">
-                      <tbody>
-                          <tr id="PrimeraFila">
-                              <td>20/7/2017
-                              </td>
-                              <td><a href="#">HellFest</a>
-                              </td>
-                          </tr>
-                          <tr>
-                              <td>15/10/2017
-                              </td>
-                              <td><a href="#">IndieFest</a>
-                              </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+            <!-- Información General -->
+            <div class="panel panel-default profile-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Información</h3>
                 </div>
-                <!-- Fin Eventos próximos -->
+                <div class="panel-body">
+                    <table class="table" id="Informacion">
+                        <tbody>
+                        <tr id="PrimeraFila">
+                            <td>Géneros
+                            </td>
+                            <td>
+                                <span *ngFor="#genre of genresBand">{{genre + ", "}}</span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ciudad
+                            </td>
+                            <td>{{band.city}}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Web
+                            </td>
+                            <td><a href="#" class="enlaceInfo">{{band.web}}</a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" id="TablaSites">
+                        <tr>
+                            <td>
+                                <a class="btn btn-block btn-social btn-facebook">
+                                    <span class="fa fa-facebook"></span>Follow in Facebook
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a class="btn btn-block btn-social btn-twitter">
+                                    <span class="fa fa-twitter"></span>Follow in Twitter
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a class="btn btn-block btn-social btn-pinterest">
+                                    <span class="fa fa-youtube"></span>Follow in Youtube
+                                </a>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- Fin Información General -->
+
+            <!-- Eventos próximos -->
+            <div class="panel panel-default profile-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Eventos próximos</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table" id="Eventos">
+                        <tbody>
+                        <tr id="PrimeraFila">
+                            <td>20/7/2017
+                            </td>
+                            <td><a href="#">HellFest</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>15/10/2017
+                            </td>
+                            <td><a href="#">IndieFest</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Fin Eventos próximos -->
         </div>
         <!-- Fin Información del perfil -->
 
@@ -145,23 +145,23 @@
                 <div class="panel-body" id="ListaItems">
                     <table class="table">
                         <thead id="TableHead">
-                            <tr>
-                                <th id="EsquinaIzqTabla">Perfil</th>
-                                <th>Nombre</th>
-                                <th id="EsquinaDerTabla">Instrumento</th>
-                            </tr>
+                        <tr>
+                            <th id="EsquinaIzqTabla">Perfil</th>
+                            <th>Nombre</th>
+                            <th id="EsquinaDerTabla">Instrumento</th>
+                        </tr>
                         </thead>
                         <tbody id="TableBody">
-                            <tr *ngFor="#mem of membersList">
-                                <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a href="#" class="enlaceArtista">{{mem.user.userName}}</a></td>
-                                <td>
-                                    <ul>
-                                        <li *ngFor="#ins of mem.user.instruments"><img src="{{instruments[ins].image_url}}" alt="Instrument" id="InstrumentSimbol">
-                                        </li>
-                                    </ul>
-                                </td>
-                            </tr>
+                        <tr *ngFor="#mem of membersList">
+                            <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                            <td><a href="#" class="enlaceArtista">{{mem.user.userName}}</a></td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="#ins of mem.user.instruments"><img src="{{instruments[ins].image_url}}" alt="Instrument" id="InstrumentSimbol">
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -176,20 +176,20 @@
                 <div class="panel-body" id="ListaItems">
                     <table class="table">
                         <thead id="TableHead">
-                            <tr>
-                                <th id="EsquinaIzqTabla">Canción</th>
-                                <th>Grupo</th>
-                                <th id="EsquinaDerTabla">Link</th>
-                            </tr>
+                        <tr>
+                            <th id="EsquinaIzqTabla">Canción</th>
+                            <th>Grupo</th>
+                            <th id="EsquinaDerTabla">Link</th>
+                        </tr>
                         </thead>
                         <tbody id="TableBody">
-                            <tr *ngFor="#tr of band.tracks">
-                                <td>{{tr.name}}</td>
-                                <td>{{tr.group}}</td>
-                                <td>
-                                    <button class="linkButton">{{tr.link}}</button>
-                                </td>
-                            </tr>
+                        <tr *ngFor="#tr of band.tracks">
+                            <td>{{tr.name}}</td>
+                            <td>{{tr.group}}</td>
+                            <td>
+                                <button class="linkButton">{{tr.link}}</button>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -199,7 +199,7 @@
             <!-- Boton Añadir Blog -->
             <div class="insertarButton">
                 <button class="formButton btn btn-default" id="insertBlogButton">
-                <div class="row">
+                <div data-toggle="modal" data-target="#agregarBlog" class="row">
                     <div class="col-md-10 textAddBlog">
                         Insertar nuevo Blog
                     </div>
@@ -236,143 +236,47 @@
         <!-- Fin Información banda -->
     </div>
     <!-- Fin Contenido página -->
-
-    <!-- Formulario configuracion -->
-    <div class="formulario" id="formularioConfiguracion">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Ajustes de perfil</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-
     <!-- Formulario agregar blog -->
-    <div class="formulario" id="formularioBlog">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Nuevo Blog</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
+
     <!-- Fin formulario -->
 
-    <!-- Formulario configuracion -->
-    <div class="formulario" id="formularioConfiguracion">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Ajustes de perfil</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de perfil</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nombrePerfil" placeholder="">
+    <!-- Formulario Crear Banda -->
+    <div id="agregarBlog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioBlog">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Nuevo Blog</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
+                                    <div class="col-sm-10">
+                                        <input type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
+                                    </div>
+                                </div>
+                                <div class="BotonFormulario">
+                                    <button type="submit" class="btn btn-default">Enviar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="email">Email</label>
-                        <div class="col-sm-10">
-                            <input type="url" class="form-control" id="email" placeholder="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
-        </div>
-    </div>
-    <!-- Fin formulario -->
-
-    <!-- Formulario editar contraseña -->
-    <div class="formulario" id="formularioContraseña">
-        <div class="panel panel-default">
-            <div class="panel-head">
-                <h3 class="content-panel">Editar contraseña</h3>
-           </div>
-           <div class="panel-body">
-                <form class="form-horizontal" role="form">
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                     <div class="form-group">
-                        <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="contraseña" placeholder="">
-                        </div>
-                    </div>
-                    <div class="BotonFormulario">
-                        <button type="submit" class="btn btn-default">Aceptar</button>
-                    </div>
-               </form>
-           </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Fin formulario -->

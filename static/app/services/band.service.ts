@@ -1,8 +1,11 @@
 import {bandList, userList, blogBandList} from '../classes/memoryDB';
 import {Injectable} from 'angular2/core';
 import {withObserver} from '../classes/Utils';
+
 import {Band} from "../classes/Band";
 import {Info} from "../classes/Info";
+
+
 
 @Injectable()
 export class BandService {
@@ -43,6 +46,7 @@ export class BandService {
     return withObserver(bandBlogs);
   }
 
+
   addNewBand(nameBand, description){
     var user=Info.userLogged;
     var newBand = new Band(user, nameBand, description, "", "", "", "", "", [user], [user], [], []);
@@ -50,7 +54,7 @@ export class BandService {
     bandList.push(newBand);
   }
 
-  getBandsByUser(id){
+  getBandsByUserId(id){
     var result = [];
 
     for (let i = 0; i < bandList.length; i++){
@@ -65,4 +69,23 @@ export class BandService {
     
     return withObserver(result);
   }
+
+  getBandsByUsers(users){
+    var result = []
+    for(let k = 0; k < users.length; k++ ) {
+      var bands = [];
+      for(let i = 0; i < bandList.length; i++){
+        for(let j = 0; j < bandList[i].members.length; j++) {
+          if (bandList[i].members[j].equals(users[k].userObj)) {
+            bands.push({"id": i, "bandObj": bandList[i]});
+          }
+        }
+      }
+      result.push(bands);
+    }
+    console.log(result);
+    return withObserver(result);
+  }
+
+
 }
