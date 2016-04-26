@@ -96,7 +96,14 @@ export class BandComponent {
             (members => this.membersList = members),
             (error => alert("getMembers error"))
         )
-        
+    }
+    
+    newTrack (name, group, link){
+        this._bandService.addNewTrack(name, group, link, this.id);
+        this._bandService.getBandById(this.id).subscribe(
+            (band => this.band = band),
+            (error => alert("getBandById error"))
+        )
     }
 
 }

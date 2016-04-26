@@ -4,6 +4,7 @@ import {withObserver} from '../classes/Utils';
 
 import {Band} from "../classes/Band";
 import {Info} from "../classes/Info";
+import {Track} from "../classes/Track";
 
 
 
@@ -108,6 +109,11 @@ export class BandService {
     }
     bandList[id].members.push(newMem);
     
+  }
+  
+  addNewTrack (name, group, link, id){
+    var newTrack = new Track (name, group, link);
+    bandList[id].tracks.push(newTrack);
   }
 
 }
