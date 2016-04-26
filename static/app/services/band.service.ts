@@ -4,6 +4,7 @@ import {withObserver} from '../classes/Utils';
 
 import {Band} from "../classes/Band";
 import {Info} from "../classes/Info";
+import {Track} from "../classes/Track";
 
 
 
@@ -87,5 +88,32 @@ export class BandService {
     return withObserver(result);
   }
 
+  addNewMember (name, id){
+
+    var mem = bandList[id].members;
+    var encontrado = false;
+    for(let i = 0; i <mem.length; i++){
+      if (name == mem[i].userName){
+        encontrado = true;
+        break;
+      }
+    }
+    if(encontrado){
+      alert("El usuario ya esta en la banda");
+    }else{
+      for (let j = 0; j < userList.length;j++){
+        if( name == userList[j].userName){
+          var newMem=userList[j];
+        }
+      }
+    }
+    bandList[id].members.push(newMem);
+    
+  }
+  
+  addNewTrack (name, group, link, id){
+    var newTrack = new Track (name, group, link);
+    bandList[id].tracks.push(newTrack);
+  }
 
 }

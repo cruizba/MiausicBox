@@ -11,11 +11,12 @@ import { BlogBand } from "./classes/BlogBand";
 import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
 import { Band } from './classes/Band'
+import {NoveltyService} from "./services/novelty.service";
 
 @Component({
   selector: 'band',
   templateUrl: 'templates/banda.html',
-  providers: [BandService, UserService, FollowService, BlogService],
+  providers: [BandService, UserService, FollowService, BlogService, NoveltyService],
   directives: [ROUTER_DIRECTIVES]
 })
 
@@ -32,7 +33,9 @@ export class BandComponent {
   //Follows variables
   numFollowers:number;
 
-  constructor(private _routeParams: RouteParams, private _bandService: BandService, private _blogService: BlogService){
+  constructor(private _routeParams: RouteParams, private _bandService: BandService,
+              private _blogService: BlogService, private _userService:UserService,
+              private _noveltyService: NoveltyService){
   }
 
   ngOnInit() {
@@ -86,6 +89,24 @@ export class BandComponent {
 
     updateFollows(){
       this.numFollowers = this.band.followers.length;
+    }
+
+    newMember(userName){
+
+        this._bandService.addNewMember(userName, this.id);
+        this._bandService.getMembers(this.id).subscribe(
+            (members => this.membersList = members),
+            (error => alert("getMembers error"))
+        )
+        this._noveltyService.newNovelty(userName, this.band, new Date(), true);
+    }
+    
+    newTrack (name, group, link){
+        this._bandService.addNewTrack(name, group, link, this.id);
+        this._bandService.getBandById(this.id).subscribe(
+            (band => this.band = band),
+            (error => alert("getBandById error"))
+        )
     }
 
 }
