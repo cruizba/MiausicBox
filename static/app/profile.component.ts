@@ -90,7 +90,7 @@ export class ArtistaComponent {
     }
 
     bandsUser(){
-        this._bandService.getBandsByUser(this.id).subscribe(
+        this._bandService.getBandsByUserId(this.id).subscribe(
             list => this.bands = list,
             error => {
                 this.bands = null;
