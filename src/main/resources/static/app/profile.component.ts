@@ -207,8 +207,4 @@ export class ArtistaComponent {
         this.instruments_url = [];
         this.instrumentsUser();
     }
-
-    setCity(city:string){
-        this._userService.setCity(city).subscribe();
-    }
 }

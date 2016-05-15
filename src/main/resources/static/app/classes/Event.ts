@@ -80,7 +80,7 @@ export class Event {
     this._direction=value;
   }
 
-  set followers(value:Array){
+  set followers(value:User[]){
     this._followers=value;
   }
 

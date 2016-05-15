@@ -111,8 +111,8 @@ export class EventService {
     addNewEvent(name, date, direction, description){
         var user = Info.userLogged;
         var newEvent = new Event (name, date, user, description, [], direction, [user]);
-        user.events.push(newEvent);
-        eventList.push(newEvent);
+        user.events.push(null);
+        eventList.push(null);
     }
 
 }

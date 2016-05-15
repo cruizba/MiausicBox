@@ -142,10 +142,10 @@ export class User{
   }
 
 
-  set bands(value:Array){
+  set bands(value:Band[]){
     this._bands=value;
   }
-  set events(value:Array){
+  set events(value:Event[]){
     this._events=value;
   }
 
