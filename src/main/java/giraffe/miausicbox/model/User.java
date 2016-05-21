@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.model.Band.BandAtt;
+import giraffe.miausicbox.model.Event.EventAtt;
+
 @Entity
 public class User {
 	
@@ -54,18 +57,16 @@ public class User {
 	private String youtube;
 	
 	@JsonView(BasicAtt.class)
-	@ManyToOne
 	private List<Integer> instruments = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)
-	@ManyToOne
 	private List<Integer> genres = new ArrayList<>();
 	
-	@JsonView(BasicAtt.class)
-	@ManyToMany
+	@JsonView(BandAtt.class)
+	@ManyToMany(mappedBy="members")
 	private List<Band> bands = new ArrayList<>();
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(EventAtt.class)
 	@ManyToOne
 	private List<Event> events = new ArrayList<>();
 	

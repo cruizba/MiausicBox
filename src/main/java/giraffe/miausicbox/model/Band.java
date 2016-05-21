@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Band {
 
 	public interface BasicAtt {}
+	
+	public interface BandAtt {}
 
 	// Attributes
 	@JsonView(BasicAtt.class)
@@ -46,11 +48,11 @@ public class Band {
 	@JsonView(BasicAtt.class)
 	private String youtube;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(BandAtt.class)
 	@ManyToMany
 	private List<User> members = new ArrayList<>();
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(BandAtt.class)
 	private List<User> followers = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)

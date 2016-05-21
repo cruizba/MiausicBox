@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class Event {
 
 	public interface BasicAtt {}
+	
+	public interface EventAtt {}
 
 	// Attributes
 	@JsonView(BasicAtt.class)
@@ -34,13 +36,13 @@ public class Event {
 	@JsonView(BasicAtt.class)
 	private String description;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(EventAtt.class)
 	private List<Band> bands = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)
 	private String direction;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(EventAtt.class)
 	private List<User> followers = new ArrayList<>();
 	
 	// Constructor
