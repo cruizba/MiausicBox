@@ -12,7 +12,7 @@ export class VisitorComponent{
   constructor(private _router: Router){};
 
   goToPrincipal(){
-    this._router.navigate(['Principal']);
+    this._router.navigate(['Index']);
   }
 
 }
