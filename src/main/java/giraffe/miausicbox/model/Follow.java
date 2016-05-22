@@ -6,14 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
-
-import giraffe.miausicbox.model.Blog.BasicAtt;
 
 @Entity
 public class Follow {
 
+	public interface BasicAtt {}
+	
 	// Attributes
 	@JsonView(BasicAtt.class)
 	@Id
@@ -21,9 +22,11 @@ public class Follow {
 	private long id;
 	
 	@JsonView(BasicAtt.class)
+	@OneToOne
 	private User emisor;
 	
 	@JsonView(BasicAtt.class)
+	@OneToOne
 	private User receptor;
 	
 	// Constructor
