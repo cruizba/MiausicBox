@@ -24,7 +24,7 @@ public class Track {
 	private String name;
 	
 	@JsonView(BasicAtt.class)
-	private String group;
+	private String band;
 	
 	@JsonView(BasicAtt.class)
 	private String link;
@@ -34,12 +34,12 @@ public class Track {
 	
 	public Track(
 			String name,
-			String group,
+			String band,
 			String link
 			) {
 		super();
 		this.name = name;
-		this.group = group;
+		this.band = band;
 		this.link = link;
 	}
 
@@ -56,12 +56,12 @@ public class Track {
 		this.name = name;
 	}
 
-	public String getGroup() {
-		return group;
+	public String getBand() {
+		return band;
 	}
 
-	public void setGroup(String group) {
-		this.group = group;
+	public void setBand(String band) {
+		this.band = band;
 	}
 
 	public String getLink() {
@@ -75,7 +75,7 @@ public class Track {
 	// ToString
 	@Override
 	public String toString() {
-		return (this.getName() + " - " + this.getGroup());
+		return (this.getName() + " - " + this.getBand());
 	}
 	
 	// Equals
@@ -95,7 +95,7 @@ public class Track {
 			return false;
 		}
 		return (Objects.equals(this.getName(), other.getName())
-				&& Objects.equals(this.getGroup(), other.getGroup()));
+				&& (Objects.equals(this.getBand(), other.getBand())));
 	}
 	
 }
