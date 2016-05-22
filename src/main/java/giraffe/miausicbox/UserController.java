@@ -19,7 +19,7 @@ public class UserController {
 	interface UserListView extends User.BasicAtt {}
 	
 	@JsonView(UserListView.class)
-	@RequestMapping("/user/{id}")
+	@RequestMapping("/artist/{id}")
 	public User getUserById(@PathVariable long id) throws Exception {
 		return userRepository.findOne(id);
 	}

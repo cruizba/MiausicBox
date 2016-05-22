@@ -84,8 +84,8 @@ export class UserService {
     userList[Info.userId].email = email;
   }
 
-  changeIsArtist(artist:boolean) {
-    userList[Info.userId].isArtist = artist;
+  changeIsArtist(isArtist:boolean) {
+    userList[Info.userId].isArtist = isArtist;
   }
 
   changeDescription(description:string) {

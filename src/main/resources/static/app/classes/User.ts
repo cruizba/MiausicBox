@@ -121,8 +121,8 @@ export class User{
     this._description = description
   }
 
-  public set artist(artist:boolean){
-    this._isArtist = artist;
+  public set isArtist(isArtist:boolean){
+    this._isArtist = isArtist;
   }
 
   public setCity(city:string){
