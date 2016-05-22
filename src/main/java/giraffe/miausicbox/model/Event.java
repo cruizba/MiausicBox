@@ -43,10 +43,10 @@ public class Event {
 	@JsonView(EventAtt.class)
 	@OneToMany
 	private List<Band> bands = new ArrayList<>();
-	
+
 	@JsonView(BasicAtt.class)
 	private String direction;
-	
+
 	@JsonView(EventAtt.class)
 	@OneToMany
 	private List<User> followers = new ArrayList<>();

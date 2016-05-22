@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import giraffe.miausicbox.model.Follow;
 
-public interface FollowRepository  extends JpaRepository<Follow, Long> {
+public interface FollowRepository extends JpaRepository<Follow, Long> {
 
 }

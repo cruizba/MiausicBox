@@ -15,7 +15,7 @@ public class Instrument {
 	// Attributes
 	@JsonView(BasicAtt.class)
 	@Id
-	private Integer id;
+	private int id;
 	
 	@JsonView(BasicAtt.class)
 	private String name;
@@ -23,7 +23,7 @@ public class Instrument {
 	// Constructor
 	public Instrument() {}
 	
-	public Instrument(Integer id, String name) {
+	public Instrument(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
