@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -32,18 +34,21 @@ public class Event {
 	private Date date;
 	
 	@JsonView(BasicAtt.class)
+	@OneToOne
 	private User creator;
 	
 	@JsonView(BasicAtt.class)
 	private String description;
 	
 	@JsonView(EventAtt.class)
+	@OneToMany
 	private List<Band> bands = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)
 	private String direction;
 	
 	@JsonView(EventAtt.class)
+	@OneToMany
 	private List<User> followers = new ArrayList<>();
 	
 	// Constructor

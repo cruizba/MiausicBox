@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.model.Blog;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.repositories.BlogBandRepository;
@@ -18,14 +17,12 @@ public class BlogController {
 
 	@Autowired
 	private BlogBandRepository blogBandRepository;
-	
-	@Autowired
 	private BlogUserRepository blogUserRepository;
 	
-	interface BlogListView extends Blog.BasicAtt {}
+	interface BlogListView extends BlogBand.BasicAtt {}
 	
 	@JsonView(BlogListView.class)
-	@RequestMapping("/band/{id}/blogs")
+	@RequestMapping("/bnad/{id}/blogs")
 	public List<BlogBand> getBandBlogsById(@PathVariable long id) throws Exception {
 		List<BlogBand> blogs = blogBandRepository.findAll();
 		for(BlogBand b : blogs) {
@@ -37,7 +34,7 @@ public class BlogController {
 	}
 	
 	@JsonView(BlogListView.class)
-	@RequestMapping("/artist/{id}/blogs")
+	@RequestMapping("/user/{id}/blogs")
 	public List<BlogUser> getUserBlogsById(@PathVariable long id) throws Exception {
 		List<BlogUser> blogs = blogUserRepository.findAll();
 		for(BlogUser b : blogs) {

@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -26,6 +28,7 @@ public class Band {
 	private long id;
 	
 	@JsonView(BasicAtt.class)
+	@OneToOne
 	private User administrador;
 	
 	@JsonView(BasicAtt.class)
@@ -54,12 +57,15 @@ public class Band {
 	private List<User> members = new ArrayList<>();
 	
 	@JsonView(BandAtt.class)
+	@OneToMany
 	private List<User> followers = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)
-	private List<Integer> genres = new ArrayList<>();
+	@OneToMany
+	private List<Genre> genres = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)
+	@OneToMany
 	private List<Track> tracks = new ArrayList<>();
 	
 	// Constructor
@@ -76,7 +82,7 @@ public class Band {
 			String youtube,
 			List<User> members,
 			List<User> followers,
-			List<Integer> genres,
+			List<Genre> genres,
 			List<Track> tracks
 			) {
 		super();
@@ -178,11 +184,11 @@ public class Band {
 		this.followers = followers;
 	}
 
-	public List<Integer> getGenres() {
+	public List<Genre> getGenres() {
 		return genres;
 	}
 
-	public void setGenres(List<Integer> genres) {
+	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
 	}
 

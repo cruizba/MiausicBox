@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -58,17 +58,19 @@ public class User {
 	private String youtube;
 	
 	@JsonView(BasicAtt.class)
-	private List<Integer> instruments = new ArrayList<>();
+	@OneToMany
+	private List<Instrument> instruments = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)
-	private List<Integer> genres = new ArrayList<>();
+	@OneToMany
+	private List<Genre> genres = new ArrayList<>();
 	
 	@JsonView(BandAtt.class)
 	@ManyToMany(mappedBy="members")
 	private List<Band> bands = new ArrayList<>();
 	
 	@JsonView(EventAtt.class)
-	@ManyToOne
+	@OneToMany
 	private List<Event> events = new ArrayList<>();
 	
 	// Constructor
@@ -85,8 +87,8 @@ public class User {
 			String facebook,
 			String twitter,
 			String youtube,
-			List<Integer> instruments,
-			List<Integer> genres,
+			List<Instrument> instruments,
+			List<Genre> genres,
 			List<Band> bands,
 			List<Event> events
 			) {
@@ -192,19 +194,19 @@ public class User {
 		this.youtube = youtube;
 	}
 
-	public List<Integer> getInstruments() {
+	public List<Instrument> getInstruments() {
 		return instruments;
 	}
 
-	public void setInstruments(List<Integer> instruments) {
+	public void setInstruments(List<Instrument> instruments) {
 		this.instruments = instruments;
 	}
 
-	public List<Integer> getGenres() {
+	public List<Genre> getGenres() {
 		return genres;
 	}
 
-	public void setGenres(List<Integer> genres) {
+	public void setGenres(List<Genre> genres) {
 		this.genres = genres;
 	}
 
@@ -243,8 +245,8 @@ public class User {
 			return false;
 		}
 		final User other = (User) obj;
-		if (!Objects.equals(this.getId(), other.getId())) {
-			return false;
+		if (Objects.equals(this.getId(), other.getId())) {
+			return true;
 		}
 		return (Objects.equals(this.getUserName(), other.getUserName()));
 	}
