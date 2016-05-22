@@ -1,6 +1,7 @@
 package giraffe.miausicbox.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -77,7 +78,7 @@ public class Novelty {
 		this.date = date;
 	}
 
-	public Boolean getJoined() {
+	public Boolean isJoined() {
 		return joined;
 	}
 
@@ -95,6 +96,28 @@ public class Novelty {
 			str += " left ";
 		}
 		return (str + this.getBand().getGroupName());
+	}
+	
+	// Equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Novelty other = (Novelty) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return (Objects.equals(this.getUser(), other.getUser())
+				&& (Objects.equals(this.getBand(), other.getBand()))
+				&& (Objects.equals(this.isJoined(), other.isJoined()))
+				&& (Objects.equals(this.getDate(), other.getDate())));
 	}
 	
 }

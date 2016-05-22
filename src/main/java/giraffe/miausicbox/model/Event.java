@@ -3,6 +3,7 @@ package giraffe.miausicbox.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -132,6 +133,26 @@ public class Event {
 	@Override
 	public String toString() {
 		return (this.getName() + " - " + this.getDate().toString());
+	}
+	
+	// Equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Event other = (Event) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return (Objects.equals(this.getName(), other.getName())
+				&& (Objects.equals(this.getDate(), other.getDate())));
 	}
 	
 }
