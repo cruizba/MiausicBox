@@ -1,5 +1,7 @@
 package giraffe.miausicbox.model;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -60,6 +62,26 @@ public class Follow {
 	@Override
 	public String toString() {
 		return (this.getEmisor().getUserName() + " - " + this.getReceptor().getUserName());
+	}
+	
+	// Equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Follow other = (Follow) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return (Objects.equals(this.getEmisor(), other.getEmisor())
+				&& Objects.equals(this.getReceptor(), other.getReceptor()));
 	}
 	
 }

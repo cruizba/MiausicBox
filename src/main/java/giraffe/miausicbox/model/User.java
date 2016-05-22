@@ -2,6 +2,7 @@ package giraffe.miausicbox.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -151,7 +152,7 @@ public class User {
 		this.description = description;
 	}
 
-	public Boolean getIsArtist() {
+	public Boolean isArtist() {
 		return isArtist;
 	}
 
@@ -228,4 +229,24 @@ public class User {
 	public String toString() {
 		return (this.getUserName() + " - " + this.getEmail());
 	}
+	
+	// Equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final User other = (User) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return (Objects.equals(this.getUserName(), other.getUserName()));
+	}
+	
 }

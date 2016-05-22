@@ -2,6 +2,7 @@ package giraffe.miausicbox.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Band {
 	private long id;
 	
 	@JsonView(BasicAtt.class)
-	private User administrator;
+	private User administrador;
 	
 	@JsonView(BasicAtt.class)
 	private String groupName;
@@ -65,7 +66,7 @@ public class Band {
 	public Band() {}
 	
 	public Band(
-			User administrator,
+			User administrador,
 			String groupName,
 			String description,
 			String city,
@@ -79,7 +80,7 @@ public class Band {
 			List<Track> tracks
 			) {
 		super();
-		this.administrator = administrator;
+		this.administrador = administrador;
 		this.groupName = groupName;
 		this.description = description;
 		this.city = city;
@@ -97,12 +98,12 @@ public class Band {
 		return id;
 	}
 
-	public User getAdministrator() {
-		return administrator;
+	public User getAdministrador() {
+		return administrador;
 	}
 
-	public void setAdministrator(User administrator) {
-		this.administrator = administrator;
+	public void setAdministrador(User administrador) {
+		this.administrador = administrador;
 	}
 
 	public String getGroupName() {
@@ -197,6 +198,25 @@ public class Band {
 	@Override
 	public String toString() {
 		return this.getGroupName();
+	}
+
+	// Equals
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Band other = (Band) obj;
+		if (!Objects.equals(this.getId(), other.getId())) {
+			return false;
+		}
+		return Objects.equals(this.getGroupName(), other.getGroupName());
 	}
 	
 }
