@@ -15,33 +15,18 @@ public class Genre {
 	// Attributes
 	@JsonView(BasicAtt.class)
 	@Id
-	private Integer id;
-	
-	@JsonView(BasicAtt.class)
 	private String name;
 	
 	// Constructor
 	public Genre() {}
 	
-	public Genre(Integer id, String name) {
-		this.id = id;
+	public Genre(String name) {
+		this.name = name;
 	}
 	
 	// Getters & Setters
-	public Integer getId() {
-		return id;
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
 	public String getName() {
 		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	// ToString
@@ -63,7 +48,7 @@ public class Genre {
 			return false;
 		}
 		final Genre other = (Genre) obj;
-		return (Objects.equals(this.getId(), other.getId()));
+		return (Objects.equals(this.getName(), other.getName()));
 	}
 	
 }
