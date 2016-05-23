@@ -3,8 +3,12 @@ package giraffe.miausicbox;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -17,11 +21,25 @@ import giraffe.miausicbox.repositories.BlogUserRepository;
 @RestController
 public class BlogController {
 
+	/**
+	 * REPOSITORIES related to BLOG_CONTROLLER
+	 */
+	
 	@Autowired
 	private BlogBandRepository blogBandRepository;
+	
+	@Autowired
 	private BlogUserRepository blogUserRepository;
 	
+	/**
+	 * VIEWS related to BLOG_CONTROLLER
+	 */
+	
 	interface BlogListView extends BlogBand.Basic {}
+	
+	/**
+	 * GET RequestMethods related to BLOG_CONTROLLER
+	 */
 	
 	@JsonView(BlogListView.class)
 	@RequestMapping("/band/{id}/blogs")
@@ -45,6 +63,38 @@ public class BlogController {
 			}
 		}
 		return blogs;
+	}
+	
+	/**
+	 * POST RequestMethods related to BLOG_CONTROLLER
+	 */
+	
+	@RequestMapping(value = "/blogband/new", method = RequestMethod.POST)
+	public ResponseEntity<BlogBand> createNewBlogBand(@RequestBody BlogBand blogband) {
+		ResponseEntity<BlogBand> response;
+		BlogBand newblogband;
+		List<BlogBand> allblogbands = blogBandRepository.findAll();
+		if (allblogbands.contains(blogband)) {
+			response = new ResponseEntity<BlogBand>(blogband, HttpStatus.CONFLICT);
+		} else {
+			newblogband = blogBandRepository.save(blogband);
+			response = new ResponseEntity<BlogBand>(newblogband, HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	@RequestMapping(value = "/bloguser/new", method = RequestMethod.POST)
+	public ResponseEntity<BlogUser> createNewBlogUser(@RequestBody BlogUser bloguser) {
+		ResponseEntity<BlogUser> response;
+		BlogUser newbloguser;
+		List<BlogUser> allblogusers = blogUserRepository.findAll();
+		if (allblogusers.contains(bloguser)) {
+			response = new ResponseEntity<BlogUser>(bloguser, HttpStatus.CONFLICT);
+		} else {
+			newbloguser = blogUserRepository.save(bloguser);
+			response = new ResponseEntity<BlogUser>(newbloguser, HttpStatus.OK);
+		}
+		return response;
 	}
 	
 }
