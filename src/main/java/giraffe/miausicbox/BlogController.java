@@ -21,7 +21,7 @@ public class BlogController {
 	private BlogBandRepository blogBandRepository;
 	private BlogUserRepository blogUserRepository;
 	
-	interface BlogListView extends BlogBand.BasicAtt {}
+	interface BlogListView extends BlogBand.Basic {}
 	
 	@JsonView(BlogListView.class)
 	@RequestMapping("/band/{id}/blogs")

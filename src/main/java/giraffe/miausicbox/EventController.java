@@ -22,7 +22,7 @@ public class EventController {
 	private EventRepository eventRepository;
 	private UserRepository userRepository;
 	
-	interface EventListView extends Event.BasicAtt {}
+	interface EventListView extends Event.Basic {}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/principal/{id}/events")

@@ -17,54 +17,60 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Band {
 
-	public interface BasicAtt {}
+	public interface Basic {}
 	
-	public interface BandAtt {}
+	public interface WebLinks {}
+	
+	public interface Members extends User.Basic {}
+	
+	public interface Followers extends User.Basic {}
+	
+	public interface Info extends Genre.Basic, Track.Basic {}
 
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(User.Basic.class)
 	@OneToOne
 	private User administrador;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String groupName;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String description;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String city;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(WebLinks.class)
 	private String web;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(WebLinks.class)
 	private String facebook;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(WebLinks.class)
 	private String twitter;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(WebLinks.class)
 	private String youtube;
 	
-	@JsonView(BandAtt.class)
+	@JsonView(Members.class)
 	@ManyToMany
 	private List<User> members = new ArrayList<>();
 	
-	@JsonView(BandAtt.class)
+	@JsonView(Followers.class)
 	@OneToMany
 	private List<User> followers = new ArrayList<>();
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Info.class)
 	@OneToMany
 	private List<Genre> genres = new ArrayList<>();
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Info.class)
 	@OneToMany
 	private List<Track> tracks = new ArrayList<>();
 	

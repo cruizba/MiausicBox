@@ -13,19 +13,19 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Follow {
 
-	public interface BasicAtt {}
+	public interface Basic extends User.Basic {}
 	
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@OneToOne
 	private User emisor;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@OneToOne
 	private User receptor;
 	

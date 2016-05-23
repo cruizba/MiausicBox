@@ -14,26 +14,26 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Novelty {
 
-	public interface BasicAtt {}
+	public interface Basic extends User.Basic, Band.Basic {}
 	
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@OneToOne
 	private User user;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@OneToOne
 	private Band band;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private Date date;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private Boolean joined;
 	
 	// Constructor
