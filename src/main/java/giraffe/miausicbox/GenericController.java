@@ -1,6 +1,7 @@
 package giraffe.miausicbox;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,7 +17,13 @@ import giraffe.miausicbox.model.Genre;
 import giraffe.miausicbox.model.Instrument;
 import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.model.Band;
+import giraffe.miausicbox.model.BlogBand;
+import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Track;
+import giraffe.miausicbox.repositories.BandRepository;
+import giraffe.miausicbox.repositories.BlogBandRepository;
+import giraffe.miausicbox.repositories.BlogUserRepository;
 import giraffe.miausicbox.repositories.GenreRepository;
 import giraffe.miausicbox.repositories.InstrumentRepository;
 import giraffe.miausicbox.repositories.UserRepository;
@@ -32,6 +39,15 @@ public class GenericController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private BandRepository bandRepository;
+	
+	@Autowired
+	private BlogBandRepository blogBandRepository;
+	
+	@Autowired
+	private BlogUserRepository blogUserRepository;
 	
 	interface GenericListView extends Instrument.BasicAtt, Genre.BasicAtt, User.BasicAtt {}
 	
@@ -64,10 +80,42 @@ public class GenericController {
 		User us0 = new User("ice6294","1234","Luis Leon Gamez","luigi6294@gmail.com","Soy guay",true
 				,"Alcorcon","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
+		User us1 = new User("carolus","1234","Carlos Ruiz Ballesteros","crbthedevil@gmail.com","Soy guay jaja",true
+				,"Loranca","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,new ArrayList<Band>(),new ArrayList<Event>());
+		
+		us0.getGenres().add(gen0);
+		us0.getGenres().add(gen1);
+		us1.getGenres().add(gen3);
 		
 		userRepository.save(us0);
+		userRepository.save(us1);
 		
 		// Band
+		Band ban0 = new Band(us0,"Tool","10000","LA","web","","",""
+				,new ArrayList<User>(),new ArrayList<User>()
+				,new ArrayList<Genre>(),new ArrayList<Track>());
+		
+		ban0.getMembers().add(us0);
+		ban0.getMembers().add(us1);
+		
+		bandRepository.save(ban0);
+		
+		// BlogUser
+		BlogUser bu0 = new BlogUser("Hola","img","Muchas cosas guays",new Date(),us0);
+		BlogUser bu1 = new BlogUser("Trucha","img","El oceano",new Date(),us0);
+		BlogUser bu2 = new BlogUser("Daw","img","Viva mika",new Date(),us1);
+		
+		blogUserRepository.save(bu0);
+		blogUserRepository.save(bu1);
+		blogUserRepository.save(bu2);
+		
+		// BlogBand
+		BlogBand bb0 = new BlogBand("Disgustipaed","img","This is necesary",new Date(),ban0);
+		BlogBand bb1 = new BlogBand("Mary","img","Give me my wings",new Date(),ban0);
+		
+		blogBandRepository.save(bb0);
+		blogBandRepository.save(bb1);
 		
 	}
 
