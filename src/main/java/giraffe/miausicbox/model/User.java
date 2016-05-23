@@ -58,11 +58,11 @@ public class User {
 	private String youtube;
 	
 	@JsonView(BasicAtt.class)
-	@OneToMany
+	@ManyToMany
 	private List<Instrument> instruments = new ArrayList<>();
 	
 	@JsonView(BasicAtt.class)
-	@OneToMany
+	@ManyToMany
 	private List<Genre> genres = new ArrayList<>();
 	
 	@JsonView(BandAtt.class)
@@ -70,13 +70,13 @@ public class User {
 	private List<Band> bands = new ArrayList<>();
 	
 	@JsonView(EventAtt.class)
-	@OneToMany
+	@ManyToMany
 	private List<Event> events = new ArrayList<>();
 	
 	// Constructor
-	protected User() {}
+	public User() {}
 	
-	protected User(
+	public User(
 			String userName,
 			String password,
 			String completeName,
