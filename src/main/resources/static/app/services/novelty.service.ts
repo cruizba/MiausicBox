@@ -4,7 +4,6 @@ import { User } from '../classes/User'
 //Observer simulation
 import { withObserver } from '../classes/Utils';
 import {Instrument} from "../classes/Instrument";
-import {IntrumentList} from "../classes/InstrumentList";
 import {Band} from "../classes/Band";
 import {Novelty} from "../classes/Novelty";
 

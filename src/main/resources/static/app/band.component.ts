@@ -4,8 +4,6 @@ import { User } from './classes/User'
 import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
 import { Info } from "./classes/Info";
 import { Instrument } from "./classes/Instrument";
-import { IntrumentList } from "./classes/InstrumentList";
-import { GenreList } from "./classes/GenreList";
 import { FollowService } from "./services/follow.service";
 import { BlogBand } from "./classes/BlogBand";
 import { BlogService } from "./services/blog.service"
@@ -68,8 +66,8 @@ export class BandComponent {
 
         this.updateFollows();
 
-        var inss = new IntrumentList();
-        this.instruments = inss.instruments;
+        //var inss = new IntrumentList();
+        //this.instruments = inss.instruments;
 
         this._blogService.getBlogsByBand(this.band).subscribe(
           (blogList => this.blogList = blogList),
@@ -78,6 +76,7 @@ export class BandComponent {
     }
 
     genres(){
+        /* TODO: utilizar genre[] en vez de number[]
         var allGenres:GenreList = new GenreList();
         for(let i = 0; i < allGenres.genres.length; i++){
             if(this.band.genres.indexOf(i) != -1){
@@ -85,6 +84,7 @@ export class BandComponent {
                 console.log(allGenres.genres[i].name);
             }
         }
+        */
     }
 
     updateFollows(){

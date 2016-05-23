@@ -4,8 +4,6 @@ import { User } from './classes/User'
 import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {Info} from "./classes/Info";
 import {Instrument} from "./classes/Instrument";
-import {IntrumentList} from "./classes/InstrumentList";
-import {GenreList} from "./classes/GenreList";
 import {FollowService} from "./services/follow.service";
 import {MessageService} from "./services/message.service";
 import { BlogUser } from "./classes/BlogUser";
@@ -28,7 +26,7 @@ export class ArtistaComponent {
   user: User;
   instruments: Instrument[] = [];
   instruments_url:string[] = [];
-  allInstruments = new IntrumentList().instruments;
+  //allInstruments = new IntrumentList().instruments;
   genresUser:string[] = [];
   id;
   blogList:BlogUser[] = [];
@@ -116,6 +114,7 @@ export class ArtistaComponent {
 
     instrumentsUser() {
       if (this.isArtist){
+          /* TODO utilizar instrument[] en vez de number[]
           var allInstruments:IntrumentList = new IntrumentList();
           for (let i = 0; i < allInstruments.instruments.length; i++) {
               if (this.user.instruments.indexOf(i) != -1) {;
@@ -123,10 +122,12 @@ export class ArtistaComponent {
                   this.instruments_url.push(allInstruments.instruments[i].image_url);
               }
           }
+          */
       }
     }
 
     genres(){
+        /* TODO: utilizar genre[] en vez de number[]
         var allGenres:GenreList = new GenreList();
         for(let i = 0; i < allGenres.genres.length; i++){
             if(this.user.genres.indexOf(i) != -1){
@@ -134,6 +135,7 @@ export class ArtistaComponent {
                 console.log(allGenres.genres[i].name);
             }
         }
+        */
     }
 
     goToURL (){

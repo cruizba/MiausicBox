@@ -3,7 +3,6 @@ import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import { AppComponent } from './app.component';
 import {BandService} from './services/band.service';
 import {Band} from './classes/Band';
-import {GenreList} from "./classes/GenreList";
 
 @Component({
   selector: 'list-bands',
@@ -51,6 +50,7 @@ export class ListBandsComponent {
 
     initGenres(){
         var result = [];
+        /* TODO: utilizar genre[] en vez de number[]
         var allGenres: GenreList = new GenreList();
         for(let i = 0; i < this.bands.length; i++){
             var genres = [];
@@ -59,6 +59,7 @@ export class ListBandsComponent {
             }
             result.push(genres)
         }
+        */
         return result;
     }
 

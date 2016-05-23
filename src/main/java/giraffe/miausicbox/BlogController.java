@@ -24,7 +24,7 @@ public class BlogController {
 	interface BlogListView extends BlogBand.BasicAtt {}
 	
 	@JsonView(BlogListView.class)
-	@RequestMapping("/bnad/{id}/blogs")
+	@RequestMapping("/band/{id}/blogs")
 	public List<BlogBand> getBandBlogsById(@PathVariable long id) throws Exception {
 		List<BlogBand> blogs = blogBandRepository.findAll();
 		for(BlogBand b : blogs) {

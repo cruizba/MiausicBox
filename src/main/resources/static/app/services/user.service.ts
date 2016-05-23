@@ -1,21 +1,32 @@
 import { userList } from '../classes/memoryDB';
 import { Injectable } from 'angular2/core';
+import { Http, Response, RequestOptions, Headers } from 'angular2/http';
 import { User } from '../classes/User'
 //Observer simulation
 import { withObserver } from '../classes/Utils';
 import {Instrument} from "../classes/Instrument";
-import {IntrumentList} from "../classes/InstrumentList";
 import {Info} from "../classes/Info";
+import 'rxjs/Rx';
 
 @Injectable()
 export class UserService {
 
+  constructor(private http: Http){}
+
   getAllUsers(){
+    let url = "/artists"
+    console.log("Peticion a /artists");
+    return this.http.get(url).map(
+      //response => this.deserializeAllUsers(response)
+        response => response
+    );
+    /*
     var result = [];
     for(let i = 0; i < userList.length; i++){
       result.push({"userId": i, "userObj": userList[i]});
     }
     return withObserver(result);
+    */
   }
 
   getUserByUserNameAndPass(username:string, pass:string){
@@ -93,14 +104,17 @@ export class UserService {
   }
 
   setInstrument(num){
+    /* TODO: usar instrument[] en vez de number[]
     var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
     if(instruments.indexOf(num) == -1) {
       userList[userList.indexOf(Info.userLogged)].instruments.push(parseInt(num));
       console.log(Info.userLogged);
     }
+    */
   }
 
   deleteInstrument(num){
+    /* TODO: usar instrument[] en vez de number[]
     var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
     var index = instruments.indexOf(parseInt(num))
     if(index != 0){
@@ -108,10 +122,33 @@ export class UserService {
       Info.userLogged.instruments.splice(index, 1);
       console.log(Info.userLogged.instruments)
     }
+    */
   }
 
   setCity(city){
     userList[userList.indexOf(Info.userLogged)].setCity(city);
     console.log(userList.indexOf(Info.userLogged));
   }
+
+  // Deserealization methods
+  /*
+  deserializeAllUsers(response:Response) {
+    let body = response.json();
+    console.log("Qué me traéis hoy buen señor?");
+    console.log("Body ->");
+    console.log(body);
+    let result = [];
+    for(let i = 0; i < body.length;i++){
+      var user;
+      user = {"userId": response[i].id, "userObj": response[i]};
+      console.log("User " + i + ">");
+      console.log(user);
+      result.push(user);
+    }
+    console.log("Result ->");
+    console.log(result);
+    return result;
+  }
+  */
+
 }

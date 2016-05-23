@@ -16,6 +16,8 @@ import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Follow;
+import giraffe.miausicbox.model.Genre;
+import giraffe.miausicbox.model.Instrument;
 import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
@@ -41,7 +43,7 @@ public class UserController {
 	@Autowired
 	private BlogBandRepository blogBandRepository;
 	
-	interface UserListView extends User.BasicAtt {}
+	interface UserListView extends User.BasicAtt, Instrument.BasicAtt, Genre.BasicAtt {}
 	interface BlogUserListView extends BlogUser.BasicAtt {}
 	interface BlogBandListView extends BlogBand.BasicAtt {}
 	interface FollowListView extends Follow.BasicAtt {}
@@ -49,9 +51,10 @@ public class UserController {
 	@JsonView(UserListView.class)
 	@RequestMapping(value = "/artists", method = RequestMethod.GET)
 	public List<User> getAllUsers() throws Exception {
+		System.out.println("Saludos visitante");
 		return userRepository.findAll();
 	}
-	
+
 	@JsonView(UserListView.class)
 	@RequestMapping(value = "/artist/{id}", method = RequestMethod.GET)
 	public User getUserById(@PathVariable long id) throws Exception {
@@ -59,12 +62,13 @@ public class UserController {
 	}
 	
 	@JsonView(FollowListView.class)
-	@RequestMapping(value = "/artist/{id}/follows", method = RequestMethod.GET)
+	@RequestMapping(value = "/artist/●●●●●●{id}/follows", method = RequestMethod.GET)
 	public List<Follow> getUserFollowsById(@PathVariable long id) throws Exception {
-		List<Follow> follows = followRepository.findAll();
-		for (Follow f : follows) {
+		List<Follow> allfollows = followRepository.findAll();
+		List<Follow> follows = new ArrayList<>();
+		for (Follow f : allfollows) {
 			if (f.getEmisor().getId() != id || f.getReceptor().getId() != id) {
-				follows.remove(f);
+				follows.add(f);
 			}
 		}
 		return follows;
@@ -76,9 +80,9 @@ public class UserController {
 		User user = userRepository.findOne(id);
 		return blogUserRepository.findBlogUserByAuthor(user);
 	}
-	
+
 	@JsonView(BlogUserListView.class)
-	@RequestMapping(value = "/artist/{id}/alluserblogs", method = RequestMethod.GET)
+	@RequestMapping(value = "/artist/{id}/allusersblogs", method = RequestMethod.GET)
 	public List<BlogUser> getAllUserBlogsById(@PathVariable long id) throws Exception {
 		User user = userRepository.findOne(id);
 		List<BlogUser> blogs = new ArrayList<>();
@@ -93,7 +97,7 @@ public class UserController {
 		blogs.addAll(blogUserRepository.findBlogUserByAuthorIn(friends));
 		return blogs;
 	}
-	
+
 	@JsonView(BlogBandListView.class)
 	@RequestMapping(value = "/artist/{id}/allbandblogs", method = RequestMethod.GET)
 	public List<BlogBand> getAllBandBlogsById(@PathVariable long id) throws Exception {
@@ -101,7 +105,6 @@ public class UserController {
 		List<Band> allbands = bandRepository.findAll();
 		List<Band> bands = new ArrayList<>();
 		for (Band b : allbands) {
-			System.out.println("ey!");
 			if (b.getFollowers().contains(user) || Objects.equals(b.getAdministrador(), user)) {
 				bands.add(b);
 			}

@@ -55,26 +55,48 @@ public class GenericController {
 	public void init() {
 
 		// Instruments
-		Instrument ins0 = new Instrument("Gitar","","");
-		Instrument ins1 = new Instrument("Bass","","");
-		Instrument ins2 = new Instrument("Drums","","");
-		Instrument ins3 = new Instrument("Piano","","");
+		Instrument ins0 = new Instrument("Voz", "../img/instrumentoVozN.png", "../img/instrumentoVozB.png");
+		Instrument ins1 = new Instrument("Guitarra", "../img/instrumentoGuitarN.png", "../img/instrumentoGuitarB.png");
+		Instrument ins2 = new Instrument("Bajo", "../img/instrumentoBajoN.png", "../img/instrumentoBajoB.png");
+		Instrument ins3 = new Instrument("Bateria", "../img/instrumentoBajoN.png", "../img/instrumentoBajoB.png");
+		Instrument ins4 = new Instrument("Violin", "../img/instrumentoViolinN.png", "../img/instrumentoViolinB.png");
+		Instrument ins5 = new Instrument("Trompeta", "../img/instrumentoTrompetaN.png", "../img/instrumentoTrompetaB.png");
+		Instrument ins6 = new Instrument("Piano", "../img/instrumentoPianoN.png", "../img/instrumentoPianoB.png");
+		Instrument ins7 = new Instrument("Otros", "../img/instrumentoOtroN.png",  "../img/instrumentoOtroB.png");
 		
 		instrumentRepository.save(ins0);
 		instrumentRepository.save(ins1);
 		instrumentRepository.save(ins2);
 		instrumentRepository.save(ins3);
+		instrumentRepository.save(ins4);
+		instrumentRepository.save(ins5);
+		instrumentRepository.save(ins6);
+		instrumentRepository.save(ins7);
 		
 		// Genres
 		Genre gen0 = new Genre("Rock");
-		Genre gen1 = new Genre("Indie");
+		Genre gen1 = new Genre("Pop");
 		Genre gen2 = new Genre("Jazz");
-		Genre gen3 = new Genre("Metal");
+		Genre gen3 = new Genre("Rap");
+		Genre gen4 = new Genre("Reggae");
+		Genre gen5 = new Genre("Metal");
+		Genre gen6 = new Genre("Hard Rock");
+		Genre gen7 = new Genre("Punk");
+		Genre gen8 = new Genre("Indie");
+		Genre gen9 = new Genre("Grunge");
+		Genre gen10 = new Genre("Otros");
 		
 		genreRepository.save(gen0);
 		genreRepository.save(gen1);
 		genreRepository.save(gen2);
 		genreRepository.save(gen3);
+		genreRepository.save(gen4);
+		genreRepository.save(gen5);
+		genreRepository.save(gen6);
+		genreRepository.save(gen7);
+		genreRepository.save(gen8);
+		genreRepository.save(gen9);
+		genreRepository.save(gen10);
 		
 		// Users
 		User us0 = new User("ice6294","1234","Luis Leon Gamez","luigi6294@gmail.com","Soy guay",true
@@ -87,6 +109,9 @@ public class GenericController {
 		us0.getGenres().add(gen0);
 		us0.getGenres().add(gen1);
 		us1.getGenres().add(gen3);
+		
+		us0.getInstruments().add(ins1);
+		us1.getInstruments().add(ins0);
 		
 		userRepository.save(us0);
 		userRepository.save(us1);
@@ -109,11 +134,11 @@ public class GenericController {
 		blogUserRepository.save(bu0);
 		blogUserRepository.save(bu1);
 		blogUserRepository.save(bu2);
-		
+
 		// BlogBand
 		BlogBand bb0 = new BlogBand("Disgustipaed","img","This is necesary",new Date(),ban0);
 		BlogBand bb1 = new BlogBand("Mary","img","Give me my wings",new Date(),ban0);
-		
+
 		blogBandRepository.save(bb0);
 		blogBandRepository.save(bb1);
 		
@@ -130,7 +155,7 @@ public class GenericController {
 	public Genre getGenreById(@PathVariable String id) throws Exception {
 		return genreRepository.findOne(id);
 	}
-	
+
 	@JsonView(GenericListView.class)
 	@RequestMapping("/x/user/{id}")
 	public User getUserById(@PathVariable long id) throws Exception {
