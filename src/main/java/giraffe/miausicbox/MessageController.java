@@ -19,7 +19,7 @@ public class MessageController {
 	@Autowired
 	private MessageRepository messageRepository;
 	
-	interface MessageListView extends Message.BasicAtt {}
+	interface MessageListView extends Message.Basic {}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/artist/{id}/messages")

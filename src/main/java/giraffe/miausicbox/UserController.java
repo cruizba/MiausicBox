@@ -16,13 +16,15 @@ import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Follow;
-import giraffe.miausicbox.model.Genre;
-import giraffe.miausicbox.model.Instrument;
+import giraffe.miausicbox.model.Message;
+import giraffe.miausicbox.model.Novelty;
 import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.BlogUserRepository;
 import giraffe.miausicbox.repositories.FollowRepository;
+import giraffe.miausicbox.repositories.MessageRepository;
+import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 
 @RestController
@@ -43,12 +45,21 @@ public class UserController {
 	@Autowired
 	private BlogBandRepository blogBandRepository;
 	
-	interface UserListView extends User.BasicAtt, Instrument.BasicAtt, Genre.BasicAtt {}
-	interface BlogUserListView extends BlogUser.BasicAtt {}
-	interface BlogBandListView extends BlogBand.BasicAtt {}
-	interface FollowListView extends Follow.BasicAtt {}
+	@Autowired
+	private NoveltyRepository noveltyRepository;
 	
-	@JsonView(UserListView.class)
+	@Autowired
+	private MessageRepository messageRepository;
+	
+	interface UsersListView extends User.Basic, User.InstGenres {}
+	interface UserListView extends User.Basic, User.Info, User.WebLinks, User.InstGenres {}
+	interface FollowListView extends Follow.Basic {}
+	interface BlogUserListView extends BlogUser.Basic {}
+	interface BlogBandListView extends BlogBand.Basic {}
+	interface MessageListView extends Message.Basic, User.Basic {}
+	interface NoveltyListView extends Novelty.Basic {}
+	
+	@JsonView(UsersListView.class)
 	@RequestMapping(value = "/artists", method = RequestMethod.GET)
 	public List<User> getAllUsers() throws Exception {
 		System.out.println("Saludos visitante");
@@ -62,16 +73,12 @@ public class UserController {
 	}
 	
 	@JsonView(FollowListView.class)
-	@RequestMapping(value = "/artist/●●●●●●{id}/follows", method = RequestMethod.GET)
+	@RequestMapping(value = "/artist/{id}/follows", method = RequestMethod.GET)
 	public List<Follow> getUserFollowsById(@PathVariable long id) throws Exception {
-		List<Follow> allfollows = followRepository.findAll();
-		List<Follow> follows = new ArrayList<>();
-		for (Follow f : allfollows) {
-			if (f.getEmisor().getId() != id || f.getReceptor().getId() != id) {
-				follows.add(f);
-			}
-		}
-		return follows;
+		User user = userRepository.findOne(id);
+		List<Follow> allfollows = followRepository.findUserByEmisor(user);
+		allfollows.addAll(followRepository.findUserByReceptor(user));
+		return allfollows;
 	}
 
 	@JsonView(BlogUserListView.class)
@@ -95,13 +102,14 @@ public class UserController {
 			}
 		}
 		blogs.addAll(blogUserRepository.findBlogUserByAuthorIn(friends));
-		return blogs;
+		return Utils.removeDuplicated(blogs);
 	}
 
 	@JsonView(BlogBandListView.class)
-	@RequestMapping(value = "/artist/{id}/allbandblogs", method = RequestMethod.GET)
+	@RequestMapping(value = "/artist/{id}/allbandsblogs", method = RequestMethod.GET)
 	public List<BlogBand> getAllBandBlogsById(@PathVariable long id) throws Exception {
 		User user = userRepository.findOne(id);
+		List<BlogBand> blogs = new ArrayList<>();
 		List<Band> allbands = bandRepository.findAll();
 		List<Band> bands = new ArrayList<>();
 		for (Band b : allbands) {
@@ -109,7 +117,27 @@ public class UserController {
 				bands.add(b);
 			}
 		}
-		return blogBandRepository.findBlogBandByAuthorIn(bands);
+		blogs.addAll(blogBandRepository.findBlogBandByAuthorIn(bands));
+		return Utils.removeDuplicated(blogs);
+	}
+	
+	@JsonView(NoveltyListView.class)
+	@RequestMapping(value = "/artist/{id}/novelties", method = RequestMethod.GET)
+	public List<Novelty> getUserNoveltiesById(@PathVariable long id) throws Exception {
+		User user = userRepository.findOne(id);
+		List<Novelty> novelties = noveltyRepository.findNoveltyByUser(user);
+		List<Band> bands = user.getBands();
+		novelties.addAll(noveltyRepository.findNoveltyByBandIn(bands));
+		return novelties;
+	}
+	
+	@JsonView(MessageListView.class)
+	@RequestMapping(value = "/artist/{id}/messages", method = RequestMethod.GET)
+	public List<Message> getUserMessagesById(@PathVariable long id) throws Exception {
+		User user = userRepository.findOne(id);
+		List<Message> messages = messageRepository.findMessageByDestiny(user);
+		messages.addAll(messageRepository.findMessageBySender(user));
+		return messages;
 	}
 	
 }

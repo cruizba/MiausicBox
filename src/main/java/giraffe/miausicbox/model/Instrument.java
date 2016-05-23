@@ -10,17 +10,17 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Instrument {
 
-	public interface BasicAtt {}
+	public interface Basic {}
 	
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	private String name;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String image_url;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String image_url_white;
 	
 	// Constructor

@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Genre {
 
-	public interface BasicAtt {}
+	public interface Basic {}
 	
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	private String name;
 	

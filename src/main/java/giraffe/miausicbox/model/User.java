@@ -12,63 +12,72 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.model.Band.BandAtt;
-import giraffe.miausicbox.model.Event.EventAtt;
-
 @Entity
 public class User {
 	
-	public interface BasicAtt {}
+	public interface Basic {}
+	
+	public interface Info {}
+	
+	public interface Pass {}
+	
+	public interface WebLinks {}
+	
+	public interface InstGenres extends Instrument.Basic, Genre.Basic{}
+	
+	public interface Bands extends Band.Basic {}
+	
+	public interface Events extends Event.Basic {}
 
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String userName;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Pass.class)
 	private String password;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String completeName;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String email;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Info.class)
 	private String description;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Info.class)
 	private Boolean isArtist;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Info.class)
 	private String city;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(WebLinks.class)
 	private String facebook;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(WebLinks.class)
 	private String twitter;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(WebLinks.class)
 	private String youtube;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(InstGenres.class)
 	@ManyToMany
 	private List<Instrument> instruments = new ArrayList<>();
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(InstGenres.class)
 	@ManyToMany
 	private List<Genre> genres = new ArrayList<>();
 	
-	@JsonView(BandAtt.class)
+	@JsonView(Bands.class)
 	@ManyToMany(mappedBy="members")
 	private List<Band> bands = new ArrayList<>();
 	
-	@JsonView(EventAtt.class)
+	@JsonView(Events.class)
 	@ManyToMany
 	private List<Event> events = new ArrayList<>();
 	

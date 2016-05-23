@@ -14,27 +14,27 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class BlogUser {
 
-	public interface BasicAtt {}
+	public interface Basic extends User.Basic {}
 	
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String name;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String image;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String text;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private Date date;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@OneToOne
 	private User author;
 	

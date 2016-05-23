@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -17,38 +17,40 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Event {
 
-	public interface BasicAtt {}
+	public interface Basic {}
 	
-	public interface EventAtt {}
+	public interface Followers extends User.Basic {}
+	
+	public interface Bands extends Band.Basic {}
 
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String name;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private Date date;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(User.Basic.class)
 	@OneToOne
 	private User creator;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String description;
 	
-	@JsonView(EventAtt.class)
-	@OneToMany
+	@JsonView(Bands.class)
+	@ManyToMany
 	private List<Band> bands = new ArrayList<>();
 
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String direction;
 
-	@JsonView(EventAtt.class)
-	@OneToMany
+	@JsonView(Followers.class)
+	@ManyToMany
 	private List<User> followers = new ArrayList<>();
 	
 	// Constructor

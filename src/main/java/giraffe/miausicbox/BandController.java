@@ -16,7 +16,7 @@ public class BandController {
 	@Autowired
 	private BandRepository bandRepository;
 	
-	interface BandListView extends Band.BasicAtt {}
+	interface BandListView extends Band.Basic {}
 
 	@JsonView(BandListView.class)
 	@RequestMapping("/band/{id}")

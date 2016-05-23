@@ -14,32 +14,32 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Message {
 
-	public interface BasicAtt {}
+	public interface Basic extends User.Basic {}
 
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@OneToOne
 	private User sender;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@OneToOne
 	private User destiny;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String subject;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String message;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private Date date;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private Boolean read;
 	
 	// Constructor

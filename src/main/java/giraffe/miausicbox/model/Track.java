@@ -12,21 +12,21 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Track {
 
-	public interface BasicAtt {}
+	public interface Basic {}
 	
 	// Attributes
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String name;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String band;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String link;
 	
 	// Constructor
