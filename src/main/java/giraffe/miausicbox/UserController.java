@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -46,19 +47,19 @@ public class UserController {
 	interface FollowListView extends Follow.BasicAtt {}
 	
 	@JsonView(UserListView.class)
-	@RequestMapping("/artists")
+	@RequestMapping(value = "/artists", method = RequestMethod.GET)
 	public List<User> getAllUsers() throws Exception {
 		return userRepository.findAll();
 	}
 	
 	@JsonView(UserListView.class)
-	@RequestMapping("/artist/{id}")
+	@RequestMapping(value = "/artist/{id}", method = RequestMethod.GET)
 	public User getUserById(@PathVariable long id) throws Exception {
 		return userRepository.findOne(id);
 	}
 	
 	@JsonView(FollowListView.class)
-	@RequestMapping("/artist/{id}/follows")
+	@RequestMapping(value = "/artist/{id}/follows", method = RequestMethod.GET)
 	public List<Follow> getUserFollowsById(@PathVariable long id) throws Exception {
 		List<Follow> follows = followRepository.findAll();
 		for (Follow f : follows) {
@@ -70,14 +71,14 @@ public class UserController {
 	}
 
 	@JsonView(BlogUserListView.class)
-	@RequestMapping("/artist/{id}/myblogs")
+	@RequestMapping(value = "/artist/{id}/myblogs", method = RequestMethod.GET)
 	public List<BlogUser> getMyBlogsById(@PathVariable long id) throws Exception {
 		User user = userRepository.findOne(id);
 		return blogUserRepository.findBlogUserByAuthor(user);
 	}
 	
 	@JsonView(BlogUserListView.class)
-	@RequestMapping("/artist/{id}/alluserblogs")
+	@RequestMapping(value = "/artist/{id}/alluserblogs", method = RequestMethod.GET)
 	public List<BlogUser> getAllUserBlogsById(@PathVariable long id) throws Exception {
 		User user = userRepository.findOne(id);
 		List<BlogUser> blogs = new ArrayList<>();
@@ -94,7 +95,7 @@ public class UserController {
 	}
 	
 	@JsonView(BlogBandListView.class)
-	@RequestMapping("/artist/{id}/allbandblogs")
+	@RequestMapping(value = "/artist/{id}/allbandblogs", method = RequestMethod.GET)
 	public List<BlogBand> getAllBandBlogsById(@PathVariable long id) throws Exception {
 		User user = userRepository.findOne(id);
 		List<Band> allbands = bandRepository.findAll();
