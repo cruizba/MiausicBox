@@ -60,7 +60,7 @@ export class Band{
     return this._twitter;
   }
 
-  public get youtube():string{
+  public get cleyoutube():string{
     return this._youtube;
   }
 

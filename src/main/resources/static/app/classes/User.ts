@@ -1,4 +1,6 @@
 import {Band} from './Band'
+import {Instrument} from "./Instrument";
+import {Genre} from "./Genre";
 /**
  * Class that represent the information related to MiausicBox users
  * @class User
@@ -15,15 +17,15 @@ export class User{
   private _facebook:string;
   private _twitter:string;
   private _youtube:string;
-  private _instruments:number[] = [];
-  private _genres:number[] = [];
+  private _instruments:Instrument[] = [];
+  private _genres:Genre[] = [];
   private _bands: Band[] = [];
   private _events:Event[] = [];
 
   constructor(userName:string, password:string, completeName:string, email:string,
               description:string, isArtist:boolean, city:string,
               facebook:string, twitter:string, youtube:string,
-              instruments:number[], genres:number[], bands: Band[]){
+              instruments:Instrument[], genres:Genre[], bands: Band[]){
     this._userName = userName;
     this._password = password;
     this._completeName = completeName;
@@ -61,11 +63,11 @@ export class User{
     return this._isArtist;
   }
 
-  public get instruments(): number[]{
+  public get instruments(): Instrument[]{
     return this._instruments;
   }
 
-  public get genres(): number[]{
+  public get genres(): Genre[]{
     return this._genres;
   }
 
@@ -93,11 +95,11 @@ export class User{
     return this._events;
   }
 
-  public set instruments(instrument: number[]){
+  public set instruments(instrument: Instrument[]){
     this._instruments = instrument;
   }
 
-  public set genres(genres:number[]){
+  public set genres(genres:Genre[]){
     this._genres=genres;
   }
 

@@ -118,9 +118,6 @@ export class AppComponent{
 
   constructor(private _router: Router){
     this.routerSuscription();
-    //var data = JSON.parse('{"name": "Cosa", "num": 44}')
-    //var instrument:Instrument = new Instrument(data.name);
-    //alert(instrument.toString());
   }
 
 
