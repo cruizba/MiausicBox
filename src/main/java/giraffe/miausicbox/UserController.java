@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +33,10 @@ import giraffe.miausicbox.repositories.UserRepository;
 @RestController
 public class UserController {
 
+	/**
+	 * REPOSITORIES related to USER_CONTROLLER
+	 */
+
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -51,6 +58,10 @@ public class UserController {
 	@Autowired
 	private MessageRepository messageRepository;
 	
+	/**
+	 * VIEWS related to USER_CONTROLLER
+	 */
+	
 	interface UsersListView extends User.Basic, User.InstGenres {}
 	interface UserListView extends User.Basic, User.Info, User.WebLinks, User.InstGenres {}
 	interface FollowListView extends Follow.Basic {}
@@ -59,10 +70,13 @@ public class UserController {
 	interface MessageListView extends Message.Basic, User.Basic {}
 	interface NoveltyListView extends Novelty.Basic {}
 	
+	/**
+	 * GET RequestMethods related to USER_CONTROLLER
+	 */
+	
 	@JsonView(UsersListView.class)
 	@RequestMapping(value = "/artists", method = RequestMethod.GET)
 	public List<User> getAllUsers() throws Exception {
-		System.out.println("Saludos visitante");
 		return userRepository.findAll();
 	}
 
@@ -140,4 +154,39 @@ public class UserController {
 		return messages;
 	}
 	
+	/**
+	 * POST RequestMethods related to USER_CONTROLLER
+	 */
+	
+	@RequestMapping(value = "/artist/new", method = RequestMethod.POST)
+	public ResponseEntity<User> createNewUser(@RequestBody User user) {
+		ResponseEntity<User> response;
+		User newuser;
+		List<User> allusers = userRepository.findAll();
+		if (allusers.contains(user)) {
+			response = new ResponseEntity<User>(user, HttpStatus.CONFLICT);
+		} else {
+			newuser = userRepository.save(user);
+			response = new ResponseEntity<User>(newuser, HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	@RequestMapping(value = "/artist/{em}/follows/{re}", method = RequestMethod.POST)
+	public ResponseEntity<Follow> createNewFollow(@PathVariable long em, @PathVariable long re) {
+		ResponseEntity<Follow> response;
+		Follow newfollow;
+		List<Follow> allfollows = followRepository.findAll();
+		User emisor = userRepository.findOne(em);
+		User receptor = userRepository.findOne(re);
+		Follow follow = new Follow(emisor, receptor);
+		if (emisor == null || receptor == null ||allfollows.contains(follow)) {
+			response = new ResponseEntity<Follow>(follow, HttpStatus.CONFLICT);
+		} else {
+			newfollow = followRepository.save(follow);
+			response = new ResponseEntity<Follow>(newfollow, HttpStatus.OK);
+		}
+		return response;
+	}
+
 }
