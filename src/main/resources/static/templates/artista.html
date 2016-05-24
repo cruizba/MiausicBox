@@ -1,4 +1,4 @@
-    <div class="content-page container">
+    <div *ngIf="user != null" class="content-page container">
             <div class="row">
 
                 <!-- Información del perfil -->
@@ -51,7 +51,7 @@
                                         <td>Instrumentos
                                         </td>
                                         <td>
-                                            <img *ngFor="#image_url of instruments_url" src="{{image_url}}" alt="Profile image" id="ImagenInstrumento">
+                                            <img *ngFor="#ins of user.instruments" src="{{ins.image_url}}" alt="Profile image" id="ImagenInstrumento">
                                         </td>
                                         <td>
                                             <button *ngIf="isUserLogged" type="button" data-toggle="modal" data-target="#Editarinstrumento" class="btn btn-default" aria-label="Left Align">
@@ -110,9 +110,9 @@
                         </div>
                         <div class="panel-body">
                             <table class="table" id="ListaBandas">
-                                <tr  *ngFor="#ba of bands" id="PrimeraFila">
+                                <tr  *ngFor="#ba of user.bands" id="PrimeraFila">
                                     <td><a href="#" class="enlaceBanda"><img src="../img/muestra1.jpg" alt="Profile image" class="img-circle" id="ImagenBanda"></a></td>
-                                    <td><a [routerLink]="['Band', {id: ba.bandId}]" class="enlaceBanda">{{ba.bandObj.groupName}}</a></td>
+                                    <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceBanda">{{ba.groupName}}</a></td>
                                 </tr>
                             </table>
                             <div *ngIf="isUserLogged" class="insertarButton">
@@ -139,10 +139,10 @@
                         <div class="panel-body">
                             <table class="table" id="Eventos">
                                 <tbody>
-                                    <tr *ngFor="#ev of events" id="PrimeraFila">
-                                        <td>{{ev.eventObj.date.getDay()}}/{{ev.eventObj.date.getMonth()}}/{{ev.eventObj.date.getFullYear()}}
+                                    <tr *ngFor="#ev of user.events" id="PrimeraFila">
+                                        <td>{{ev.date.getDay()}}/{{ev.date.getMonth()}}/{{ev.date.getFullYear()}}
                                         </td>
-                                        <td><a [routerLink]="['Event', {id: ev.eventId}]">{{ev.eventObj.name}}</a>
+                                        <td><a [routerLink]="['Event', {id: ev.id}]">{{ev.name}}</a>
                                         </td>
                                     </tr>
 
@@ -414,8 +414,7 @@
                                                         <button type="submit" class="btn btn-default" (click)="deleteInstrument(intInstrument)">Eliminar</button>
                                                     </div>
                                                 </div>
-
-                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

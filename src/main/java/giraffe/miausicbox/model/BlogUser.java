@@ -1,6 +1,5 @@
 package giraffe.miausicbox.model;
 
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -32,7 +31,7 @@ public class BlogUser {
 	private String text;
 	
 	@JsonView(Basic.class)
-	private Date date;
+	private String date;
 	
 	@JsonView(Basic.class)
 	@OneToOne
@@ -45,7 +44,7 @@ public class BlogUser {
 			String name,
 			String image,
 			String text,
-			Date date,
+			String date,
 			User author
 			) {
 		super();
@@ -85,11 +84,11 @@ public class BlogUser {
 		this.text = text;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	

@@ -2,10 +2,10 @@ import { userList } from '../classes/memoryDB';
 import { Injectable } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
 import { User } from '../classes/User'
-//Observer simulation
 import { withObserver } from '../classes/Utils';
 import { Info } from "../classes/Info";
 import 'rxjs/Rx';
+import {BlogUser} from "../classes/BlogUser";
 
 @Injectable()
 export class UserService {
@@ -28,18 +28,17 @@ export class UserService {
     )
   }
 
-  getUserByUserNameAndPass(username:string, pass:string){
-    for(let i = 0; i < userList.length;i++) {
-      if (userList[i].userName == username && userList[i].password == pass) {
-        return withObserver(userList[i]);
-      }
-    }
-    return withObserver(null);
+  getUserById(id){
+    let url = "/artist/" + id;
+    console.log("Peticion a " + url);
+    return this.http.get(url).map(
+        response => this.deserializeUser(response)
+    );
   }
 
   /*
-  * Only necessary on simulation.
-  * At the backend, entities should have an id
+   * Only necessary on simulation.
+   * At the backend, entities should have an id
    */
   getUserId(user:User){
     for(let i = 0; i < userList.length; i++){
@@ -49,20 +48,6 @@ export class UserService {
     }
   }
 
-  getUserById(id){
-    return withObserver(userList[id]);
-  }
-  
-  getUserByUserName(name:String){
-    var allUsers = [];
-    for (let i = 0; i < userList.length; i++){
-      if(userList[i].userName == name){
-        allUsers.push({"userId": i, "userObj": userList[i]});
-      }
-    }
-    return withObserver (allUsers);
-  }
-  
   checkUserByUsername(username:string){
     for(let i = 0; i < userList.length; i++) {
       if (userList[i].userName == username) {
@@ -70,6 +55,23 @@ export class UserService {
       }
     }
     return withObserver (true);
+  }
+
+  getUserByUserNameAndPass(username:string, pass:string) {
+    for(let i = 0; i < userList.length;i++) {
+      if (userList[i].userName == username && userList[i].password == pass) {
+        return withObserver(userList[i]);
+      }
+    }
+    return withObserver(null);
+  }
+
+  getBlogsByUser(id) {
+    let url = "/artist/" + id + "/myblogs";
+    console.log("Peticion a " + url);
+    return this.http.get(url).map(
+        response => this.deserializeAllBlogs(response)
+    );
   }
 
   addUser(user:User){
@@ -132,11 +134,37 @@ export class UserService {
   deserializeAllUsers(response:Response) {
     console.log("deserealizeAllUsers > Response:");
     console.log(response);
-    let result = [];
+    let result:User[] = [];
     response.json().map(
         obj => result.push(obj)
     );
     console.log("deserealizeAllUsers > Result:");
+    console.log(result);
+    return result;
+  }
+
+  deserializeUser(response:Response) {
+    console.log("deserealizeUser > Response:");
+    console.log(response);
+    let result:User = response.json();
+    console.log("deserealizeUser > Result:");
+    console.log(result);
+    return result;
+  }
+
+  deserializeAllBlogs(response:Response) {
+    console.log("deserealizeAllBlogs > Response:");
+    console.log(response);
+    let result:BlogUser[] = [];
+    response.json().map(
+        obj => {
+          let bu:BlogUser = obj;
+          let d:Date = new Date(obj.date);
+          bu.date = d;
+          result.push(bu)
+        }
+    );
+    console.log("deserealizeAllBlogs > Result:");
     console.log(result);
     return result;
   }

@@ -25,7 +25,7 @@ export class User{
   constructor(userName:string, password:string, completeName:string, email:string,
               description:string, isArtist:boolean, city:string,
               facebook:string, twitter:string, youtube:string,
-              instruments:Instrument[], genres:Genre[], bands: Band[]){
+              instruments:Instrument[], genres:Genre[], bands: Band[], events: Event[]){
     this._userName = userName;
     this._password = password;
     this._completeName = completeName;
@@ -36,6 +36,7 @@ export class User{
     this._instruments = instruments;
     this._genres = genres;
     this._bands = bands;
+    this._events = events;
   }
 
   /* Methods Getters & Setters*/
@@ -142,7 +143,6 @@ export class User{
   public setYoutube(youtube:string){
     this._youtube = youtube;
   }
-
 
   set bands(value:Band[]){
     this._bands=value;

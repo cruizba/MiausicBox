@@ -1,11 +1,10 @@
-import { Component, OnInit } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
-import {Info} from "./classes/Info";
-import {Instrument} from "./classes/Instrument";
-import {FollowService} from "./services/follow.service";
-import {MessageService} from "./services/message.service";
+import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Info } from "./classes/Info";
+import { FollowService } from "./services/follow.service";
+import { MessageService } from "./services/message.service";
 import { BlogUser } from "./classes/BlogUser";
 import { BlogService } from "./services/blog.service";
 import { BandService } from "./services/band.service";
@@ -24,14 +23,8 @@ export class ArtistaComponent {
   isArtist: boolean;
   isFollowed: boolean;
   user: User;
-  instruments: Instrument[] = [];
-  instruments_url:string[] = [];
-  //allInstruments = new IntrumentList().instruments;
-  genresUser:string[] = [];
   id;
   blogList:BlogUser[] = [];
-  bands = [];
-  events = [];
 
   //Follows variables
   numFollowing:number;
@@ -41,7 +34,7 @@ export class ArtistaComponent {
   numMessages:number;
 
   //Variables modify instruments
-    intInstrument;
+  intInstrument;
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
@@ -57,8 +50,6 @@ export class ArtistaComponent {
       }
       this.genres();
       this.isFollowedBy();
-      this.bandsUser();
-      this.eventsUser();
   }
 
 
@@ -72,10 +63,12 @@ export class ArtistaComponent {
 
         //Get user information
         this._userService.getUserById(this.id).subscribe(
-            user => this.user = user
+            user => {
+                this.user = user
+                //Check if is an artist
+                this.isArtist = this.user.isArtist;
+            }
         )
-        //Check if is an artist
-        this.isArtist = this.user.isArtist;
 
         this.updateFollows();
 
@@ -84,32 +77,10 @@ export class ArtistaComponent {
             (error => alert("Error notifications"))
         )
 
-        this._blogService.getBlogsByUser(this.user).subscribe(
-          blogList => this.blogList = blogList
+        this._userService.getBlogsByUser(this.id).subscribe(
+            blogList => this.blogList = blogList
         )
 
-
-    }
-
-    bandsUser(){
-        this._bandService.getBandsByUserId(this.id).subscribe(
-            list => this.bands = list,
-            error => {
-                this.bands = null;
-                alert ("Error");
-            }
-        );
-        console.log(this.bands);
-    }
-
-    eventsUser(){
-        this._eventService.getEventsByUserId(this.id).subscribe(
-            list => this.events = list,
-            error => {
-                this.events = null;
-                alert ("Error al cargar eventos");
-            }
-        )
     }
 
     instrumentsUser() {
@@ -187,26 +158,20 @@ export class ArtistaComponent {
     
     newBand (nameBand, description){
         this._bandService.addNewBand(nameBand,description);
-        this.bandsUser();
     }
 
     newEvent (name, date, direction, description){
         var auxdate = new Date (date);
         this._eventService.addNewEvent(name, auxdate, direction, description);
-        this.eventsUser();
     }
 
     addInstrument(num){
         this._userService.setInstrument(num);
-        this.instruments = [];
-        this.instruments_url = [];
         this.instrumentsUser();
     }
 
     deleteInstrument(num){
         this._userService.deleteInstrument(num);
-        this.instruments = [];
-        this.instruments_url = [];
         this.instrumentsUser();
     }
 }

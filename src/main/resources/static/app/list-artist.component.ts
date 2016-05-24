@@ -1,7 +1,6 @@
 import { Component } from 'angular2/core';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 import { UserService } from "./services/user.service";
-import { User } from "./classes/User"
 import { BandService } from "./services/band.service";
 
 @Component({
