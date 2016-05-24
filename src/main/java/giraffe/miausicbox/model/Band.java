@@ -23,6 +23,8 @@ public class Band {
 	
 	public interface Members extends User.Basic {}
 	
+	public interface Admin extends User.Basic {}
+	
 	public interface Followers extends User.Basic {}
 	
 	public interface Genres extends Genre.Basic {}
@@ -35,7 +37,7 @@ public class Band {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@JsonView(User.Basic.class)
+	@JsonView(Admin.class)
 	@OneToOne
 	private User administrador;
 	
