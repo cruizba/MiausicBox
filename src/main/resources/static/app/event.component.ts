@@ -4,6 +4,7 @@ import { Event } from './classes/Event';
 import {EventService} from "./services/event.service";
 import {BandService} from "./services/band.service";
 import {FollowService} from "./services/follow.service";
+import {Info} from "./classes/Info";
 
 @Component ({
     selector: 'Event',
@@ -30,13 +31,20 @@ export class EventComponent {
 
         this.inizialitationEvent();
         this.inizialitationIsFollower();
-        this.inizialitationIsCreator();
+        //this.inizialitationIsCreator();
         this.numberOfFollowers();
     }
 
     inizialitationEvent (){
         this._eventService.getEventByID(this.id).subscribe(
-            event => this.event = event,
+            event => {
+                this.event = event;
+                if (event.creator.equals(Info.userLogged)){
+                    this.isCreator = true;
+                } else {
+                    this.isCreator = false;
+                }
+            },
             error =>{
                 this.event = null;
                 alert ("Event not found");
@@ -57,7 +65,7 @@ export class EventComponent {
         );
 
     }
-
+/*
     inizialitationIsCreator(){
         this._eventService.getIsCreator(this.id).subscribe(
             creator => this.isCreator = creator,
@@ -66,7 +74,7 @@ export class EventComponent {
                 alert ("Error");
             }
         );
-    }
+    }*/
     membersBand (i) {
         console.log("me meto en memberBand");
         var result = [];

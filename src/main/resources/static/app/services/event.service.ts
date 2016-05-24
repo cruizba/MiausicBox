@@ -5,63 +5,75 @@ import { withObserver } from '../classes/Utils';
 import {User} from "../classes/User";
 import {Info} from "../classes/Info";
 
+import {Http, Response} from "angular2/http";
+
 
 @Injectable()
 export class EventService {
 
-    getAllEvent (){
-        var result = [];
-        for (let i = 0; i < eventList.length; i++){
-            result.push({"eventID":i, "eventObj": eventList[i]});
-        }
+    constructor(private http: Http){}
 
-        return withObserver (result);
+    getAllEvent (){
+        var url = "/events";
+        return (this.http.get(url).map(
+            result => this.deserializeAllEvents(result)
+        ))
+    }
+
+    deserializeAllEvents (response:Response) {
+        console.log("Aca tienes los eventos");
+        console.log("Response ->");
+        console.log(response);
+        let result = []
+        response.json().map(
+            obj => {
+//              var event = {"eventId":obj.id, "eventObj": obj}
+                result.push(obj)
+            }
+        )
+        console.log("Result ->");
+        console.log(result);
+        return result;
     }
     
     getEventByID (id){
-        return withObserver (eventList[id]);
+        let url = "/event/" + id;
+        return this.http.get(url).map(
+            result => result.json()
+        )
     }
 
     getNumberOfFollowers(id){
+        // TODO
         return withObserver (eventList[id].followers.length);
     }
     
     getFollowers (id){
+        // TODO
         var result = [];
         var users:User[] = eventList[id].followers;
         for(let i = 0; i < users.length; i++){
             result.push({"id":i, "user":users[i]});
         }
-
-
         return withObserver(result);
     }
 
     getEventsByName (name:String){
-        var events = [];
-        for (let i = 0; i < eventList.length; i++){
-            if (eventList[i].name == name){
-                events.push({'id':i, 'eventObj':eventList[i]});
-            }
-        }
-        return withObserver(events);
+        let url = "/events/name:" + name;
+        return this.http.get(url).map(
+            result => result.json()
+        )
     }
 
     getEventsByBandName (name:String){
-        var result = [];
-
-        for (let i = 0; i < eventList.length; i++){
-            var list = eventList[i].bands;
-            for(let j = 0; j < list.length; j++){
-                if(name == list[j].groupName){
-                    result.push({"id": i, "eventObj":eventList[i]});
-                }
-            }
-        }
-        return withObserver(result);
+        let url = "/events/bandName:" + name;
+        return this.http.get(url).map(
+            result => result.json()
+        )
     }
 
     getIsFollower (id){
+        // TODO
         var isFollower = false;
         var followers = eventList[id].followers;
         for (let i = 0; i < followers.length; i++) {
@@ -73,7 +85,7 @@ export class EventService {
     }
     
     unFollow (id){
-        
+        // TODO
         for(let i = 0; i < eventList[id].followers.length; i++){
             if(eventList[id].followers[i].equals(Info.userLogged)){
                 eventList[id].followers.splice(i, 1);
@@ -83,32 +95,19 @@ export class EventService {
     }
     
     follow (id){
+        // TODO
         eventList[id].followers.push(Info.userLogged);
-    }
-    
-    getIsCreator(id){
-        var isCreator = false;
-        if (eventList[id].creator.equals(Info.userLogged)){
-            isCreator = true;
-        }
-        return withObserver (isCreator);
     }
 
     getEventsByUserId(id){
-        var result = [];
-        
-        for(let i = 0; i < eventList.length; i++){
-            var follows = eventList[i].followers;
-            for(let j = 0; j < follows.length; j++ ){
-                if( id == userList.indexOf(follows[j])){
-                    result.push({"eventId":i, "eventObj":eventList[i]});
-                }
-            }
-        }
-        return withObserver(result);
+        let url = "/events/userId:" + id;
+        return this.http.get(url).map(
+            result => result.json()
+        )
     }
     
     addNewEvent(name, date, direction, description){
+        // TODO
         var user = Info.userLogged;
         var newEvent = new Event (name, date, user, description, [], direction, [user]);
         user.events.push(null);

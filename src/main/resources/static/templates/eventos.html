@@ -1,4 +1,5 @@
   <div class="content-page container">
+
             <div class="row">
                 <!--Titulo contenido -->
                 <div class="col-md-12">
@@ -22,7 +23,7 @@
                                 <div class="input-group">
                                     <input #findName type="text" class="form-control" placeholder="Nombre del evento">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByName(findName.value); findName.value=null">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByName(findName.value)">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
@@ -34,7 +35,7 @@
                                 <div class="input-group">
                                     <input #findBand type="text" class="form-control" placeholder="Nombre de la banda">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByBand(findBand.value); findBand.value=null">Buscar!</button>
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findEventsByBand(findBand.value)">Buscar!</button>
                                     </span>
                                 </div>
                                 <!-- /input-group -->
@@ -113,7 +114,7 @@
                     </div>
                 </div>
 
-                <!--Lista de Artistas-->
+                <!--Lista de Eventos-->
                 <div class="col-md-8">
 
                     <table class="table">
@@ -124,29 +125,28 @@
                                 <th>Evento</th>
                                 <!--<th>Generos</th>-->
                                 <th>Bandas</th>
-                                <th id="esquinaTablaArtista2">Fecha y localización</th>
+                                <th>Fecha</th>
+                                <th id="esquinaTablaArtista2">Localización</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr *ngFor="#ev of events">
-                                <td><a [routerLink]="['Event', {id: ev.eventID}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a [routerLink]="['Event', {id: ev.eventID}]" class="enlaceListaArtista">{{ev.eventObj.name}}</a></td>
-                                <!--<td>
-                                    <ul>
-                                        <li>Indie</li>
-                                        <li>Rock</li>
-                                        <li>Otros</li>
-                                    </ul>
-                                </td>-->
+                                <td><a [routerLink]="['Event', {id: ev.id}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['Event', {id: ev.id}]" class="enlaceListaArtista">{{ev.name}}</a></td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#ba of ev.eventObj.bands">{{ba.groupName}}</li>
+                                        <li *ngFor="#ba of ev.bands">{{ba.groupName}}</li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul class="ubicacion">
-                                        <li >{{ev.eventObj.date.getDay() + "/" + ev.eventObj.date.getMonth() + "/" + ev.eventObj.date.getFullYear()}}</li>
+                                        <!--<li >{{ev.date.getDay() + "/" + ev.date.getMonth() + "/" + ev.date.getFullYear()}}</li>-->
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="ubicacion">
+                                        <li >{{ev.direction}}</li>
                                     </ul>
                                 </td>
                             </tr>

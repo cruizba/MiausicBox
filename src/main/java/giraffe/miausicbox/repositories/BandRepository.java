@@ -8,7 +8,7 @@ import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.User;
 
 public interface BandRepository extends JpaRepository<Band, Long> {
-
+	
 	public List<Band> findBandsByMembers(User user);
 	
 	public List<Band> findBandByMembersIn(List<User> user);
