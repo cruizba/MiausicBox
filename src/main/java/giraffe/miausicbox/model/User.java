@@ -23,7 +23,7 @@ public class User {
 	
 	public interface WebLinks {}
 	
-	public interface InstGenres extends Instrument.Basic, Genre.Basic{}
+	public interface InstGenres extends Instrument.Basic, Genre.Basic {}
 	
 	public interface Bands extends Band.Basic {}
 	
@@ -50,7 +50,7 @@ public class User {
 	@JsonView(Info.class)
 	private String description;
 	
-	@JsonView(Info.class)
+	@JsonView(Basic.class)
 	private Boolean isArtist;
 	
 	@JsonView(Info.class)
