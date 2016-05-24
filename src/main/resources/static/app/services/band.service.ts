@@ -32,7 +32,7 @@ export class BandService {
   }
 
 
-  /*getMembers (id){
+  getMembers (id){
     console.log("(service) getMembers");
     var memberList = [];
     for(let i = 0; i < bandList[id].members.length; i++){
@@ -40,10 +40,13 @@ export class BandService {
     }
     console.log(memberList);
     return withObserver(memberList);
-  }*/
+  }
 
   getBandById (id){
-    return withObserver(bandList[id]);
+    let url = "/band/"+id;
+    return this.http.get(url).map(
+        result => result.json()
+    )
   }
 
   isAdmin(id, user) {

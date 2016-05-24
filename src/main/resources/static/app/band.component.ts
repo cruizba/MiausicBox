@@ -45,6 +45,10 @@ export class BandComponent {
     initialization(){
         // Get id from route
         this.id = this._routeParams.get('id')
+        
+        this._bandService.getBandById(this.id).subscribe(
+            result => this.band = result
+        )
 
         // Check if is admin to show edit buttons
         this._bandService.isAdmin(this.id, Info.userLogged).subscribe(
@@ -53,10 +57,10 @@ export class BandComponent {
         )
 
         // Get band information
-        this._bandService.getBandById(this.id).subscribe(
+        /*this._bandService.getBandById(this.id).subscribe(
           (band => this.band = band),
           (error => alert("getBandById error"))
-        )
+        )*/
 
         // Get members
         this._bandService.getMembers(this.id).subscribe(
