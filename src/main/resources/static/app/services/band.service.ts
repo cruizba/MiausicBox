@@ -5,7 +5,8 @@ import {withObserver} from '../classes/Utils';
 import {Band} from "../classes/Band";
 import {Info} from "../classes/Info";
 import {Track} from "../classes/Track";
-import {Http, Response} from "angular2/http"
+import {Http, Response} from "angular2/http";
+import 'rxjs/Rx';
 
 
 
@@ -31,6 +32,13 @@ export class BandService {
     ))
   }
 
+  getBandById (id){
+    let url = "/band/"+id;
+    console.log("Hacemos petciccion a " + url);
+    return this.http.get(url).map(
+        result => this.deserializeBand(result)
+    )
+  }
 
   getMembers (id){
     console.log("(service) getMembers");
@@ -42,12 +50,7 @@ export class BandService {
     return withObserver(memberList);
   }
 
-  getBandById (id){
-    let url = "/band/"+id;
-    return this.http.get(url).map(
-        result => result.json()
-    )
-  }
+
 
   isAdmin(id, user) {
     return withObserver(bandList[id].administrador.equals(user));
@@ -143,6 +146,16 @@ export class BandService {
           result.push(obj)
         }
     )
+    console.log("Result ->");
+    console.log(result);
+    return result;
+  }
+
+  deserializeBand (response:Response) {
+    console.log("Aca tienes las bandas");
+    console.log("Response ->");
+    console.log(response);
+    let result:Band = response.json();
     console.log("Result ->");
     console.log(result);
     return result;

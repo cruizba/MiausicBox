@@ -31,8 +31,8 @@ public class BandController {
 	 */
 	
 	interface BandListView extends Band.Basic, Band.Members, Band.Genres {}
-	interface BandView extends Band.Basic, Band.WebLinks, Band.Genres, Band.Tracks {}
-
+	interface BandView extends Band.Basic, Band.WebLinks, Band.Genres, Band.Tracks, Band.Members, Band.Admin, Band.Followers {}
+	
 	/**
 	 * GET RequestMethods related to BAND_CONTROLLER
 	 */
@@ -48,12 +48,14 @@ public class BandController {
 	public List<Band> getBandByGroupName(@PathVariable String name) throws Exception {
 		return bandRepository.findBandByGroupName(name);
 	}
-
+	
 	@JsonView(BandListView.class)
 	@RequestMapping(value="/bands", method = RequestMethod.GET)
 	public List <Band> getAllBands( ) throws Exception {
 		return bandRepository.findAll();
 	}
+	
+	
 	
 	/**
 	 * POST RequestMethods related to BAND_CONTROLLER

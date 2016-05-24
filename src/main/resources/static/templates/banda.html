@@ -1,4 +1,4 @@
-<div class="content-page container" id="profile-page">
+<div *ngIf="band != null" class="content-page container" id="profile-page">
     <div class="row">
         <!-- Información del perfil -->
         <div class="col-md-4" id="profile_details">
@@ -17,7 +17,7 @@
                             <td>Géneros
                             </td>
                             <td>
-                                <span *ngFor="#genre of band.genres">{{genre + ", "}}</span>
+                                <span *ngFor="#genre of band.genres">{{genre.name + ", "}}</span>
                             </td>
                             <td *ngIf="isAdmin">
                                 <button type="button" class="btn btn-default" aria-label="Left Align">
@@ -99,7 +99,7 @@
                 <div class="panel-body">
                     <table class="table" id="Eventos">
                         <tbody>
-                        <tr id="PrimeraFila">
+                        <tr id="PrimeraFila" >
                             <td>20/7/2017
                             </td>
                             <td><a href="#">HellFest</a>
@@ -152,12 +152,12 @@
                         </tr>
                         </thead>
                         <tbody id="TableBody">
-                        <tr *ngFor="#mem of membersList">
+                        <tr *ngFor="#mem of band.members">
                             <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                            <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista">{{mem.user.userName}}</a></td>
+                            <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista">{{mem.userName}}</a></td>
                             <td>
                                 <ul>
-                                    <li *ngFor="#ins of mem.user.instruments"><img src="{{instruments[ins].image_url}}" alt="Instrument" id="InstrumentSimbol">
+                                    <li *ngFor="#ins of mem.instruments"><img src="{{ins.image_url}}" alt="Instrument" id="InstrumentSimbol">
                                     </li>
                                 </ul>
                             </td>

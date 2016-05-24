@@ -22,7 +22,7 @@ export class ListBandsComponent {
 
     ngOnInit() {
         this.initBands();
-        this.members = this.initMembers();
+        //this.members = this.initMembers();
         //this.genres = this.initGenres();
         //console.log(this.genres);
     }
@@ -41,7 +41,7 @@ export class ListBandsComponent {
             });
     }
 
-    initMembers() {
+    /*initMembers() {
         var result = [];
         for (let i = 0; i < this.bands.length; i++) {
             this._bandService.getMembers(this.bands[i].bandId).subscribe(
@@ -50,7 +50,7 @@ export class ListBandsComponent {
             );
         }
         return result;
-    }
+    }*/
 
     initGenres(){
         var result = [];

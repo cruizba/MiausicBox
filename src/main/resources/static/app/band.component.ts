@@ -21,15 +21,15 @@ import {NoveltyService} from "./services/novelty.service";
 export class BandComponent {
 
   isAdmin:boolean;
-  band: Band;
-  genresBand:string[] = [];
+  band:Band;
+
   id;
   blogList:BlogBand[] = [];
-  membersList: User[];
+  //membersList: User[];
   instruments: Instrument[] = [];
 
   //Follows variables
-  numFollowers:number;
+  //numFollowers:number;
 
   constructor(private _routeParams: RouteParams, private _bandService: BandService,
               private _blogService: BlogService, private _userService:UserService,
@@ -45,16 +45,23 @@ export class BandComponent {
     initialization(){
         // Get id from route
         this.id = this._routeParams.get('id')
-        
+
+        //console.log("Band groupname antes de peticion:");
+        //console.log(this.band.groupName);
         this._bandService.getBandById(this.id).subscribe(
-            result => this.band = result
+            result => {
+                this.band = result;
+                console.log("Bien jajaja esto tenemos >");
+                console.log(this.band.groupName);
+            }
         )
 
+
         // Check if is admin to show edit buttons
-        this._bandService.isAdmin(this.id, Info.userLogged).subscribe(
+        /*this._bandService.isAdmin(this.id, Info.userLogged).subscribe(
           (isAdmin => this.isAdmin = isAdmin),
           (error => alert("getAdmin error"))
-        )
+        )*/
 
         // Get band information
         /*this._bandService.getBandById(this.id).subscribe(
@@ -63,20 +70,20 @@ export class BandComponent {
         )*/
 
         // Get members
-        this._bandService.getMembers(this.id).subscribe(
+        /*this._bandService.getMembers(this.id).subscribe(
           (members => this.membersList = members),
           (error => alert("getMembers error"))
-        )
+        )*/
 
-        this.updateFollows();
+        //this.updateFollows();
 
         //var inss = new IntrumentList();
         //this.instruments = inss.instruments;
 
-        this._blogService.getBlogsByBand(this.band).subscribe(
+        /*this._blogService.getBlogsByBand(this.band).subscribe(
           (blogList => this.blogList = blogList),
           (error => alert("getBlogsByBand error"))
-        )
+        )*/
     }
 
     genres(){
@@ -91,17 +98,17 @@ export class BandComponent {
         */
     }
 
-    updateFollows(){
+    /*updateFollows(){
       this.numFollowers = this.band.followers.length;
-    }
+    }*/
 
     newMember(userName){
 
         this._bandService.addNewMember(userName, this.id);
-        this._bandService.getMembers(this.id).subscribe(
+        /*this._bandService.getMembers(this.id).subscribe(
             (members => this.membersList = members),
             (error => alert("getMembers error"))
-        )
+        )*/
         this._noveltyService.newNovelty(userName, this.band, new Date(), true);
     }
     
