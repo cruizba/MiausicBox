@@ -1,7 +1,6 @@
 package giraffe.miausicbox.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +32,7 @@ public class Event {
 	private String name;
 	
 	@JsonView(Basic.class)
-	private Date date;
+	private String date;
 	
 	@JsonView(User.Basic.class)
 	@OneToOne
@@ -58,7 +57,7 @@ public class Event {
 	
 	public Event(
 			String name,
-			Date date,
+			String date,
 			User creator,
 			String description,
 			List<Band> bands,
@@ -88,11 +87,11 @@ public class Event {
 		this.name = name;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setString(String date) {
 		this.date = date;
 	}
 

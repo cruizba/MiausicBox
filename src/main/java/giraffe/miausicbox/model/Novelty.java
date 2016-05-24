@@ -1,6 +1,5 @@
 package giraffe.miausicbox.model;
 
-import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -31,7 +30,7 @@ public class Novelty {
 	private Band band;
 	
 	@JsonView(Basic.class)
-	private Date date;
+	private String date;
 	
 	@JsonView(Basic.class)
 	private Boolean joined;
@@ -42,7 +41,7 @@ public class Novelty {
 	public Novelty(
 			User user,
 			Band band,
-			Date date,
+			String date,
 			Boolean joined
 			) {
 		super();
@@ -73,11 +72,11 @@ public class Novelty {
 		this.band = band;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

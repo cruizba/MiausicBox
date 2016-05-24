@@ -1,7 +1,6 @@
 package giraffe.miausicbox;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.annotation.PostConstruct;
 
@@ -149,24 +148,24 @@ public class GenericController {
 		ban1.getGenres().add(gen6);
 		
 		// BlogUser
-		BlogUser bu0 = new BlogUser("Hola","img","Muchas cosas guays",new Date(),us0);
-		BlogUser bu1 = new BlogUser("Trucha","img","El oceano",new Date(),us0);
-		BlogUser bu2 = new BlogUser("Daw","img","Viva mika",new Date(),us1);
+		BlogUser bu0 = new BlogUser("Hola","img","Muchas cosas guays","April 13, 2016 20:16:37",us0);
+		BlogUser bu1 = new BlogUser("Trucha","img","El oceano","January 15, 2016 10:10:00",us0);
+		BlogUser bu2 = new BlogUser("Daw","img","Viva mika","May 1, 2016 19:15:37",us1);
 
 		// BlogBand
-		BlogBand bb0 = new BlogBand("Disgustipaed","img","This is necesary",new Date(),ban0);
-		BlogBand bb1 = new BlogBand("Mary","img","Give me my wings",new Date(),ban0);
+		BlogBand bb0 = new BlogBand("Disgustipaed","img","This is necesary","June 3, 2016 19:15:37",ban0);
+		BlogBand bb1 = new BlogBand("Mary","img","Give me my wings","April 1, 2016 18:20:30",ban0);
 		
 		// Messages
-		Message mes0 = new Message(us0, us1, "Ke ase loco", "Ma burria", new Date(), false);
-		Message mes1 = new Message(us0, us3, "Holi", "Viva Cthulhu", new Date(), true);
-		Message mes2 = new Message(us1, us2, "Lol", "Risas", new Date(), true);
-		Message mes3 = new Message(us3, us0, "Tas mal", "Pesao", new Date(), false);
+		Message mes0 = new Message(us0, us1, "Ke ase loco", "Ma burria", "July 3, 2016 18:20:30", false);
+		Message mes1 = new Message(us0, us3, "Holi", "Viva Cthulhu", "April 1, 2016 18:20:30", true);
+		Message mes2 = new Message(us1, us2, "Lol", "Risas", "April 1, 2016 18:10:30", true);
+		Message mes3 = new Message(us3, us0, "Tas mal", "Pesao", "February 20, 2016 18:20:30", false);
 		
 		// Events
-		Event ev0 = new Event("HellFest", new Date(), us0, "Festival heavy rock en Francia",
+		Event ev0 = new Event("HellFest", "April 1, 2016 18:20:30", us0, "Festival heavy rock en Francia",
 				new ArrayList<>(), "Paris, Francia", new ArrayList<>());
-		Event ev1 = new Event("IndieFest",  new Date(), us2, "Festival indie tope guachi",
+		Event ev1 = new Event("IndieFest",  "April 1, 2016 18:20:30", us2, "Festival indie tope guachi",
 				new ArrayList<>(), "Madrid", new ArrayList<>());
 		
 		ev0.getBands().add(ban0);
@@ -179,10 +178,10 @@ public class GenericController {
 		ev1.getFollowers().add(us3);
 		
 		// Novelties
-		Novelty nov0 = new Novelty(us0, ban0, new Date(), true);
-		Novelty nov1 = new Novelty(us1, ban0, new Date(), true);
-		Novelty nov2 = new Novelty(us0, ban1, new Date(), false);
-		Novelty nov3 = new Novelty(us1, ban1, new Date(), true);
+		Novelty nov0 = new Novelty(us0, ban0, "May 1, 2016 18:20:30", true);
+		Novelty nov1 = new Novelty(us1, ban0, "April 1, 2016 18:20:30", true);
+		Novelty nov2 = new Novelty(us0, ban1, "June 1, 2016 18:20:30", false);
+		Novelty nov3 = new Novelty(us1, ban1, "July 1, 2016 18:20:30", true);
 		
 		// Follows
 		Follow fol0 = new Follow(us0, us1);

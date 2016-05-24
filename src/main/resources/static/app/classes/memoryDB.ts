@@ -13,10 +13,10 @@ var blog1:string = "Blog 1 de Muestra. Lorem ipsum dolor sit amet, consectetur a
 var blog2:string = "Blog 2 de Muestra. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.";
 
 export var userList:User[] = [
-  new User("DarwinTB", "1234", "Carlos Ruiz Ballesteros", "user1@email.com", description, true, "Fuenlabrada, Madrid","","","", [], [], []),
-  new User("ice6294", "9876", "Luis León Gámez", "user2@email.com", description, true, "Alcorcón, Madrid","","","", [],[], []),
-  new User("sor", "a", "Soraya Rama", "user3@email.com", description, false, "Orcasitas City","","twitter.com/Soryrc","", [],[], []),
-  new User("thais", "prueba1234", "Thais Méndez", "user4@email.com", description, false, "Madrid","","","", [],[],[])
+  new User("DarwinTB", "1234", "Carlos Ruiz Ballesteros", "user1@email.com", description, true, "Fuenlabrada, Madrid","","","", [], [], [], []),
+  new User("ice6294", "9876", "Luis León Gámez", "user2@email.com", description, true, "Alcorcón, Madrid","","","", [],[], [], []),
+  new User("sor", "a", "Soraya Rama", "user3@email.com", description, false, "Orcasitas City","","twitter.com/Soryrc","", [],[], [], []),
+  new User("thais", "prueba1234", "Thais Méndez", "user4@email.com", description, false, "Madrid","","","", [],[],[], [])
 ];
 
 var banda1:User[] = [userList[0], userList[2]];
