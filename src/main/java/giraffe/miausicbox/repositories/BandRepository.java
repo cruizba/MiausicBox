@@ -9,8 +9,10 @@ import giraffe.miausicbox.model.User;
 
 public interface BandRepository extends JpaRepository<Band, Long> {
 
-	public List<Band> findBandByMembersIn(User user);
+	public List<Band> findBandByMembers(User user);
 	
 	public List<Band> findBandByMembersIn(List<User> user);
+	
+	public List<Band> findBandByGroupName (String groupName);
 	
 }

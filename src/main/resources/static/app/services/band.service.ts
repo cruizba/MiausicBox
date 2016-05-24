@@ -5,21 +5,34 @@ import {withObserver} from '../classes/Utils';
 import {Band} from "../classes/Band";
 import {Info} from "../classes/Info";
 import {Track} from "../classes/Track";
+import {Http, Response} from "angular2/http"
 
 
 
 @Injectable()
 export class BandService {
 
+
+  constructor (private http:Http){}
+
   getAllBands (){
-      var result = [];
-      for(let i = 0; i < bandList.length; i++){
-        result.push({"bandId": i, "bandObj": bandList[i]});
-      }
-      return withObserver(result);
+      var url = "/bands";
+
+      return (this.http.get(url).map(
+          result => this.deserializeAllBands(result)
+      ))
+  }
+  
+  getBandByName(name){
+    var url= "/bands/name:" + name;
+
+    return (this.http.get(url).map(
+        result => this.deserializeAllBands(result)
+    ))
   }
 
-  getMembers (id){
+
+  /*getMembers (id){
     console.log("(service) getMembers");
     var memberList = [];
     for(let i = 0; i < bandList[id].members.length; i++){
@@ -27,7 +40,7 @@ export class BandService {
     }
     console.log(memberList);
     return withObserver(memberList);
-  }
+  }*/
 
   getBandById (id){
     return withObserver(bandList[id]);
@@ -114,6 +127,22 @@ export class BandService {
   addNewTrack (name, group, link, id){
     var newTrack = new Track (name, group, link);
     bandList[id].tracks.push(newTrack);
+  }
+
+  deserializeAllBands (response:Response) {
+    console.log("Aca tienes las bandas");
+    console.log("Response ->");
+    console.log(response);
+    let result = []
+    response.json().map(
+        obj =>{
+//          var band = {"bandId":obj.id, "bandObj": obj}
+          result.push(obj)
+        }
+    )
+    console.log("Result ->");
+    console.log(result);
+    return result;
   }
 
 }

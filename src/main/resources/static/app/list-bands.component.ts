@@ -14,7 +14,7 @@ import {Band} from './classes/Band';
 export class ListBandsComponent {
 
     bands= [];
-    members = [];
+    //members = [];
     genres = [];
 
     constructor(private _bandService:BandService) {
@@ -22,7 +22,7 @@ export class ListBandsComponent {
 
     ngOnInit() {
         this.initBands();
-        this.members = this.initMembers();
+        //this.members = this.initMembers();
         this.genres = this.initGenres();
         console.log(this.genres);
     }
@@ -30,14 +30,18 @@ export class ListBandsComponent {
 
     initBands() {
         this._bandService.getAllBands().subscribe(
-            list=> this.bands = list,
+            list=> {
+                this.bands = list;
+                console.log("getAllBands > this.bands");
+                console.log(this.bands);
+            },
             error=> {
                 this.bands = null;
                 alert("List not found");
             });
     }
 
-    initMembers() {
+    /*initMembers() {
         var result = [];
         for (let i = 0; i < this.bands.length; i++) {
             this._bandService.getMembers(this.bands[i].bandId).subscribe(
@@ -46,7 +50,7 @@ export class ListBandsComponent {
             );
         }
         return result;
-    }
+    }*/
 
     initGenres(){
         var result = [];
@@ -63,7 +67,12 @@ export class ListBandsComponent {
         return result;
     }
 
-    findName(username){
+    findName(bandName){
+        this.bands = []
+        this._bandService.getBandByName(bandName).subscribe(
+            result => this.bands = result
+        )
+        /*
         this.bands = [];
         this.members = [];
         this.genres = [];
@@ -81,6 +90,6 @@ export class ListBandsComponent {
             this.initBands();
             this.members = this.initMembers();
             this.genres = this.initGenres();
-        }
+        }*/
     }
 }

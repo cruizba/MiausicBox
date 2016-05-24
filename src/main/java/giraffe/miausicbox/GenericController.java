@@ -149,6 +149,10 @@ public class GenericController {
 		ban0.getTracks().add(tr2);
 		ban1.getTracks().add(tr3);
 		
+		ban0.getGenres().add(gen0);
+		ban0.getGenres().add(gen1);
+		ban1.getGenres().add(gen6);
+		
 		// BlogUser
 		BlogUser bu0 = new BlogUser("Hola","img","Muchas cosas guays",new Date(),us0);
 		BlogUser bu1 = new BlogUser("Trucha","img","El oceano",new Date(),us0);

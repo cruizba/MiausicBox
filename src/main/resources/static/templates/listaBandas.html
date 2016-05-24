@@ -51,15 +51,15 @@
                                 <td>
                                     <a  class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
                                 </td>
-                                <td><a [routerLink]="['Band', {id: ba.bandId}]" class="enlaceListaBanda">{{ba.bandObj.groupName}}</a></td>
+                                <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceListaBanda">{{ba.groupName}}</a></td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#mem of members[i]" ><a [routerLink]="['Artist',  {id: mem.id}]" class="enlacePerfilArtista">{{mem.user.userName}}</a></li>
+                                        <li *ngFor="#mem of ba.members" ><a [routerLink]="['Artist',  {id: mem.id}]" class="enlacePerfilArtista">{{mem.userName}}</a></li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#gen of genres[i]">{{gen.name}}</li>
+                                        <li *ngFor="#gen of ba.genres">{{gen.name}}</li>
                                     </ul>
                                 </td>
                             </tr>

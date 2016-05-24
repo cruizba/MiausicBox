@@ -1,5 +1,6 @@
 import {User} from './User';
 import {Track} from "./Track";
+import {Genre} from "./Genre";
 
 export class Band{
 
@@ -13,11 +14,11 @@ export class Band{
   private _youtube: string;
   private _members: User[];
   private _followers: User[];
-  private _genres: number[];
+  private _genres: Genre[];
   private _tracks:Track[];
 
   constructor(administrador:User, groupName:string, description: string, city:string, web:string, facebook:string,
-              twitter:string, youtube:string, members:User[], followers:User[], genres:number[], tracks:Track[]){
+              twitter:string, youtube:string, members:User[], followers:User[], genres:Genre[], tracks:Track[]){
     this._administrador = administrador;
     this._groupName = groupName;
     this._description = description;
@@ -72,7 +73,7 @@ export class Band{
     return this._followers;
   }
 
-  public get genres():number[]{
+  public get genres():Genre[]{
     return this._genres;
   }
 
@@ -112,7 +113,7 @@ export class Band{
     this._youtube = youtube;
   }
 
-  public set genres(value:number[]){
+  public set genres(value:Genre[]){
     this._genres=value;
   }
 

@@ -25,7 +25,9 @@ public class Band {
 	
 	public interface Followers extends User.Basic {}
 	
-	public interface Info extends Genre.Basic, Track.Basic {}
+	public interface Genres extends Genre.Basic {}
+	
+	public interface Tracks extends Track.Basic {}
 
 	// Attributes
 	@JsonView(Basic.class)
@@ -66,11 +68,11 @@ public class Band {
 	@OneToMany
 	private List<User> followers = new ArrayList<>();
 	
-	@JsonView(Info.class)
+	@JsonView(Genres.class)
 	@OneToMany
 	private List<Genre> genres = new ArrayList<>();
 	
-	@JsonView(Info.class)
+	@JsonView(Tracks.class)
 	@OneToMany
 	private List<Track> tracks = new ArrayList<>();
 	
