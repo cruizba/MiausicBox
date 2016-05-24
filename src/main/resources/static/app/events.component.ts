@@ -22,7 +22,6 @@ export class EventsComponent {
   }
 
   ngOnInit () {
-    
     this.initialization();
   }
 

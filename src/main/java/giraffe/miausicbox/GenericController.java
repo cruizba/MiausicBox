@@ -169,8 +169,13 @@ public class GenericController {
 		Event ev1 = new Event("IndieFest",  new Date(), us2, "Festival indie tope guachi",
 				new ArrayList<>(), "Madrid", new ArrayList<>());
 		
+		Event ev2 = new Event("Rockola",  new Date(), us2, "Arguelles",
+				new ArrayList<>(), "Madrid", new ArrayList<>());
+		
 		ev0.getBands().add(ban0);
 		ev1.getBands().add(ban1);
+		ev2.getBands().add(ban0);
+		ev2.getBands().add(ban1);
 		
 		ev0.getFollowers().add(us0);
 		ev0.getFollowers().add(us1);
@@ -243,6 +248,7 @@ public class GenericController {
 		
 		eventRepository.save(ev0);
 		eventRepository.save(ev1);
+		eventRepository.save(ev2);
 		
 		noveltyRepository.save(nov0);
 		noveltyRepository.save(nov1);
