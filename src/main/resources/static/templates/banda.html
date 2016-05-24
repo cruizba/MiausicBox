@@ -17,7 +17,7 @@
                             <td>Géneros
                             </td>
                             <td>
-                                <span *ngFor="#genre of genresBand">{{genre + ", "}}</span>
+                                <span *ngFor="#genre of band.genres">{{genre + ", "}}</span>
                             </td>
                             <td *ngIf="isAdmin">
                                 <button type="button" class="btn btn-default" aria-label="Left Align">
