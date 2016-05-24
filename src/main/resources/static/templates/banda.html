@@ -99,18 +99,12 @@
                 <div class="panel-body">
                     <table class="table" id="Eventos">
                         <tbody>
-                        <tr id="PrimeraFila" >
-                            <td>20/7/2017
-                            </td>
-                            <td><a href="#">HellFest</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>15/10/2017
-                            </td>
-                            <td><a href="#">IndieFest</a>
+                        <tr id="PrimeraFila" *ngFor ="#ev of events">
+
+                            <td><a href="#">{{ev.name}}</a>
                             </td>
                         </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -157,7 +151,7 @@
                             <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista">{{mem.userName}}</a></td>
                             <td>
                                 <ul>
-                                    <li *ngFor="#ins of mem.instruments"><img src="{{ins.image_url}}" alt="Instrument" id="InstrumentSimbol">
+                                    <li *ngFor="#ins of mem.instruments"><img src="{{ins.image_url_white}}" alt="Instrument" id="InstrumentSimbol">{{ins.name}}
                                     </li>
                                 </ul>
                             </td>
@@ -199,7 +193,7 @@
                         <tbody id="TableBody">
                         <tr *ngFor="#tr of band.tracks">
                             <td>{{tr.name}}</td>
-                            <td>{{tr.group}}</td>
+                            <td>{{tr.band}}</td>
                             <td>
                                 <button class="linkButton">{{tr.link}}</button>
                             </td>

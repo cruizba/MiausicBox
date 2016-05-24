@@ -22,7 +22,7 @@ export class BandComponent {
 
   isAdmin:boolean;
   band:Band;
-
+  events: Event[] = [];  
   id;
   blogList:BlogBand[] = [];
   //membersList: User[];
@@ -53,8 +53,11 @@ export class BandComponent {
                 this.band = result;
                 console.log("Bien jajaja esto tenemos >");
                 console.log(this.band.groupName);
-            }
-        )
+            })
+        this._bandService.getEventByBandById(this.id).subscribe(
+            result => this.events = result
+        );
+
 
 
         // Check if is admin to show edit buttons

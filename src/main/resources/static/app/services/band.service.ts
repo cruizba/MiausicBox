@@ -40,6 +40,13 @@ export class BandService {
     )
   }
 
+  getEventByBandById (id){
+    let url = "/band/"+id+"/events";
+    return this.http.get(url).map(
+        result => this.deserializeEvents(result)
+    )
+  }
+
   getMembers (id){
     console.log("(service) getMembers");
     var memberList = [];
@@ -158,6 +165,11 @@ export class BandService {
     let result:Band = response.json();
     console.log("Result ->");
     console.log(result);
+    return result;
+  }
+
+  deserializeEvents (response:Response){
+    let result:Event [] = response.json();
     return result;
   }
 

@@ -21,7 +21,7 @@ public class Band {
 	
 	public interface WebLinks {}
 	
-	public interface Members extends User.Basic {}
+	public interface Members extends User.Basic, User.InstGenres {}
 	
 	public interface Admin extends User.Basic {}
 	

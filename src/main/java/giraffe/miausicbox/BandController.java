@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import giraffe.miausicbox.model.Band;
+import giraffe.miausicbox.model.Event;
 import giraffe.miausicbox.repositories.BandRepository;
+import giraffe.miausicbox.repositories.EventRepository;
 
 @RestController
 public class BandController {
@@ -25,6 +27,8 @@ public class BandController {
 	
 	@Autowired
 	private BandRepository bandRepository;
+	@Autowired
+	private EventRepository eventRepository;
 	
 	/**
 	 * VIEWS related to BAND_CONTROLLER
@@ -32,6 +36,7 @@ public class BandController {
 	
 	interface BandListView extends Band.Basic, Band.Members, Band.Genres {}
 	interface BandView extends Band.Basic, Band.WebLinks, Band.Genres, Band.Tracks, Band.Members, Band.Admin, Band.Followers {}
+	interface EventView extends Event.Basic, Event.Bands {}
 	
 	/**
 	 * GET RequestMethods related to BAND_CONTROLLER
@@ -41,6 +46,14 @@ public class BandController {
 	@RequestMapping(value="/band/{id}", method = RequestMethod.GET)
 	public Band getBandById(@PathVariable long id) throws Exception {
 		return bandRepository.findOne(id);
+	}
+	
+	@JsonView(EventView.class)
+	@RequestMapping(value="/band/{id}/events", method = RequestMethod.GET)
+	public List<Event> getEventByBandById(@PathVariable long id) throws Exception {
+		Band band = bandRepository.getOne(id);
+		System.out.println("Banda: " + band.getGroupName());
+		return eventRepository.findEventByBands(band);
 	}
 	
 	@JsonView(BandListView.class)
