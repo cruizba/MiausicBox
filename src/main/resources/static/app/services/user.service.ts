@@ -1,11 +1,10 @@
 import { userList } from '../classes/memoryDB';
 import { Injectable } from 'angular2/core';
-import { Http, Response, RequestOptions, Headers } from 'angular2/http';
+import { Http, Response } from 'angular2/http';
 import { User } from '../classes/User'
 //Observer simulation
 import { withObserver } from '../classes/Utils';
-import {Instrument} from "../classes/Instrument";
-import {Info} from "../classes/Info";
+import { Info } from "../classes/Info";
 import 'rxjs/Rx';
 
 @Injectable()
@@ -14,19 +13,19 @@ export class UserService {
   constructor(private http: Http){}
 
   getAllUsers(){
-    let url = "/artists"
-    console.log("Peticion a /artists");
+    let url = "/artists";
+    console.log("Peticion a " + url);
     return this.http.get(url).map(
-      //response => this.deserializeAllUsers(response)
-        response => response
+        response => this.deserializeAllUsers(response)
     );
-    /*
-    var result = [];
-    for(let i = 0; i < userList.length; i++){
-      result.push({"userId": i, "userObj": userList[i]});
-    }
-    return withObserver(result);
-    */
+  }
+  
+  getUsersByName(name){
+    let url = "/artists/name:" + name;
+    console.log("Peticion a " + url);
+    return this.http.get(url).map(
+        response => this.deserializeAllUsers(response)
+    )
   }
 
   getUserByUserNameAndPass(username:string, pass:string){
@@ -55,7 +54,6 @@ export class UserService {
   }
   
   getUserByUserName(name:String){
-    
     var allUsers = [];
     for (let i = 0; i < userList.length; i++){
       if(userList[i].userName == name){
@@ -131,24 +129,16 @@ export class UserService {
   }
 
   // Deserealization methods
-  /*
   deserializeAllUsers(response:Response) {
-    let body = response.json();
-    console.log("Qué me traéis hoy buen señor?");
-    console.log("Body ->");
-    console.log(body);
+    console.log("deserealizeAllUsers > Response:");
+    console.log(response);
     let result = [];
-    for(let i = 0; i < body.length;i++){
-      var user;
-      user = {"userId": response[i].id, "userObj": response[i]};
-      console.log("User " + i + ">");
-      console.log(user);
-      result.push(user);
-    }
-    console.log("Result ->");
+    response.json().map(
+        obj => result.push(obj)
+    );
+    console.log("deserealizeAllUsers > Result:");
     console.log(result);
     return result;
   }
-  */
 
 }

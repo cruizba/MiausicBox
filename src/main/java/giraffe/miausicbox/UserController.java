@@ -62,13 +62,14 @@ public class UserController {
 	 * VIEWS related to USER_CONTROLLER
 	 */
 	
-	interface UsersListView extends User.Basic, User.InstGenres {}
-	interface UserListView extends User.Basic, User.Info, User.WebLinks, User.InstGenres {}
+	interface UsersListView extends User.Basic, User.InstGenres, User.Bands {}
+	interface UserView extends User.Basic, User.Info, User.WebLinks, User.InstGenres {}
 	interface FollowListView extends Follow.Basic {}
 	interface BlogUserListView extends BlogUser.Basic {}
 	interface BlogBandListView extends BlogBand.Basic {}
-	interface MessageListView extends Message.Basic, User.Basic {}
+	interface MessageListView extends Message.Basic {}
 	interface NoveltyListView extends Novelty.Basic {}
+	interface BandListView extends Band.Basic {}
 	
 	/**
 	 * GET RequestMethods related to USER_CONTROLLER
@@ -80,10 +81,19 @@ public class UserController {
 		return userRepository.findAll();
 	}
 
-	@JsonView(UserListView.class)
+	@JsonView(UserView.class)
 	@RequestMapping(value = "/artist/{id}", method = RequestMethod.GET)
 	public User getUserById(@PathVariable long id) throws Exception {
 		return userRepository.findOne(id);
+	}
+	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/artists/name:{name}", method = RequestMethod.GET)
+	public List<User> getUsersByName(@PathVariable String name) throws Exception {
+		List<User> users = userRepository.findUserByUserName(name);
+		users.addAll(userRepository.findUserByCompleteName(name));
+		users.addAll(userRepository.findUserByEmail(name));
+		return Utils.removeDuplicated(users);
 	}
 	
 	@JsonView(FollowListView.class)
@@ -154,6 +164,13 @@ public class UserController {
 		return messages;
 	}
 	
+	@JsonView(BandListView.class)
+	@RequestMapping(value = "/artist/{id}/bands", method = RequestMethod.GET)
+	public List<Band> getUserBandsById(@PathVariable long id) throws Exception {
+		User user = userRepository.findOne(id);
+		return bandRepository.findBandsByMembers(user);
+	}
+	
 	/**
 	 * POST RequestMethods related to USER_CONTROLLER
 	 */
@@ -171,7 +188,7 @@ public class UserController {
 		}
 		return response;
 	}
-	
+
 	@RequestMapping(value = "/artist/{em}/follows/{re}", method = RequestMethod.POST)
 	public ResponseEntity<Follow> createNewFollow(@PathVariable long em, @PathVariable long re) {
 		ResponseEntity<Follow> response;
