@@ -13,4 +13,6 @@ public interface BandRepository extends JpaRepository<Band, Long> {
 	
 	public List<Band> findBandByMembersIn(List<User> user);
 	
+	public List<Band> findBandsByMembers(User member);
+	
 }

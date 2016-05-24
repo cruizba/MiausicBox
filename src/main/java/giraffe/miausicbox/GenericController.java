@@ -2,16 +2,11 @@ package giraffe.miausicbox;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.annotation.JsonView;
 
 import giraffe.miausicbox.model.Genre;
 import giraffe.miausicbox.model.Instrument;
@@ -108,7 +103,7 @@ public class GenericController {
 				,"Loranca","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
-		User us2 = new User("sorayeison","1234","Soraya Rama","sori@gmail.com","Soy guay jeje",false
+		User us2 = new User("sor","a","Soraya Rama","sori@gmail.com","Soy guay jeje",false
 				,"Orcasitas","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
@@ -259,30 +254,6 @@ public class GenericController {
 		followRepository.save(fol6);
 		followRepository.save(fol7);
 		
-	}
-
-	@JsonView(GenericListView.class)
-	@RequestMapping("/x/ins/{id}")
-	public Instrument getInstrumentById(@PathVariable String id) throws Exception {
-		return instrumentRepository.findOne(id);
-	}
-	
-	@JsonView(GenericListView.class)
-	@RequestMapping("/x/genre/{id}")
-	public Genre getGenreById(@PathVariable String id) throws Exception {
-		return genreRepository.findOne(id);
-	}
-
-	@JsonView(GenericListView.class)
-	@RequestMapping("/x/user/{id}")
-	public User getUserById(@PathVariable long id) throws Exception {
-		return userRepository.findOne(id);
-	}
-	
-	@JsonView(GenericListView.class)
-	@RequestMapping("/x/users/")
-	public List<User> getUserById() throws Exception {
-		return userRepository.findAll();
 	}
 	
 }
