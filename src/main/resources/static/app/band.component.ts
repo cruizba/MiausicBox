@@ -58,6 +58,9 @@ export class BandComponent {
             result => this.events = result
         );
 
+        this._bandService.getBlogsByBand(this.id).subscribe(
+            result => this.blogList = result
+        );
 
 
         // Check if is admin to show edit buttons

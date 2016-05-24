@@ -13,9 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.UserController.BlogUserListView;
 import giraffe.miausicbox.model.Band;
+import giraffe.miausicbox.model.BlogBand;
+import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.repositories.BandRepository;
+import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
 
 @RestController
@@ -29,6 +34,8 @@ public class BandController {
 	private BandRepository bandRepository;
 	@Autowired
 	private EventRepository eventRepository;
+	@Autowired
+	private BlogBandRepository blogBandRepository;
 	
 	/**
 	 * VIEWS related to BAND_CONTROLLER
@@ -37,6 +44,7 @@ public class BandController {
 	interface BandListView extends Band.Basic, Band.Members, Band.Genres {}
 	interface BandView extends Band.Basic, Band.WebLinks, Band.Genres, Band.Tracks, Band.Members, Band.Admin, Band.Followers {}
 	interface EventView extends Event.Basic, Event.Bands {}
+	interface BlogBandListView extends BlogBand.Basic {}
 	
 	/**
 	 * GET RequestMethods related to BAND_CONTROLLER
@@ -68,6 +76,12 @@ public class BandController {
 		return bandRepository.findAll();
 	}
 	
+	@JsonView(BlogBandListView.class)
+	@RequestMapping(value = "/band/{id}/bandblog", method = RequestMethod.GET)
+	public List<BlogBand> getBlogsByBand(@PathVariable long id) throws Exception {
+		Band band = bandRepository.findOne(id);
+		return blogBandRepository.findBlogBandByAuthor(band);
+	}
 	
 	
 	/**
