@@ -42,7 +42,7 @@ public class EventController {
 	
 	interface EventListView extends Event.Basic, Event.Bands {}
 	
-	interface EventView extends Event.Basic, Event.Followers, Event.Bands {}
+	interface EventView extends Event.Basic, Event.Followers, Event.Bands, Band.Members {}
 	
 	/**
 	 * GET RequestMethods related to EVENT_CONTROLLER

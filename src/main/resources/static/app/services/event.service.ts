@@ -19,27 +19,12 @@ export class EventService {
             result => this.deserializeAllEvents(result)
         ))
     }
-
-    deserializeAllEvents (response:Response) {
-        console.log("Aca tienes los eventos");
-        console.log("Response ->");
-        console.log(response);
-        let result = []
-        response.json().map(
-            obj => {
-//              var event = {"eventId":obj.id, "eventObj": obj}
-                result.push(obj)
-            }
-        )
-        console.log("Result ->");
-        console.log(result);
-        return result;
-    }
     
     getEventByID (id){
         let url = "/event/" + id;
+        console.log("Hacemos peticion a" + url);
         return this.http.get(url).map(
-            result => result.json()
+            result => this.deserializeEvent(result)
         )
     }
 
@@ -61,19 +46,19 @@ export class EventService {
     getEventsByName (name:String){
         let url = "/events/name:" + name;
         return this.http.get(url).map(
-            result => result.json()
+            result => this.deserializeAllEvents(result)
         )
     }
 
     getEventsByBandName (name:String){
         let url = "/events/bandName:" + name;
         return this.http.get(url).map(
-            result => result.json()
+            result => this.deserializeAllEvents(result)
         )
     }
 
     getIsFollower (id){
-        // TODO
+        /* TODO
         var isFollower = false;
         var followers = eventList[id].followers;
         for (let i = 0; i < followers.length; i++) {
@@ -81,22 +66,23 @@ export class EventService {
                 isFollower = true;
             }
         }
-        return withObserver(isFollower);
+        return withObserver(isFollower);*/
     }
     
     unFollow (id){
-        // TODO
+        /* TODO
         for(let i = 0; i < eventList[id].followers.length; i++){
             if(eventList[id].followers[i].equals(Info.userLogged)){
                 eventList[id].followers.splice(i, 1);
             }
         }
-        console.log(eventList[id].followers);
+        console.log(eventList[id].followers);*/
     }
     
     follow (id){
-        // TODO
+        /* TODO
         eventList[id].followers.push(Info.userLogged);
+        */
     }
 
     getEventsByUserId(id){
@@ -112,6 +98,37 @@ export class EventService {
         var newEvent = new Event (name, date, user, description, [], direction, [user]);
         user.events.push(null);
         eventList.push(null);
+    }
+
+    deserializeAllEvents (response:Response) {
+        console.log("Aca tienes los eventos");
+        console.log("Response ->");
+        console.log(response);
+        let result = []
+        response.json().map(
+            obj => {
+                let eve:Event = obj;
+                eve.date = new Date(obj.date);
+//              var event = {"eventId":obj.id, "eventObj": obj}
+                result.push(eve);
+            }
+        )
+        console.log("Result ->");
+        console.log(result);
+        return result;
+    }
+
+    deserializeEvent(response:Response) {
+        console.log("deserealizeEvent > Response:");
+        console.log(response);
+        let body = response.json();
+        let result:Event = body;
+        result.date = new Date(body.date);
+        let user:User = new User(body.creator.userName,"","","","",false,"","","","",[],[],[],[]);
+        result.creator = user;
+        console.log("deserealizeEvent > Result:");
+        console.log(result);
+        return result;
     }
 
 }
