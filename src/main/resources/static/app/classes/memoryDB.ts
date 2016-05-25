@@ -49,9 +49,9 @@ var track2:Track = new Track("10.000", "Tool", "");
 var track3:Track = new Track("Paint It Black", "The Rolling Stones", "");
 
 export var bandList:Band[] = [
-    new Band (userList[3],"Arctic Monkeys", description, "Sevilla", "www.arcticmonkeys.com", "", "", "", banda1, followers1, [1,2], [track1]),
-    new Band (userList[3], "Strokes", description, "Toledo", "www.thestrokes.com", "", "", "", banda2, followers2, [0,3], [track2]),
-    new Band (userList[3], "Flower Power", description, "Parla", "", "", "","", banda3, followers3, [0,1,3],[track1,track2,track3])
+    new Band (userList[3],"Arctic Monkeys", description, "Sevilla", "www.arcticmonkeys.com", "", "", "", banda1, followers1, [], [track1]),
+    new Band (userList[3], "Strokes", description, "Toledo", "www.thestrokes.com", "", "", "", banda2, followers2, [], [track2]),
+    new Band (userList[3], "Flower Power", description, "Parla", "", "", "","", banda3, followers3, [],[track1,track2,track3])
 ];
 
 export var blogBandList:BlogBand[] = [

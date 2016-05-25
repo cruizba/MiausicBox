@@ -21,7 +21,6 @@ import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Follow;
 import giraffe.miausicbox.model.Message;
 import giraffe.miausicbox.model.Novelty;
-import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.BlogUserRepository;
@@ -29,6 +28,7 @@ import giraffe.miausicbox.repositories.FollowRepository;
 import giraffe.miausicbox.repositories.MessageRepository;
 import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.UserRepository;
+import giraffe.miausicbox.user.User;
 
 @RestController
 public class UserController {

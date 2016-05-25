@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import giraffe.miausicbox.model.Event;
-import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.repositories.EventRepository;
 import giraffe.miausicbox.repositories.UserRepository;
+import giraffe.miausicbox.user.User;
 
 @RestController
 public class EventController {

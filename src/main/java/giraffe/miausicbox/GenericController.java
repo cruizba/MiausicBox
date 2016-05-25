@@ -12,7 +12,6 @@ import giraffe.miausicbox.model.Genre;
 import giraffe.miausicbox.model.Instrument;
 import giraffe.miausicbox.model.Message;
 import giraffe.miausicbox.model.Novelty;
-import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
@@ -30,6 +29,7 @@ import giraffe.miausicbox.repositories.MessageRepository;
 import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.TrackRepository;
 import giraffe.miausicbox.repositories.UserRepository;
+import giraffe.miausicbox.user.User;
 
 @RestController
 public class GenericController {

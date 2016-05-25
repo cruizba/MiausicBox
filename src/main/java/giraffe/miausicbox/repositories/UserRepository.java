@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import giraffe.miausicbox.model.User;
+import giraffe.miausicbox.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 

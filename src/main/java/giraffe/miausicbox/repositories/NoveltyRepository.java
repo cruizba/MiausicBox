@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.Novelty;
-import giraffe.miausicbox.model.User;
+import giraffe.miausicbox.user.User;
 
 public interface NoveltyRepository extends JpaRepository<Novelty, Long> {
 
