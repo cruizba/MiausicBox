@@ -1,4 +1,4 @@
-package giraffe.miausicbox.model;
+package giraffe.miausicbox.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
+
+import giraffe.miausicbox.model.Band;
+import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Genre;
+import giraffe.miausicbox.model.Instrument;
 
 @Entity
 public class User {
@@ -130,12 +135,12 @@ public class User {
 		this.userName = userName;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getPassword(){
+		return this.password;
 	}
 
 	public String getCompleteName() {

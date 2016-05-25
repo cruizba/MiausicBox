@@ -7,11 +7,12 @@ import { User } from './classes/User';
 
 import { UserService } from './services/user.service';
 import { Info } from './classes/Info';
+import {LoginService} from "./services/login.service";
 
 @Component({
     selector: 'index-app',
     templateUrl: 'templates/index_app.html',
-    providers: [UserService]
+    providers: [UserService, LoginService]
 })
 
 export class IndexComponent {
@@ -19,30 +20,43 @@ export class IndexComponent {
     username: string;
     password: string;
 
-    constructor(private _router: Router,
-        private _userService: UserService) { }
+    constructor(private _router: Router, private _loginService: LoginService) { }
 
     goTo(paramsRoute: any[]){
         this._router.navigate(paramsRoute);
     }
 
     login() {
-        this._userService.getUserByUserNameAndPass(this.username, this.password).subscribe(
-        (user => Info.userLogged = user),
-        (error => alert("User Not Found"))
+
+        console.log(this.username);
+        console.log(this.password);
+
+        var user:User;
+        this._loginService.logIn(this.username, this.password).subscribe(
+            response => {
+                let obj = response.json();
+                user = new User(obj.userName, obj.password, obj.completeName, obj.email, obj.description, obj.isArtist, obj.isArtist, "", "", "", [],[],[]);
+                Info.userLogged = user;
+                console.log(Info.userLogged)
+                Info.userId = obj.id;
+                console.log(Info.userId);
+                this._router.navigate(['Artist', {id: Info.userId}])
+            },
+            error => alert("Usuario no válido")
         );
-        if(Info.userLogged != null){
-            
-            //Only necessary on simulation
-            this._userService.getUserId(Info.userLogged).subscribe(
-                id => Info.userId = id)
-            //Only necessay on simulation
-            
-            this._router.navigate(['Artist', {id: Info.userId}]);
-        }
-        else{
-            $("#userLoginError").fadeIn(1000);
-        }
+
+
+
     }
+
+    /*
+    logOut() {
+        this._loginService.logOut().subscribe(
+            response => {
+            },
+            error => console.log("Error when trying to log out: " + error)
+        );
+    }
+    */
 
 }

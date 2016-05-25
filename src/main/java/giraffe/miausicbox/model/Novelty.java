@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.user.User;
+
 @Entity
 public class Novelty {
 
