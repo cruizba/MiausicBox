@@ -22,6 +22,7 @@ import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
+import giraffe.miausicbox.repositories.UserRepository;
 
 @RestController
 public class BandController {
@@ -36,6 +37,8 @@ public class BandController {
 	private EventRepository eventRepository;
 	@Autowired
 	private BlogBandRepository blogBandRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	/**
 	 * VIEWS related to BAND_CONTROLLER
@@ -83,10 +86,28 @@ public class BandController {
 		return blogBandRepository.findBlogBandByAuthor(band);
 	}
 	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{ba}/tofollow/{us}", method = RequestMethod.GET)
+	public boolean getFollowsBand(@PathVariable long ba, @PathVariable long us) throws Exception {
+		Band band = bandRepository.findOne(ba);
+		User user = userRepository.findOne(us);
+		List<User> list = band.getFollowers();
+		boolean follows = list.contains(user);
+		if (follows) {
+			band.getFollowers().remove(user);
+		} else {
+			band.getFollowers().add(user);
+		}
+		System.out.println(band.getFollowers());
+		bandRepository.save(band);
+		return !follows;
+	}
 	
 	/**
-	 * POST RequestMethods related to BAND_CONTROLLER
+	 * POST RequestMethods related to BAND_CONTROLLE
 	 */
+	
+	
 	
 	@RequestMapping(value = "/band/new", method = RequestMethod.POST)
 	public ResponseEntity<Band> createNewband(@RequestBody Band band) {
