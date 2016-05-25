@@ -18,8 +18,6 @@ export class EventComponent {
     event: Event;
     id;
     members = [[]];
-    numberFollows:number;
-    followers=[];
     isFollower:boolean;
     isCreator:boolean;
 
@@ -30,18 +28,22 @@ export class EventComponent {
         this.id = this._routerParams.get('id');
 
         this.inizialitationEvent();
-        this.inizialitationIsFollower();
+        //this.inizialitationIsFollower();
         //this.inizialitationIsCreator();
-        this.numberOfFollowers();
     }
 
     inizialitationEvent (){
+        console.log("INITIALIZATION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         this._eventService.getEventByID(this.id).subscribe(
             event => {
+                console.log("Nos ha tocado esto >");
+                console.log(event);
                 this.event = event;
-                if (event.creator.equals(Info.userLogged)){
+                if (this.event.creator.equals(Info.userLogged)){
+                    console.log("Es creador");
                     this.isCreator = true;
                 } else {
+                    console.log("NO es creador");
                     this.isCreator = false;
                 }
             },
@@ -50,11 +52,8 @@ export class EventComponent {
                 alert ("Event not found");
             }
         );
-
-        for (let i = 0; i < this.event.bands.length; i++){
-            this.members.push(this.membersBand(i));
-        }
     }
+    /*
     inizialitationIsFollower(){
         this._eventService.getIsFollower(this.id).subscribe(
             follow => this.isFollower = follow,
@@ -64,7 +63,7 @@ export class EventComponent {
             }
         );
 
-    }
+    }*/
 /*
     inizialitationIsCreator(){
         this._eventService.getIsCreator(this.id).subscribe(
@@ -87,26 +86,17 @@ export class EventComponent {
         );
         return result;
     }
-        
-    numberOfFollowers (){
-            this._eventService.getNumberOfFollowers(this.id).subscribe(
-                num => this.numberFollows = num,
-                error =>{
-                    this.numberFollows = null;
-                    alert("Error");
-                });
-    }
     
     unFollowEvent(){
         this._eventService.unFollow(this.id);
         this.isFollower = false;
-        this.numberOfFollowers();
+        this.event.followers.slice(this.event.followers.indexOf(Info.userLogged),1);
     }
 
     followEvent(){
         this._eventService.follow(this.id);
         this.isFollower = true;
-        this.numberOfFollowers();
+        this.event.followers.push(Info.userLogged);
     }
     
 }

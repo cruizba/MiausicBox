@@ -163,8 +163,7 @@ export class User{
     }
     else{
       var user:User = object;
-      return (user.userName == this.userName &&
-              user.password == this.password);
+      return (user.userName == this.userName);
     }
   }
 }

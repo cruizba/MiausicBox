@@ -168,7 +168,7 @@ public class GenericController {
 		Event ev1 = new Event("IndieFest",  "April 1, 2016 18:20:30", us2, "Festival indie tope guachi",
 				new ArrayList<>(), "Madrid", new ArrayList<>());
 		
-		Event ev2 = new Event("Rockola",  new Date(), us2, "Arguelles",
+		Event ev2 = new Event("Rockola",  "April 1, 2016 18:20:30", us2, "Arguelles",
 				new ArrayList<>(), "Madrid", new ArrayList<>());
 		
 		ev0.getBands().add(ban0);
