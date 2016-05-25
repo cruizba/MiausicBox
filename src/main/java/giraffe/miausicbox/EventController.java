@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.User;
@@ -27,22 +29,57 @@ public class EventController {
 	
 	@Autowired
 	private EventRepository eventRepository;
+	
+	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private BandRepository bandRepository;
 	
 	/**
 	 * VIEWS related to EVENT_CONTROLLER
 	 */
 	
-	interface EventListView extends Event.Basic {}
+	interface EventListView extends Event.Basic, Event.Bands {}
+	
+	interface EventView extends Event.Basic, Event.Followers, Event.Bands, Band.Members {}
 	
 	/**
 	 * GET RequestMethods related to EVENT_CONTROLLER
 	 */
 	
-	@JsonView(EventListView.class)
+	@JsonView(EventView.class)
 	@RequestMapping("/event/{id}")
 	public Event getEventById(@PathVariable long id) throws Exception {
 		return eventRepository.findOne(id);
+	}
+	
+	@JsonView(EventListView.class)
+	@RequestMapping("/events")
+	public List<Event> getAllEvents() throws Exception {
+		return eventRepository.findAll();
+	}
+	
+	@JsonView(EventListView.class)
+	@RequestMapping("/events/name:{name}")
+	public List<Event> getEventsByName(@PathVariable String name) throws Exception {
+		return eventRepository.findEventByName(name);
+	}
+	
+	@JsonView(EventListView.class)
+	@RequestMapping("/events/bandName:{name}")
+	public List<Event> getEventsByBandName(@PathVariable String name) throws Exception {
+		List<Band> band = bandRepository.findBandByGroupName(name);
+		return eventRepository.findEventByBandsIn(band);
+	}
+	
+	@JsonView(EventListView.class)
+	@RequestMapping("/events/userId:{id}")
+	public List<Event> getEventsByUserId(@PathVariable long id) throws Exception {
+		User user = userRepository.getOne(id);
+		List<Event> events = eventRepository.findEventByCreator(user);
+		events.addAll(eventRepository.findEventByFollowers(user));
+		return Utils.removeDuplicated(events);
 	}
 	
 	@JsonView(EventListView.class)

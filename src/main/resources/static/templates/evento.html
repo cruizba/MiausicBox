@@ -1,6 +1,5 @@
 
-    <div class="content-page container">
-
+    <div *ngIf="event != null" class="content-page container">
 
         <!-- Contenido página -->
         <div class="container" id="profile-page">
@@ -58,7 +57,7 @@
                                         <td>{{event.direction}}</td>
                                     </tr>
                                     <tr>
-                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numberFollows}}</span></a>
+                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{event.followers.length}}</span></a>
                                        </td>
                                     </tr>
                                 </tbody>
