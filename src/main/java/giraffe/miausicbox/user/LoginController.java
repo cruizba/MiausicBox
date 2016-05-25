@@ -1,4 +1,4 @@
-package giraffe.miausicbox.security;
+package giraffe.miausicbox.user;
 
 import java.util.List;
 
@@ -36,12 +36,7 @@ public class LoginController {
 	@Autowired
 	private UserRepository userRep;
 	
-	@RequestMapping(value="/logIn", method = RequestMethod.POST)
-	public ResponseEntity<User> logIn(@RequestBody UserLogin userLogin) {
-		
-		return ResponseEntity<User>(userRep.findAll().get(0), HttpStatus.OK);
-		
-	}
+	
 
 	@RequestMapping("/logOut")
 	public ResponseEntity<Boolean> logOut(HttpSession session) {

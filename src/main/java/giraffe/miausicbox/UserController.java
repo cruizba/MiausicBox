@@ -29,6 +29,7 @@ import giraffe.miausicbox.repositories.MessageRepository;
 import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.User;
+import giraffe.miausicbox.user.UserLogin;
 
 @RestController
 public class UserController {
@@ -205,5 +206,21 @@ public class UserController {
 		}
 		return response;
 	}
+	
+	@JsonView(UserView.class)
+	@RequestMapping(value="/logIn", method = RequestMethod.POST)
+	public ResponseEntity<User> logIn(@RequestBody UserLogin userLogin) {
+		
+		User user = userRepository.findUserByUserName(userLogin.getUserName()).get(0);
+		if(user.getPassword().equals(userLogin.getPassword())){
+			return  new ResponseEntity<User>(user, HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
+	
 
 }
