@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
+import giraffe.miausicbox.model.Event;
 import giraffe.miausicbox.model.Follow;
 import giraffe.miausicbox.model.Message;
 import giraffe.miausicbox.model.Novelty;
@@ -25,6 +26,7 @@ import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.BlogUserRepository;
+import giraffe.miausicbox.repositories.EventRepository;
 import giraffe.miausicbox.repositories.FollowRepository;
 import giraffe.miausicbox.repositories.MessageRepository;
 import giraffe.miausicbox.repositories.NoveltyRepository;
@@ -56,6 +58,9 @@ public class UserController {
 	private NoveltyRepository noveltyRepository;
 	
 	@Autowired
+	private EventRepository eventRepository;
+	
+	@Autowired
 	private MessageRepository messageRepository;
 	
 	/**
@@ -63,12 +68,13 @@ public class UserController {
 	 */
 	
 	interface UsersListView extends User.Basic, User.InstGenres, User.Bands {}
-	interface UserView extends User.Basic, User.Info, User.WebLinks, User.InstGenres {}
+	interface UserView extends User.Basic, User.Info, User.WebLinks, User.InstGenres, User.Bands, User.Events {}
 	interface FollowListView extends Follow.Basic {}
 	interface BlogUserListView extends BlogUser.Basic {}
 	interface BlogBandListView extends BlogBand.Basic {}
-	interface MessageListView extends Message.Basic {}
 	interface NoveltyListView extends Novelty.Basic {}
+	interface EventListView extends Event.Basic, Event.Bands {}
+	interface MessageListView extends Message.Basic {}
 	interface BandListView extends Band.Basic {}
 	
 	/**
@@ -152,7 +158,18 @@ public class UserController {
 		List<Novelty> novelties = noveltyRepository.findNoveltyByUser(user);
 		List<Band> bands = user.getBands();
 		novelties.addAll(noveltyRepository.findNoveltyByBandIn(bands));
-		return novelties;
+		return Utils.removeDuplicated(novelties);
+	}
+	
+	@JsonView(EventListView.class)
+	@RequestMapping(value = "/artist/{id}/events", method = RequestMethod.GET)
+	public List<Event> getUserEventsById(@PathVariable long id) throws Exception {
+		User user = userRepository.findOne(id);
+		List<Event> events = eventRepository.findEventByCreator(user);
+		events.addAll(eventRepository.findEventByFollowers(user));
+		//List<Band> bands = user.getBands();
+		//events.addAll(eventRepository.findEventByBandIn(bands));
+		return Utils.removeDuplicated(events);
 	}
 	
 	@JsonView(MessageListView.class)

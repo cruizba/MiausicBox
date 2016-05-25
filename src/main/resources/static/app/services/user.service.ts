@@ -159,8 +159,7 @@ export class UserService {
     response.json().map(
         obj => {
           let bu:BlogUser = obj;
-          let d:Date = new Date(obj.date);
-          bu.date = d;
+          bu.date = new Date(obj.date);
           result.push(bu)
         }
     );
