@@ -174,13 +174,49 @@ public class UserController {
 	}
 	
 	@JsonView(MessageListView.class)
-	@RequestMapping(value = "/artist/{id}/messages", method = RequestMethod.GET)
-	public List<Message> getUserMessagesById(@PathVariable long id) throws Exception {
+	@RequestMapping(value = "/artist/{id}/receivedMessages", method = RequestMethod.GET)
+	public List<Message> getUserReceivedMessagesById(@PathVariable long id) throws Exception {
 		User user = userRepository.findOne(id);
 		List<Message> messages = messageRepository.findMessageByDestiny(user);
-		messages.addAll(messageRepository.findMessageBySender(user));
 		return messages;
 	}
+	
+	@JsonView(MessageListView.class)
+	@RequestMapping(value = "/artist/{id}/sendedMessages", method = RequestMethod.GET)
+	public List<Message> getUserSendedMessagesById(@PathVariable long id) throws Exception {
+		User user = userRepository.findOne(id);
+		List<Message> messages = messageRepository.findMessageBySender(user);
+		return messages;
+	}
+	
+	@JsonView(MessageListView.class)
+	@RequestMapping(value = "/artist/{id}/numNoRead", method = RequestMethod.GET)
+	public Integer getUserNonReadMessagesById(@PathVariable long id) throws Exception {
+		User user = userRepository.findOne(id);
+		List<Message> messages = messageRepository.findMessageBySender(user);
+		int nonread = 0;
+		for (Message m : messages) {
+			if (!m.getRead()) {
+				nonread++;
+			}
+		}
+		return nonread;
+	}
+	
+	@JsonView(MessageListView.class)
+	@RequestMapping(value = "/artist/{id}/read/clemt", method = RequestMethod.GET)
+	public Integer setMessagesById(@PathVariable long id) throws Exception {
+		User user = userRepository.findOne(id);
+		List<Message> messages = messageRepository.findMessageBySender(user);
+		int nonread = 0;
+		for (Message m : messages) {
+			if (!m.getRead()) {
+				nonread++;
+			}
+		}
+		return nonread;
+	}
+	
 	
 	@JsonView(BandListView.class)
 	@RequestMapping(value = "/artist/{id}/bands", method = RequestMethod.GET)

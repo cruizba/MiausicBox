@@ -1,24 +1,15 @@
 import {Injectable} from "angular2/core";
 import {messageList, userList} from "../classes/memoryDB"
-import {User} from "../classes/User";
-import {withObserver} from "../classes/Utils";
 import {Message} from "../classes/Message";
 import {Info} from "../classes/Info";
+import {Http, Response} from "angular2/http";
+import {User} from "../classes/User";
 
 
 @Injectable()
 export class MessageService{
-    
-    getNumNonRead(id){
-        var num:number = 0;
-        for(let i = 0; i < messageList.length; i++){
-            var message = messageList[i];
-            if(message.destiny.equals(userList[id]) && !message.read){
-                num++;
-            }
-        }
-        return withObserver(num);
-    }
+
+    constructor(private http:Http) {}
 
     setRead(id, message){
         for(let i = 0; i < messageList.length; i++){
@@ -30,25 +21,24 @@ export class MessageService{
     }
 
     getSendedMessagesById(id){
-        var messages = [];
-        for(let i=0; i< messageList.length; i++){
-            var message = messageList[i];
-            if(message.sender.equals(userList[id])) {
-                messages.push({"id": userList.indexOf(message.destiny), "message": messageList[i]})
-            }
-        }
-        return withObserver(messages);
+        let url = "/artist/" + id + "/sendedMessages";
+        return this.http.get(url).map(
+            response => this.deserializeAllMessages(response)
+        );
     }
 
     getReceivedMessages(id){
-        var messages = [];
-        for(let i = 0; i< messageList.length; i++){
-            var message = messageList[i];
-            if(message.destiny.equals(userList[id])){
-                messages.push({"id": userList.indexOf(message.destiny), "message": messageList[i]})
-            }
-        }
-        return withObserver(messages);
+        let url = "/artist/" + id + "/receivedMessages";
+        return this.http.get(url).map(
+            response => this.deserializeAllMessages(response)
+        );
+    }
+
+    getNumNonRead(id){
+        let url = "/artist/" + id + "/numNoRead"
+        return this.http.get(url).map(
+            response => response.json()
+        )
     }
 
     sendMessage(userName:string, subject: string, day:Date, message: string){
@@ -68,6 +58,36 @@ export class MessageService{
                 break;
             }
         }
+    }
+
+    // Desserialization methods
+    deserializeAllMessages(response:Response) {
+        console.log("deserealizeAllMessages > Response:");
+        console.log(response);
+        let result = [];
+        response.json().map(
+            obj => {
+                let mes:Message = obj;
+                mes.date = new Date(obj.date);
+                mes.destiny = new User(obj.destiny.userName,"",obj.destiny.completeName,obj.destiny.email,"",false,"","","","",[],[],[],[]);
+                mes.sender = new User(obj.sender.userName,"",obj.sender.completeName,obj.sender.email,"",false,"","","","",[],[],[],[]);
+                var total = {"msgId":obj.id,"message":mes};
+                result.push(total);
+            }
+        );
+        console.log("deserealizeAllMessages > Result:");
+        console.log(result);
+        return result;
+    }
+
+    deserializeMessage(response:Response){
+        let body = response.json();
+        let mes:Message = body;
+        mes.date = new Date(body.date);
+        mes.destiny = new User(body.destiny.userName,"",body.destiny.completeName,body.destiny.email,"",false,"","","","",[],[],[],[]);
+        mes.sender = new User(body.sender.userName,"",body.sender.completeName,body.sender.email,"",false,"","","","",[],[],[],[]);
+        var total = {"msgId":body.id,"message":mes};
+        return total;
     }
 
 }

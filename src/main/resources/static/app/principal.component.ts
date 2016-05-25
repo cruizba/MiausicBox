@@ -41,9 +41,6 @@ export class PrincipalComponent {
           this.novedades.sort(function(a,b) {
               return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
           });
-          console.log("call:");
-          console.log(this.novedades);
-          console.log("HellCall <<<<<<<<<<<<<<<<<<<<<<");
         },
         error => console.log(error)
     );
@@ -51,19 +48,14 @@ export class PrincipalComponent {
 
   parseOne(obj):number{
     if (obj instanceof BlogUser){
-      console.log("Es un BlogUser");
       return 0;
     } else if (obj instanceof BlogBand){
-      console.log("Es un BlogBand");
       return 1;
     } else if (obj instanceof Event){
-      console.log("Es un Event");
       return 2;
     } else if (obj instanceof Novelty) {
-      console.log("Es un Novelty");
       return 3;
     } else {
-      console.log("Cthulhu");
       return 4;
     }
   }
