@@ -27,6 +27,10 @@ export class BandComponent {
   blogList:BlogBand[] = [];
   //membersList: User[];
   instruments: Instrument[] = [];
+    numFollowers:number;
+    followers:User[]=[];
+    isFollower:boolean;
+   
 
   //Follows variables
   //numFollowers:number;
@@ -42,7 +46,7 @@ export class BandComponent {
   }
 
 
-    initialization(){
+    initialization() {
         // Get id from route
         this.id = this._routeParams.get('id')
 
@@ -51,9 +55,15 @@ export class BandComponent {
         this._bandService.getBandById(this.id).subscribe(
             result => {
                 this.band = result;
+                if (this.band.followers.indexOf(Info.userLogged) == -1) {
+                    this.isFollower = false;
+                } else {
+                    this.isFollower = true;
+                }
                 console.log("Bien jajaja esto tenemos >");
                 console.log(this.band.groupName);
             })
+
         this._bandService.getEventByBandById(this.id).subscribe(
             result => this.events = result
         );
@@ -61,7 +71,6 @@ export class BandComponent {
         this._bandService.getBlogsByBand(this.id).subscribe(
             result => this.blogList = result
         );
-
 
         // Check if is admin to show edit buttons
         /*this._bandService.isAdmin(this.id, Info.userLogged).subscribe(
@@ -108,6 +117,23 @@ export class BandComponent {
       this.numFollowers = this.band.followers.length;
     }*/
 
+    followBand() {
+        this._bandService.addFollowBand(this.id, Info.userId).subscribe(
+            result => {
+                console.log("Veamos>");
+                console.log(result.json());
+                this.isFollower = result.json();
+                if(!result) {
+                    this.band.followers.push(Info.userLogged);
+
+                } else {
+                    this.band.followers.splice(this.band.followers.indexOf(Info.userLogged),-1);
+                }
+            }
+        );
+    }
+    
+    
     newMember(userName){
 
         this._bandService.addNewMember(userName, this.id);

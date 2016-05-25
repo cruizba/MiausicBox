@@ -55,8 +55,23 @@ export class BandService {
     return this.http.get(url).map(
         response => this.deserializableAllBlogs(response)
     );
-
   }
+
+
+  getIsFollower (ba,us){
+    let url = "/band/"+ba+"/followedby/" + us;
+    return this.http.get(url).map (
+        response => response
+    )
+  }
+
+  addFollowBand(ba,us){
+    let url = "/band/" + ba + "/tofollow/" + us;
+    return this.http.get(url).map(
+        response => response
+    )
+  }
+
   getMembers (id){
     console.log("(service) getMembers");
     var memberList = [];
