@@ -31,15 +31,25 @@ export class IndexComponent {
         console.log(this.username);
         console.log(this.password);
 
-
-
+        var user:User;
         this._loginService.logIn(this.username, this.password).subscribe(
-            user => console.log(user),
-            error => alert("Invalid user or password")
+            response => {
+                let obj = response.json();
+                user = new User(obj.userName, obj.password, obj.completeName, obj.email, obj.description, obj.isArtist, obj.isArtist, "", "", "", [],[],[]);
+                Info.userLogged = user;
+                console.log(Info.userLogged)
+                Info.userId = obj.id;
+                console.log(Info.userId);
+                this._router.navigate(['Artist', {id: Info.userId}])
+            },
+            error => alert("Usuario no válido")
         );
+
+
 
     }
 
+    /*
     logOut() {
         this._loginService.logOut().subscribe(
             response => {
@@ -47,5 +57,6 @@ export class IndexComponent {
             error => console.log("Error when trying to log out: " + error)
         );
     }
+    */
 
 }
