@@ -148,13 +148,10 @@ export class UserService {
     console.log(response);
     let result:User = response.json();
     console.log("deserealizeUser > Result:");
-    console.log(result);
     return result;
   }
 
   deserializeAllBlogs(response:Response) {
-    console.log("deserealizeAllBlogs > Response:");
-    console.log(response);
     let result:BlogUser[] = [];
     response.json().map(
         obj => {

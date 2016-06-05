@@ -1,4 +1,4 @@
-package giraffe.miausicbox;
+package giraffe.miausicbox.controller;
 
 import java.util.List;
 

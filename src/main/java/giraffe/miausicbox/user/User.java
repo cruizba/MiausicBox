@@ -1,15 +1,21 @@
 package giraffe.miausicbox.user;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import giraffe.miausicbox.model.Band;
@@ -17,14 +23,13 @@ import giraffe.miausicbox.model.Event;
 import giraffe.miausicbox.model.Genre;
 import giraffe.miausicbox.model.Instrument;
 
+
 @Entity
 public class User {
 	
 	public interface Basic {}
 	
 	public interface Info {}
-	
-	public interface Pass {}
 	
 	public interface WebLinks {}
 	
@@ -43,8 +48,11 @@ public class User {
 	@JsonView(Basic.class)
 	private String userName;
 	
-	@JsonView(Pass.class)
-	private String password;
+	@JsonIgnore
+	private String passwordHash;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> roles;
 	
 	@JsonView(Basic.class)
 	private String completeName;
@@ -103,12 +111,13 @@ public class User {
 			List<Instrument> instruments,
 			List<Genre> genres,
 			List<Band> bands,
-			List<Event> events
-			) {
-		super();
+			List<Event> events) {
 		this.userName = userName;
-		this.password = password;
-		this.completeName = completeName;
+		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		this.instruments = instruments;
+		this.genres = genres;
+		this.bands = bands;
+		this.events = events;
 		this.email = email;
 		this.description = description;
 		this.isArtist = isArtist;
@@ -116,13 +125,16 @@ public class User {
 		this.facebook = facebook;
 		this.twitter = twitter;
 		this.youtube = youtube;
-		this.instruments = instruments;
-		this.genres = genres;
-		this.bands = bands;
-		this.events = events;
 	}
 
-	// Getters & Setters
+	public Boolean getIsArtist() {
+		return isArtist;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public long getId() {
 		return id;
 	}
@@ -131,17 +143,18 @@ public class User {
 		return userName;
 	}
 
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
+	}
+	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getPassword(){
-		return this.password;
-	}
 
 	public String getCompleteName() {
 		return completeName;

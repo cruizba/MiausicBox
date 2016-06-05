@@ -1,22 +1,14 @@
-package giraffe.miausicbox.user;
+package giraffe.miausicbox.security;
 
-import java.util.List;
 
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.*;
 
 /**
@@ -32,11 +24,20 @@ public class LoginController {
 
 	@Autowired
 	private UserComponent userComponent;
-	
-	@Autowired
-	private UserRepository userRep;
-	
-	
+
+	@RequestMapping("/logIn")
+	public ResponseEntity<UserLogged> logIn() {
+
+		if (!userComponent.isLoggedUser()) {
+			log.info("Not user logged");
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		} else { 
+			User userAux = userComponent.getLoggedUser();
+			UserLogged loggedUser = new UserLogged(userAux.getId(), userAux.getUserName(), userAux.getPasswordHash());
+			log.info("Logged as " + loggedUser.getUserName());
+			return new ResponseEntity<>(loggedUser, HttpStatus.OK);
+		}
+	}
 
 	@RequestMapping("/logOut")
 	public ResponseEntity<Boolean> logOut(HttpSession session) {
