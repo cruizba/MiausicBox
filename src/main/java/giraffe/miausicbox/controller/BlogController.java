@@ -17,6 +17,8 @@ import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.BlogUserRepository;
+import giraffe.miausicbox.repositories.UserRepository;
+import giraffe.miausicbox.user.User;
 
 @RestController
 public class BlogController {
@@ -31,11 +33,15 @@ public class BlogController {
 	@Autowired
 	private BlogUserRepository blogUserRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
 	/**
 	 * VIEWS related to BLOG_CONTROLLER
 	 */
 	
 	interface BlogListView extends BlogBand.Basic {}
+	
+	interface BlogView extends BlogBand.Basic {}
 	
 	/**
 	 * GET RequestMethods related to BLOG_CONTROLLER
@@ -54,7 +60,7 @@ public class BlogController {
 	}
 	
 	@JsonView(BlogListView.class)
-	@RequestMapping("/user/{id}/blogs")
+	@RequestMapping(value="/user/{id}/blogs", method = RequestMethod.GET)
 	public List<BlogUser> getUserBlogsById(@PathVariable long id) throws Exception {
 		List<BlogUser> blogs = blogUserRepository.findAll();
 		for(BlogUser b : blogs) {
@@ -83,17 +89,26 @@ public class BlogController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/bloguser/new", method = RequestMethod.POST)
-	public ResponseEntity<BlogUser> createNewBlogUser(@RequestBody BlogUser bloguser) {
+	@JsonView(BlogView.class)
+	@RequestMapping(value = "/newbloguser/{id}", method = RequestMethod.POST)
+	public ResponseEntity<BlogUser> createNewBlogUser(@PathVariable long id ,@RequestBody BlogUser bloguser) {
+		System.out.println("saludos persona 1");
 		ResponseEntity<BlogUser> response;
-		BlogUser newbloguser;
-		List<BlogUser> allblogusers = blogUserRepository.findAll();
-		if (allblogusers.contains(bloguser)) {
-			response = new ResponseEntity<BlogUser>(bloguser, HttpStatus.CONFLICT);
-		} else {
-			newbloguser = blogUserRepository.save(bloguser);
-			response = new ResponseEntity<BlogUser>(newbloguser, HttpStatus.OK);
-		}
+		//BlogUser newbloguser;
+		User user = userRepository.findOne(id);
+		System.out.println("saludos persona 2");
+		//List<BlogUser> allblogusers = blogUserRepository.findAll();
+		bloguser.setAuthor(user);
+		BlogUser newBlogUser = blogUserRepository.save(bloguser);
+		System.out.println("saludos persona 3");
+		response = new ResponseEntity<BlogUser>(newBlogUser, HttpStatus.OK);
+		System.out.println("saludos persona 4");
+//		if (allblogusers.contains(bloguser)) {
+//			response = new ResponseEntity<BlogUser>(bloguser, HttpStatus.CONFLICT);
+//		} else {
+//			newbloguser = blogUserRepository.save(bloguser);
+//			response = new ResponseEntity<BlogUser>(newbloguser, HttpStatus.OK);
+//		}
 		return response;
 	}
 	

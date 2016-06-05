@@ -5,6 +5,12 @@
             <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
             <h1>{{band.groupName}}</h1>
 
+            <p >
+                <a *ngIf="(!isFollower)"  (click)="followBand()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton" >Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                <a *ngIf="(isFollower)" (click)="followBand()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus"></span></a>
+                <a [routerLink]="['Followers', {id: id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollowers}}</span></a>
+            </p>
+
             <!-- Información General -->
             <div class="panel panel-default profile-info">
                 <div class="panel-heading">

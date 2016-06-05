@@ -7,9 +7,16 @@ import {Band} from "../classes/Band";
 import {BlogUser} from "../classes/BlogUser";
 import {BlogBand} from "../classes/BlogBand";
 import {Info} from "../classes/Info";
+import {Headers, RequestOptions, Http} from "angular2/http";
+import 'rxjs/Rx';
 
 @Injectable()
 export class BlogService {
+
+  //noinspection TypeScriptUnresolvedVariable
+  constructor(private http:Http) {
+
+  }
 
   getAllBlogs(){
     return withObserver(blogUserList);
@@ -43,8 +50,19 @@ export class BlogService {
   
   addBlogUsser (title, img, text, date, user){
     img="../img/img6.jpg";
-    var newBlog = new BlogUser(title, img, text, date, user );
-    blogUserList.push(newBlog);
+    let body = '{ "name": "' + title +
+        '", "image": "' + img +
+        '", "text": "' + text +
+        '", "date": "' + date +
+        '", "author":null' +
+        '}';
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+
+    let options = new RequestOptions({headers});
+    //var newBlog = new BlogUser(title, img, text, date, user );
+    //blogUserList.push(newBlog);
+    return this.http.post('newbloguser/' + user.id, body, options);
   }
 
 }
