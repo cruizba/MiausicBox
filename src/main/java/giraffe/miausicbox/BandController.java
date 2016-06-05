@@ -18,7 +18,7 @@ import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Event;
-import giraffe.miausicbox.model.User;
+import giraffe.miausicbox.user.User;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
