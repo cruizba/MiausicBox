@@ -1,4 +1,4 @@
-package giraffe.miausicbox;
+package giraffe.miausicbox.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ import giraffe.miausicbox.repositories.MessageRepository;
 import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.User;
-import giraffe.miausicbox.user.UserLogin;
+import giraffe.miausicbox.user.UserComponent;
 
 @RestController
 public class UserController {
@@ -64,6 +64,9 @@ public class UserController {
 	@Autowired
 	private MessageRepository messageRepository;
 	
+	@Autowired
+	private UserComponent userComponent;
+	
 	/**
 	 * VIEWS related to USER_CONTROLLER
 	 */
@@ -90,8 +93,14 @@ public class UserController {
 
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/artist/{id}", method = RequestMethod.GET)
-	public User getUserById(@PathVariable long id) throws Exception {
-		return userRepository.findOne(id);
+	public ResponseEntity<User> getUserById(@PathVariable long id) throws Exception {
+		if(userComponent.isLoggedUser()){
+			return new ResponseEntity<>(userRepository.findOne(id), HttpStatus.OK);
+		}
+		else{
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		
 	}
 	
 	@JsonView(UserView.class)
@@ -258,20 +267,6 @@ public class UserController {
 			response = new ResponseEntity<Follow>(newfollow, HttpStatus.OK);
 		}
 		return response;
-	}
-	
-	@JsonView(UserView.class)
-	@RequestMapping(value="/logIn", method = RequestMethod.POST)
-	public ResponseEntity<User> logIn(@RequestBody UserLogin userLogin) {
-		
-		User user = userRepository.findUserByUserName(userLogin.getUserName()).get(0);
-		if(user.getPassword().equals(userLogin.getPassword())){
-			return  new ResponseEntity<User>(user, HttpStatus.OK);
-		}
-		else{
-			return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-		}
-		
 	}
 	
 	
