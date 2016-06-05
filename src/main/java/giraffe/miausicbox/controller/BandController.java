@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.UserController.BlogUserListView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;

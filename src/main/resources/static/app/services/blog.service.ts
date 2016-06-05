@@ -7,7 +7,7 @@ import {Band} from "../classes/Band";
 import {BlogUser} from "../classes/BlogUser";
 import {BlogBand} from "../classes/BlogBand";
 import {Info} from "../classes/Info";
-import {Headers, RequestOptions} from "angular2/http";
+import {Headers, RequestOptions, Http} from "angular2/http";
 import 'rxjs/Rx';
 
 @Injectable()
@@ -54,14 +54,15 @@ export class BlogService {
         '", "image": "' + img +
         '", "text": "' + text +
         '", "date": "' + date +
-        '"}';
+        '", "author":null' +
+        '}';
     console.log(body);
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
 
     let options = new RequestOptions({headers});
     //var newBlog = new BlogUser(title, img, text, date, user );
     //blogUserList.push(newBlog);
-    return this.http.post('/newbloguser/' + user.id, body, options);
+    return this.http.post('newbloguser/' + user.id, body, options);
   }
 
 }
