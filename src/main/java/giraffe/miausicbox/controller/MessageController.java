@@ -1,4 +1,4 @@
-package giraffe.miausicbox;
+package giraffe.miausicbox.controller;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.EventController.EventListView;
+import giraffe.miausicbox.controller.EventController.EventListView;
 import giraffe.miausicbox.model.Message;
 import giraffe.miausicbox.repositories.MessageRepository;
 
