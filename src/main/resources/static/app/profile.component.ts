@@ -164,6 +164,8 @@ export class ArtistaComponent {
         var auxdate = new Date (date);
         this._eventService.addNewEvent(name, auxdate, direction, description);
     }
+    
+    
 
     addInstrument(num){
         this._userService.setInstrument(num);

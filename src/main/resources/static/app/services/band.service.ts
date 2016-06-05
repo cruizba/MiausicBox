@@ -7,6 +7,7 @@ import {Info} from "../classes/Info";
 import {Track} from "../classes/Track";
 import {Http, Response} from "angular2/http";
 import 'rxjs/Rx';
+import {BlogBand} from "../classes/BlogBand";
 
 
 
@@ -47,6 +48,30 @@ export class BandService {
     )
   }
 
+
+
+  getBlogsByBand(id) {
+    let url = "/band/"+id+"/bandblog";
+    return this.http.get(url).map(
+        response => this.deserializableAllBlogs(response)
+    );
+  }
+
+
+  getIsFollower (ba,us){
+    let url = "/band/"+ba+"/followedby/" + us;
+    return this.http.get(url).map (
+        response => response
+    )
+  }
+
+  addFollowBand(ba,us){
+    let url = "/band/" + ba + "/tofollow/" + us;
+    return this.http.get(url).map(
+        response => response
+    )
+  }
+
   getMembers (id){
     console.log("(service) getMembers");
     var memberList = [];
@@ -63,15 +88,7 @@ export class BandService {
     return withObserver(bandList[id].administrador.equals(user));
   }
 
-  getBlogsByBand(band) {
-    var bandBlogs = [];
-    for (let i = 0; i < blogBandList.length; i++) {
-      if (blogBandList[i].author.equals(band)) {
-        bandBlogs.push(blogBandList[i]);
-      }
-    }
-    return withObserver(bandBlogs);
-  }
+
 
 
   addNewBand(nameBand, description){
@@ -172,5 +189,19 @@ export class BandService {
     let result:Event [] = response.json();
     return result;
   }
+
+  deserializableAllBlogs (response:Response){
+    let result:BlogBand[]= [];
+    response.json().map(
+        obj => {
+          let bb: BlogBand = obj;
+          let d: Date = new Date (obj.date);
+          bb.date = d;
+          result.push(bb)
+        }
+    );
+    return result;
+  }
+
 
 }

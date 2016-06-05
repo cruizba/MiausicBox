@@ -13,10 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.UserController.BlogUserListView;
 import giraffe.miausicbox.model.Band;
+import giraffe.miausicbox.model.BlogBand;
+import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.user.User;
 import giraffe.miausicbox.repositories.BandRepository;
+import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
+import giraffe.miausicbox.repositories.UserRepository;
 
 @RestController
 public class BandController {
@@ -29,6 +35,10 @@ public class BandController {
 	private BandRepository bandRepository;
 	@Autowired
 	private EventRepository eventRepository;
+	@Autowired
+	private BlogBandRepository blogBandRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	/**
 	 * VIEWS related to BAND_CONTROLLER
@@ -37,6 +47,7 @@ public class BandController {
 	interface BandListView extends Band.Basic, Band.Members, Band.Genres {}
 	interface BandView extends Band.Basic, Band.WebLinks, Band.Genres, Band.Tracks, Band.Members, Band.Admin, Band.Followers {}
 	interface EventView extends Event.Basic, Event.Bands {}
+	interface BlogBandListView extends BlogBand.Basic {}
 	
 	/**
 	 * GET RequestMethods related to BAND_CONTROLLER
@@ -68,11 +79,35 @@ public class BandController {
 		return bandRepository.findAll();
 	}
 	
+	@JsonView(BlogBandListView.class)
+	@RequestMapping(value = "/band/{id}/bandblog", method = RequestMethod.GET)
+	public List<BlogBand> getBlogsByBand(@PathVariable long id) throws Exception {
+		Band band = bandRepository.findOne(id);
+		return blogBandRepository.findBlogBandByAuthor(band);
+	}
 	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{ba}/tofollow/{us}", method = RequestMethod.GET)
+	public boolean getFollowsBand(@PathVariable long ba, @PathVariable long us) throws Exception {
+		Band band = bandRepository.findOne(ba);
+		User user = userRepository.findOne(us);
+		List<User> list = band.getFollowers();
+		boolean follows = list.contains(user);
+		if (follows) {
+			band.getFollowers().remove(user);
+		} else {
+			band.getFollowers().add(user);
+		}
+		System.out.println(band.getFollowers());
+		bandRepository.save(band);
+		return !follows;
+	}
 	
 	/**
-	 * POST RequestMethods related to BAND_CONTROLLER
+	 * POST RequestMethods related to BAND_CONTROLLE
 	 */
+	
+	
 	
 	@RequestMapping(value = "/band/new", method = RequestMethod.POST)
 	public ResponseEntity<Band> createNewband(@RequestBody Band band) {
