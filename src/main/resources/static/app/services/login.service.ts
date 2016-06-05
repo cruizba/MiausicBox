@@ -53,7 +53,6 @@ export class LoginService {
             '"}';
         console.log(body);
         let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-        let user;
 
         let options = new RequestOptions({headers});
 

@@ -35,7 +35,7 @@ export class IndexComponent {
         this._loginService.logIn(this.username, this.password).subscribe(
             response => {
                 let obj = response.json();
-                user = new User(obj.userName, obj.password, obj.completeName, obj.email, obj.description, obj.isArtist, obj.isArtist, "", "", "", [],[],[]);
+                user = new User(obj.userName, obj.password, obj.completeName, obj.email, obj.description, obj.isArtist, obj.isArtist, "", "", "", [],[],[],[]);
                 Info.userLogged = user;
                 console.log(Info.userLogged)
                 Info.userId = obj.id;
