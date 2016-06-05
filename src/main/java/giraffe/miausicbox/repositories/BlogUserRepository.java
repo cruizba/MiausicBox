@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import giraffe.miausicbox.model.BlogUser;
-import giraffe.miausicbox.model.User;
+import giraffe.miausicbox.user.User;
 
 public interface BlogUserRepository  extends JpaRepository<BlogUser, Long> {
 

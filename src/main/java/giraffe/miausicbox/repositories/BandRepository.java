@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import giraffe.miausicbox.model.Band;
-import giraffe.miausicbox.model.User;
+import giraffe.miausicbox.user.User;
 
 public interface BandRepository extends JpaRepository<Band, Long> {
-
+	
 	public List<Band> findBandsByMembers(User user);
 	
 	public List<Band> findBandByMembersIn(List<User> user);

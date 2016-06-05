@@ -11,7 +11,6 @@ import giraffe.miausicbox.model.Genre;
 import giraffe.miausicbox.model.Instrument;
 import giraffe.miausicbox.model.Message;
 import giraffe.miausicbox.model.Novelty;
-import giraffe.miausicbox.model.User;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
@@ -29,6 +28,7 @@ import giraffe.miausicbox.repositories.MessageRepository;
 import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.TrackRepository;
 import giraffe.miausicbox.repositories.UserRepository;
+import giraffe.miausicbox.user.User;
 
 @RestController
 public class GenericController {
@@ -168,8 +168,13 @@ public class GenericController {
 		Event ev1 = new Event("IndieFest",  "April 1, 2016 18:20:30", us2, "Festival indie tope guachi",
 				new ArrayList<>(), "Madrid", new ArrayList<>());
 		
+		Event ev2 = new Event("Rockola",  "April 1, 2016 18:20:30", us2, "Arguelles",
+				new ArrayList<>(), "Madrid", new ArrayList<>());
+		
 		ev0.getBands().add(ban0);
 		ev1.getBands().add(ban1);
+		ev2.getBands().add(ban0);
+		ev2.getBands().add(ban1);
 		
 		ev0.getFollowers().add(us0);
 		ev0.getFollowers().add(us1);
@@ -242,6 +247,7 @@ public class GenericController {
 		
 		eventRepository.save(ev0);
 		eventRepository.save(ev1);
+		eventRepository.save(ev2);
 		
 		noveltyRepository.save(nov0);
 		noveltyRepository.save(nov1);

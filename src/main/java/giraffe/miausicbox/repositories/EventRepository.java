@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.Event;
-import giraffe.miausicbox.model.User;
+import giraffe.miausicbox.user.User;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 
@@ -16,4 +16,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 	
 	public List<Event> findEventByFollowers(User user);
 	
+	public List<Event> findEventByName(String name);
+	
+	public List<Event> findEventByBandsIn(List<Band> bands);
 }

@@ -55,7 +55,7 @@ import {FollowersComponent} from "./followers.component";
       component: SignInComponent
     },
     {
-      path: '/principal',
+      path: '/principal:id',
       name: 'Principal',
       component: PrincipalComponent
     },
