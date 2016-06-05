@@ -19,35 +19,53 @@ export class IndexComponent {
     //variables from login form
     username: string;
     password: string;
+    userLogged;
+    userInfo: User;
 
-    constructor(private _router: Router, private _loginService: LoginService) { }
+    constructor(private _router: Router, private _loginService: LoginService,
+                private _userService: UserService) { }
 
     goTo(paramsRoute: any[]){
         this._router.navigate(paramsRoute);
     }
 
-    login() {
+    logIn(event: any){
 
-        console.log(this.username);
-        console.log(this.password);
+        event.preventDefault();
 
-        var user:User;
         this._loginService.logIn(this.username, this.password).subscribe(
-            response => {
-                let obj = response.json();
-                user = new User(obj.userName, obj.password, obj.completeName, obj.email, obj.description, obj.isArtist, obj.isArtist, "", "", "", [],[],[]);
-                Info.userLogged = user;
-                console.log(Info.userLogged)
-                Info.userId = obj.id;
-                console.log(Info.userId);
-                this._router.navigate(['Artist', {id: Info.userId}])
+            user => {
+                this.userLogged = user;
+
+                //Save the user id
+                Info.userId = this.userLogged.realId;
+
+                // Save user info
+
+                this._userService.getUserById(Info.userId).subscribe(
+                    userInfo => {
+                       this.userInfo = userInfo;
+                       Info.userLogged = userInfo;
+                       console.log(Info.userLogged);
+                        this._router.navigate(['Artist', {id: Info.userId}])
+                    },
+                    error => {
+                        alert("Error recibiendo información del usuario" + error)
+                    }
+                );
+                console.log(Info.userLogged);
             },
-            error => alert("Usuario no válido")
+            error => alert("Invalid user or password")
         );
-
-
-
     }
+
+    logOut(){
+        this._loginService.logOut().subscribe(
+            response => {},
+            error => console.log("Error when trying to log out: "+error)
+        );
+    }
+
 
     /*
     logOut() {
