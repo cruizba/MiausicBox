@@ -1,19 +1,20 @@
 /**
- *  Class that represent the information related to MiausicBox users
+ *  Class that represent the information related to MiausicBox blogs
  *  @class Blog
  */
-import { User } from './User';
 
 export class Blog {
 
   /* Attributes */
+  protected _id:number;
   protected _name:string;
   protected _image:string;
   protected _text:string;
   protected _date:Date;
 
   /* Constructor */
-  constructor(name:string, image:string, text:string, date:Date) {
+  constructor(id:number, name:string, image:string, text:string, date:Date) {
+    this._id = id;
     this._name = name;
     this._image = image;
     this._text = text;
@@ -21,6 +22,10 @@ export class Blog {
   }
 
   /* Getters & Setters */
+  get id():number {
+    return this._id;
+  }
+
   get name():string {
     return this._name;
   }
@@ -35,6 +40,10 @@ export class Blog {
 
   get date():Date {
     return this._date;
+  }
+
+  set id(id:number) {
+    this._id = id;
   }
 
   set name(name:string) {
@@ -57,8 +66,7 @@ export class Blog {
    *  @method equals
    *  @param {object} object
    */
-  equals(object:any){
-    //At ApiRest object, this comparaison should be the with both ids
+  equals(object:any) {
     if (!(object instanceof Blog)) {
       return false;
     } else {

@@ -1,5 +1,5 @@
 /**
- * Class that represent the information related to MiausicBox users
+ * Class that represent the information related to MiausicBox follows
  * @class Follow
  */
 import { User } from './User';
@@ -7,22 +7,32 @@ import { User } from './User';
 export class Follow {
 
   /* Attributes */
+  private _id:number;
   private _emisor:User;
   private _receptor:User;
 
   /* Constructor */
-  constructor(emisor:User, receptor:User) {
+  constructor(id:number, emisor:User, receptor:User) {
+    this._id = id;
     this._emisor = emisor;
     this._receptor = receptor;
   }
 
   /* Getters & Setters */
+  get id():number {
+    return this._id;
+  }
+
   get emisor():User {
     return this._emisor;
   }
 
   get receptor():User {
     return this._receptor;
+  }
+
+  set id(id:number) {
+    this._id = id;
   }
 
   set emisor(emisor:User) {
@@ -37,8 +47,7 @@ export class Follow {
    *  @method equals
    *  @param {object} object
    */
-  equals(object:any){
-    //At ApiRest object, this comparaison should be the with both ids
+  equals(object:any) {
     if (!(object instanceof Follow)) {
       return false;
     } else {

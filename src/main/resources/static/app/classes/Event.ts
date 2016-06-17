@@ -1,5 +1,5 @@
 /**
- *  Class that represent the information related to MiausicBox users
+ *  Class that represent the information related to MiausicBox events
  *  @class Event
  */
 import { User } from './User';
@@ -8,6 +8,7 @@ import {Band} from "./Band";
 export class Event {
 
   /* Attributes */
+  private _id:number;
   private _name:string;
   private _date:Date;
   private _creator:User;
@@ -17,8 +18,9 @@ export class Event {
   private _followers:User[];
 
   /* Constructor */
-  constructor(name:string, date:Date, creator:User, description:string, bands:Band[],
-              direction:string, followers:User[]) {
+  constructor(id:number, name:string, date:Date, creator:User, description:string,
+              bands:Band[], direction:string, followers:User[]) {
+    this._id = id;
     this._name = name;
     this._date = date;
     this._creator = creator;
@@ -29,6 +31,10 @@ export class Event {
   }
 
   /* Getters & Setters */
+  get id():number {
+    return this._id;
+  }
+
   get name():string {
     return this._name;
   }
@@ -45,12 +51,16 @@ export class Event {
     return this._description;
   }
 
-  get bands():Band[]{
+  get bands():Band[] {
     return this._bands;
   }
 
-  get direction():string{
+  get direction():string {
     return this._direction;
+  }
+
+  set id(id:number) {
+    this._id = id;
   }
 
   set name(name:string) {
@@ -88,8 +98,7 @@ export class Event {
    *  @method equals
    *  @param {object} object
    */
-  equals(object:any){
-    //At ApiRest object, this comparaison should be the with both ids
+  equals(object:any) {
     if (!(object instanceof Event)) {
       return false;
     } else {
