@@ -1,13 +1,23 @@
-import {Injectable} from "angular2/core";
-import {User} from "../classes/User";
-import {followsList, userList, eventList} from "../classes/memoryDB"
-import {Follow} from "../classes/Follow";
-import {withObserver} from "../classes/Utils";
+/**
+ * Service of MiausicBox follows for petitions to Api Rest
+ * @class FollowService
+ */
+import { followsList, userList } from "../classes/memoryDB"
+
+import { Follow } from "../classes/Follow";
+
+import { Injectable } from "angular2/core";
+import { Http } from "angular2/http";
+import { withObserver } from "../classes/Utils";
+import 'rxjs/Rx';
 
 @Injectable()
 export class FollowService{
 
+    /* Constructor */
+    constructor(private http:Http){}
 
+    /* Http GETs */
     /**
      * Return on number, the number of followings
      * and on user an array of users
@@ -15,6 +25,7 @@ export class FollowService{
      * so this implementation is not similar
      */
     getFollowingById(id){
+        // TODO
         var users = [];
         var numFollowing:number = 0;
         for(let i = 0; i < followsList.length; i++){
@@ -35,6 +46,7 @@ export class FollowService{
      * so this implementation is not similar
      */
     getFollowersById(id){
+        // TODO
         var users = [];
         var numFollowers:number = 0;
         for(let i = 0; i < followsList.length; i++) {
@@ -48,11 +60,11 @@ export class FollowService{
         return withObserver(users)
     }
 
-
     /**
      * Get only number of followers
      */
     getNumFollowersById(id){
+        // TODO
         var numFollowers: number = 0;
         for(let i = 0; i < followsList.length; i++){
             var follow = followsList[i];
@@ -68,6 +80,7 @@ export class FollowService{
      * Get only number of following
      */
     getNumFollowingByID(id){
+        // TODO
         var numFollowing: number = 0;
         for(let i = 0; i < followsList.length; i++){
             var follow = followsList[i];
@@ -83,6 +96,7 @@ export class FollowService{
      * Get if user follows other user
      */
     isUserFollowedBy(us_emisor, us_receptor) {
+        // TODO
         for (let i = 0; i < followsList.length; i++){
             var follow = followsList[i];
             if (follow.emisor.equals(us_emisor) &&
@@ -93,13 +107,15 @@ export class FollowService{
         return withObserver(false);
     }
 
+    /* Http POSTs */
     /**
      * Follow this user
      */
     setFollow(us_emisor, us_receptor) {
+        // TODO
       console.log("(service) SETFOLLOW");
       console.log("(service) Agregando follow " + us_emisor.name + " -> " + us_receptor.name);
-      followsList.push(new Follow(us_emisor, us_receptor));
+      followsList.push(new Follow(0, us_emisor, us_receptor)); // <-- FixMe: ID
       console.log(followsList);
     }
 
@@ -107,6 +123,7 @@ export class FollowService{
      * Unfollow this user
      */
     setUnfollow(us_emisor, us_receptor) {
+        // TODO
         console.log("(service) SETUN-FOLLOW");
         if (this.isUserFollowedBy(us_emisor, us_receptor)) {
             for (let i = 0; i < followsList.length; i++){

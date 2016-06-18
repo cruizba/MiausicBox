@@ -1,25 +1,23 @@
-import {Injectable} from "angular2/core";
-import {messageList, userList} from "../classes/memoryDB"
-import {Message} from "../classes/Message";
-import {Info} from "../classes/Info";
-import {Http, Response} from "angular2/http";
-import {User} from "../classes/User";
+/**
+ * Service of MiausicBox messages users for petitions to Api Rest
+ * @class MessageService
+ */
+import { messageList, userList } from "../classes/memoryDB" // <--- FixMe: To Be Removed
 
+import { Message } from "../classes/Message";
+import { Info } from "../classes/Info";
+import { User } from "../classes/User";
+
+import { Injectable } from "angular2/core";
+import { Http, Response } from "angular2/http";
 
 @Injectable()
 export class MessageService{
 
+    /* Constructor */
     constructor(private http:Http) {}
 
-    setRead(id, message){
-        for(let i = 0; i < messageList.length; i++){
-            if(message.equals(messageList[i])){
-                messageList[i].read = true;
-            }
-        }
-        console.log("Changed");
-    }
-
+    /* Http GETs */
     getSendedMessagesById(id){
         let url = "/artist/" + id + "/sendedMessages";
         return this.http.get(url).map(
@@ -41,10 +39,22 @@ export class MessageService{
         )
     }
 
+    /* Http POSTs */
+    setRead(id, message){
+        // TODO
+        for(let i = 0; i < messageList.length; i++){
+            if(message.equals(messageList[i])){
+                messageList[i].read = true;
+            }
+        }
+        console.log("Changed");
+    }
+
     sendMessage(userName:string, subject: string, day:Date, message: string){
+        // TODO
         for(let i = 0; i < userList.length; i++){
             if(userName == userList[i].userName){
-                messageList.push(new Message(Info.userLogged, userList[i], subject, message, day, false));
+                messageList.push(new Message(0, Info.userLogged, userList[i], subject, message, day, false)); // <-- FixMe: ID
                 console.log("Mensaje enviado");
                 break;
             }
@@ -52,6 +62,7 @@ export class MessageService{
     }
     
     deleteMessage(message: Message){
+        // TODO
         for(let i = 0; i < messageList.length; i++){
             if(message.equals(messageList[i])){
                 messageList.splice(i, 1);
@@ -60,7 +71,7 @@ export class MessageService{
         }
     }
 
-    // Desserialization methods
+    /* Deserialize Methods */
     deserializeAllMessages(response:Response) {
         console.log("deserealizeAllMessages > Response:");
         console.log(response);
@@ -69,8 +80,8 @@ export class MessageService{
             obj => {
                 let mes:Message = obj;
                 mes.date = new Date(obj.date);
-                mes.destiny = new User(obj.destiny.userName,"",obj.destiny.completeName,obj.destiny.email,"",false,"","","","",[],[],[],[]);
-                mes.sender = new User(obj.sender.userName,"",obj.sender.completeName,obj.sender.email,"",false,"","","","",[],[],[],[]);
+                mes.destiny = new User(0, obj.destiny.userName,"",obj.destiny.completeName,obj.destiny.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
+                mes.sender = new User(0, obj.sender.userName,"",obj.sender.completeName,obj.sender.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
                 var total = {"msgId":obj.id,"message":mes};
                 result.push(total);
             }
@@ -84,8 +95,8 @@ export class MessageService{
         let body = response.json();
         let mes:Message = body;
         mes.date = new Date(body.date);
-        mes.destiny = new User(body.destiny.userName,"",body.destiny.completeName,body.destiny.email,"",false,"","","","",[],[],[],[]);
-        mes.sender = new User(body.sender.userName,"",body.sender.completeName,body.sender.email,"",false,"","","","",[],[],[],[]);
+        mes.destiny = new User(0, body.destiny.userName,"",body.destiny.completeName,body.destiny.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
+        mes.sender = new User(0, body.sender.userName,"",body.sender.completeName,body.sender.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
         var total = {"msgId":body.id,"message":mes};
         return total;
     }

@@ -25,6 +25,7 @@ export class User{
   private _bands: Band[] = [];
   private _events: Event[] = [];
 
+  /* Constructor */
   constructor(id:number, userName:string, password:string, completeName:string,
               email:string, description:string, isArtist:boolean, city:string,
               facebook:string, twitter:string, youtube:string,
