@@ -1,9 +1,12 @@
+/**
+ * MiausicBox messages component.
+ * @component MessagesComponent
+ */
 import { Component } from 'angular2/core';
 import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
 import { Info } from "./classes/Info";
 import { Message } from "./classes/Message";
 import { MessageService } from "./services/message.service";
-
 
 @Component({
   selector: 'messages',
@@ -25,9 +28,7 @@ export class MessagesComponent {
   actualMessage;
   actualUserMessage;
 
-  constructor(private _routeParams: RouteParams, private _messageService: MessageService){
-
-  }
+  constructor(private _routeParams: RouteParams, private _messageService: MessageService){}
 
   ngOnInit(){
     this.id = this._routeParams.get('id');
@@ -96,6 +97,5 @@ export class MessagesComponent {
         error => alert("error received messages")
     );
   }
-
 
 }

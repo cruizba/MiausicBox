@@ -1,5 +1,5 @@
 /**
- *  Class that represent the information related to MiausicBox users
+ *  Class that represent the information related to MiausicBox blogs
  *  @class BlogUser
  */
 import { Blog } from './Blog';
@@ -11,8 +11,8 @@ export class BlogUser extends Blog {
   private _author:User;
 
   /* Constructor */
-  constructor(name:string, image:string, text:string, date:Date, author:User) {
-    super(name, image, text, date);
+  constructor(id:number, name:string, image:string, text:string, date:Date, author:User) {
+    super(id, name, image, text, date);
     this._author = author;
   }
 
@@ -30,7 +30,6 @@ export class BlogUser extends Blog {
    *  @param {object} object
    */
   equals(object:any){
-    //At ApiRest object, this comparaison should be the with both ids
     if (!(object instanceof BlogUser)) {
       return false;
     } else {

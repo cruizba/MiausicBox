@@ -1,10 +1,13 @@
-import { Component, OnInit } from 'angular2/core';
-import { RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+/**
+ * MiausicBox event component.
+ * @component EventComponent
+ */
+import { Component } from 'angular2/core';
+import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
 import { Event } from './classes/Event';
-import {EventService} from "./services/event.service";
-import {BandService} from "./services/band.service";
-import {FollowService} from "./services/follow.service";
-import {Info} from "./classes/Info";
+import { EventService } from "./services/event.service";
+import { BandService } from "./services/band.service";
+import { Info } from "./classes/Info";
 
 @Component ({
     selector: 'Event',
@@ -20,9 +23,9 @@ export class EventComponent {
     members = [[]];
     isFollower:boolean;
     isCreator:boolean;
-
     
-    constructor ( private _eventService:EventService, private _bandService:BandService, private _routerParams:RouteParams){}
+    constructor (private _eventService:EventService, private _bandService:BandService,
+                 private _routerParams:RouteParams){}
 
     ngOnInit (){
         this.id = this._routerParams.get('id');

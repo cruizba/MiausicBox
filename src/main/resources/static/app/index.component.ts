@@ -1,13 +1,16 @@
+/**
+ * MiausicBox index component.
+ * @component IndexComponent
+ */
 /// <reference path="classes/Info.ts"/>
-
-import { Component, OnInit, Input} from 'angular2/core';
-import { Router} from 'angular2/router';
+import { Component } from 'angular2/core';
+import { Router } from 'angular2/router';
 
 import { User } from './classes/User';
 
 import { UserService } from './services/user.service';
 import { Info } from './classes/Info';
-import {LoginService} from "./services/login.service";
+import { LoginService } from "./services/login.service";
 
 @Component({
     selector: 'index-app',
@@ -16,6 +19,7 @@ import {LoginService} from "./services/login.service";
 })
 
 export class IndexComponent {
+
     //variables from login form
     username: string;
     password: string;
@@ -23,7 +27,7 @@ export class IndexComponent {
     userInfo: User;
 
     constructor(private _router: Router, private _loginService: LoginService,
-                private _userService: UserService) { }
+                private _userService: UserService) {}
 
     goTo(paramsRoute: any[]){
         this._router.navigate(paramsRoute);
@@ -65,8 +69,7 @@ export class IndexComponent {
             error => console.log("Error when trying to log out: "+error)
         );
     }
-
-
+    
     /*
     logOut() {
         this._loginService.logOut().subscribe(

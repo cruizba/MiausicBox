@@ -1,3 +1,8 @@
+// FixMe: refactorice name of class to UserComponent
+/**
+ * MiausicBox profile component.
+ * @component ProfileComponent
+ */
 import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
@@ -8,7 +13,7 @@ import { MessageService } from "./services/message.service";
 import { BlogUser } from "./classes/BlogUser";
 import { BlogService } from "./services/blog.service";
 import { BandService } from "./services/band.service";
-import {EventService} from "./services/event.service";
+import { EventService } from "./services/event.service";
 
 @Component({
   selector: 'artista',
@@ -51,7 +56,6 @@ export class ArtistaComponent {
       this.genres();
       this.isFollowedBy();
   }
-
 
     initialization(){
 
@@ -125,7 +129,6 @@ export class ArtistaComponent {
             (error => alert("numFollowings error"))
         );
     }
-    
 
     isFollowedBy() {
       this._followService.isUserFollowedBy(Info.userLogged, this.user).subscribe(
@@ -164,8 +167,6 @@ export class ArtistaComponent {
         var auxdate = new Date (date);
         this._eventService.addNewEvent(name, auxdate, direction, description);
     }
-    
-    
 
     addInstrument(num){
         this._userService.setInstrument(num);
@@ -176,4 +177,5 @@ export class ArtistaComponent {
         this._userService.deleteInstrument(num);
         this.instrumentsUser();
     }
+
 }

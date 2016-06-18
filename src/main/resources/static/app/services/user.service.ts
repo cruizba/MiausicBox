@@ -1,17 +1,25 @@
+/**
+ * Service of MiausicBox users for petitions to Api Rest
+ * @class UserService
+ */
 import { userList } from '../classes/memoryDB';
+
+import { User } from '../classes/User'
+import { Info } from "../classes/Info";
+import { BlogUser} from "../classes/BlogUser";
+
 import { Injectable } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
-import { User } from '../classes/User'
 import { withObserver } from '../classes/Utils';
-import { Info } from "../classes/Info";
 import 'rxjs/Rx';
-import {BlogUser} from "../classes/BlogUser";
 
 @Injectable()
 export class UserService {
 
+  /* Constructor */
   constructor(private http: Http){}
 
+  /* Http GETs */
   getAllUsers(){
     let url = "/artists";
     console.log("Peticion a " + url);
@@ -36,11 +44,8 @@ export class UserService {
     );
   }
 
-  /*
-   * Only necessary on simulation.
-   * At the backend, entities should have an id
-   */
   getUserId(user:User){
+    // TODO
     for(let i = 0; i < userList.length; i++){
       if(userList[i].equals(user)){
         return withObserver(i);
@@ -49,6 +54,7 @@ export class UserService {
   }
 
   checkUserByUsername(username:string){
+    // TODO
     for(let i = 0; i < userList.length; i++) {
       if (userList[i].userName == username) {
         return withObserver (false);
@@ -58,6 +64,7 @@ export class UserService {
   }
 
   getUserByUserNameAndPass(username:string, pass:string) {
+    // TODO
     for(let i = 0; i < userList.length;i++) {
       if (userList[i].userName == username && userList[i].password == pass) {
         return withObserver(userList[i]);
@@ -67,6 +74,7 @@ export class UserService {
   }
 
   getBlogsByUser(id) {
+    // TODO
     let url = "/artist/" + id + "/myblogs";
     console.log("Peticion a " + url);
     return this.http.get(url).map(
@@ -74,37 +82,46 @@ export class UserService {
     );
   }
 
+  /* Http POSTs */
   addUser(user:User){
+    // TODO
     userList.push(user);
     return withObserver (userList.length-1);
   }
 
   changePassword(password:string){
+    // TODO
     userList[Info.userId].password = password;
   }
 
   changeUser(user:string){
+    // TODO
     userList[Info.userId].userName = user;
   }
 
   changeName(name:string) {
+    // TODO
     userList[Info.userId].completeName = name;
   }
 
   changeEmail(email:string) {
+    // TODO
     userList[Info.userId].email = email;
   }
 
   changeIsArtist(isArtist:boolean) {
+    // TODO
     userList[Info.userId].isArtist = isArtist;
   }
 
   changeDescription(description:string) {
+    // TODO
     userList[Info.userId].description = description;
   }
 
   setInstrument(num){
-    /* TODO: usar instrument[] en vez de number[]
+    // TODO
+    /*
     var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
     if(instruments.indexOf(num) == -1) {
       userList[userList.indexOf(Info.userLogged)].instruments.push(parseInt(num));
@@ -114,7 +131,8 @@ export class UserService {
   }
 
   deleteInstrument(num){
-    /* TODO: usar instrument[] en vez de number[]
+    // TODO
+    /*
     var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
     var index = instruments.indexOf(parseInt(num))
     if(index != 0){
@@ -126,11 +144,12 @@ export class UserService {
   }
 
   setCity(city){
-    userList[userList.indexOf(Info.userLogged)].setCity(city);
+    // TODO
+    userList[userList.indexOf(Info.userLogged)].city = city;
     console.log(userList.indexOf(Info.userLogged));
   }
 
-  // Deserealization methods
+  /* Deserialize Methods */
   deserializeAllUsers(response:Response) {
     console.log("deserealizeAllUsers > Response:");
     console.log(response);

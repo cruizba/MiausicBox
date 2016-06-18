@@ -1,9 +1,11 @@
-import { Component, OnInit } from 'angular2/core';
-import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
-import {Info} from "./classes/Info";
-import {MessageService} from "./services/message.service";
-import {UserService} from "./services/user.service";
-
+/**
+ * MiausicBox logged component.
+ * @component LoggedComponent
+ */
+import { Component } from 'angular2/core';
+import { ROUTER_DIRECTIVES, Router } from 'angular2/router';
+import { Info } from "./classes/Info";
+import { UserService } from "./services/user.service";
 
 @Component({
   selector: 'logged',
@@ -12,8 +14,8 @@ import {UserService} from "./services/user.service";
   directives: [ROUTER_DIRECTIVES]
 })
 
-
 export class LoggedComponent{
+
   password:string;
   password2:string;
   user:string;
@@ -22,9 +24,7 @@ export class LoggedComponent{
   isArtist:boolean;
   description:string;
   
-  constructor(private _router: Router, private _userService: UserService){
-
-  };
+  constructor(private _router: Router, private _userService: UserService){}
 
   goToProfile(){
     this._router.navigate(['Artist', {id: Info.userId}]);

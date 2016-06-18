@@ -1,15 +1,18 @@
+/**
+ * MiausicBox principal component.
+ * @component PrincipalComponent
+ */
 import { Component } from 'angular2/core';
 import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
 import { BandService } from './services/band.service';
 import { UserService } from "./services/user.service";
 import { BlogService } from "./services/blog.service";
-import {PrincipalService} from "./services/principal.service";
-import {BlogUser} from "./classes/BlogUser";
-import {BlogBand} from "./classes/BlogBand";
-import {Novelty} from "./classes/Novelty";
-import {Event} from "./classes/Event"
-import {Info} from "./classes/Info";
-
+import { PrincipalService } from "./services/principal.service";
+import { BlogUser } from "./classes/BlogUser";
+import { BlogBand } from "./classes/BlogBand";
+import { Novelty } from "./classes/Novelty";
+import { Event } from "./classes/Event"
+import { Info } from "./classes/Info";
 
 @Component({
   selector: 'principal',
@@ -19,12 +22,11 @@ import {Info} from "./classes/Info";
 })
 
 export class PrincipalComponent {
+
   novedades = [];
   id;
 
-  constructor(private _routeParams: RouteParams, private _bandService: BandService, private _blogService: BlogService,
-              private _userService: UserService, private _principalService: PrincipalService){
-  }
+  constructor(private _principalService: PrincipalService){}
 
   ngOnInit() {
     this.initialization();
@@ -60,11 +62,11 @@ export class PrincipalComponent {
     }
   }
 
-    // Deserialize methods
+    // Deserialize methods FixMe: move deserialize methods to principal service
     deserializeBlogUserList(list) {
         list.map(
             obj => {
-                var blog:BlogUser = new BlogUser(obj.name,obj.image,obj.text,obj.date,obj.author);
+                var blog:BlogUser = new BlogUser(0,obj.name,obj.image,obj.text,obj.date,obj.author); //<--- FixMe: ID
                 blog.date = new Date(obj.date);
                 this.novedades.push(blog);
             }
@@ -74,7 +76,7 @@ export class PrincipalComponent {
     deserializeBlogBandList(list) {
         list.map(
             obj => {
-                var blog:BlogBand = new BlogBand(obj.name,obj.image,obj.text,obj.date,obj.author);
+                var blog:BlogBand = new BlogBand(0, obj.name,obj.image,obj.text,obj.date,obj.author); //<--- FixMe: ID
                 blog.date = new Date(obj.date);
                 this.novedades.push(blog);
             }
@@ -84,7 +86,7 @@ export class PrincipalComponent {
     deserializeNoveltyList(list) {
         list.map(
             obj => {
-                var nov:Novelty = new Novelty(obj.user,obj.band,obj.date,obj.joined);
+                var nov:Novelty = new Novelty(0, obj.user,obj.band,obj.date,obj.joined); //<--- FixMe: ID
                 nov.date = new Date(obj.date);
                 this.novedades.push(nov);
             }

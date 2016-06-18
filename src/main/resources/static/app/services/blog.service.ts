@@ -1,28 +1,33 @@
-import {userList, blogUserList, blogBandList, followsList} from '../classes/memoryDB';
-import { Injectable } from 'angular2/core';
+/**
+ * Service of MiausicBox blogs for petitions to Api Rest
+ * @class BlogService
+ */
+import { blogUserList, blogBandList } from '../classes/memoryDB'; // <--- FixMe: To Be Removed
+
+import { Band } from "../classes/Band";
+import { BlogBand } from "../classes/BlogBand";
+import { BlogUser } from "../classes/BlogUser";
 import { User } from '../classes/User'
-//Observer simulation
+
+import { Injectable } from 'angular2/core';
+import { Headers, RequestOptions, Http } from "angular2/http";
 import { withObserver } from '../classes/Utils';
-import {Band} from "../classes/Band";
-import {BlogUser} from "../classes/BlogUser";
-import {BlogBand} from "../classes/BlogBand";
-import {Info} from "../classes/Info";
-import {Headers, RequestOptions, Http} from "angular2/http";
 import 'rxjs/Rx';
 
 @Injectable()
 export class BlogService {
 
-  //noinspection TypeScriptUnresolvedVariable
-  constructor(private http:Http) {
+  /* Constructor */
+  constructor(private http:Http){}
 
-  }
-
+  /* Http GETs */
   getAllBlogs(){
+    // TODO
     return withObserver(blogUserList);
   }
 
   getBlogsByUser(user:User){
+    // TODO
     var result:BlogUser[] = [];
     for(let i = 0; i < blogUserList.length;i++) {
       if (blogUserList[i].author.equals(user)){
@@ -36,6 +41,7 @@ export class BlogService {
   }
 
   getBlogsByBand(band:Band){
+    // TODO
     var result:BlogBand[] = [];
     for(let i = 0; i < blogBandList.length;i++) {
       if (blogBandList[i].author.equals(band)) {
@@ -47,9 +53,11 @@ export class BlogService {
     });
     return withObserver(result);
   }
-  
+
+  /* Http POSTs */
   addBlogUsser (title, img, text, date, user){
-    img="../img/img6.jpg";
+    img="../img/img6.jpg"; // FixMe
+
     let body = '{ "name": "' + title +
         '", "image": "' + img +
         '", "text": "' + text +
@@ -58,11 +66,12 @@ export class BlogService {
         '}';
     console.log(body);
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
-
     let options = new RequestOptions({headers});
-    //var newBlog = new BlogUser(title, img, text, date, user );
-    //blogUserList.push(newBlog);
+
     return this.http.post('newbloguser/' + user.id, body, options);
   }
+
+  /* Deserialize Methods */
+  // TODO?
 
 }

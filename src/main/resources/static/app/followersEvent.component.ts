@@ -1,9 +1,12 @@
+/**
+ * MiausicBox followers event component.
+ * @component FollowersEventComponent
+ */
 ///<reference path="../node_modules/angular2/router.d.ts"/>
-import { Component, OnInit } from 'angular2/core';
+import { Component } from 'angular2/core';
 import { EventService } from './services/event.service';
 
 import {ROUTER_DIRECTIVES, RouteParams} from "angular2/router";
-
 
 @Component({
     selector: 'followersEvent',
@@ -13,6 +16,7 @@ import {ROUTER_DIRECTIVES, RouteParams} from "angular2/router";
 })
 
 export class FollowersEvent {
+
     userList = [];
     id;
 
@@ -31,4 +35,5 @@ export class FollowersEvent {
         );
         console.log(this.userList[0].user.userName);
     }
+
 }

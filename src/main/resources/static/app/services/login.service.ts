@@ -1,9 +1,12 @@
-
-
-import { Injectable, OnInit } from 'angular2/core';
+/**
+ * Service of MiausicBox logged users for petitions to Api Rest
+ * @class EventService
+ */
+import { Injectable } from 'angular2/core';
 import { Http, RequestOptions, Headers } from 'angular2/http';
 import 'rxjs/Rx';
 
+// FixMe?
 export interface UserLogged {
     id?: number;
     name: string;
@@ -13,14 +16,17 @@ export interface UserLogged {
 @Injectable()
 export class LoginService {
 
+    /* Attributes */
     isLogged = false;
     isAdmin = false;
     user;
 
+    /* Constructor */
     constructor(private http: Http){
         this.reqIsLogged();
     }
 
+    /* Methods */
     reqIsLogged(){
 
         let headers = new Headers({

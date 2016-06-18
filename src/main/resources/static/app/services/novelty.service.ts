@@ -1,16 +1,27 @@
-import {userList, noveltyList} from '../classes/memoryDB';
-import { Injectable } from 'angular2/core';
+/**
+ * Service of MiausicBox novelties users for petitions to Api Rest
+ * @class NoveltyService
+ */
+import { userList, noveltyList } from '../classes/memoryDB'; // <--- FixMe: To Be Removed
+
+import { Band } from "../classes/Band";
+import { Novelty } from "../classes/Novelty";
 import { User } from '../classes/User'
-//Observer simulation
-import { withObserver } from '../classes/Utils';
-import {Instrument} from "../classes/Instrument";
-import {Band} from "../classes/Band";
-import {Novelty} from "../classes/Novelty";
+
+import { Injectable } from 'angular2/core';
+import { Http } from "angular2/http";
 
 @Injectable()
 export class NoveltyService {
 
+  /* Constructor */
+  constructor(private http:Http) {}
+
+  /* Http GETs */
+
+  /* Http POSTs */
   newNovelty(userName:string, band:Band, date:Date, joined:boolean) {
+    // TODO
     var user: User;
     var encontrado:boolean = false;
     for(let i = 0; i < userList.length; i++) {
@@ -23,10 +34,12 @@ export class NoveltyService {
     if (encontrado) {
       for (let i = 0; i < band.members.length; i++) {
         if (band.members[i].equals(user)) {
-          noveltyList.push(new Novelty(user, band, date, joined));
+          noveltyList.push(new Novelty(0, user, band, date, joined)); // <-- FixMe: ID
         }
       }
     }
   }
+
+  /* Deserialize Methods */
 
 }

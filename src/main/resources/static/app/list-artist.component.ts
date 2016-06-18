@@ -1,3 +1,7 @@
+/**
+ * MiausicBox list artist component.
+ * @component ListArtistComponent
+ */
 import { Component } from 'angular2/core';
 import { ROUTER_DIRECTIVES } from 'angular2/router';
 import { UserService } from "./services/user.service";
@@ -12,7 +16,7 @@ import { BandService } from "./services/band.service";
 
 export class ListArtistComponent {
 
-    userList = [];
+  userList = [];
 
   constructor(private _userService:UserService){}
 

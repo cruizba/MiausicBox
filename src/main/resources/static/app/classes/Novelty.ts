@@ -1,48 +1,66 @@
+/**
+ * Class that represent the information related to MiausicBox novelties
+ * @class Message
+ */
 import {Band} from "./Band";
 import {User} from "./User";
+
 export class Novelty{
 
+  /* Attributes */
+  private _id: number;
   private _user: User;
   private _band: Band;
   private _date: Date;
   private _joined: boolean
 
-  constructor(user:User, band: Band, date:Date, joined: boolean) {
+  /* Constructor */
+  constructor(id:number, user:User, band: Band, date:Date, joined: boolean) {
+    this._id = id;
     this._user = user;
     this._band = band;
     this._date = date;
     this._joined = joined;
-  };
+  }
 
-  public get user():User{
+  /* Getters & Setters */
+  get id():number {
+    return this._id;
+  }
+
+  get user():User {
     return this._user;
   }
 
-  public get band():Band{
+  get band():Band {
     return this._band;
   }
 
-  public get date():Date{
+  get date():Date {
     return this._date;
   }
 
-  public get joined():boolean {
+  get joined():boolean {
     return this._joined;
   }
 
-  public set user(user:User){
+  set id(id:number) {
+    this._id = id;
+  }
+
+  set user(user:User) {
     this._user = user;
   }
 
-  public set band(band:Band){
+  set band(band:Band) {
     this._band =  band;
   }
 
-  public set date(date:Date){
+  set date(date:Date) {
     this._date = date;
   }
 
-  public set joined(joined:boolean) {
+  set joined(joined:boolean) {
     this._joined = joined;
   }
 
@@ -50,16 +68,14 @@ export class Novelty{
    *  @method equals
    *  @param {object} object
    */
-  equals(object:any){
-    //At ApiRest object, this comparaison should be the with both ids
-    if (!(object instanceof Novelty)){
+  equals(object:any) {
+    if (!(object instanceof Novelty)) {
       return false;
-    }
-    else{
+    } else {
       var novelty:Novelty = object;
       return (novelty.user.equals(this.user) &&
               novelty.band.equals(this.band) &&
-              novelty.joined ==  this.joined);
+              novelty.joined == this.joined);
     }
   }
 

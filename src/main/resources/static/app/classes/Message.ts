@@ -1,22 +1,23 @@
 /**
- * Class that represent the information related to MiausicBox users
+ * Class that represent the information related to MiausicBox messages
  * @class Message
  */
 import { User } from './User';
 
 export class Message {
-
-
+  
   /* Attributes */
-  private _sender:User;
-  private _destiny:User;
+  private _id: number;
+  private _sender: User;
+  private _destiny: User;
   private _subject: string;
-  private _message:string;
-  private _date:Date;
-  private _read:boolean;
+  private _message: string;
+  private _date: Date;
+  private _read: boolean;
 
   /* Constructor */
-  constructor(sender:User, destiny:User, subject:string, message:string, date:Date, read:boolean) {
+  constructor(id:number, sender:User, destiny:User, subject:string, message:string, date:Date, read:boolean) {
+    this._id = id;
     this._sender = sender;
     this._destiny = destiny;
     this._subject = subject;
@@ -26,6 +27,10 @@ export class Message {
   }
 
   /* Getters & Setters */
+  get id():number {
+    return this._id;
+  }
+
   get sender():User {
     return this._sender;
   }
@@ -34,7 +39,7 @@ export class Message {
     return this._destiny;
   }
 
-  get subject():string{
+  get subject():string {
     return this._subject;
   }
 
@@ -47,8 +52,12 @@ export class Message {
     return this._date;
   }
 
-  get read():boolean{
+  get read():boolean {
     return this._read;
+  }
+
+  set id(id:number) {
+    this._id = id;
   }
 
   set sender(sender:User) {
@@ -71,7 +80,7 @@ export class Message {
     this._date = date;
   }
 
-  set read(value:boolean){
+  set read(value:boolean) {
     this._read=value;
   }
 
@@ -79,8 +88,7 @@ export class Message {
    *  @method equals
    *  @param {object} object
    */
-  equals(object:any){
-    //At ApiRest object, this comparaison should be the with both ids
+  equals(object:any) {
     if (!(object instanceof Message)) {
       return false;
     } else {

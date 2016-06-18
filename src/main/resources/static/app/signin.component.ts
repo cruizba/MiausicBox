@@ -1,9 +1,12 @@
-import { Component, OnInit } from 'angular2/core';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import {Info} from "./classes/Info";
-import {UserService} from "./services/user.service";
-import {User} from "./classes/User";
-
+/**
+ * MiausicBox sign in component.
+ * @component SignInComponent
+ */
+import { Component } from 'angular2/core';
+import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Info } from "./classes/Info";
+import { UserService } from "./services/user.service";
+import { User } from "./classes/User";
 
 @Component({
   selector: 'signin',
@@ -13,6 +16,7 @@ import {User} from "./classes/User";
 })
 
 export class SignInComponent{
+
   username:string;
   password:string;
   password2:string;
@@ -20,17 +24,13 @@ export class SignInComponent{
   newUser:User;
   id:number;
 
-  constructor(private _router: Router,  private _userService: UserService){
-
-  }
+  constructor(private _router: Router,  private _userService: UserService){}
 
   ngOnInit(){
     this.initialization();
   }
 
-  initialization() {
-
-  }
+  initialization(){}
 
   goToIndex(){
     this._router.navigate(['Index']);
@@ -46,7 +46,7 @@ export class SignInComponent{
       return;
     }
     if(this.free){
-      this.newUser = new User(this.username,this.password, this.username, "", "", false, "", "", "", "", [], [], [], []);
+      this.newUser = new User(0, this.username,this.password, this.username, "", "", false, "", "", "", "", [], [], [], []); // <--- FixMe: ID
       this._userService.addUser(this.newUser).subscribe(
           (id => this.id = id),
           (error => alert("addUser error"))

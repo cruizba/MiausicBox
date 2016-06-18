@@ -1,8 +1,10 @@
-import { Component, OnInit } from 'angular2/core';
+/**
+ * MiausicBox events component.
+ * @component EventsComponent
+ */
+import { Component } from 'angular2/core';
 import { EventService } from './services/event.service';
-import {UserService} from "./services/user.service";
-import {ROUTER_DIRECTIVES} from "angular2/router";
-
+import { ROUTER_DIRECTIVES } from "angular2/router";
 
 @Component({
   selector: 'events',
@@ -15,7 +17,6 @@ export class EventsComponent {
 
   events = [];
   id;
-
 
   constructor (private _eventService: EventService){}
 

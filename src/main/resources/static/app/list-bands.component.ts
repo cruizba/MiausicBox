@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from 'angular2/core';
-import {Router, ROUTER_DIRECTIVES} from 'angular2/router';
-import { AppComponent } from './app.component';
-import {BandService} from './services/band.service';
-import {Band} from './classes/Band';
+/**
+ * MiausicBox list bands component.
+ * @component ListBandsComponent
+ */
+import { Component } from 'angular2/core';
+import { ROUTER_DIRECTIVES } from 'angular2/router';
+import { BandService } from './services/band.service';
 
 @Component({
   selector: 'list-bands',
@@ -17,8 +19,7 @@ export class ListBandsComponent {
     members = [];
     //genres = [];
 
-    constructor(private _bandService:BandService) {
-    }
+    constructor(private _bandService:BandService) {}
 
     ngOnInit() {
         this.initBands();
@@ -73,4 +74,5 @@ export class ListBandsComponent {
             result => this.bands = result
         )
     }
+
 }
