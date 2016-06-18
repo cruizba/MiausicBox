@@ -1,5 +1,9 @@
-import {BandComponent} from "./band.component";
-import {Component, OnInit} from 'angular2/core';
+/**
+ * MiausicBox main component.
+ * @component AppComponent
+ */
+import { BandComponent } from "./band.component";
+import { Component } from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router } from 'angular2/router';
 
 import { SignInComponent } from './signin.component';
@@ -16,13 +20,10 @@ import { ListArtistComponent } from './list-artist.component'
 import { ListBandsComponent } from './list-bands.component'
 
 //Services
-//import { UserService } from './services/user.service';
 
 // Classes
-import {FollowingComponent} from "./following.component";
-import {FollowersComponent} from "./followers.component";
-
-
+import { FollowingComponent } from "./following.component";
+import { FollowersComponent } from "./followers.component";
 
 @Component({
     selector: 'my-app',
@@ -115,13 +116,12 @@ export class AppComponent{
 
   //Common variables of the application
 
-
   constructor(private _router: Router){
     this.routerSuscription();
   }
 
 
-  //We suscribe to router to know when we should put the nav on page
+  //We subscribe to router to know when we should put the nav on page
   //and change navbar
   routerSuscription(){
     this._router.subscribe((val) => {

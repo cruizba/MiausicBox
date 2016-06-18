@@ -1,4 +1,8 @@
-import { Component, OnInit } from 'angular2/core';
+/**
+ * MiausicBox band component.
+ * @component BandComponent
+ */
+import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
 import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
@@ -9,7 +13,7 @@ import { BlogBand } from "./classes/BlogBand";
 import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
 import { Band } from './classes/Band'
-import {NoveltyService} from "./services/novelty.service";
+import { NoveltyService } from "./services/novelty.service";
 
 @Component({
   selector: 'band',
@@ -27,16 +31,11 @@ export class BandComponent {
   blogList:BlogBand[] = [];
   //membersList: User[];
   instruments: Instrument[] = [];
-    numFollowers:number;
-    followers:User[]=[];
-    isFollower:boolean;
-   
-
-  //Follows variables
-  //numFollowers:number;
+  numFollowers:number;
+  followers:User[]=[];
+  isFollower:boolean;
 
   constructor(private _routeParams: RouteParams, private _bandService: BandService,
-              private _blogService: BlogService, private _userService:UserService,
               private _noveltyService: NoveltyService){
   }
 
@@ -44,7 +43,6 @@ export class BandComponent {
       this.initialization();
       this.genres();
   }
-
 
     initialization() {
         // Get id from route
@@ -132,7 +130,6 @@ export class BandComponent {
             }
         );
     }
-    
     
     newMember(userName){
 

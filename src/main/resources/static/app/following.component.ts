@@ -1,7 +1,11 @@
-import {UserService} from "./services/user.service";
-import {FollowService} from "./services/follow.service";
-import {Component} from "angular2/core";
-import {ROUTER_DIRECTIVES, RouteParams} from "angular2/router";
+/**
+ * MiausicBox following component.
+ * @component FollowingComponent
+ */
+import { UserService } from "./services/user.service";
+import { FollowService } from "./services/follow.service";
+import { Component } from "angular2/core";
+import { ROUTER_DIRECTIVES, RouteParams } from "angular2/router";
 
 @Component({
     selector: 'following',
@@ -11,15 +15,13 @@ import {ROUTER_DIRECTIVES, RouteParams} from "angular2/router";
 })
 
 export class FollowingComponent{
-    
+
     userList = [];
     id;
     
     constructor(private _followService: FollowService, 
-                private _routeParams: RouteParams){
-        
-    }
-    
+                private _routeParams: RouteParams){}
+
     ngOnInit(){
         this.id = this._routeParams.get('id');
         
@@ -28,7 +30,5 @@ export class FollowingComponent{
             (error => alert("Error get following"))
         )
     }
-
-
 
 }
