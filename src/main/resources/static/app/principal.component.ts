@@ -96,7 +96,7 @@ export class PrincipalComponent {
     deserializeEventList(list) {
         list.map(
             obj => {
-                var eve:Event = new Event(obj.name, obj.date, null, obj.description, obj.bands,
+                var eve:Event = new Event(0, obj.name, obj.date, null, obj.description, obj.bands, // <--- FixMe: ID
                 obj.direction,[]);
                 eve.date = new Date(obj.date);
                 this.novedades.push(eve);

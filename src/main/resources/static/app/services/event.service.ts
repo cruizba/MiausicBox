@@ -105,7 +105,7 @@ export class EventService {
   addNewEvent(name, date, direction, description){
     // TODO
     var user = Info.userLogged;
-    var newEvent = new Event (name, date, user, description, [], direction, [user]);
+    var newEvent = new Event (0, name, date, user, description, [], direction, [user]); // <--- FixMe: ID
     user.events.push(null);
     eventList.push(null);
   }
