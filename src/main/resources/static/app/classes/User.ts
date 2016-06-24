@@ -5,6 +5,7 @@
 import {Band} from './Band'
 import {Instrument} from "./Instrument";
 import {Genre} from "./Genre";
+import {Event} from "./Event";
 
 export class User{
 
@@ -160,11 +161,12 @@ export class User{
     this._youtube = youtube;
   }
 
-  set bands(value:Band[]) {
-    this._bands=value;
+  set bands(bands:Band[]) {
+    this._bands=bands;
   }
-  set events(value:Event[]) {
-    this._events=value;
+
+  set events(events:Event[]) {
+    this._events=events;
   }
 
   /** Return if an User is equal to other
