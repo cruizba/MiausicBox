@@ -148,15 +148,22 @@ export class ArtistaComponent {
       this.isFollowed = false;
       this.numFollowers--;
     }
-    
+
     submitBlog(title, img, text){
         var user: User=Info.userLogged;
-        this._blogService.addBlogUsser(title, img, text, new Date, user);
-        
-        this._blogService.getBlogsByUser(this.user).subscribe(
-            blogList => this.blogList = blogList
-        )
-
+        this._blogService.addBlogUsser(title, img, text, new Date, user).subscribe(
+            response => {
+                if (response.status == 200){
+                    console.log("ok, vamos a ver si se ha guardado ...")
+                    this._userService.getBlogsByUser(this.id).subscribe(
+                        blogList => this.blogList = blogList
+                    )
+                } else {
+                    console.log(response.status);
+                }
+            },
+            error => console.log(error)
+        );
     }
     
     newBand (nameBand, description){

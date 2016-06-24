@@ -107,7 +107,7 @@ public class BlogController {
 //			response = new ResponseEntity<BlogUser>(bloguser, HttpStatus.CONFLICT);
 //		} else {
 //			newbloguser = blogUserRepository.save(bloguser);
-//			response = new ResponseEntity<BlogUser>(newbloguser, HttpStatus.OK);
+			response = new ResponseEntity<BlogUser>(newBlogUser, HttpStatus.OK);
 //		}
 		return response;
 	}
