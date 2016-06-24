@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.controller.BlogController.BlogView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
@@ -119,6 +120,41 @@ public class BandController {
 			newband = bandRepository.save(band);
 			response = new ResponseEntity<Band>(newband, HttpStatus.OK);
 		}
+		return response;
+	}
+	
+//	@JsonView(BlogView.class)
+//	@RequestMapping(value = "/newbloguser/{id}", method = RequestMethod.POST)
+//	public ResponseEntity<BlogUser> createNewBlogUser(@PathVariable long id ,@RequestBody BlogUser bloguser) {
+//		System.out.println("saludos persona 1");
+//		ResponseEntity<BlogUser> response;
+//		//BlogUser newbloguser;
+//		User user = userRepository.findOne(id);
+//		System.out.println("saludos persona 2");
+//		//List<BlogUser> allblogusers = blogUserRepository.findAll();
+//		bloguser.setAuthor(user);
+//		BlogUser newBlogUser = blogUserRepository.save(bloguser);
+//		System.out.println("saludos persona 3");
+//		response = new ResponseEntity<BlogUser>(newBlogUser, HttpStatus.OK);
+//		System.out.println("saludos persona 4");
+////		if (allblogusers.contains(bloguser)) {
+////			response = new ResponseEntity<BlogUser>(bloguser, HttpStatus.CONFLICT);
+////		} else {
+////			newbloguser = blogUserRepository.save(bloguser);
+//			response = new ResponseEntity<BlogUser>(newBlogUser, HttpStatus.OK);
+////		}
+//		return response;
+//	}
+	@JsonView(BandView.class)
+	@RequestMapping(value="/newBand/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Band> createNewBand (@PathVariable long id, @RequestBody Band band){
+		ResponseEntity<Band> response;
+		
+		User user= userRepository.findOne(id);
+		band.setAdministrador(user);
+		Band newBand = bandRepository.save(band);
+		response = new ResponseEntity <Band> (newBand, HttpStatus.OK);
+		
 		return response;
 	}
 
