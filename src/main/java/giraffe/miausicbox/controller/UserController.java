@@ -228,7 +228,7 @@ public class UserController {
 	
 	
 	@JsonView(BandListView.class)
-	@RequestMapping(value = "/artist/{id}/bands", method = RequestMethod.GET)
+	@RequestMapping(value = "/artist/{id}/mybands", method = RequestMethod.GET)
 	public List<Band> getUserBandsById(@PathVariable long id) throws Exception {
 		User user = userRepository.findOne(id);
 		return bandRepository.findBandsByMembers(user);

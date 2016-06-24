@@ -10,7 +10,7 @@ import { Info } from "../classes/Info";
 import { Track } from "../classes/Track";
 
 import { Injectable } from 'angular2/core';
-import { Http, Response } from "angular2/http";
+import {Http, Response, Headers, RequestOptions} from "angular2/http";
 import { withObserver } from '../classes/Utils';
 import 'rxjs/Rx';
 
@@ -101,32 +101,37 @@ export class BandService {
     return withObserver(result);
   }
 
-  getBandsByUsers(users){
-    // TODO
-    var result = []
-    for(let k = 0; k < users.length; k++ ) {
-      var bands = [];
-      for(let i = 0; i < bandList.length; i++){
-        for(let j = 0; j < bandList[i].members.length; j++) {
-          if (bandList[i].members[j].equals(users[k].userObj)) {
-            bands.push({"id": i, "bandObj": bandList[i]});
-          }
-        }
-      }
-      result.push(bands);
-    }
-    console.log(result);
-    return withObserver(result);
+  getBandsByUsers(user){
+
+    let url = "/artist/" + user.getId() + "/mybands";
+    return this.http.get(url).map(
+        response => this.deserializableBands(response)
+    );
+
   }
 
   /* Http POSTs */
-  addNewBand(nameBand, description){
-    // TODO
-    var user=Info.userLogged;
-    var newBand = new Band(0, user, nameBand, description, "", "", "", "", "", [user], [user], [], []); // <-- FixMe: ID
-    user.bands.push(newBand);
-    bandList.push(newBand);
+  addNewBand(user, nameBand, description){
+    // var newBand = new Band(0, user, nameBand, description, "", "", "", "", "", [user], [user], [], []); // <-- FixMe: ID
+
+    let body = '{"groupName": "' + nameBand +
+            '", "description": "'+ description +
+            '", "city": " " ,'+
+            '"facebook": " ",'+
+            '"twitter": " ",'+
+            '"youtube": " ",'+
+            '"members": "'+ [] +
+            '", "followers": "'+ [] +
+            '", "genres": "'+ [] +
+            '", "tracks": "'+[]+
+        '"}';
+    let headers = new Headers ({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.post('newBand/'+user.id, body, options);
   }
+
+
 
   addNewMember (name, id){
     // TODO
@@ -202,4 +207,13 @@ export class BandService {
     return result;
   }
 
+  deserializableBands (response:Response){
+    let result:Band[]=[];
+    response.json().map(
+        obj => result = obj
+    );
+    return result;
+  }
 }
+
+
