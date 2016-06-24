@@ -54,9 +54,6 @@ export var bandList:Band[] = [
     new Band (3, userList[3], "Flower Power", description, "Parla", "", "", "","", banda3, followers3, [],[track1,track2,track3])
 ];
 
-export var emptyUser:User = new User(0, "","","","","",false,"","","","",[],[],[],[]);
-export var emptyband:Band = new Band(0, this.emptyuser,"","","","","","","",[],[],[],[]);
-
 export var blogBandList:BlogBand[] = [
   new BlogBand(1, "Blog #1", "../img/img6.jpg",  blog1, new Date("April 13, 2016 20:16:37"), bandList[0]),
   new BlogBand(2, "Blog #1", "../img/muestra2.jpg",  blog1, new Date("December 3, 2015 15:28:05"), bandList[1]),

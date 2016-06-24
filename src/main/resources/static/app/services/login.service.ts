@@ -5,6 +5,7 @@
 import { Injectable } from 'angular2/core';
 import { Http, RequestOptions, Headers } from 'angular2/http';
 import 'rxjs/Rx';
+import {emptyUser, toInstance} from "../classes/Utils";
 
 // FixMe?
 export interface UserLogged {
@@ -48,7 +49,7 @@ export class LoginService {
 
     private processLogInResponse(response){
         this.isLogged = true;
-        this.user = response.json();
+        this.user = toInstance(emptyUser(), response.json());
         this.isAdmin = this.user.roles.indexOf("ROLE_ADMIN") !== -1;
     }
 

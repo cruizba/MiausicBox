@@ -21,6 +21,10 @@ export class Instrument{
     return this._name;
   }
 
+  get image_url():string {
+    return this._image_url;
+  }
+
   get image_url_white():string {
     return this._image_url_white;
   }
@@ -29,16 +33,29 @@ export class Instrument{
     this._name = name;
   }
 
-  get image_url():string {
-    return this._image_url;
+  set image_url(image_url:string){
+    this._image_url=image_url;
   }
 
-  set image_url(value:string){
-    this._image_url=value;
+  set image_url_white(image_url_white:string){
+    this._image_url_white=image_url_white;
   }
   
   toString(){
     return this.name;
+  }
+
+  /** Return if an Instrument is equal to instrument
+   * @method equals
+   * @param {instrument} Instrument
+   */
+  public equals(object:any):boolean {
+    if (!(object instanceof Instrument)){
+      return false;
+    } else {
+      var instrument:Instrument = object;
+      return (instrument.name == this.name);
+    }
   }
 
 }
