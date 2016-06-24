@@ -74,7 +74,6 @@ export class UserService {
   }
 
   getBlogsByUser(id) {
-    // TODO
     let url = "/artist/" + id + "/myblogs";
     console.log("Peticion a " + url);
     return this.http.get(url).map(

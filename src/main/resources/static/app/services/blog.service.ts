@@ -56,7 +56,7 @@ export class BlogService {
 
   /* Http POSTs */
   addBlogUsser (title, img, text, date, user){
-    img="../img/img6.jpg"; // FixMe
+    //img="../img/img6.jpg"; // <--- FixMe?
 
     let body = '{ "name": "' + title +
         '", "image": "' + img +
@@ -68,7 +68,7 @@ export class BlogService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post('newbloguser/' + user.id, body, options);
+    return this.http.post('/newbloguser/' + user.id, body, options);
   }
 
   /* Deserialize Methods */
