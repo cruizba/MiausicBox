@@ -2,7 +2,7 @@
  *  Class that represent the information related to MiausicBox events
  *  @class Event
  */
-import { User } from './User';
+import {User} from './User';
 import {Band} from "./Band";
 
 export class Event {

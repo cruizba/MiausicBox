@@ -8,12 +8,13 @@ import { Band } from "../classes/Band";
 import { BlogBand } from "../classes/BlogBand";
 import { Info } from "../classes/Info";
 import { Track } from "../classes/Track";
+import { User } from "../classes/User";
+import { Event } from "../classes/Event";
 
 import { Injectable } from 'angular2/core';
 import { Http, Response } from "angular2/http";
-import {withObserver, toInstance, emptyBand, emptyUser} from '../classes/Utils';
+import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent} from '../classes/Utils';
 import 'rxjs/Rx';
-import {User} from "../classes/User";
 
 @Injectable()
 export class BandService {
@@ -208,8 +209,16 @@ export class BandService {
   }
 
   deserializeEvents (response:Response){
-    let result:Event [] = response.json();
-    return result;
+    let eventObjs:any[] = response.json();
+    let events:Event[] = [];
+    eventObjs.map(
+        ev => {
+          let event:Event = toInstance(emptyEvent(), ev);
+          events.push(event);
+        }
+    );
+    console.log(events);
+    return events;
   }
 
   deserializableAllBlogs (response:Response){

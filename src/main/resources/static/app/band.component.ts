@@ -5,6 +5,7 @@
 import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
+import { Event } from './classes/Event'
 import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
 import { Info } from "./classes/Info";
 import { Instrument } from "./classes/Instrument";
@@ -51,22 +52,10 @@ export class BandComponent {
     this._bandService.getBandById(this.id).subscribe(
       result => {
         this.band = result;
-        console.log("Bien jajaja esta es la banda >");
-        console.log(this.band);
-        console.log("Y este userLogged >>");
-        console.log(Info.userLogged);
-
-        this.isAdmin = (this.band.administrador.equals(Info.userLogged));
-        console.log("OK, ~(u_u)~");
-
-        this.isMember = (this.band.isMember(Info.userLogged));
-        this.isFollower = (this.band.isFollower(Info.userLogged));
-        this.numFollowers = (this.band.followers.length);
-
-        console.log("Booleans: 1)isAdmin, 2)isMember, 3)isFollower");
-        console.log(this.isAdmin);
-        console.log(this.isMember);
-        console.log(this.isFollower);
+        this.isAdmin = this.band.administrador.equals(Info.userLogged);
+        this.isMember = this.band.isMember(Info.userLogged);
+        this.isFollower = this.band.isFollower(Info.userLogged);
+        this.numFollowers = this.band.followers.length;
       }
     );
 
