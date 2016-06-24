@@ -225,7 +225,7 @@
             <!-- Fin Boton Añadir Miembro -->
 
             <!-- Boton Añadir Blog -->
-            <div class="insertarButton" *ngIf="isAdmin">
+            <div class="insertarButton" *ngIf="isMember">
                 <button class="formButton btn btn-default" id="insertBlogButton">
                 <div data-toggle="modal" data-target="#agregarBlog" class="row">
                     <div class="col-md-10 textAddBlog">
@@ -264,11 +264,8 @@
         <!-- Fin Información banda -->
     </div>
     <!-- Fin Contenido página -->
-    <!-- Formulario agregar blog -->
 
-    <!-- Fin formulario -->
-
-    <!-- Formulario Crear Blog -->
+    <!-- Formulario Agregar Miembro -->
     <div id="agregarMiembro" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
@@ -297,7 +294,8 @@
         </div>
     </div>
     <!-- Fin formulario -->
-    <!-- Formulario Añadir miembro -->
+
+    <!-- Formulario Crear Blog -->
     <div id="agregarBlog" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
@@ -339,7 +337,7 @@
     </div>
     <!-- Fin formulario -->
 
-    <!-- Formulario Añadir miembro -->
+    <!-- Formulario Agregar Track -->
     <div id="agregarTrack" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">

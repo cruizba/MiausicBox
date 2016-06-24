@@ -10,7 +10,7 @@ import { BlogUser} from "../classes/BlogUser";
 
 import { Injectable } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
-import { withObserver } from '../classes/Utils';
+import {withObserver, emptyUser, toInstance} from '../classes/Utils';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -164,7 +164,7 @@ export class UserService {
   deserializeUser(response:Response) {
     console.log("deserealizeUser > Response:");
     console.log(response);
-    let result:User = response.json();
+    let result:User = toInstance(emptyUser(), response.json());
     console.log("deserealizeUser > Result:");
     return result;
   }

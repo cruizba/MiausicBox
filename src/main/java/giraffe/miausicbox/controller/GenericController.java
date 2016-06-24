@@ -98,6 +98,7 @@ public class GenericController {
 		User us0 = new User("ice6294","1234","Luis Leon Gamez","luigi6294@gmail.com","Soy guay",true
 				,"Alcorcon","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
+		
 		User us1 = new User("carolus","1234","Carlos Ruiz Ballesteros","crbthedevil@gmail.com","Soy guay jaja",true
 				,"Loranca","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());

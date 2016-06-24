@@ -11,8 +11,9 @@ import { Track } from "../classes/Track";
 
 import { Injectable } from 'angular2/core';
 import { Http, Response } from "angular2/http";
-import { withObserver } from '../classes/Utils';
+import {withObserver, toInstance, emptyBand, emptyUser} from '../classes/Utils';
 import 'rxjs/Rx';
+import {User} from "../classes/User";
 
 @Injectable()
 export class BandService {
@@ -40,6 +41,7 @@ export class BandService {
     console.log("Hacemos petciccion a " + url);
     return this.http.get(url).map(
       result => this.deserializeBand(result)
+      //result => toInstance(emptyBand, result.json())
     )
   }
 
@@ -175,13 +177,34 @@ export class BandService {
   }
 
   deserializeBand (response:Response) {
-    console.log("Aca tienes las bandas");
-    console.log("Response ->");
-    console.log(response);
-    let result:Band = response.json();
-    console.log("Result ->");
-    console.log(result);
-    return result;
+    /* get band instance from response */
+    let band:Band = toInstance(emptyBand(), response.json());
+    /* parse administrador */
+    let adminUser:User = toInstance(emptyUser(), response.json().administrador);
+    band.administrador = adminUser;
+    /* parse members */
+    let memberObjs:any[] = response.json().members;
+    let members:User[] = [];
+    memberObjs.map(
+      mem => {
+        let member:User = toInstance(emptyUser(), mem);
+        members.push(member);
+      }
+    );
+    band.members = members;
+    /* parse followers */
+    let followerObjs:any[] = response.json().followers;
+    let followers:User[] = [];
+    followerObjs.map(
+        fol => {
+          let follower:User = toInstance(emptyUser(), fol);
+          followers.push(follower);
+        }
+    );
+    band.followers = followers;
+    /* return */
+    console.log(band);
+    return band;
   }
 
   deserializeEvents (response:Response){
