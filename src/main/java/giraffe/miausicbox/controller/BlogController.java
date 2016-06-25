@@ -48,14 +48,12 @@ public class BlogController {
 	
 	@Autowired
 	private UserComponent userComponent;
-	
-	
+		
 	/**
 	 * VIEWS related to BLOG_CONTROLLER
 	 */
 	
-	interface BlogListView extends BlogBand.Basic {}
-	
+	interface BlogListView extends BlogBand.Basic {}	
 	interface BlogView extends BlogBand.Basic {}
 	
 	/**
@@ -96,6 +94,7 @@ public class BlogController {
 	 * POST RequestMethods related to BLOG_CONTROLLER
 	 */
 	
+	@JsonView(BlogView.class)
 	@RequestMapping(value = "/blogband/new", method = RequestMethod.POST)
 	public ResponseEntity<?> createNewBlogBand(@RequestBody BlogBand blogband) {
 		if(!userComponent.isLoggedUser()){
@@ -138,6 +137,5 @@ public class BlogController {
 		response = new ResponseEntity<BlogBand>(newBlogBand, HttpStatus.OK);
 		return response;
 	}
-	
 
 }

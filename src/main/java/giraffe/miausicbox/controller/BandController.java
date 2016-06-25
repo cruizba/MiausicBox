@@ -16,11 +16,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Track;
 import giraffe.miausicbox.user.User;
 import giraffe.miausicbox.user.UserComponent;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
+import giraffe.miausicbox.repositories.TrackRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 
 @RestController
@@ -38,6 +40,8 @@ public class BandController {
 	private BlogBandRepository blogBandRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private TrackRepository trackRepository;
 	
 	/**
 	 * USER SESSION
@@ -45,7 +49,6 @@ public class BandController {
 	
 	@Autowired
 	private UserComponent userComponent;
-	
 	
 	/**
 	 * VIEWS related to BAND_CONTROLLER
@@ -140,8 +143,9 @@ public class BandController {
 	 * POST RequestMethods related to BAND_CONTROLLER
 	 */
 	
+	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/new", method = RequestMethod.POST)
-	public ResponseEntity<?> createNewband(@RequestBody Band band) {
+	public ResponseEntity<?> createNewBand(@RequestBody Band band) {
 		if(!userComponent.isLoggedUser()){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
@@ -151,6 +155,32 @@ public class BandController {
 		if (allbands.contains(band)) {
 			response = new ResponseEntity<Band>(band, HttpStatus.CONFLICT);
 		} else {
+			newband = bandRepository.save(band);
+			response = new ResponseEntity<Band>(newband, HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{id}/newtrack", method = RequestMethod.POST)
+	public ResponseEntity<?> addNewTrack(@PathVariable long id, @RequestBody Track track) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		ResponseEntity<Band> response;
+		Band band = bandRepository.findOne(id);
+		Track newtrack;
+		Band newband;
+		List<Track> alltracks = trackRepository.findAll();
+		if (band.getTracks().contains(track)) {
+			response = new ResponseEntity<Band>(band, HttpStatus.CONFLICT);
+		} else {
+			if (alltracks.contains(track)) {
+				newtrack = trackRepository.findByNameAndBand(track.getName(), track.getBand());
+			} else {
+				newtrack = trackRepository.save(track);
+			}
+			band.getTracks().add(newtrack);
 			newband = bandRepository.save(band);
 			response = new ResponseEntity<Band>(newband, HttpStatus.OK);
 		}
