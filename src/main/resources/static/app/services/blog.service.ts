@@ -13,6 +13,7 @@ import { Injectable } from 'angular2/core';
 import { Headers, RequestOptions, Http } from "angular2/http";
 import { withObserver } from '../classes/Utils';
 import 'rxjs/Rx';
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class BlogService {

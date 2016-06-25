@@ -41,6 +41,7 @@ export class IndexComponent {
             user => {
                 this.userLogged = user;
 
+                console.log(this.userLogged);
                 //Save the user id
                 Info.userId = this.userLogged.realId;
 
