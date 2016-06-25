@@ -55,7 +55,7 @@ export class BlogService {
   }
 
   /* Http POSTs */
-  addBlogUsser (title, img, text, date, user){
+  addBlogUser(title, img, text, date, user){
     //img="../img/img6.jpg"; // <--- FixMe?
 
     let body = '{ "name": "' + title +
@@ -69,6 +69,22 @@ export class BlogService {
     let options = new RequestOptions({headers});
 
     return this.http.post('/newbloguser/' + user.id, body, options);
+  }
+
+  addBlogBand(title, img, text, date, id){
+    //img="../img/img6.jpg"; // <--- FixMe?
+
+    let body = '{ "name": "' + title +
+        '", "image": "' + img +
+        '", "text": "' + text +
+        '", "date": "' + date +
+        '", "author":null' +
+        '}';
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.post('/newblogband/' + id, body, options);
   }
 
   /* Deserialize Methods */

@@ -13,7 +13,7 @@ import { Event } from "../classes/Event";
 
 import { Injectable } from 'angular2/core';
 import { Http, Response } from "angular2/http";
-import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent} from '../classes/Utils';
+import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent, emptyBlogBand} from '../classes/Utils';
 import 'rxjs/Rx';
 
 @Injectable()
@@ -25,38 +25,37 @@ export class BandService {
   /* Http GETs */
   getAllBands (){
     var url = "/bands";
-    return (this.http.get(url).map(
-      result => this.deserializeAllBands(result)
-    ))
+    return this.http.get(url).map(
+      response => this.deserializeAllBands(response.json())
+    )
   }
   
   getBandByName(name){
     var url= "/bands/name:" + name;
-    return (this.http.get(url).map(
-      result => this.deserializeAllBands(result)
-    ))
+    return this.http.get(url).map(
+      response => this.deserializeAllBands(response.json())
+    )
   }
 
   getBandById (id){
     let url = "/band/"+id;
     console.log("Hacemos petciccion a " + url);
     return this.http.get(url).map(
-      result => this.deserializeBand(result)
-      //result => toInstance(emptyBand, result.json())
+      response => this.deserializeBand(response.json())
     )
   }
 
   getEventByBandById (id){
     let url = "/band/"+id+"/events";
     return this.http.get(url).map(
-      result => this.deserializeEvents(result)
+      response => this.deserializeEvents(response.json())
     )
   }
 
   getBlogsByBand(id) {
     let url = "/band/"+id+"/bandblog";
     return this.http.get(url).map(
-      response => this.deserializableAllBlogs(response)
+      response => this.deserializableAllBlogs(response.json())
     );
   }
 
@@ -75,19 +74,10 @@ export class BandService {
   }
 
   getMembers (id){
-    // TODO
-    console.log("(service) getMembers");
-    var memberList = [];
-    for(let i = 0; i < bandList[id].members.length; i++){
-      memberList.push({"id":userList.indexOf(bandList[id].members[i]), "user":bandList[id].members[i]});
-    }
-    console.log(memberList);
-    return withObserver(memberList);
-  }
-
-  isAdmin(id, user) {
-    // TODO
-    return withObserver(bandList[id].administrador.equals(user));
+    let url = "/band/" + id + "/members";
+    return this.http.get(url).map(
+        response => this.deserializeUsers(response)
+    )
   }
 
   getBandsByUserId(id){
@@ -131,7 +121,7 @@ export class BandService {
     bandList.push(newBand);
   }
 
-  addNewMember (name, id){
+  addNewMember(name, id){
     // TODO
     var mem = bandList[id].members;
     var encontrado = false;
@@ -154,84 +144,78 @@ export class BandService {
     bandList[id].members.push(newMem);
   }
 
-  addNewTrack (name, group, link, id){
+  addNewTrack(name, group, link, id){
     // TODO
     var newTrack = new Track (0, name, group, link); // <-- FixMe: ID
     bandList[id].tracks.push(newTrack);
   }
 
-  /* Deserialize Methods */
-  deserializeAllBands (response:Response) {
-    console.log("Aca tienes las bandas");
-    console.log("Response ->");
-    console.log(response);
-    let result = []
-    response.json().map(
-        obj =>{
-//          var band = {"bandId":obj.id, "bandObj": obj}
-          result.push(obj)
-        }
-    )
-    console.log("Result ->");
-    console.log(result);
-    return result;
-  }
 
-  deserializeBand (response:Response) {
-    /* get band instance from response */
-    let band:Band = toInstance(emptyBand(), response.json());
-    /* parse administrador */
-    let adminUser:User = toInstance(emptyUser(), response.json().administrador);
-    band.administrador = adminUser;
-    /* parse members */
-    let memberObjs:any[] = response.json().members;
-    let members:User[] = [];
-    memberObjs.map(
-      mem => {
-        let member:User = toInstance(emptyUser(), mem);
-        members.push(member);
+  
+  /* Deserialize Methods (Band List) */
+  deserializeAllBands (json) {
+    /* parse each band in json */
+    let bands:Band[] = [];
+    json.map(
+      obj => {
+        bands.push(this.deserializeBasicBand(obj));
       }
     );
-    band.members = members;
-    /* parse followers */
-    let followerObjs:any[] = response.json().followers;
-    let followers:User[] = [];
-    followerObjs.map(
-        fol => {
-          let follower:User = toInstance(emptyUser(), fol);
-          followers.push(follower);
-        }
-    );
-    band.followers = followers;
-    /* return */
-    console.log(band);
+    return bands;
+  }
+
+  deserializeBasicBand(json) {
+    /* get band instance from response */
+    let band:Band = toInstance(emptyBand(), json);
+    band.members = this.deserializeUsers(json.members);
     return band;
   }
 
-  deserializeEvents (response:Response){
-    let eventObjs:any[] = response.json();
+
+
+  /* Deserialize Methods (Band) */
+  deserializeBand(json) {
+    /* get band instance from response */
+    let band:Band = toInstance(emptyBand(), json);
+    band.administrador = toInstance(emptyUser(), json.administrador);
+    band.members = this.deserializeUsers(json.members);
+    band.followers = this.deserializeUsers(json.followers);
+    return band;
+  }
+
+  deserializeEvents(json){
+    /* parse each event in json */
     let events:Event[] = [];
-    eventObjs.map(
-        ev => {
-          let event:Event = toInstance(emptyEvent(), ev);
-          events.push(event);
-        }
+    json.map(
+      obj => {
+        events.push(toInstance(emptyEvent(), obj));
+      }
     );
-    console.log(events);
     return events;
   }
 
-  deserializableAllBlogs (response:Response){
-    let result:BlogBand[]= [];
-    response.json().map(
-        obj => {
-          let bb: BlogBand = obj;
-          let d: Date = new Date (obj.date);
-          bb.date = d;
-          result.push(bb)
-        }
+  deserializableAllBlogs(json){
+    /* parse each blog in json */
+    let blogs:BlogBand[] = [];
+    json.map(
+      obj => {
+        let blogBand:BlogBand = toInstance(emptyBlogBand(), obj);
+        blogBand.date = new Date (obj.date);
+        blogs.push(blogBand)
+      }
     );
-    return result;
+    return blogs;
+  }
+
+  deserializeUsers(json){
+    /* parse list of users in json */
+    let users:User[] = [];
+    json.map(
+      obj => {
+        users.push(toInstance(emptyUser(), obj));
+      }
+    );
+    return users;
   }
 
 }
