@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
+import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.BlogUserRepository;
 import giraffe.miausicbox.repositories.UserRepository;
@@ -35,6 +37,10 @@ public class BlogController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private BandRepository bandRepository;
+	
 	/**
 	 * VIEWS related to BLOG_CONTROLLER
 	 */
@@ -92,23 +98,22 @@ public class BlogController {
 	@JsonView(BlogView.class)
 	@RequestMapping(value = "/newbloguser/{id}", method = RequestMethod.POST)
 	public ResponseEntity<BlogUser> createNewBlogUser(@PathVariable long id ,@RequestBody BlogUser bloguser) {
-		System.out.println("saludos persona 1");
 		ResponseEntity<BlogUser> response;
-		//BlogUser newbloguser;
 		User user = userRepository.findOne(id);
-		System.out.println("saludos persona 2");
-		//List<BlogUser> allblogusers = blogUserRepository.findAll();
 		bloguser.setAuthor(user);
 		BlogUser newBlogUser = blogUserRepository.save(bloguser);
-		System.out.println("saludos persona 3");
 		response = new ResponseEntity<BlogUser>(newBlogUser, HttpStatus.OK);
-		System.out.println("saludos persona 4");
-//		if (allblogusers.contains(bloguser)) {
-//			response = new ResponseEntity<BlogUser>(bloguser, HttpStatus.CONFLICT);
-//		} else {
-//			newbloguser = blogUserRepository.save(bloguser);
-			response = new ResponseEntity<BlogUser>(newBlogUser, HttpStatus.OK);
-//		}
+		return response;
+	}
+	
+	@JsonView(BlogView.class)
+	@RequestMapping(value = "/newblogband/{id}", method = RequestMethod.POST)
+	public ResponseEntity<BlogBand> createNewBlogBand(@PathVariable long id ,@RequestBody BlogBand blogband) {
+		ResponseEntity<BlogBand> response;
+		Band band = bandRepository.findOne(id);
+		blogband.setAuthor(band);
+		BlogBand newBlogBand = blogBandRepository.save(blogband);
+		response = new ResponseEntity<BlogBand>(newBlogBand, HttpStatus.OK);
 		return response;
 	}
 	

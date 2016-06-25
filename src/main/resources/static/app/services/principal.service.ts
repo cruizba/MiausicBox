@@ -12,7 +12,7 @@ export class PrincipalService{
   /* Constructor */
   constructor(private http:Http) {}
 
-  /* Http GETs */
+  /* Http GETs */ // FixMe: deserialize responses?
   getHell(id) {
     let url0 = "/artist/" + id + "/allusersblogs";
     let url1 = "/artist/" + id + "/allbandsblogs";

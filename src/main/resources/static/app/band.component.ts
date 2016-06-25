@@ -37,7 +37,7 @@ export class BandComponent {
   isFollower:boolean;
 
   constructor(private _routeParams: RouteParams, private _bandService: BandService,
-              private _noveltyService: NoveltyService){
+              private _blogService: BlogService, private _noveltyService: NoveltyService){
   }
 
   ngOnInit() {
@@ -113,6 +113,23 @@ export class BandComponent {
     this._bandService.getBandById(this.id).subscribe(
       (band => this.band = band),
       (error => alert("getBandById error"))
+    );
+  }
+
+  submitBlog(title, img, text){
+    var user: User=Info.userLogged;
+    this._blogService.addBlogBand(title, img, text, new Date, this.id).subscribe(
+        response => {
+          if (response.status == 200){
+            console.log("ok, vamos a ver si se ha guardado ...")
+            this._bandService.getBlogsByBand(this.id).subscribe(
+                blogList => this.blogList = blogList
+            )
+          } else {
+            console.log(response.status);
+          }
+        },
+        error => console.log(error)
     );
   }
 

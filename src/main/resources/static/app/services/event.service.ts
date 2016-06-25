@@ -10,7 +10,8 @@ import { Info } from "../classes/Info";
 
 import { Injectable } from 'angular2/core';
 import { Http, Response } from "angular2/http";
-import { withObserver } from '../classes/Utils';
+import { withObserver, emptyEvent, toInstance, emptyUser, emptyBand } from '../classes/Utils';
+import {Band} from "../classes/Band";
 
 @Injectable()
 export class EventService {
@@ -19,18 +20,18 @@ export class EventService {
   constructor(private http: Http){}
 
   /* Http GETs */
-  getAllEvent (){
+  getAllEvents (){
     var url = "/events";
-    return (this.http.get(url).map(
-      result => this.deserializeAllEvents(result)
-    ))
+    return this.http.get(url).map(
+      result => this.deserializeAllEvents(result.json())
+    )
   }
     
   getEventByID (id){
     let url = "/event/" + id;
     console.log("Hacemos peticion a" + url);
     return this.http.get(url).map(
-      result => this.deserializeEvent(result)
+      result => this.deserializeEvent(result.json())
     )
   }
 
@@ -52,14 +53,14 @@ export class EventService {
   getEventsByName (name:String){
     let url = "/events/name:" + name;
     return this.http.get(url).map(
-      result => this.deserializeAllEvents(result)
+      result => this.deserializeAllEvents(result.json())
     )
   }
 
   getEventsByBandName (name:String){
     let url = "/events/bandName:" + name;
     return this.http.get(url).map(
-      result => this.deserializeAllEvents(result)
+      result => this.deserializeAllEvents(result.json())
     )
   }
 
@@ -98,7 +99,7 @@ export class EventService {
   getEventsByUserId(id){
     let url = "/events/userId:" + id;
     return this.http.get(url).map(
-        result => result.json()
+        result => this.deserializeAllEvents(result.json())
     )
   }
     
@@ -110,36 +111,73 @@ export class EventService {
     eventList.push(null);
   }
 
-  /* Deserialize Methods */
-  deserializeAllEvents (response:Response) {
-    console.log("Aca tienes los eventos");
-    console.log("Response ->");
-    console.log(response);
-    let result = [];
-    response.json().map(
+
+
+  /* Deserialize Methods (Event List) */
+  deserializeAllEvents (json) {
+    /* parse each band in json */
+    let events:Event[] = [];
+    json.map(
       obj => {
-        let eve:Event = obj;
-        eve.date = new Date(obj.date);
-//        var event = {"eventId":obj.id, "eventObj": obj}
-        result.push(eve);
+        let event:Event = this.deserializeBasicEvent(obj);
+        events.push(event);
       }
-    )
-    console.log("Result ->");
-    console.log(result);
-    return result;
+    );
+    return events;
   }
 
-  deserializeEvent(response:Response) {
-    console.log("deserealizeEvent > Response:");
-    console.log(response);
-    let body = response.json();
-    let result:Event = body;
-    result.date = new Date(body.date);
-    let user:User = new User(0, body.creator.userName,"","","","",false,"","","","",[],[],[],[]); // <-- FixMe: ID
-    result.creator = user;
-    console.log("deserealizeEvent > Result:");
-    console.log(result);
-    return result;
+  deserializeBasicEvent(json) {
+    let event:Event = toInstance(emptyEvent(), json);
+    event.date = new Date(json.date);
+    event.bands = this.deserializeBasicBands(json.bands);
+    return event;
+  }
+
+  deserializeBasicBands (json) {
+    /* parse each band in json */
+    let bands:Band[] = [];
+    json.map(
+      obj => {
+        bands.push(toInstance(emptyBand(),obj));
+      }
+    );
+    return bands;
+  }
+
+
+
+  /* Deserialize Methods (Event) */
+  deserializeEvent(json) {
+    let event:Event = toInstance(emptyEvent(), json);
+    event.date = new Date(json.date);
+    event.creator = toInstance(emptyUser(), json);
+    event.followers = this.deserializeUsers(json.followers);
+    event.bands = this.deserializeBands(json.bands);
+    return event;
+  }
+
+  deserializeBands (json) {
+    /* parse each band in json */
+    let bands:Band[] = [];
+    json.map(
+      obj => {
+        let band:Band = toInstance(emptyBand(), obj);
+        band.members = this.deserializeUsers(obj.members);
+        bands.push(band);
+      }
+    );
+    return bands;
+  }
+
+  deserializeUsers(json){
+    /* parse a list of users in json */
+    let users:User[] = [];
+    json.map(
+      obj => {
+        users.push(toInstance(emptyUser(), obj));
+      }
+    );
+    return users;
   }
 
 }

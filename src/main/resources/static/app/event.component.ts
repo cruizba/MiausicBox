@@ -27,64 +27,32 @@ export class EventComponent {
     constructor (private _eventService:EventService, private _bandService:BandService,
                  private _routerParams:RouteParams){}
 
-    ngOnInit (){
+    ngOnInit(){
         this.id = this._routerParams.get('id');
-
         this.inizialitationEvent();
-        //this.inizialitationIsFollower();
-        //this.inizialitationIsCreator();
     }
 
-    inizialitationEvent (){
-        console.log("INITIALIZATION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    inizialitationEvent(){
         this._eventService.getEventByID(this.id).subscribe(
             event => {
-                console.log("Nos ha tocado esto >");
-                console.log(event);
                 this.event = event;
-                if (this.event.creator.equals(Info.userLogged)){
-                    console.log("Es creador");
-                    this.isCreator = true;
-                } else {
-                    console.log("NO es creador");
-                    this.isCreator = false;
-                }
+                this.isCreator = this.event.creator.equals(Info.userLogged);
+                this.isFollower = this.event.isFollower(Info.userLogged);
             },
             error =>{
                 this.event = null;
-                alert ("Event not found");
+                alert(error);
             }
         );
     }
-    /*
-    inizialitationIsFollower(){
-        this._eventService.getIsFollower(this.id).subscribe(
-            follow => this.isFollower = follow,
-            error=> {
-                this.isFollower=null;
-                alert("Error");
-            }
-        );
 
-    }*/
-/*
-    inizialitationIsCreator(){
-        this._eventService.getIsCreator(this.id).subscribe(
-            creator => this.isCreator = creator,
-            error => {
-                this.isCreator = null;
-                alert ("Error");
-            }
-        );
-    }*/
-    membersBand (i) {
-        console.log("me meto en memberBand");
+    membersBand(i) {
         var result = [];
         this._bandService.getMembers(i).subscribe(
             mem => result = mem,
             error => {
                 result = null;
-                alert("Members not found");
+                alert(error);
             }
         );
         return result;
