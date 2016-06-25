@@ -52,6 +52,7 @@ export class BandService {
     )
   }
 
+  // FixMe: move this method to blog.service.ts
   getBlogsByBand(id) {
     let url = "/band/"+id+"/bandblog";
     return this.http.get(url).map(
@@ -194,6 +195,7 @@ export class BandService {
     return events;
   }
 
+  // FixMe: move this method to blog.service.ts
   deserializableAllBlogs(json){
     /* parse each blog in json */
     let blogs:BlogBand[] = [];
@@ -204,6 +206,9 @@ export class BandService {
         blogs.push(blogBand)
       }
     );
+    blogs.sort(function(a,b) {
+      return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
+    });
     return blogs;
   }
 

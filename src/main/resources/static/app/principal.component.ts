@@ -35,16 +35,18 @@ export class PrincipalComponent {
   initialization(){
     //Hell Call
     this._principalService.getHell(Info.userId).subscribe(
-        data => {
-          this.deserializeBlogUserList(data[0]);
-          this.deserializeBlogBandList(data[1]);
-          this.deserializeNoveltyList(data[2]);
-          this.deserializeEventList(data[3]);
-          this.novedades.sort(function(a,b) {
-              return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
-          });
-        },
-        error => console.log(error)
+      data => {
+        // FixMe: move deserializeMethods to principal.service.ts
+        this.deserializeBlogUserList(data[0]);
+        this.deserializeBlogBandList(data[1]);
+        this.deserializeNoveltyList(data[2]);
+        this.deserializeEventList(data[3]);
+        // Deserialize methods push obj to novedades
+        this.novedades.sort(function(a,b) {
+            return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
+        });
+      },
+      error => console.log(error)
     );
   }
 
