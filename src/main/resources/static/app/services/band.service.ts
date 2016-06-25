@@ -12,7 +12,7 @@ import { User } from "../classes/User";
 import { Event } from "../classes/Event";
 
 import { Injectable } from 'angular2/core';
-import { Http, Response } from "angular2/http";
+import {Http, Response, RequestOptions, Headers} from "angular2/http";
 import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent, emptyBlogBand} from '../classes/Utils';
 import 'rxjs/Rx';
 
@@ -145,10 +145,19 @@ export class BandService {
     bandList[id].members.push(newMem);
   }
 
-  addNewTrack(name, group, link, id){
-    // TODO
-    var newTrack = new Track (0, name, group, link); // <-- FixMe: ID
-    bandList[id].tracks.push(newTrack);
+  addNewTrack(name, band, link, id){
+    //img="../img/img6.jpg"; // <--- FixMe?
+
+    let body = '{ "name": "' + name +
+        '", "band": "' + band +
+        '", "link": "' + link +
+        '", "author":null' +
+        '}';
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.post('/band/' + id + '/newtrack', body, options);
   }
 
 

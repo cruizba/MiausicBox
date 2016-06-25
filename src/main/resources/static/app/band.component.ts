@@ -108,28 +108,36 @@ export class BandComponent {
     this._noveltyService.newNovelty(userName, this.band, new Date(), true);
   }
 
-  newTrack (name, group, link){
-    this._bandService.addNewTrack(name, group, link, this.id);
-    this._bandService.getBandById(this.id).subscribe(
-      (band => this.band = band),
-      (error => alert("getBandById error"))
+  newTrack (name, band, link){
+    this._bandService.addNewTrack(name, band, link, this.id).subscribe(
+      response => {
+        if (response.status == 200) {
+          this._bandService.getBandById(this.id).subscribe(
+            band => this.band = band,
+            error => alert("getBandById error")
+          );
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
     );
   }
 
   submitBlog(title, img, text){
-    var user: User=Info.userLogged;
     this._blogService.addBlogBand(title, img, text, new Date, this.id).subscribe(
-        response => {
-          if (response.status == 200){
-            console.log("ok, vamos a ver si se ha guardado ...")
-            this._bandService.getBlogsByBand(this.id).subscribe(
-                blogList => this.blogList = blogList
-            )
-          } else {
-            console.log(response.status);
-          }
-        },
-        error => console.log(error)
+      response => {
+        if (response.status == 200){
+          console.log("ok, vamos a ver si se ha guardado ...")
+          this._bandService.getBlogsByBand(this.id).subscribe(
+            blogList => this.blogList = blogList,
+            error => alert("getBandById error")
+          )
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
     );
   }
 
