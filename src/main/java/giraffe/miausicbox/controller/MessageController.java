@@ -16,6 +16,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import giraffe.miausicbox.controller.EventController.EventListView;
 import giraffe.miausicbox.model.Message;
 import giraffe.miausicbox.repositories.MessageRepository;
+import giraffe.miausicbox.user.UserComponent;
 
 @RestController
 public class MessageController {
@@ -28,10 +29,18 @@ public class MessageController {
 	private MessageRepository messageRepository;
 	
 	/**
+	 * USER SESSION
+	 */
+	
+	@Autowired
+	private UserComponent userComponent;
+	
+	/**
 	 * VIEWS related to MESSAGE_CONTROLLER
 	 */
 	
 	interface MessageListView extends Message.Basic {}
+	interface MessageView extends Message.Basic {}
 	
 	/**
 	 * GET RequestMethods related to MESSAGE_CONTROLLER
@@ -39,20 +48,24 @@ public class MessageController {
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/artist/{id}/messages")
-	public List<Message> getMessagesById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getMessagesById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		List<Message> messages = messageRepository.findAll();
 		for(Message m : messages) {
 			if (m.getSender().getId() != id || m.getDestiny().getId() != id) {
 				messages.remove(m);
 			}
 		}
-		return messages;
+		return new ResponseEntity<>(messages, HttpStatus.OK);
 	}
 	
 	/**
 	 * POST RequestMethods related to MESSAGE_CONTROLLER
 	 */
-	
+
+	@JsonView(MessageView.class)
 	@RequestMapping(value = "/message/new", method = RequestMethod.POST)
 	public ResponseEntity<Message> createNewUser(@RequestBody Message message) {
 		ResponseEntity<Message> response;

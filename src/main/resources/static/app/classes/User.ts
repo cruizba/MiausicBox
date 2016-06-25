@@ -5,6 +5,7 @@
 import {Band} from './Band'
 import {Instrument} from "./Instrument";
 import {Genre} from "./Genre";
+import {Event} from "./Event";
 
 export class User{
 
@@ -160,24 +161,56 @@ export class User{
     this._youtube = youtube;
   }
 
-  set bands(value:Band[]) {
-    this._bands=value;
+  set bands(bands:Band[]) {
+    this._bands=bands;
   }
-  set events(value:Event[]) {
-    this._events=value;
+
+  set events(events:Event[]) {
+    this._events=events;
   }
 
   /** Return if an User is equal to other
-    @method equals
-    @param {User} User
-  */
-  equals(object:any) {
+   *  @method equals
+   *  @param {User} User
+   */
+  public equals(object:any):boolean {
     if (!(object instanceof User)){
       return false;
     } else {
       var user:User = object;
       return (user.userName == this.userName);
     }
+  }
+
+  /** Return if User plays a Instrument
+   *  @method hasInstrument
+   *  @param {instrument} Instrument
+   */
+  hasInstrument(instrument:Instrument):boolean {
+    var found = false;
+    for (var i = 0; i < this.instruments.length; i++) {
+      if (this.instruments[i].equals(instrument)) {
+        found = true;
+        break;
+      }
+    }
+    return found;
+  }
+
+
+  /** Return if User has an Event
+   *  @method hasEvent
+   *  @param {event} Event
+   */
+  hasEvent(event:Event):boolean {
+    var found = false;
+    for (var i = 0; i < this.events.length; i++) {
+      if (this.events[i].equals(event)) {
+        found = true;
+        break;
+      }
+    }
+    return found;
   }
 
 }

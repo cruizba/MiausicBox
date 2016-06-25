@@ -16,12 +16,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 import giraffe.miausicbox.controller.BlogController.BlogView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
-import giraffe.miausicbox.model.BlogUser;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Track;
 import giraffe.miausicbox.user.User;
+import giraffe.miausicbox.user.UserComponent;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
+import giraffe.miausicbox.repositories.TrackRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 
 @RestController
@@ -39,6 +41,15 @@ public class BandController {
 	private BlogBandRepository blogBandRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private TrackRepository trackRepository;
+	
+	/**
+	 * USER SESSION
+	 */
+	
+	@Autowired
+	private UserComponent userComponent;
 	
 	/**
 	 * VIEWS related to BAND_CONTROLLER
@@ -48,6 +59,7 @@ public class BandController {
 	interface BandView extends Band.Basic, Band.WebLinks, Band.Genres, Band.Tracks, Band.Members, Band.Admin, Band.Followers {}
 	interface EventView extends Event.Basic, Event.Bands {}
 	interface BlogBandListView extends BlogBand.Basic {}
+	interface UsersListView extends User.Basic {}
 	
 	/**
 	 * GET RequestMethods related to BAND_CONTROLLER
@@ -55,40 +67,65 @@ public class BandController {
 	
 	@JsonView(BandView.class)
 	@RequestMapping(value="/band/{id}", method = RequestMethod.GET)
-	public Band getBandById(@PathVariable long id) throws Exception {
-		return bandRepository.findOne(id);
+	public ResponseEntity<?> getBandById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(bandRepository.findOne(id), HttpStatus.OK);
 	}
 	
 	@JsonView(EventView.class)
 	@RequestMapping(value="/band/{id}/events", method = RequestMethod.GET)
-	public List<Event> getEventByBandById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getEventByBandById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Band band = bandRepository.getOne(id);
 		System.out.println("Banda: " + band.getGroupName());
-		return eventRepository.findEventByBands(band);
+		return new ResponseEntity<>(eventRepository.findEventByBands(band), HttpStatus.OK);
 	}
 	
 	@JsonView(BandListView.class)
 	@RequestMapping(value="/bands/name:{name}", method = RequestMethod.GET)
-	public List<Band> getBandByGroupName(@PathVariable String name) throws Exception {
-		return bandRepository.findBandByGroupName(name);
+	public ResponseEntity<?> getBandByGroupName(@PathVariable String name) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(bandRepository.findBandByGroupName(name), HttpStatus.OK);
+	}
+	
+	@JsonView(UsersListView.class)
+	@RequestMapping(value="/bands/{id}/members", method = RequestMethod.GET)
+	public List<User> getBandByGroupName(@PathVariable long id) throws Exception {
+		Band band = bandRepository.getOne(id);
+		return band.getMembers();
 	}
 	
 	@JsonView(BandListView.class)
 	@RequestMapping(value="/bands", method = RequestMethod.GET)
-	public List <Band> getAllBands( ) throws Exception {
-		return bandRepository.findAll();
+	public ResponseEntity<?> getAllBands( ) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(bandRepository.findAll(), HttpStatus.OK);
 	}
 	
 	@JsonView(BlogBandListView.class)
 	@RequestMapping(value = "/band/{id}/bandblog", method = RequestMethod.GET)
-	public List<BlogBand> getBlogsByBand(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getBlogsByBand(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Band band = bandRepository.findOne(id);
-		return blogBandRepository.findBlogBandByAuthor(band);
+		return new ResponseEntity<>(blogBandRepository.findBlogBandByAuthor(band), HttpStatus.OK);
 	}
 	
 	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/{ba}/tofollow/{us}", method = RequestMethod.GET)
-	public boolean getFollowsBand(@PathVariable long ba, @PathVariable long us) throws Exception {
+	public ResponseEntity<?> getFollowsBand(@PathVariable long ba, @PathVariable long us) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Band band = bandRepository.findOne(ba);
 		User user = userRepository.findOne(us);
 		List<User> list = band.getFollowers();
@@ -100,17 +137,19 @@ public class BandController {
 		}
 		System.out.println(band.getFollowers());
 		bandRepository.save(band);
-		return !follows;
+		return new ResponseEntity<>(!follows, HttpStatus.OK);
 	}
 	
 	/**
-	 * POST RequestMethods related to BAND_CONTROLLE
+	 * POST RequestMethods related to BAND_CONTROLLER
 	 */
 	
-	
-	
+	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/new", method = RequestMethod.POST)
-	public ResponseEntity<Band> createNewband(@RequestBody Band band) {
+	public ResponseEntity<?> createNewBand(@RequestBody Band band) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<Band> response;
 		Band newband;
 		List<Band> allbands = bandRepository.findAll();
@@ -124,6 +163,7 @@ public class BandController {
 	}
 	
 
+
 	@JsonView(BandView.class)
 	@RequestMapping(value="/newBand/{id}", method = RequestMethod.POST)
 	public ResponseEntity<Band> createNewBand (@PathVariable long id, @RequestBody Band band){
@@ -134,6 +174,35 @@ public class BandController {
 		Band newBand = bandRepository.save(band);
 		response = new ResponseEntity <Band> (newBand, HttpStatus.OK);
 		
+		return response;
+		
+}
+		
+
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{id}/newtrack", method = RequestMethod.POST)
+	public ResponseEntity<?> addNewTrack(@PathVariable long id, @RequestBody Track track) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		ResponseEntity<Band> response;
+		Band band = bandRepository.findOne(id);
+		Track newtrack;
+		Band newband;
+		List<Track> alltracks = trackRepository.findAll();
+		if (band.getTracks().contains(track)) {
+			response = new ResponseEntity<Band>(band, HttpStatus.CONFLICT);
+		} else {
+			if (alltracks.contains(track)) {
+				newtrack = trackRepository.findByNameAndBand(track.getName(), track.getBand());
+			} else {
+				newtrack = trackRepository.save(track);
+			}
+			band.getTracks().add(newtrack);
+			newband = bandRepository.save(band);
+			response = new ResponseEntity<Band>(newband, HttpStatus.OK);
+		}
+
 		return response;
 	}
 

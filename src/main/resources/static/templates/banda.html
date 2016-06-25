@@ -209,7 +209,7 @@
                 </div>
             </div>
             <!-- Fin Tracklist banda -->
-            <!-- Boton Añadir Miembro -->
+            <!-- Boton Añadir Track -->
             <div class="insertarButton" *ngIf="isAdmin">
                 <button class="formButton btn btn-default" id="insertMemberButton">
                     <div data-toggle="modal" data-target="#agregarTrack" class="row">
@@ -222,10 +222,10 @@
                     </div>
                 </button>
             </div>
-            <!-- Fin Boton Añadir Miembro -->
+            <!-- Fin Boton Añadir Track -->
 
             <!-- Boton Añadir Blog -->
-            <div class="insertarButton" *ngIf="isAdmin">
+            <div class="insertarButton" *ngIf="isMember">
                 <button class="formButton btn btn-default" id="insertBlogButton">
                 <div data-toggle="modal" data-target="#agregarBlog" class="row">
                     <div class="col-md-10 textAddBlog">
@@ -247,7 +247,7 @@
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image">
+                            <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image" *ngIf="blog.hasImage()">
                             <p class="content-panel">{{blog.text}}</p>
                         </div>
                     </div>
@@ -264,11 +264,8 @@
         <!-- Fin Información banda -->
     </div>
     <!-- Fin Contenido página -->
-    <!-- Formulario agregar blog -->
 
-    <!-- Fin formulario -->
-
-    <!-- Formulario Crear Blog -->
+    <!-- Formulario Agregar Miembro -->
     <div id="agregarMiembro" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
@@ -282,7 +279,7 @@
                                 <div class="form-group">
                                     <label class="formLabel control-label col-sm-2" for="imagen">Nombre:</label>
                                     <div class="col-sm-10">
-                                        <input #username type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                                        <input #username type="text" class="form-control" id="imagen" placeholder="Introduce el nombre del nuevo miembro">
                                     </div>
                                 </div>
 
@@ -297,38 +294,39 @@
         </div>
     </div>
     <!-- Fin formulario -->
-    <!-- Formulario Añadir miembro -->
+
+    <!-- Formulario agregar blog -->
     <div id="agregarBlog" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
                 <div class="formulario" id="formularioBlog">
                     <div class="panel panel-default">
                         <div class="panel-head">
-                            <h3 class="content-panel">Nueva Cancion</h3>
+                            <h3 class="content-panel">Nuevo Blog</h3>
                         </div>
                         <div class="panel-body">
                             <form class="form-horizontal" role="form">
                                 <div class="form-group">
-                                    <label class="formLabel control-label col-sm-2" for="imagen">Nombre de la cancion:</label>
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
                                     <div class="col-sm-10">
-                                        <input #nameSong type="text" class="form-control" id="imagen" placeholder="Introduce nombre">
+                                        <input #titleBlog type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="formLabel control-label col-sm-2" for="imagen">Grupo</label>
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
                                     <div class="col-sm-10">
-                                        <input #nameGroup type="text" class="form-control" id="imagen" placeholder="Introduce nombre">
+                                        <input #imgBlog type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="formLabel control-label col-sm-2" for="imagen">Link</label>
+                                    <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
                                     <div class="col-sm-10">
-                                        <input #link type="text" class="form-control" id="imagen" placeholder="Introduce nombre">
+                                        <textarea #textBlog class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
                                     </div>
                                 </div>
-
                                 <div class="BotonFormulario">
-                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="newTrack(nameSong.value, nameGroup.value, link.value); nameSong.value=null; nameGroup.value=null; link.value=null">Enviar</button>
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="submitBlog(titleBlog.value, imgBlog.value, textBlog.value); titleBlog.value=null; imgBlog.value=null; textBlog.value=null">
+                                        Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -339,7 +337,7 @@
     </div>
     <!-- Fin formulario -->
 
-    <!-- Formulario Añadir miembro -->
+    <!-- Formulario Agregar Track -->
     <div id="agregarTrack" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">

@@ -40,7 +40,7 @@ export class ArtistaComponent {
   //Notification
   numMessages:number;
 
-  //Variables modify instruments
+  //Variables modify
   intInstrument;
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
@@ -70,7 +70,7 @@ export class ArtistaComponent {
         //Get user information
         this._userService.getUserById(this.id).subscribe(
             user => {
-                this.user = user
+                this.user = user;
                 //Check if is an artist
                 this.isArtist = this.user.isArtist;
             }
@@ -153,7 +153,7 @@ export class ArtistaComponent {
 
     submitBlog(title, img, text){
         var user: User=Info.userLogged;
-        this._blogService.addBlogUsser(title, img, text, new Date, user).subscribe(
+        this._blogService.addBlogUser(title, img, text, new Date, user).subscribe(
             response => {
                 if (response.status == 200){
                     console.log("ok, vamos a ver si se ha guardado ...")
@@ -175,10 +175,29 @@ export class ArtistaComponent {
     }
 
     newEvent (name, date, direction, description){
-        var auxdate = new Date (date);
-        this._eventService.addNewEvent(name, auxdate, direction, description);
+        var auxdate = new Date (date).toDateString();
+        this._eventService.addNewEvent(name, auxdate, direction, description).subscribe(
+            response => {
+                if (response.status == 200){
+                    console.log("EVENTO RECIBIDO")
+                }
+            }
+        );
     }
-
+    
+    editCity(city){
+        this._userService.setCity(city).subscribe(
+        	response => {
+        		if(response.status == 200){
+        			this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    )
+        		}	
+        	},
+        	error => alert("No se ha podido editar el campo")
+        );
+    }
+    
     addInstrument(num){
         this._userService.setInstrument(num);
         this.instrumentsUser();

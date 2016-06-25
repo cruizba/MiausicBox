@@ -1,5 +1,6 @@
 package giraffe.miausicbox.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.User;
+import giraffe.miausicbox.user.UserComponent;
 
 @RestController
 public class EventController {
@@ -37,6 +39,13 @@ public class EventController {
 	private BandRepository bandRepository;
 	
 	/**
+	 * USER SESSION
+	 */
+	
+	@Autowired
+	private UserComponent userComponent;
+	
+	/**
 	 * VIEWS related to EVENT_CONTROLLER
 	 */
 	
@@ -50,63 +59,91 @@ public class EventController {
 	
 	@JsonView(EventView.class)
 	@RequestMapping("/event/{id}")
-	public Event getEventById(@PathVariable long id) throws Exception {
-		return eventRepository.findOne(id);
+	public ResponseEntity<?> getEventById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(eventRepository.findOne(id), HttpStatus.OK);
 	}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/events")
-	public List<Event> getAllEvents() throws Exception {
-		return eventRepository.findAll();
+	public ResponseEntity<?> getAllEvents() throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(eventRepository.findAll(), HttpStatus.OK);
 	}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/events/name:{name}")
-	public List<Event> getEventsByName(@PathVariable String name) throws Exception {
-		return eventRepository.findEventByName(name);
+	public ResponseEntity<?> getEventsByName(@PathVariable String name) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(eventRepository.findEventByName(name), HttpStatus.OK);
 	}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/events/bandName:{name}")
-	public List<Event> getEventsByBandName(@PathVariable String name) throws Exception {
+	public ResponseEntity<?> getEventsByBandName(@PathVariable String name) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		List<Band> band = bandRepository.findBandByGroupName(name);
-		return eventRepository.findEventByBandsIn(band);
+		return new ResponseEntity<>(eventRepository.findEventByBandsIn(band), HttpStatus.OK);
 	}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/events/userId:{id}")
-	public List<Event> getEventsByUserId(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getEventsByUserId(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.getOne(id);
 		List<Event> events = eventRepository.findEventByCreator(user);
 		events.addAll(eventRepository.findEventByFollowers(user));
-		return Utils.removeDuplicated(events);
+		return new ResponseEntity<>(Utils.removeDuplicated(events), HttpStatus.OK);
 	}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping("/principal/{id}/events")
-	public List<Event> getAllEventsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getAllEventsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.getOne(id);
 		List<Event> events = eventRepository.findEventByCreator(user);
 		events.addAll(eventRepository.findEventByFollowers(user));
-		return Utils.removeDuplicated(events);
+		return new ResponseEntity<>(Utils.removeDuplicated(events), HttpStatus.OK);
 	}
 	
 	/**
 	 * POST RequestMethods related to EVENT_CONTROLLER
 	 */
 	
-	@RequestMapping(value = "/event/new", method = RequestMethod.POST)
-	public ResponseEntity<Event> createNewEvent(@RequestBody Event event) {
+	@JsonView(EventView.class)
+	@RequestMapping(value = "/newEvent/{id}", method = RequestMethod.POST)
+	public ResponseEntity<?> createNewEvent(@PathVariable long id ,@RequestBody Event event) {
 		ResponseEntity<Event> response;
-		Event newevent;
+		//Get the user
+		User user = userRepository.findOne(id);
+		Event newEvent;
+		//Create the event
 		List<Event> allevents = eventRepository.findAll();
+		System.out.println("Hola");
 		if (allevents.contains(event)) {
 			response = new ResponseEntity<Event>(event, HttpStatus.CONFLICT);
 		} else {
-			newevent = eventRepository.save(event);
-			response = new ResponseEntity<Event>(newevent, HttpStatus.OK);
+			event.setCreator(user);
+			event.setBands(new ArrayList<Band>());
+			event.setFollowers(new ArrayList<User>());
+			newEvent = eventRepository.save(event);
+			System.out.println("Evento añadido");
+			response = new ResponseEntity<Event>(newEvent, HttpStatus.OK);
 		}
 		return response;
 	}
+	
 	
 }

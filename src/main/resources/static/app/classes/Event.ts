@@ -2,7 +2,7 @@
  *  Class that represent the information related to MiausicBox events
  *  @class Event
  */
-import { User } from './User';
+import {User} from './User';
 import {Band} from "./Band";
 
 export class Event {
@@ -106,7 +106,37 @@ export class Event {
       return (event.name == this.name &&
               event.date == this.date &&
               event.creator == this.creator);
-    };
+    }
+  }
+
+  /** Return if Event has a Band
+   *  @method hasBand
+   *  @param {band} Band
+   */
+  hasBand(band:Band):boolean {
+    var found = false;
+    for (var i = 0; i < this.bands.length; i++) {
+      if (this.bands[i].equals(band)) {
+        found = true;
+        break;
+      }
+    }
+    return found;
+  }
+
+  /** Return if Band Followers contains a User
+   *  @method isFollower
+   *  @param {user} User
+   */
+  isFollower(user:User):boolean {
+    var found = false;
+    for (var i = 0; i < this.followers.length; i++) {
+      if (this.followers[i].equals(user)) {
+        found = true;
+        break;
+      }
+    }
+    return found;
   }
 
 }

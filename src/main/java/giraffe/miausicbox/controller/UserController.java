@@ -42,27 +42,24 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
 	@Autowired
 	private BandRepository bandRepository;
-	
 	@Autowired
 	private FollowRepository followRepository;
-	
 	@Autowired
 	private BlogUserRepository blogUserRepository;
-	
 	@Autowired
 	private BlogBandRepository blogBandRepository;
-	
 	@Autowired
 	private NoveltyRepository noveltyRepository;
-	
 	@Autowired
 	private EventRepository eventRepository;
-	
 	@Autowired
 	private MessageRepository messageRepository;
+	
+	/**
+	 * USER SESSION
+	 */
 	
 	@Autowired
 	private UserComponent userComponent;
@@ -74,6 +71,7 @@ public class UserController {
 	interface UsersListView extends User.Basic, User.InstGenres, User.Bands {}
 	interface UserView extends User.Basic, User.Info, User.WebLinks, User.InstGenres, User.Bands, User.Events {}
 	interface FollowListView extends Follow.Basic {}
+	interface FollowView extends Follow.Basic {}
 	interface BlogUserListView extends BlogUser.Basic {}
 	interface BlogBandListView extends BlogBand.Basic {}
 	interface NoveltyListView extends Novelty.Basic {}
@@ -87,50 +85,64 @@ public class UserController {
 	
 	@JsonView(UsersListView.class)
 	@RequestMapping(value = "/artists", method = RequestMethod.GET)
-	public List<User> getAllUsers() throws Exception {
-		return userRepository.findAll();
+	public ResponseEntity<?> getAllUsers() throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
 	}
 
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/artist/{id}", method = RequestMethod.GET)
-	public ResponseEntity<User> getUserById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserById(@PathVariable long id) throws Exception {
 		if(userComponent.isLoggedUser()){
 			return new ResponseEntity<>(userRepository.findOne(id), HttpStatus.OK);
 		}
 		else{
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
-		
 	}
 	
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/artists/name:{name}", method = RequestMethod.GET)
-	public List<User> getUsersByName(@PathVariable String name) throws Exception {
+	public ResponseEntity<?> getUsersByName(@PathVariable String name) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		List<User> users = userRepository.findUserByUserName(name);
 		users.addAll(userRepository.findUserByCompleteName(name));
 		users.addAll(userRepository.findUserByEmail(name));
-		return Utils.removeDuplicated(users);
+		return new ResponseEntity<>(Utils.removeDuplicated(users), HttpStatus.OK);
 	}
 	
 	@JsonView(FollowListView.class)
 	@RequestMapping(value = "/artist/{id}/follows", method = RequestMethod.GET)
-	public List<Follow> getUserFollowsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserFollowsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<Follow> allfollows = followRepository.findUserByEmisor(user);
 		allfollows.addAll(followRepository.findUserByReceptor(user));
-		return allfollows;
+		return new ResponseEntity<>(allfollows, HttpStatus.OK);
 	}
 
 	@JsonView(BlogUserListView.class)
 	@RequestMapping(value = "/artist/{id}/myblogs", method = RequestMethod.GET)
-	public List<BlogUser> getMyBlogsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getMyBlogsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
-		return blogUserRepository.findBlogUserByAuthor(user);
+		return new ResponseEntity<>(blogUserRepository.findBlogUserByAuthor(user), HttpStatus.OK);
 	}
 
 	@JsonView(BlogUserListView.class)
 	@RequestMapping(value = "/artist/{id}/allusersblogs", method = RequestMethod.GET)
-	public List<BlogUser> getAllUserBlogsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getAllUserBlogsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<BlogUser> blogs = new ArrayList<>();
 		blogs.addAll(blogUserRepository.findBlogUserByAuthor(user));
@@ -142,12 +154,15 @@ public class UserController {
 			}
 		}
 		blogs.addAll(blogUserRepository.findBlogUserByAuthorIn(friends));
-		return Utils.removeDuplicated(blogs);
+		return new ResponseEntity<>(Utils.removeDuplicated(blogs), HttpStatus.OK);
 	}
 
 	@JsonView(BlogBandListView.class)
 	@RequestMapping(value = "/artist/{id}/allbandsblogs", method = RequestMethod.GET)
-	public List<BlogBand> getAllBandBlogsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getAllBandBlogsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<BlogBand> blogs = new ArrayList<>();
 		List<Band> allbands = bandRepository.findAll();
@@ -158,49 +173,62 @@ public class UserController {
 			}
 		}
 		blogs.addAll(blogBandRepository.findBlogBandByAuthorIn(bands));
-		return Utils.removeDuplicated(blogs);
+		return new ResponseEntity<>(Utils.removeDuplicated(blogs), HttpStatus.OK);
 	}
 	
 	@JsonView(NoveltyListView.class)
 	@RequestMapping(value = "/artist/{id}/novelties", method = RequestMethod.GET)
-	public List<Novelty> getUserNoveltiesById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserNoveltiesById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<Novelty> novelties = noveltyRepository.findNoveltyByUser(user);
 		List<Band> bands = user.getBands();
 		novelties.addAll(noveltyRepository.findNoveltyByBandIn(bands));
-		return Utils.removeDuplicated(novelties);
+		return new ResponseEntity<>(Utils.removeDuplicated(novelties), HttpStatus.OK);
 	}
 	
 	@JsonView(EventListView.class)
 	@RequestMapping(value = "/artist/{id}/events", method = RequestMethod.GET)
-	public List<Event> getUserEventsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserEventsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<Event> events = eventRepository.findEventByCreator(user);
 		events.addAll(eventRepository.findEventByFollowers(user));
-		//List<Band> bands = user.getBands();
-		//events.addAll(eventRepository.findEventByBandIn(bands));
-		return Utils.removeDuplicated(events);
+		return new ResponseEntity<>(Utils.removeDuplicated(events), HttpStatus.OK);
 	}
 	
 	@JsonView(MessageListView.class)
 	@RequestMapping(value = "/artist/{id}/receivedMessages", method = RequestMethod.GET)
-	public List<Message> getUserReceivedMessagesById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserReceivedMessagesById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<Message> messages = messageRepository.findMessageByDestiny(user);
-		return messages;
+		return new ResponseEntity<>(messages, HttpStatus.OK);
 	}
 	
 	@JsonView(MessageListView.class)
 	@RequestMapping(value = "/artist/{id}/sendedMessages", method = RequestMethod.GET)
-	public List<Message> getUserSendedMessagesById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserSendedMessagesById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<Message> messages = messageRepository.findMessageBySender(user);
-		return messages;
+		return new ResponseEntity<>(messages, HttpStatus.OK);
 	}
 	
 	@JsonView(MessageListView.class)
 	@RequestMapping(value = "/artist/{id}/numNoRead", method = RequestMethod.GET)
-	public Integer getUserNonReadMessagesById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserNonReadMessagesById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<Message> messages = messageRepository.findMessageBySender(user);
 		int nonread = 0;
@@ -209,12 +237,15 @@ public class UserController {
 				nonread++;
 			}
 		}
-		return nonread;
+		return new ResponseEntity<>(nonread, HttpStatus.OK);
 	}
 	
 	@JsonView(MessageListView.class)
 	@RequestMapping(value = "/artist/{id}/read/clemt", method = RequestMethod.GET)
-	public Integer setMessagesById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> setMessagesById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		List<Message> messages = messageRepository.findMessageBySender(user);
 		int nonread = 0;
@@ -223,23 +254,31 @@ public class UserController {
 				nonread++;
 			}
 		}
-		return nonread;
+		return new ResponseEntity<>(nonread, HttpStatus.OK);
 	}
 	
-	
 	@JsonView(BandListView.class)
-	@RequestMapping(value = "/artist/{id}/mybands", method = RequestMethod.GET)
-	public List<Band> getUserBandsById(@PathVariable long id) throws Exception {
+
+	@RequestMapping(value = "/artist/{id}/bands", method = RequestMethod.GET)
+	public ResponseEntity<?> getUserBandsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+
 		User user = userRepository.findOne(id);
-		return bandRepository.findBandsByMembers(user);
+		return new ResponseEntity<>(bandRepository.findBandsByMembers(user), HttpStatus.OK);
 	}
 	
 	/**
 	 * POST RequestMethods related to USER_CONTROLLER
 	 */
 	
+	@JsonView(UserView.class)
 	@RequestMapping(value = "/artist/new", method = RequestMethod.POST)
-	public ResponseEntity<User> createNewUser(@RequestBody User user) {
+	public ResponseEntity<?> createNewUser(@RequestBody User user) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<User> response;
 		User newuser;
 		List<User> allusers = userRepository.findAll();
@@ -251,9 +290,13 @@ public class UserController {
 		}
 		return response;
 	}
-
+	
+	@JsonView(FollowView.class)
 	@RequestMapping(value = "/artist/{em}/follows/{re}", method = RequestMethod.POST)
-	public ResponseEntity<Follow> createNewFollow(@PathVariable long em, @PathVariable long re) {
+	public ResponseEntity<?> createNewFollow(@PathVariable long em, @PathVariable long re) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<Follow> response;
 		Follow newfollow;
 		List<Follow> allfollows = followRepository.findAll();
@@ -269,6 +312,16 @@ public class UserController {
 		return response;
 	}
 	
-	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/editCity/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editCity(@PathVariable long id ,@RequestBody String city) {
+		User user = userRepository.findOne(id);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		user.setCity(city);
+		user = userRepository.save(user);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 
 }
