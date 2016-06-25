@@ -9,8 +9,10 @@ import { Info } from "../classes/Info";
 import { BlogUser} from "../classes/BlogUser";
 
 import { Injectable } from 'angular2/core';
+
 import {Http, Response, Headers, RequestOptions} from 'angular2/http';
-import { withObserver,  emptyUser, toInstance} from '../classes/Utils';
+import {withObserver, emptyUser, toInstance, emptyBlogUser} from '../classes/Utils';
+
 import 'rxjs/Rx';
 
 @Injectable()
@@ -24,7 +26,7 @@ export class UserService {
     let url = "/artists";
     console.log("Peticion a " + url);
     return this.http.get(url).map(
-        response => this.deserializeAllUsers(response)
+      response => this.deserializeAllUsers(response.json())
     );
   }
   
@@ -32,7 +34,7 @@ export class UserService {
     let url = "/artists/name:" + name;
     console.log("Peticion a " + url);
     return this.http.get(url).map(
-        response => this.deserializeAllUsers(response)
+      response => this.deserializeAllUsers(response.json())
     )
   }
 
@@ -40,7 +42,7 @@ export class UserService {
     let url = "/artist/" + id;
     console.log("Peticion a " + url);
     return this.http.get(url).map(
-        response => this.deserializeUser(response)
+      response => this.deserializeUser(response.json())
     );
   }
 
@@ -77,7 +79,7 @@ export class UserService {
     let url = "/artist/" + id + "/myblogs";
     console.log("Peticion a " + url);
     return this.http.get(url).map(
-        response => this.deserializeAllBlogs(response)
+        response => this.deserializeAllBlogs(response.json())
     );
   }
 
@@ -151,39 +153,37 @@ export class UserService {
     return this.http.put('/editCity/' + Info.userId , body, options);
   }
 
+
+  
   /* Deserialize Methods */
-  deserializeAllUsers(response:Response) {
-    console.log("deserealizeAllUsers > Response:");
-    console.log(response);
-    let result:User[] = [];
-    response.json().map(
-        obj => result.push(obj)
+  deserializeAllUsers(json) {
+    let users:User[] = [];
+    json.map(
+        obj => users.push(obj)
     );
-    console.log("deserealizeAllUsers > Result:");
-    console.log(result);
-    return result;
+    return users;
   }
 
-  deserializeUser(response:Response) {
-    console.log("deserealizeUser > Response:");
-    console.log(response);
-    let result:User = toInstance(emptyUser(), response.json());
-    console.log("deserealizeUser > Result:");
-    return result;
+  deserializeUser(json) {
+    return toInstance(emptyUser(), json);
   }
 
-  deserializeAllBlogs(response:Response) {
-    let result:BlogUser[] = [];
-    response.json().map(
-        obj => {
-          let bu:BlogUser = obj;
-          bu.date = new Date(obj.date);
-          result.push(bu)
-        }
+  deserializeAllBlogs(json) {
+    let blogs:BlogUser[] = [];
+    json.map(
+      obj => {
+        blogs.push(this.deserializeBlogUser(obj));
+      }
     );
-    console.log("deserealizeAllBlogs > Result:");
-    console.log(result);
-    return result;
+    return blogs;
+  }
+
+  deserializeBlogUser(json) {
+    let blog:BlogUser = toInstance(emptyBlogUser(), json);
+    blog.author = this.deserializeUser(json.author);
+    //noinspection TypeScriptValidateTypes
+    blog.date = new Date(json.date);
+    return blog;
   }
 
 }

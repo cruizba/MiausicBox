@@ -151,7 +151,7 @@ export class ArtistaComponent {
 
     submitBlog(title, img, text){
         var user: User=Info.userLogged;
-        this._blogService.addBlogUsser(title, img, text, new Date, user).subscribe(
+        this._blogService.addBlogUser(title, img, text, new Date, user).subscribe(
             response => {
                 if (response.status == 200){
                     console.log("ok, vamos a ver si se ha guardado ...")
