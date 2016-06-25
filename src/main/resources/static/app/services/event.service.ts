@@ -9,9 +9,11 @@ import { User } from "../classes/User";
 import { Info } from "../classes/Info";
 
 import { Injectable } from 'angular2/core';
-import { Http, Response } from "angular2/http";
+
+import { Http, Response, Headers, RequestOptions } from "angular2/http";
 import { withObserver, emptyEvent, toInstance, emptyUser, emptyBand } from '../classes/Utils';
 import {Band} from "../classes/Band";
+import 'rxjs/Rx';se
 
 @Injectable()
 export class EventService {
@@ -102,13 +104,18 @@ export class EventService {
         result => this.deserializeAllEvents(result.json())
     )
   }
-    
+
   addNewEvent(name, date, direction, description){
-    // TODO
-    var user = Info.userLogged;
-    var newEvent = new Event (0, name, date, user, description, [], direction, [user]); // <--- FixMe: ID
-    user.events.push(null);
-    eventList.push(null);
+    let body = '{ "name": "' + name +
+        '", "date": "' + date +
+        '", "direction": "' + direction +
+        '", "description": "' + description +
+        '"}';
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.post('/newEvent/' + Info.userId , body, options);
   }
 
 
@@ -128,6 +135,7 @@ export class EventService {
 
   deserializeBasicEvent(json) {
     let event:Event = toInstance(emptyEvent(), json);
+    //noinspection TypeScriptValidateTypes
     event.date = new Date(json.date);
     event.bands = this.deserializeBasicBands(json.bands);
     return event;
@@ -149,6 +157,7 @@ export class EventService {
   /* Deserialize Methods (Event) */
   deserializeEvent(json) {
     let event:Event = toInstance(emptyEvent(), json);
+    //noinspection TypeScriptValidateTypes
     event.date = new Date(json.date);
     event.creator = toInstance(emptyUser(), json);
     event.followers = this.deserializeUsers(json.followers);

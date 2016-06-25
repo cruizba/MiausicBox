@@ -21,6 +21,7 @@ import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.BlogUserRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.User;
+import giraffe.miausicbox.user.UserComponent;
 
 @RestController
 public class BlogController {
@@ -42,6 +43,14 @@ public class BlogController {
 	private BandRepository bandRepository;
 	
 	/**
+	 * USER SESSION
+	 */
+	
+	@Autowired
+	private UserComponent userComponent;
+	
+	
+	/**
 	 * VIEWS related to BLOG_CONTROLLER
 	 */
 	
@@ -55,26 +64,32 @@ public class BlogController {
 	
 	@JsonView(BlogListView.class)
 	@RequestMapping("/band/{id}/blogs")
-	public List<BlogBand> getBandBlogsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getBandBlogsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		List<BlogBand> blogs = blogBandRepository.findAll();
 		for(BlogBand b : blogs) {
 			if (b.getId() != id) {
 				blogs.remove(b);
 			}
 		}
-		return blogs;
+		return new ResponseEntity<>(blogs, HttpStatus.OK);
 	}
 	
 	@JsonView(BlogListView.class)
 	@RequestMapping(value="/user/{id}/blogs", method = RequestMethod.GET)
-	public List<BlogUser> getUserBlogsById(@PathVariable long id) throws Exception {
+	public ResponseEntity<?> getUserBlogsById(@PathVariable long id) throws Exception {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		List<BlogUser> blogs = blogUserRepository.findAll();
 		for(BlogUser b : blogs) {
 			if (b.getId() != id) {
 				blogs.remove(b);
 			}
 		}
-		return blogs;
+		return new ResponseEntity<>(blogs, HttpStatus.OK);
 	}
 	
 	/**
@@ -82,7 +97,10 @@ public class BlogController {
 	 */
 	
 	@RequestMapping(value = "/blogband/new", method = RequestMethod.POST)
-	public ResponseEntity<BlogBand> createNewBlogBand(@RequestBody BlogBand blogband) {
+	public ResponseEntity<?> createNewBlogBand(@RequestBody BlogBand blogband) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<BlogBand> response;
 		BlogBand newblogband;
 		List<BlogBand> allblogbands = blogBandRepository.findAll();
@@ -97,7 +115,11 @@ public class BlogController {
 	
 	@JsonView(BlogView.class)
 	@RequestMapping(value = "/newbloguser/{id}", method = RequestMethod.POST)
-	public ResponseEntity<BlogUser> createNewBlogUser(@PathVariable long id ,@RequestBody BlogUser bloguser) {
+	public ResponseEntity<?> createNewBlogUser(@PathVariable long id ,@RequestBody BlogUser bloguser) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		System.out.println("saludos persona 1");
 		ResponseEntity<BlogUser> response;
 		User user = userRepository.findOne(id);
 		bloguser.setAuthor(user);
@@ -117,4 +139,5 @@ public class BlogController {
 		return response;
 	}
 	
+
 }

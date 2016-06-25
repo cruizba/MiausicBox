@@ -9,8 +9,10 @@ import { Info } from "../classes/Info";
 import { BlogUser} from "../classes/BlogUser";
 
 import { Injectable } from 'angular2/core';
-import { Http, Response } from 'angular2/http';
+
+import {Http, Response, Headers, RequestOptions} from 'angular2/http';
 import {withObserver, emptyUser, toInstance, emptyBlogUser} from '../classes/Utils';
+
 import 'rxjs/Rx';
 
 @Injectable()
@@ -144,9 +146,12 @@ export class UserService {
   }
 
   setCity(city){
-    // TODO
-    userList[userList.indexOf(Info.userLogged)].city = city;
-    console.log(userList.indexOf(Info.userLogged));
+    let body = city;
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editCity/' + Info.userId , body, options);
   }
 
 
@@ -181,6 +186,7 @@ export class UserService {
   deserializeBlogUser(json) {
     let blog:BlogUser = toInstance(emptyBlogUser(), json);
     blog.author = this.deserializeUser(json.author);
+    //noinspection TypeScriptValidateTypes
     blog.date = new Date(json.date);
     return blog;
   }
