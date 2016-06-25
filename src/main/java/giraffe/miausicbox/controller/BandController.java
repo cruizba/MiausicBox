@@ -46,6 +46,7 @@ public class BandController {
 	interface BandView extends Band.Basic, Band.WebLinks, Band.Genres, Band.Tracks, Band.Members, Band.Admin, Band.Followers {}
 	interface EventView extends Event.Basic, Event.Bands {}
 	interface BlogBandListView extends BlogBand.Basic {}
+	interface UsersListView extends User.Basic {}
 	
 	/**
 	 * GET RequestMethods related to BAND_CONTROLLER
@@ -61,7 +62,6 @@ public class BandController {
 	@RequestMapping(value="/band/{id}/events", method = RequestMethod.GET)
 	public List<Event> getEventByBandById(@PathVariable long id) throws Exception {
 		Band band = bandRepository.getOne(id);
-		System.out.println("Banda: " + band.getGroupName());
 		return eventRepository.findEventByBands(band);
 	}
 	
@@ -69,6 +69,13 @@ public class BandController {
 	@RequestMapping(value="/bands/name:{name}", method = RequestMethod.GET)
 	public List<Band> getBandByGroupName(@PathVariable String name) throws Exception {
 		return bandRepository.findBandByGroupName(name);
+	}
+	
+	@JsonView(UsersListView.class)
+	@RequestMapping(value="/bands/{id}/members", method = RequestMethod.GET)
+	public List<User> getBandByGroupName(@PathVariable long id) throws Exception {
+		Band band = bandRepository.getOne(id);
+		return band.getMembers();
 	}
 	
 	@JsonView(BandListView.class)
