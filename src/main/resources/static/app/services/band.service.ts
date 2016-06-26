@@ -7,13 +7,16 @@ import { bandList, userList } from '../classes/memoryDB'; // <--- FixMe: To Be R
 import { Band } from "../classes/Band";
 import { BlogBand } from "../classes/BlogBand";
 import { Info } from "../classes/Info";
-import { Track } from "../classes/Track";
 import { User } from "../classes/User";
 import { Event } from "../classes/Event";
 
 import { Injectable } from 'angular2/core';
+<<<<<<< HEAD
 
 import {Http, Response, RequestOptions, Headers} from "angular2/http";
+=======
+import {Http, RequestOptions, Headers} from "angular2/http";
+>>>>>>> 28178b29268a3844c659c64d06cdd76f122040c3
 import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent, emptyBlogBand} from '../classes/Utils';
 
 import 'rxjs/Rx';
@@ -120,33 +123,16 @@ export class BandService {
   }
 
 
-  addNewMember (name, id){
+  addNewMember(userName, date, id){
+    let body = date;
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.post('/band/' + id + '/newmember/' + userName, body, options);
 
-    // TODO
-    var mem = bandList[id].members;
-    var encontrado = false;
-    for(let i = 0; i <mem.length; i++){
-      if (name == mem[i].userName){
-        encontrado = true;
-        break;
-      }
-    }
-
-    if(encontrado){
-      alert("El usuario ya esta en la banda");
-    } else {
-      for (let j = 0; j < userList.length;j++){
-        if( name == userList[j].userName){
-          var newMem=userList[j];
-        }
-      }
-    }
-    bandList[id].members.push(newMem);
   }
 
   addNewTrack(name, band, link, id){
-    //img="../img/img6.jpg"; // <--- FixMe?
-
     let body = '{ "name": "' + name +
         '", "band": "' + band +
         '", "link": "' + link +
@@ -155,7 +141,6 @@ export class BandService {
     console.log(body);
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-
     return this.http.post('/band/' + id + '/newtrack', body, options);
   }
 
