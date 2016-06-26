@@ -6,17 +6,12 @@ import { bandList, userList } from '../classes/memoryDB'; // <--- FixMe: To Be R
 
 import { Band } from "../classes/Band";
 import { BlogBand } from "../classes/BlogBand";
-import { Info } from "../classes/Info";
 import { User } from "../classes/User";
 import { Event } from "../classes/Event";
 
 import { Injectable } from 'angular2/core';
-<<<<<<< HEAD
 
 import {Http, Response, RequestOptions, Headers} from "angular2/http";
-=======
-import {Http, RequestOptions, Headers} from "angular2/http";
->>>>>>> 28178b29268a3844c659c64d06cdd76f122040c3
 import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent, emptyBlogBand} from '../classes/Utils';
 
 import 'rxjs/Rx';
@@ -111,7 +106,6 @@ export class BandService {
 
   /* Http POSTs */
   addNewBand(user, nameBand, description){
-    // var newBand = new Band(0, user, nameBand, description, "", "", "", "", "", [user], [user], [], []); // <-- FixMe: ID
 
     let body = '{"groupName": "' + nameBand +
                 '", "description": "'+ description +
