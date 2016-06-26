@@ -7,12 +7,11 @@ import { bandList, userList } from '../classes/memoryDB'; // <--- FixMe: To Be R
 import { Band } from "../classes/Band";
 import { BlogBand } from "../classes/BlogBand";
 import { Info } from "../classes/Info";
-import { Track } from "../classes/Track";
 import { User } from "../classes/User";
 import { Event } from "../classes/Event";
 
 import { Injectable } from 'angular2/core';
-import {Http, Response, RequestOptions, Headers} from "angular2/http";
+import {Http, RequestOptions, Headers} from "angular2/http";
 import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent, emptyBlogBand} from '../classes/Utils';
 import 'rxjs/Rx';
 
@@ -122,32 +121,15 @@ export class BandService {
     bandList.push(newBand);
   }
 
-  addNewMember(name, id){
-    // TODO
-    var mem = bandList[id].members;
-    var encontrado = false;
-    for(let i = 0; i <mem.length; i++){
-      if (name == mem[i].userName){
-        encontrado = true;
-        break;
-      }
-    }
-
-    if(encontrado){
-      alert("El usuario ya esta en la banda");
-    } else {
-      for (let j = 0; j < userList.length;j++){
-        if( name == userList[j].userName){
-          var newMem=userList[j];
-        }
-      }
-    }
-    bandList[id].members.push(newMem);
+  addNewMember(userName, date, id){
+    let body = date;
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.post('/band/' + id + '/newmember/' + userName, body, options);
   }
 
   addNewTrack(name, band, link, id){
-    //img="../img/img6.jpg"; // <--- FixMe?
-
     let body = '{ "name": "' + name +
         '", "band": "' + band +
         '", "link": "' + link +
@@ -156,7 +138,6 @@ export class BandService {
     console.log(body);
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-
     return this.http.post('/band/' + id + '/newtrack', body, options);
   }
 
