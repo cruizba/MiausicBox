@@ -14,6 +14,7 @@ import { BlogUser } from "./classes/BlogUser";
 import { BlogService } from "./services/blog.service";
 import { BandService } from "./services/band.service";
 import { EventService } from "./services/event.service";
+import {Band} from "./classes/Band";
 
 @Component({
   selector: 'artista',
@@ -30,6 +31,7 @@ export class ArtistaComponent {
   user: User;
   id;
   blogList:BlogUser[] = [];
+    bandList:Band[] = [];
 
   //Follows variables
   numFollowing:number;
@@ -167,7 +169,18 @@ export class ArtistaComponent {
     }
     
     newBand (nameBand, description){
-        this._bandService.addNewBand(nameBand,description);
+        var user: User=Info.userLogged;
+        this._bandService.addNewBand(user, nameBand,description).subscribe(
+            response =>{
+              if(response.status == 200){
+                  this._userService.getUserById(this.user.id).subscribe(
+                      response => this.user = response
+                  )
+              }
+            },
+            error => console.log("Banda no recibida")
+        );
+        console.log("no peto");
     }
 
     newEvent (name, date, direction, description){

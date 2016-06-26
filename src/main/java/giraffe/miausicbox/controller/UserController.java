@@ -258,11 +258,13 @@ public class UserController {
 	}
 	
 	@JsonView(BandListView.class)
+
 	@RequestMapping(value = "/artist/{id}/bands", method = RequestMethod.GET)
 	public ResponseEntity<?> getUserBandsById(@PathVariable long id) throws Exception {
 		if(!userComponent.isLoggedUser()){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
+
 		User user = userRepository.findOne(id);
 		return new ResponseEntity<>(bandRepository.findBandsByMembers(user), HttpStatus.OK);
 	}

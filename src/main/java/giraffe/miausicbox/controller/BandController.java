@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.controller.BlogController.BlogView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.Event;
@@ -165,6 +166,24 @@ public class BandController {
 		return response;
 	}
 	
+
+
+	@JsonView(BandView.class)
+	@RequestMapping(value="/newBand/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Band> createNewBand (@PathVariable long id, @RequestBody Band band){
+		ResponseEntity<Band> response;
+		
+		User user= userRepository.findOne(id);
+		band.setAdministrador(user);
+		band.getMembers().add(user);
+		Band newBand = bandRepository.save(band);
+		response = new ResponseEntity <Band> (newBand, HttpStatus.OK);
+		
+		return response;
+		
+}
+		
+
 	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/{id}/newtrack", method = RequestMethod.POST)
 	public ResponseEntity<?> addNewTrack(@PathVariable long id, @RequestBody Track track) {
@@ -188,6 +207,7 @@ public class BandController {
 			newBand = bandRepository.save(band);
 			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		}
+
 		return response;
 	}
 
