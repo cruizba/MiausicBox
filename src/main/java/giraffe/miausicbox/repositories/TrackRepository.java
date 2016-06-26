@@ -6,4 +6,6 @@ import giraffe.miausicbox.model.Track;
 
 public interface TrackRepository  extends JpaRepository<Track, Long> {
 
+	public Track findByNameAndBand(String name, String band);
+	
 }

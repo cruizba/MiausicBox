@@ -16,11 +16,15 @@ import com.fasterxml.jackson.annotation.JsonView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Novelty;
+import giraffe.miausicbox.model.Track;
 import giraffe.miausicbox.user.User;
 import giraffe.miausicbox.user.UserComponent;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
+import giraffe.miausicbox.repositories.NoveltyRepository;
+import giraffe.miausicbox.repositories.TrackRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 
 @RestController
@@ -38,6 +42,10 @@ public class BandController {
 	private BlogBandRepository blogBandRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private TrackRepository trackRepository;
+	@Autowired
+	private NoveltyRepository noveltyRepository;
 	
 	/**
 	 * USER SESSION
@@ -45,7 +53,6 @@ public class BandController {
 	
 	@Autowired
 	private UserComponent userComponent;
-	
 	
 	/**
 	 * VIEWS related to BAND_CONTROLLER
@@ -140,8 +147,9 @@ public class BandController {
 	 * POST RequestMethods related to BAND_CONTROLLER
 	 */
 	
+	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/new", method = RequestMethod.POST)
-	public ResponseEntity<?> createNewband(@RequestBody Band band) {
+	public ResponseEntity<?> createNewBand(@RequestBody Band band) {
 		if(!userComponent.isLoggedUser()){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
@@ -156,5 +164,81 @@ public class BandController {
 		}
 		return response;
 	}
+	
 
+
+	@JsonView(BandView.class)
+	@RequestMapping(value="/newBand/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Band> createNewBand (@PathVariable long id, @RequestBody Band band){
+		ResponseEntity<Band> response;
+		
+		User user= userRepository.findOne(id);
+		band.setAdministrador(user);
+		band.getMembers().add(user);
+		Band newBand = bandRepository.save(band);
+		response = new ResponseEntity <Band> (newBand, HttpStatus.OK);
+		
+		return response;
+		
+}
+		
+
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{id}/newtrack", method = RequestMethod.POST)
+	public ResponseEntity<?> addNewTrack(@PathVariable long id, @RequestBody Track track) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		ResponseEntity<Band> response;
+		Band band = bandRepository.findOne(id);
+		Track newtrack;
+		Band newBand;
+		List<Track> alltracks = trackRepository.findAll();
+		if (band.getTracks().contains(track)) {
+			response = new ResponseEntity<Band>(band, HttpStatus.CONFLICT);
+		} else {
+			if (alltracks.contains(track)) {
+				newtrack = trackRepository.findByNameAndBand(track.getName(), track.getBand());
+			} else {
+				newtrack = trackRepository.save(track);
+			}
+			band.getTracks().add(newtrack);
+			newBand = bandRepository.save(band);
+			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
+		}
+
+		return response;
+	}
+
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{id}/newmember/{userName}", method = RequestMethod.POST)
+	public ResponseEntity<?> addNewMember(@PathVariable long id, @PathVariable String userName, @RequestBody String date) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		ResponseEntity<Band> response;
+		Band band = bandRepository.findOne(id);
+		if(band == null) {
+			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
+		}
+		User user = userRepository.findOneByUserName(userName);
+		if(user == null) {
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		Band newBand;
+		Novelty novelty;
+		if (band.getMembers().contains(user) ||
+				!user.isArtist() ||
+				!band.getAdministrador().equals(userComponent.getLoggedUser())) {
+			response = new ResponseEntity<Band>(band, HttpStatus.CONFLICT);
+		} else {
+			band.getMembers().add(user);
+			novelty = new Novelty(user, band, date, true);
+			newBand = bandRepository.save(band);
+			noveltyRepository.save(novelty);
+			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
+		}
+		return response;
+	}
+	
 }

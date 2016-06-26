@@ -210,7 +210,7 @@
             </div>
             <!-- Fin Tracklist banda -->
             <!-- Boton Añadir Track -->
-            <div class="insertarButton" *ngIf="isAdmin">
+            <div class="insertarButton" *ngIf="isMember">
                 <button class="formButton btn btn-default" id="insertMemberButton">
                     <div data-toggle="modal" data-target="#agregarTrack" class="row">
                         <div class="col-md-10 textAddBlog">
@@ -247,7 +247,7 @@
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image">
+                            <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image" *ngIf="blog.hasImage()">
                             <p class="content-panel">{{blog.text}}</p>
                         </div>
                     </div>

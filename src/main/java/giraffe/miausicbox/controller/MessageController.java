@@ -45,6 +45,7 @@ public class MessageController {
 	 */
 	
 	interface MessageListView extends Message.Basic {}
+	interface MessageView extends Message.Basic {}
 	
 	/**
 	 * GET RequestMethods related to MESSAGE_CONTROLLER
@@ -68,7 +69,8 @@ public class MessageController {
 	/**
 	 * POST RequestMethods related to MESSAGE_CONTROLLER
 	 */
-	
+
+
 	@JsonView(Message.Basic.class)
 	@RequestMapping(value = "/message/new", method = RequestMethod.POST)
 	public ResponseEntity<?> createNewUser(@RequestBody Message message) {

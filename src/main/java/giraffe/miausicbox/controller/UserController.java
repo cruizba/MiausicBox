@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.controller.BlogController.BlogView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
@@ -48,25 +47,18 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
 	@Autowired
 	private BandRepository bandRepository;
-	
 	@Autowired
 	private FollowRepository followRepository;
-	
 	@Autowired
 	private BlogUserRepository blogUserRepository;
-	
 	@Autowired
 	private BlogBandRepository blogBandRepository;
-	
 	@Autowired
 	private NoveltyRepository noveltyRepository;
-	
 	@Autowired
 	private EventRepository eventRepository;
-	
 	@Autowired
 	private MessageRepository messageRepository;
 	
@@ -90,6 +82,7 @@ public class UserController {
 	interface UsersListView extends User.Basic, User.InstGenres, User.Bands {}
 	interface UserView extends User.Basic, User.Info, User.WebLinks, User.InstGenres, User.Bands, User.Events {}
 	interface FollowListView extends Follow.Basic {}
+	interface FollowView extends Follow.Basic {}
 	interface BlogUserListView extends BlogUser.Basic {}
 	interface BlogBandListView extends BlogBand.Basic {}
 	interface NoveltyListView extends Novelty.Basic {}
@@ -109,7 +102,6 @@ public class UserController {
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
-		
 	}
 
 	@JsonView(UserView.class)
@@ -121,7 +113,6 @@ public class UserController {
 		else{
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
-		
 	}
 	
 	@JsonView(UserView.class)
@@ -274,8 +265,6 @@ public class UserController {
 		User user = userRepository.findOne(id);
 		List<Event> events = eventRepository.findEventByCreator(user);
 		events.addAll(eventRepository.findEventByFollowers(user));
-		//List<Band> bands = user.getBands();
-		//events.addAll(eventRepository.findEventByBandIn(bands));
 		return new ResponseEntity<>(Utils.removeDuplicated(events), HttpStatus.OK);
 	}
 	
@@ -330,13 +319,14 @@ public class UserController {
 		return new ResponseEntity<>(nonread, HttpStatus.OK);
 	}
 	
-	
 	@JsonView(BandListView.class)
+
 	@RequestMapping(value = "/artist/{id}/bands", method = RequestMethod.GET)
 	public ResponseEntity<?> getUserBandsById(@PathVariable long id) throws Exception {
 		if(!userComponent.isLoggedUser()){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
+
 		User user = userRepository.findOne(id);
 		return new ResponseEntity<>(bandRepository.findBandsByMembers(user), HttpStatus.OK);
 	}
@@ -363,6 +353,7 @@ public class UserController {
 	 * POST RequestMethods related to USER_CONTROLLER
 	 */
 	
+	@JsonView(UserView.class)
 	@RequestMapping(value = "/artist/new", method = RequestMethod.POST)
 	public ResponseEntity<?> createNewUser(@RequestBody User user) {
 		if(!userComponent.isLoggedUser()){

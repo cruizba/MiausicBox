@@ -77,6 +77,7 @@ export class UserService {
     return withObserver(null);
   }
 
+  // FixMe: move this method to blog.service.ts
   getBlogsByUser(id) {
     let url = "/artist/" + id + "/myblogs";
     console.log("Peticion a " + url);
@@ -224,6 +225,7 @@ export class UserService {
     return toInstance(emptyUser(), json);
   }
 
+  // FixMe: move this method to blog.service.ts
   deserializeAllBlogs(json) {
     let blogs:BlogUser[] = [];
     json.map(
@@ -231,6 +233,9 @@ export class UserService {
         blogs.push(this.deserializeBlogUser(obj));
       }
     );
+    blogs.sort(function(a,b) {
+      return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
+    });
     return blogs;
   }
 

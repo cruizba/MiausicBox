@@ -9,7 +9,7 @@
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image">
+                            <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image" *ngIf="one.hasImage()">
                             <p class="content-panel">{{one.text}}</p>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image">
+                            <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image" *ngIf="one.hasImage()">
                             <p class="content-panel">{{one.text}}</p>
                         </div>
                     </div>

@@ -25,11 +25,11 @@ import { NoveltyService } from "./services/novelty.service";
 
 export class BandComponent {
 
+  id;
   isAdmin:boolean;
   isMember:boolean;
   band:Band;
-  events: Event[] = [];  
-  id;
+  events: Event[] = [];
   blogList:BlogBand[] = [];
   instruments: Instrument[] = [];
   numFollowers:number;
@@ -100,36 +100,50 @@ export class BandComponent {
   }
     
   newMember(userName){
-    this._bandService.addNewMember(userName, this.id);
-    /*this._bandService.getMembers(this.id).subscribe(
-      (members => this.membersList = members),
-      (error => alert("getMembers error"))
-    )*/
-    this._noveltyService.newNovelty(userName, this.band, new Date(), true);
+    this._bandService.addNewMember(userName, new Date(), this.id).subscribe(
+      response => {
+        if (response.status == 200) {
+          this._bandService.getBandById(this.id).subscribe(
+            band => this.band = band,
+            error => alert("getBandById error")
+          );
+        } else {
+            console.log(response.status);
+        }
+      },
+      error => console.log(error)
+    );
   }
 
-  newTrack (name, group, link){
-    this._bandService.addNewTrack(name, group, link, this.id);
-    this._bandService.getBandById(this.id).subscribe(
-      (band => this.band = band),
-      (error => alert("getBandById error"))
+  newTrack (name, band, link){
+    this._bandService.addNewTrack(name, band, link, this.id).subscribe(
+      response => {
+        if (response.status == 200) {
+          this._bandService.getBandById(this.id).subscribe(
+            band => this.band = band,
+            error => alert("getBandById error")
+          );
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
     );
   }
 
   submitBlog(title, img, text){
-    var user: User=Info.userLogged;
     this._blogService.addBlogBand(title, img, text, new Date, this.id).subscribe(
-        response => {
-          if (response.status == 200){
-            console.log("ok, vamos a ver si se ha guardado ...")
-            this._bandService.getBlogsByBand(this.id).subscribe(
-                blogList => this.blogList = blogList
-            )
-          } else {
-            console.log(response.status);
-          }
-        },
-        error => console.log(error)
+      response => {
+        if (response.status == 200){
+          this._bandService.getBlogsByBand(this.id).subscribe(
+            blogList => this.blogList = blogList,
+            error => alert("getBandById error")
+          )
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
     );
   }
 

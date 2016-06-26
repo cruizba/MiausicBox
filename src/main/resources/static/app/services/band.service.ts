@@ -6,14 +6,14 @@ import { bandList, userList } from '../classes/memoryDB'; // <--- FixMe: To Be R
 
 import { Band } from "../classes/Band";
 import { BlogBand } from "../classes/BlogBand";
-import { Info } from "../classes/Info";
-import { Track } from "../classes/Track";
 import { User } from "../classes/User";
 import { Event } from "../classes/Event";
 
 import { Injectable } from 'angular2/core';
-import { Http, Response } from "angular2/http";
+
+import {Http, Response, RequestOptions, Headers} from "angular2/http";
 import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent, emptyBlogBand} from '../classes/Utils';
+
 import 'rxjs/Rx';
 
 @Injectable()
@@ -52,6 +52,7 @@ export class BandService {
     )
   }
 
+  // FixMe: move this method to blog.service.ts
   getBlogsByBand(id) {
     let url = "/band/"+id+"/bandblog";
     return this.http.get(url).map(
@@ -94,60 +95,47 @@ export class BandService {
     return withObserver(result);
   }
 
-  getBandsByUsers(users){
-    // TODO
-    var result = []
-    for(let k = 0; k < users.length; k++ ) {
-      var bands = [];
-      for(let i = 0; i < bandList.length; i++){
-        for(let j = 0; j < bandList[i].members.length; j++) {
-          if (bandList[i].members[j].equals(users[k].userObj)) {
-            bands.push({"id": i, "bandObj": bandList[i]});
-          }
-        }
-      }
-      result.push(bands);
-    }
-    console.log(result);
-    return withObserver(result);
+  getBandsByUsers(user){
+
+    let url = "/artist/" + user.getId() + "/mybands";
+    return this.http.get(url).map(
+        response => this.deserializableBands(response)
+    );
+
   }
 
   /* Http POSTs */
-  addNewBand(nameBand, description){
-    // TODO
-    var user=Info.userLogged;
-    var newBand = new Band(0, user, nameBand, description, "", "", "", "", "", [user], [user], [], []); // <-- FixMe: ID
-    user.bands.push(newBand);
-    bandList.push(newBand);
+  addNewBand(user, nameBand, description){
+
+    let body = '{"groupName": "' + nameBand +
+                '", "description": "'+ description +
+                '"}';
+    let headers = new Headers ({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.post('/newBand/'+user.id, body, options);
   }
 
-  addNewMember(name, id){
-    // TODO
-    var mem = bandList[id].members;
-    var encontrado = false;
-    for(let i = 0; i <mem.length; i++){
-      if (name == mem[i].userName){
-        encontrado = true;
-        break;
-      }
-    }
 
-    if(encontrado){
-      alert("El usuario ya esta en la banda");
-    } else {
-      for (let j = 0; j < userList.length;j++){
-        if( name == userList[j].userName){
-          var newMem=userList[j];
-        }
-      }
-    }
-    bandList[id].members.push(newMem);
+  addNewMember(userName, date, id){
+    let body = date;
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.post('/band/' + id + '/newmember/' + userName, body, options);
+
   }
 
-  addNewTrack(name, group, link, id){
-    // TODO
-    var newTrack = new Track (0, name, group, link); // <-- FixMe: ID
-    bandList[id].tracks.push(newTrack);
+  addNewTrack(name, band, link, id){
+    let body = '{ "name": "' + name +
+        '", "band": "' + band +
+        '", "link": "' + link +
+        '", "author":null' +
+        '}';
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.post('/band/' + id + '/newtrack', body, options);
   }
 
 
@@ -194,6 +182,7 @@ export class BandService {
     return events;
   }
 
+  // FixMe: move this method to blog.service.ts
   deserializableAllBlogs(json){
     /* parse each blog in json */
     let blogs:BlogBand[] = [];
@@ -204,6 +193,9 @@ export class BandService {
         blogs.push(blogBand)
       }
     );
+    blogs.sort(function(a,b) {
+      return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
+    });
     return blogs;
   }
 
@@ -218,4 +210,13 @@ export class BandService {
     return users;
   }
 
+  deserializableBands (response:Response){
+    let result:Band[]=[];
+    response.json().map(
+        obj => result = obj
+    );
+    return result;
+  }
 }
+
+
