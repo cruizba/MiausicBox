@@ -14,9 +14,10 @@ import { BlogUser } from "./classes/BlogUser";
 import { BlogService } from "./services/blog.service";
 import { BandService } from "./services/band.service";
 import { EventService } from "./services/event.service";
-import {Genre} from "./classes/Genre";
-import {Instrument} from "./classes/Instrument";
-import {Band} from "./classes/Band";
+import { Genre } from "./classes/Genre";
+import { Instrument } from "./classes/Instrument";
+import { Band } from "./classes/Band";
+import { Event } from "./classes/Event";
 
 
 @Component({
@@ -36,8 +37,8 @@ export class ArtistaComponent {
   blogList:BlogUser[] = [];
   genreList:Genre[] = [];
   instrList:Instrument[] = [];
-  events:Event[] = []
-    bandList:Band[] = [];
+  events:Event[] = [];
+  bandList:Band[] = [];
 
   //Follows variables
   numFollowing:number;
@@ -104,11 +105,11 @@ export class ArtistaComponent {
         this._messageService.getNumNonRead(Info.userId).subscribe(
             (num => this.numMessages = num),
             (error => alert("Error notifications"))
-        )
+        );
 
         this._userService.getBlogsByUser(this.id).subscribe(
             blogList => this.blogList = blogList
-        )
+        );
 
     }
 
@@ -123,7 +124,7 @@ export class ArtistaComponent {
                 console.log(this.numFollowers);
             }),
             error => alert("numFollowers error")
-        )
+        );
         this._followService.getNumFollowingByID(this.id).subscribe(
             (followings => {
                 this.numFollowing = followings;
