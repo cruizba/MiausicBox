@@ -16,12 +16,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Novelty;
 import giraffe.miausicbox.model.Track;
 import giraffe.miausicbox.user.User;
 import giraffe.miausicbox.user.UserComponent;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.BlogBandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
+import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.TrackRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 
@@ -42,6 +44,8 @@ public class BandController {
 	private UserRepository userRepository;
 	@Autowired
 	private TrackRepository trackRepository;
+	@Autowired
+	private NoveltyRepository noveltyRepository;
 	
 	/**
 	 * USER SESSION
@@ -170,7 +174,7 @@ public class BandController {
 		ResponseEntity<Band> response;
 		Band band = bandRepository.findOne(id);
 		Track newtrack;
-		Band newband;
+		Band newBand;
 		List<Track> alltracks = trackRepository.findAll();
 		if (band.getTracks().contains(track)) {
 			response = new ResponseEntity<Band>(band, HttpStatus.CONFLICT);
@@ -181,10 +185,41 @@ public class BandController {
 				newtrack = trackRepository.save(track);
 			}
 			band.getTracks().add(newtrack);
-			newband = bandRepository.save(band);
-			response = new ResponseEntity<Band>(newband, HttpStatus.OK);
+			newBand = bandRepository.save(band);
+			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		}
 		return response;
 	}
 
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{id}/newmember/{userName}", method = RequestMethod.POST)
+	public ResponseEntity<?> addNewMember(@PathVariable long id, @PathVariable String userName, @RequestBody String date) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		ResponseEntity<Band> response;
+		Band band = bandRepository.findOne(id);
+		if(band == null) {
+			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
+		}
+		User user = userRepository.findOneByUserName(userName);
+		if(user == null) {
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		Band newBand;
+		Novelty novelty;
+		if (band.getMembers().contains(user) ||
+				!user.isArtist() ||
+				!band.getAdministrador().equals(userComponent.getLoggedUser())) {
+			response = new ResponseEntity<Band>(band, HttpStatus.CONFLICT);
+		} else {
+			band.getMembers().add(user);
+			novelty = new Novelty(user, band, date, true);
+			newBand = bandRepository.save(band);
+			noveltyRepository.save(novelty);
+			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
+		}
+		return response;
+	}
+	
 }
