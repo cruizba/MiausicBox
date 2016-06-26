@@ -111,20 +111,12 @@ export class BandService {
     // var newBand = new Band(0, user, nameBand, description, "", "", "", "", "", [user], [user], [], []); // <-- FixMe: ID
 
     let body = '{"groupName": "' + nameBand +
-            '", "description": "'+ description +
-            '", "city": " " ,'+
-            '"facebook": " ",'+
-            '"twitter": " ",'+
-            '"youtube": " ",'+
-            '"members": "'+ [] +
-            '", "followers": "'+ [] +
-            '", "genres": "'+ [] +
-            '", "tracks": "'+[]+
-        '"}';
+                '", "description": "'+ description +
+                '"}';
     let headers = new Headers ({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post('newBand/'+user.id, body, options);
+    return this.http.post('/newBand/'+user.id, body, options);
   }
 
 

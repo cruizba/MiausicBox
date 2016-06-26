@@ -170,7 +170,16 @@ export class ArtistaComponent {
     
     newBand (nameBand, description){
         var user: User=Info.userLogged;
-        this._bandService.addNewBand(user, nameBand,description);
+        this._bandService.addNewBand(user, nameBand,description).subscribe(
+            response =>{
+              if(response.status == 200){
+                  this._userService.getUserById(this.user.id).subscribe(
+                      response => this.user = response
+                  )
+              }
+            },
+            error => console.log("Banda no recibida")
+        );
         console.log("no peto");
     }
 

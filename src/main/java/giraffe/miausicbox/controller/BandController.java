@@ -171,6 +171,7 @@ public class BandController {
 		
 		User user= userRepository.findOne(id);
 		band.setAdministrador(user);
+		band.getMembers().add(user);
 		Band newBand = bandRepository.save(band);
 		response = new ResponseEntity <Band> (newBand, HttpStatus.OK);
 		
