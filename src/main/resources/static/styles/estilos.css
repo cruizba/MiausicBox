@@ -235,6 +235,7 @@ no tape un trozo de la página */
 
 .BotonFormulario {
     text-align: right;
+    padding-top: 10px;
 }
 
 .insertarDiv {
@@ -277,4 +278,8 @@ no tape un trozo de la página */
 
 .titleBandas{
     color: white;
+}
+
+.select-form{
+    margin-bottom: 20px;
 }

@@ -13,4 +13,7 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
 	
 	public List<Follow> findUserByReceptor(User receptor);
 	
+	public Follow findUserByEmisorAndReceptor(User emisor, User receptor);
+
+	
 }

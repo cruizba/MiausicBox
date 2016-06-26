@@ -61,38 +61,55 @@ export class MessagesComponent {
     console.log(this.actualUserMessage);
     if(!mes.message.read && mes.message.destiny.equals(Info.userLogged)){
         this.nonReadMessages--;
-        this.id = mes.msgId;
-        this._messageService.setRead(this.id, mes);
+        this.id = mes.message.id;
+        this._messageService.setRead(this.id).subscribe(
+            response => {
+              this.updateData();
+            },
+            error => console.log("Error al enviar")
+        )
     }
   }
 
   sendMessage(userName:string,subject:string ,message:string){
-    this._messageService.sendMessage(userName, subject, new Date, message);
-    this.updateData();
-    this.updateMessages()
+    this._messageService.sendMessage(userName, subject, new Date, message).subscribe(
+        response => {
+          this.updateData();
+          this.updateMessages();
+        },
+        error => alert('Error al enviar el mensaje')
+    );
   }
 
   deleteMessage(){
-    this._messageService.deleteMessage(this.actualMessage);
-    this.updateData();
-    this.updateMessages()
+    this._messageService.deleteMessage(this.actualMessage.message).subscribe(
+        response => {
+            this.updateData();
+            this.updateMessages()
+        },
+        error => {
+            alert('Error al borrar el mensaje');
+            console.log(this.actualMessage.message);
+        }
+    );
   }
 
   updateData(){
-    this._messageService.getSendedMessagesById(this.id).subscribe(
+    this._messageService.getSendedMessagesById(Info.userId).subscribe(
         sendedMessages => {
           this.sendedMessages = sendedMessages;
           this.updateMessages();
         },
         error => alert("error sended messages")
     );
-    this._messageService.getNumNonRead(this.id).subscribe(
+    this._messageService.getNumNonRead(Info.userId).subscribe(
         num => this.nonReadMessages = num
     );
-    this._messageService.getReceivedMessages(this.id).subscribe(
+    this._messageService.getReceivedMessages(Info.userId).subscribe(
         receivedMessages => {
           this.receivedMessages = receivedMessages;
           this.updateMessages();
+          console.log(this.receivedMessages);
         },
         error => alert("error received messages")
     );
