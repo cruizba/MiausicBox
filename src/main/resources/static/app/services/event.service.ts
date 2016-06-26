@@ -13,7 +13,7 @@ import { Injectable } from 'angular2/core';
 import { Http, Response, Headers, RequestOptions } from "angular2/http";
 import { withObserver, emptyEvent, toInstance, emptyUser, emptyBand } from '../classes/Utils';
 import {Band} from "../classes/Band";
-import 'rxjs/Rx';se
+import 'rxjs/Rx';
 
 @Injectable()
 export class EventService {

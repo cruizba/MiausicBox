@@ -30,7 +30,10 @@ export class FollowersComponent{
             (userList => this.userList = userList),
             (error => alert("Error get following"))
         )
+        console.log(this.userList);
         
     }
+    
+    
 
 }

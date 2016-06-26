@@ -11,9 +11,11 @@ import { BlogUser} from "../classes/BlogUser";
 import { Injectable } from 'angular2/core';
 
 import {Http, Response, Headers, RequestOptions} from 'angular2/http';
-import {withObserver, emptyUser, toInstance, emptyBlogUser} from '../classes/Utils';
+import {withObserver, emptyUser, toInstance, emptyBlogUser, emptyGenre, emptyInstrument} from '../classes/Utils';
 
 import 'rxjs/Rx';
+import {Genre} from "../classes/Genre";
+import {Instrument} from "../classes/Instrument";
 
 @Injectable()
 export class UserService {
@@ -83,6 +85,20 @@ export class UserService {
     );
   }
 
+  getAllGenres(){
+    let url = "/getAllGenres";
+    return this.http.get(url).map(
+        response => this.deserializeAllGenres(response.json())
+    );
+  }
+  
+  getAllInstruments(){
+    let url = "/getAllInstr";
+    return this.http.get(url).map(
+        response => this.deserializeAllInstr(response.json())
+    )
+  }
+
   /* Http POSTs */
   addUser(user:User){
     // TODO
@@ -120,30 +136,6 @@ export class UserService {
     userList[Info.userId].description = description;
   }
 
-  setInstrument(num){
-    // TODO
-    /*
-    var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
-    if(instruments.indexOf(num) == -1) {
-      userList[userList.indexOf(Info.userLogged)].instruments.push(parseInt(num));
-      console.log(Info.userLogged);
-    }
-    */
-  }
-
-  deleteInstrument(num){
-    // TODO
-    /*
-    var instruments = userList[userList.indexOf(Info.userLogged)].instruments;
-    var index = instruments.indexOf(parseInt(num))
-    if(index != 0){
-      userList[userList.indexOf(Info.userLogged)].instruments.splice(index, 1)
-      Info.userLogged.instruments.splice(index, 1);
-      console.log(Info.userLogged.instruments)
-    }
-    */
-  }
-
   setCity(city){
     let body = city;
 
@@ -153,13 +145,77 @@ export class UserService {
     return this.http.put('/editCity/' + Info.userId , body, options);
   }
 
+  setYoutube(link){
+    let body = link;
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editYoutubeLink/' + Info.userId , body, options);
+  }
+
+  setTwitter(link){
+    let body = link;
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editTwitterLink/' + Info.userId , body, options);
+  }
+
+  setFacebook(link){
+    let body = link;
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editFacebookLink/' + Info.userId , body, options);
+  }
+
+  addGenre(genre:Genre){
+    let body = '{ "name": "' + genre.name + '"}';
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/addGenre/' + Info.userId, body, options);
+
+  }
+
+  deleteGenre(genre:Genre){
+    let body = '{ "name": "' + genre.name + '"}';
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/deleteGenre/' + Info.userId, body, options);
+  }
+
+  addInstrument(inst){
+    let body = inst;
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/addInstr/' + Info.userId, body, options);
+  }
+
+  deleteInstrument(inst){
+    let body = inst;
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/deleteInstr/' + Info.userId, body, options);
+  }
+
 
   
   /* Deserialize Methods */
   deserializeAllUsers(json) {
     let users:User[] = [];
     json.map(
-        obj => users.push(obj)
+        obj => users.push(this.deserializeUser(obj))
     );
     return users;
   }
@@ -184,6 +240,34 @@ export class UserService {
     //noinspection TypeScriptValidateTypes
     blog.date = new Date(json.date);
     return blog;
+  }
+
+  deserializeGenre(json){
+    return toInstance(emptyGenre(), json);
+  }
+
+  deserializeAllGenres(json){
+    let genres:Genre[] = [];
+    json.map(
+      obj => {
+        genres.push(this.deserializeGenre(obj));
+      }
+    );
+    return genres;
+  }
+  
+  deserializeInstrument(json){
+    return toInstance(emptyInstrument(), json);
+  }
+
+  deserializeAllInstr(json){
+    let instruments:Instrument[] = [];
+    json.map(
+        obj => {
+          instruments.push(this.deserializeInstrument(obj))
+        }
+    );
+    return instruments;
   }
 
 }

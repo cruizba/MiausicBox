@@ -28,10 +28,10 @@
                                         <td>Géneros
                                         </td>
                                         <td>
-                                            <span *ngFor="#genre of genresUser">{{genre + ", "}}</span>
+                                            <span *ngFor="#genre of user.genres">{{genre.name + " "}}</span>
                                         </td>
                                         <td>
-                                            <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
+                                            <button *ngIf="isUserLogged" data-toggle="modal" data-target="#EditarGenero" type="button" class="btn btn-default" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
                                         </td>
@@ -54,7 +54,7 @@
                                             <img *ngFor="#ins of user.instruments" src="{{ins.image_url}}" alt="Profile image" id="ImagenInstrumento">
                                         </td>
                                         <td>
-                                            <button *ngIf="isUserLogged" type="button" data-toggle="modal" data-target="#Editarinstrumento" class="btn btn-default" aria-label="Left Align">
+                                            <button *ngIf="isUserLogged" type="button" data-toggle="modal" data-target="#EditarInstrumento" class="btn btn-default" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
                                         </td>
@@ -65,11 +65,11 @@
                                 <tr>
                                     <td>
                                         <a class="btn btn-block btn-social btn-facebook">
-                                            <span class="fa fa-facebook"></span>Follow in Facebook <div>{{user.facebook}}</div>
+                                            <span></span><a href="{{user.facebook}}">Follow in Facebook </a>
                                         </a>
                                     </td>
                                     <td>
-                                        <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
+                                        <button *ngIf="isUserLogged" type="button" data-toggle="modal" data-target="#EditarF" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
                                     </td>
@@ -77,11 +77,11 @@
                                 <tr>
                                     <td>
                                         <a class="btn btn-block btn-social btn-twitter">
-                                            <span></span><a (click)="goToURL()">Follow in Twitter </a>
+                                            <span></span><a href="{{user.twitter}}">Follow in Twitter </a>
                                         </a>
                                     </td>
                                     <td>
-                                        <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
+                                        <button *ngIf="isUserLogged" type="button" data-toggle="modal" data-target="#EditarTW" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
                                     </td>
@@ -89,11 +89,11 @@
                                 <tr>
                                     <td>
                                         <a class="btn btn-block btn-social btn-pinterest">
-                                            <span class="fa fa-youtube"></span>Follow in Youtube <div>{{user.youtube}}</div>
+                                            <span></span><a href="{{user.youtube}}">Follow in Youtube </a>
                                         </a>
                                     </td>
                                     <td>
-                                        <button *ngIf="isUserLogged" type="button" class="btn btn-default" aria-label="Left Align">
+                                        <button *ngIf="isUserLogged" type="button"  data-toggle="modal" data-target="#EditarYT" class="btn btn-default" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
                                     </td>
@@ -139,7 +139,7 @@
                         <div class="panel-body">
                             <table class="table" id="Eventos">
                                 <tbody>
-                                    <tr *ngFor="#ev of user.events" id="PrimeraFila">
+                                    <tr *ngFor="#ev of events" id="PrimeraFila">
                                         <td>{{ev.date.getDay()}}/{{ev.date.getMonth()}}/{{ev.date.getFullYear()}}
                                         </td>
                                         <td><a [routerLink]="['Event', {id: ev.id}]">{{ev.name}}</a>
@@ -351,37 +351,68 @@
             </div>
         </div>
     </div>
-    <!-- Formulario Crear Banda -->
+    <!-- Fin formulario -->
 
-    <div id="Editarinstrumento" class="modal fade" role="dialog">
+    <!-- Formulario editar Generos -->
+    <div id="EditarGenero" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
-                <div class="formulario" id="formularioCrearBanda">
-                    <div class="formulario" id="Editar instrumentos">
+                <div class="formulario" id="formularioEditarGenero">
+                    <div class="formulario" id="Editar Genero">
                         <div class="panel panel-default">
                             <div class="panel-head">
-                                <h3 class="content-panel">Editar instrumentos</h3>
+                                <h3 class="content-panel">Editar Géneros</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+	                                <div class="form-group">
+	                                    <label class="formLabel control-label col-sm-2" for="nombreBanda">Agregar / Eliminar Género</label>
+	                                    <div class="col-sm-10">
+		                                   	<select #selectedGen class="form-control select-form" id="genre">
+		                                        <option *ngFor="#gen of genreList" value="{{gen.name}}">{{gen.name}}</option>
+		                                    </select>
+	                                    </div>
+	                                    <div class="formulButtonModification BotonFormulario">
+	                                        <div class="BotonFormulario">
+	                                            <button data-dismiss="modal" type="submit" class="btn btn-default" (click)="addGenre(selectedGen.value)">Añadir</button>
+	                                            <button data-dismiss="modal" class="btn btn-default" (click)="deleteGenre(selectedGen.value)">Eliminar</button>
+	                                        </div>
+	                                    </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Formulario editar Instrumentos -->
+    <div id="EditarInstrumento" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarInstrumento">
+                    <div class="formulario" id="Editar Instrumento">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Editar Instrumentos</h3>
                             </div>
                             <div class="panel-body">
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
-                                        <label class="formLabel control-label col-sm-2" for="nombreBanda">Agregar / Eliminar Instrumento</label>
-                                        <div class="form-group">
-                                            <label for="inst">Select list:</label>
-                                            <select class="form-control" id="inst" [(ngModel)]="intInstrument">
-                                                <option *ngFor="#ins of allInstruments; #i = index" value="{{i}}">{{ins.name}}</option>
+                                        <label class="formLabel control-label col-sm-2" for="nombreBanda">Agregar / Eliminar </label>
+                                        <div class="col-sm-10">
+                                            <select #selectedInst class="form-control select-form" id="genre">
+                                                <option *ngFor="#inst of instrList" value="{{inst.name}}">{{inst.name}}</option>
                                             </select>
-                                            <div class="formulButtonModification BotonFormulario">
-                                                <div class="BotonFormulario">
-                                                    <button type="submit" class="btn btn-default" (click)="addInstrument(intInstrument)">Añadir</button>
-                                                </div>
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" type="submit" class="btn btn-default" (click)="addInstrument(selectedInst.value)">Añadir</button>
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="deleteInstrument(selectedInst.value)">Eliminar</button>
                                             </div>
-                                            <div class="formulButtonModification BotonFormulario">
-                                                <div class="BotonFormulario">
-                                                    <button class="btn btn-default" (click)="deleteInstrument(intInstrument)">Eliminar</button>
-                                                </div>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </form>
@@ -392,6 +423,7 @@
             </div>
         </div>
     </div>
+    <!-- Fin formulario -->
 
         <div id="EditarCiudad" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
@@ -411,7 +443,7 @@
                                                  </div>
                                                 <div class="formulButtonModification BotonFormulario">
                                                     <div class="BotonFormulario">
-                                                        <button class="btn btn-default" (click)="editCity(ciudadEdit.value)">Editar</button>
+                                                        <button data-dismiss="modal" class="btn btn-default" (click)="editCity(ciudadEdit.value)">Editar</button>
                                                     </div>
                                                 </div>
                                         </div>
@@ -422,5 +454,105 @@
                     </div>
                 </div>
             </div>
+        </div>
+            <!-- Fin formulario -->
+
+    <div id="EditarYT" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarYT">
+                    <div class="formulario" id="Editar YT">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Link Youtube</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Link:</label>
+                                        <div class="col-sm-10">
+                                            <input #linkyt type="text"  class="form-control" id="linkyt" placeholder="Introduce aquí el link">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="setYoutube(linkyt.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <div id="EditarTW" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarTW">
+                    <div class="formulario" id="Editar TW">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Link Twitter</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Link:</label>
+                                        <div class="col-sm-10">
+                                            <input #linktw type="text"  class="form-control" id="linkyt" placeholder="Introduce aquí el link">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="setTwitter(linktw.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <div id="EditarF" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarF">
+                    <div class="formulario" id="Editar F">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Link Facebook</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Link:</label>
+                                        <div class="col-sm-10">
+                                            <input #linkf type="text"  class="form-control" id="linkf" placeholder="Introduce aquí el link">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="setFacebook(linkf.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+
 
 
