@@ -89,7 +89,6 @@ public class UserController {
 	interface EventListView extends Event.Basic, Event.Bands {}
 	interface MessageListView extends Message.Basic {}
 	interface BandListView extends Band.Basic {}
-	interface FollowView extends Follow.Basic {}
 	
 	/**
 	 * GET RequestMethods related to USER_CONTROLLER
