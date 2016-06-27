@@ -169,28 +169,32 @@ public class GenericController {
 		bot.getInstruments().add(violin);
 		
 		// Tracks
-		Track tr0 = new Track("Hotel California", "The Eagles", "");
-		Track tr1 = new Track("Sultans Of Swing", "Dire Straits", "");
-		Track tr2 = new Track("School", "Supertramp", "");
-		Track tr3 = new Track("Black", "Pearl Jam", "");
-		Track tr4 = new Track("Losing My Religion", "R.E.M", "");
-		Track tr5 = new Track("Innuendo", "Queen", "");
-		Track tr6 = new Track("One", "U2", "");
+		Track tr0 = new Track("Hotel California", "The Eagles", "https://youtube.com/v/5a1rZrnUIRg");
+		Track tr1 = new Track("Sultans Of Swing", "Dire Straits", "https://youtube.com/v/h0ffIJ7ZO4U");
+		Track tr2 = new Track("School", "Supertramp", "https://youtube.com/v/dQw4w9WgXcQ");
+		Track tr3 = new Track("Black", "Pearl Jam", "https://youtube.com/v/cs-XZ_dN4Hc");
+		Track tr4 = new Track("Losing My Religion", "R.E.M", "https://youtube.com/v/FQ2yXWi0ppw");
+		Track tr5 = new Track("Black Magic Woman", "Santana", "https://youtube.com/v/wyQUCYl-ocs");
+		Track tr6 = new Track("One", "U2", "https://youtube.com/v/ElxO4eKS8EY");
+		Track tr7 = new Track("Never Go Back Again", "Fleetwood Mac", "https://youtube.com/v/sKj1EFeU-cM");
 		
-		Track tr7 = new Track("Fluorescent Adolescent", "Arctic Monkeys", "");
-		Track tr8 = new Track("Black Magic Woman", "Santana", "");
-		Track tr9 = new Track("Little Talks", "Of Monster and Men", "");
-		Track tr10 = new Track("This Is Your Life", "The Killers", "");
-		Track tr11 = new Track("What You Know", "Two Door Cinema Club", "");
+		Track tr8 = new Track("10.000 days", "Tool", "https://youtube.com/v/FHhrmNp7o4E");
+		Track tr9 = new Track("Smells Like Teen Spirit", "Nirvana", "https://youtube.com/v/hTWKbfoikeg");
+		Track tr10 = new Track("So cold", "Breaking Benjamin", "https://youtube.com/v/maprNsfMS3s");
+		Track tr11 = new Track("The Package", "A Perfect Circle", "https://youtube.com/v/cqJJwv_Caaw");
+		Track tr12 = new Track("Were is my mind", "Pixies", "https://youtube.com/v/SjJHH6IL3Nc");
+		Track tr13 = new Track("The Devil In I", "Slipknot", "https://youtube.com/v/OLqNFjLsJLk");
+		Track tr14 = new Track("Bella Ciao", "Anonym", "https://youtube.com/v/4CI3lhyNKfo");
 		
-		Track tr12 = new Track("Radiohead", "In its right place", "");
+		Track tr15 = new Track("Radiohead", "In its right place", "https://youtube.com/v/ZRmh__q6YIM");
 		
-		Track tr13 = new Track("10.000 days", "Tool", "");
-		Track tr14 = new Track("Smell Like a Teen Spirit", "Nirvana", "");
-		Track tr15 = new Track("So cold", "Breaking Benjamin", "");
-		Track tr16 = new Track("The Package", "A Perfect Circle", "");
-		Track tr17 = new Track("Were is my mind", "Pixies", "");
-		Track tr18 = new Track("Pallar Anders Visa", "In Flames", "");
+		Track tr16 = new Track("Fluorescent Adolescent", "Arctic Monkeys", "https://youtube.com/v/PltKDFVAkXs");
+		Track tr17 = new Track("Little Talks", "Of Monster and Men", "https://youtube.com/v/ghb6eDopW8I");
+		Track tr18 = new Track("Somebody Told Me", "The Killers", "https://youtube.com/v/Y5fBdpreJiU");
+		Track tr19 = new Track("What You Know", "Two Door Cinema Club", "https://youtube.com/v/YXwYJyrKK5A");
+		Track tr20 = new Track("Let Her Go","The Passenger","https://youtube.com/v/RBumgq5yVrA");
+		Track tr21 = new Track("The Cave","Mumford and Sons","https://youtube.com/v/IgDNCmGr-Q4");
+		Track tr22 = new Track("Get Lucky","Daft Punk","https://youtube.com/v/5NV6Rdv1a3I");
 		
 		// Band
 		Band grudge = new Band(luis, "Our Grudge", "Come and see ...", "Madrid", "www.grudge.es","","",""
@@ -231,20 +235,23 @@ public class GenericController {
 		grudge.getTracks().add(tr5);
 		grudge.getTracks().add(tr6);
 		
-		indiefest.getTracks().add(tr7);
-		indiefest.getTracks().add(tr8);
-		indiefest.getTracks().add(tr9);
-		indiefest.getTracks().add(tr10);
-		indiefest.getTracks().add(tr11);
-		
-		botman.getTracks().add(tr12);
-		
+		ransom.getTracks().add(tr8);
+		ransom.getTracks().add(tr9);
+		ransom.getTracks().add(tr10);
+		ransom.getTracks().add(tr11);
+		ransom.getTracks().add(tr12);
 		ransom.getTracks().add(tr13);
 		ransom.getTracks().add(tr14);
-		ransom.getTracks().add(tr15);
-		ransom.getTracks().add(tr16);
-		ransom.getTracks().add(tr17);
-		ransom.getTracks().add(tr18);
+		
+		botman.getTracks().add(tr15);
+		
+		indiefest.getTracks().add(tr16);
+		indiefest.getTracks().add(tr17);
+		indiefest.getTracks().add(tr18);
+		indiefest.getTracks().add(tr19);
+		indiefest.getTracks().add(tr20);
+		indiefest.getTracks().add(tr21);
+		indiefest.getTracks().add(tr22);
 		
 		grudge.getGenres().add(rock);
 		ransom.getGenres().add(rock);
@@ -380,6 +387,10 @@ public class GenericController {
 		trackRepository.save(tr16);
 		trackRepository.save(tr17);
 		trackRepository.save(tr18);
+		trackRepository.save(tr19);
+		trackRepository.save(tr20);
+		trackRepository.save(tr21);
+		trackRepository.save(tr22);
 		
 		userRepository.save(luis);
 		userRepository.save(carlos);
