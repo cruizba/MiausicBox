@@ -164,8 +164,6 @@ public class BandController {
 		}
 		return response;
 	}
-	
-
 
 	@JsonView(BandView.class)
 	@RequestMapping(value="/newBand/{id}", method = RequestMethod.POST)
@@ -179,9 +177,7 @@ public class BandController {
 		response = new ResponseEntity <Band> (newBand, HttpStatus.OK);
 		
 		return response;
-		
-}
-		
+	}
 
 	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/{id}/newtrack", method = RequestMethod.POST)
@@ -236,6 +232,42 @@ public class BandController {
 			novelty = new Novelty(user, band, date, true);
 			newBand = bandRepository.save(band);
 			noveltyRepository.save(novelty);
+			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
+		}
+		return response;
+	}
+	
+	/**
+	 * POST RequestMethods related to BAND_CONTROLLER
+	 */
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{bandId}/removetrack/{trackId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeTrack(@PathVariable long bandId, @PathVariable long trackId) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		System.out.println("Saludos");
+		ResponseEntity<Band> response;
+		Band newBand;
+		Band band = bandRepository.findOne(bandId);
+		if (band == null) {
+			System.out.println("No existe la banda " + bandId);
+			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
+		}
+		Track track = trackRepository.findOne(trackId);
+		if (track == null) {
+			System.out.println("No existe el track " + trackId);
+			return new ResponseEntity<String>("ERROR - Track doesn't exists", HttpStatus.CONFLICT);
+		}
+		if (!band.getTracks().contains(track)) {
+			System.out.println("La banda no tiene ese track " + trackId);
+			return new ResponseEntity<String>("ERROR - Band doesn't have that track", HttpStatus.CONFLICT);
+		} else {
+			System.out.println("Exito! :D");
+			//trackRepository.delete(trackId);
+			band.getTracks().remove(track);
+			newBand = bandRepository.save(band);
 			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		}
 		return response;

@@ -138,6 +138,11 @@ export class BandService {
     return this.http.post('/band/' + id + '/newtrack', body, options);
   }
 
+  addRemoveTrack(trackId,bandId){
+    let url = "/band/" + bandId + "/removetrack/" + trackId;
+    return this.http.delete(url);
+  }
+
 
   
   /* Deserialize Methods (Band List) */
