@@ -15,7 +15,6 @@ import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
 import { Band } from './classes/Band'
 import { NoveltyService } from "./services/novelty.service";
-import {Track} from "./classes/Track";
 
 @Component({
   selector: 'band',
@@ -37,6 +36,8 @@ export class BandComponent {
   followers:User[]=[];
   isFollower:boolean;
   trackLink:string;
+
+  regex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/g;
 
   constructor(private _routeParams: RouteParams, private _bandService: BandService,
               private _blogService: BlogService, private _noveltyService: NoveltyService){
@@ -118,7 +119,31 @@ export class BandComponent {
   }
 
   newTrack (name, band, link){
-    this._bandService.addNewTrack(name, band, link, this.id).subscribe(
+    let embedLink:string = "";
+    if(link != "") {
+      if(!this.regex.test(link)){
+        alert("Invalid YouTube link. No link will be set.");
+      } else {
+        embedLink = this.parseLink(link);
+      }
+    }
+    this._bandService.addNewTrack(name, band, embedLink, this.id).subscribe(
+      response => {
+        if (response.status == 200) {
+          this._bandService.getBandById(this.id).subscribe(
+            band => this.band = band,
+            error => alert("getBandById error")
+          );
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
+  removeTrack(id){
+    this._bandService.addRemoveTrack(id, this.id).subscribe(
       response => {
         if (response.status == 200) {
           this._bandService.getBandById(this.id).subscribe(
@@ -147,6 +172,17 @@ export class BandComponent {
       },
       error => console.log(error)
     );
+  }
+
+  parseLink(link){
+    var res:string[] = link.split("/");
+    var response:string = "";
+    for(var i = 0; i < res.length - 1; i++){
+        response += res[i];
+        response += "/";
+    }
+    response += "v/" + res[res.length - 1];
+    return response;
   }
 
   setYouTubeTrack(track){
