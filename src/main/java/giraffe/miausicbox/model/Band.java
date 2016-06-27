@@ -77,7 +77,7 @@ public class Band {
 	private List<Genre> genres = new ArrayList<>();
 	
 	@JsonView(Tracks.class)
-	@OneToMany
+	@ManyToMany
 	private List<Track> tracks = new ArrayList<>();
 	
 	// Constructor
