@@ -99,7 +99,7 @@ public class MessageController {
 		if(mes == null){
 			return new ResponseEntity<String>("ERROR, MESSAGE NOT FOUND", HttpStatus.CONFLICT);
 		}
-		mes.setRead(true);
+		mes.setReadd(true);
 		messageRepository.save(mes);
 		return new ResponseEntity<Message>(mes, HttpStatus.OK);
 	}
@@ -114,7 +114,7 @@ public class MessageController {
 		}
 		message.setSender(sender);
 		message.setDestiny(destiny);
-		message.setRead(false);
+		message.setReadd(false);
 		messageRepository.save(message);
 		return new ResponseEntity<Message>(message, HttpStatus.OK);
 	}

@@ -2,6 +2,7 @@ package giraffe.miausicbox.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,14 +16,8 @@ public class Genre {
 	// Attributes
 	@JsonView(Basic.class)
 	@Id
+	@Column(unique=false)
 	private String name;
-	
-	// Constructor
-	public Genre() {}
-	
-	public Genre(String name) {
-		this.name = name;
-	}
 	
 	// Getters & Setters
 	public String getName() {
@@ -33,6 +28,13 @@ public class Genre {
 	@Override
 	public String toString() {
 		return this.getName();
+	}
+	
+	// Constructor
+	public Genre() {}
+	
+	public Genre(String name) {
+		this.name = name;
 	}
 	
 	// Equals
