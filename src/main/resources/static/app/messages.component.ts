@@ -59,7 +59,7 @@ export class MessagesComponent {
     this.actualMessage = mes;
     this.actualUserMessage = mes.message.sender.userName;
     console.log(this.actualUserMessage);
-    if(!mes.message.read && mes.message.destiny.equals(Info.userLogged)){
+    if(!mes.message.readd && mes.message.destiny.equals(Info.userLogged)){
         this.nonReadMessages--;
         this.id = mes.message.id;
         this._messageService.setRead(this.id).subscribe(

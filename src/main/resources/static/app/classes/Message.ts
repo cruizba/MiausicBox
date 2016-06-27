@@ -13,17 +13,17 @@ export class Message {
   private _subject: string;
   private _message: string;
   private _date: Date;
-  private _read: boolean;
+  private _readd: boolean;
 
   /* Constructor */
-  constructor(id:number, sender:User, destiny:User, subject:string, message:string, date:Date, read:boolean) {
+  constructor(id:number, sender:User, destiny:User, subject:string, message:string, date:Date, readd:boolean) {
     this._id = id;
     this._sender = sender;
     this._destiny = destiny;
     this._subject = subject;
     this._message = message;
     this._date = date;
-    this._read = read;
+    this._readd = readd;
   }
 
   /* Getters & Setters */
@@ -52,8 +52,8 @@ export class Message {
     return this._date;
   }
 
-  get read():boolean {
-    return this._read;
+  get readd():boolean {
+    return this._readd;
   }
 
   set id(id:number) {
@@ -80,8 +80,8 @@ export class Message {
     this._date = date;
   }
 
-  set read(value:boolean) {
-    this._read=value;
+  set readd(value:boolean) {
+    this._readd=value;
   }
 
   /** Return if an Message is equal to other

@@ -264,6 +264,7 @@ public class GenericController {
 		followRepository.save(fol6);
 		followRepository.save(fol7);
 		
+		
 	}
 	
 }

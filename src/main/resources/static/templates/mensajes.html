@@ -27,7 +27,7 @@
                                                         <tr>
                                                             <td><img src="../img/profile_image.png" alt="Profile image" id="imagenUsuario"></td>
                                                             <td id="alineacionMensajes">
-                                                                <h4 *ngIf="receivedOption" [class.nonReadMessage]="!mes.message.read" class="list-group-item-heading">{{mes.message.sender.userName}}</h4>
+                                                                <h4 *ngIf="receivedOption" [class.nonReadMessage]="!mes.message.readd" class="list-group-item-heading">{{mes.message.sender.userName}}</h4>
                                                                 <h4 *ngIf="!receivedOption" class="list-group-item-heading">{{mes.message.destiny.userName}}</h4>
                                                                 <p class="list-group-item-text">{{mes.message.subject}}</p>
                                                             </td>

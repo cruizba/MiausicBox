@@ -13,6 +13,6 @@ public interface MessageRepository  extends JpaRepository<Message, Long> {
 	
 	public List<Message> findMessageByDestiny(User destiny);
 	
-	public List<Message> findMessageByDestinyAndRead(User destiny, Boolean read);
+	public List<Message> findMessageByDestinyAndReadd(User destiny, Boolean readd);
 	
 }

@@ -296,7 +296,7 @@ public class UserController {
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		User user = userRepository.findOne(id);
-		List<Message> messages = messageRepository.findMessageByDestinyAndRead(user, false);
+		List<Message> messages = messageRepository.findMessageByDestinyAndReadd(user, false);
 		int nonread = messages.size();
 		return new ResponseEntity<>(nonread, HttpStatus.OK);
 	}
@@ -311,7 +311,7 @@ public class UserController {
 		List<Message> messages = messageRepository.findMessageBySender(user);
 		int nonread = 0;
 		for (Message m : messages) {
-			if (!m.getRead()) {
+			if (!m.getReadd()) {
 				nonread++;
 			}
 		}
