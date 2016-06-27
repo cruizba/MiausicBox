@@ -15,6 +15,7 @@ import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
 import { Band } from './classes/Band'
 import { NoveltyService } from "./services/novelty.service";
+import {Track} from "./classes/Track";
 
 @Component({
   selector: 'band',
@@ -35,6 +36,7 @@ export class BandComponent {
   numFollowers:number;
   followers:User[]=[];
   isFollower:boolean;
+  trackLink:string;
 
   constructor(private _routeParams: RouteParams, private _bandService: BandService,
               private _blogService: BlogService, private _noveltyService: NoveltyService){
@@ -145,6 +147,10 @@ export class BandComponent {
       },
       error => console.log(error)
     );
+  }
+
+  setYouTubeTrack(track){
+      this.trackLink = track;
   }
 
 }
