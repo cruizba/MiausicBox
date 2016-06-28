@@ -140,7 +140,7 @@
                             <table class="table" id="Eventos">
                                 <tbody>
                                     <tr *ngFor="#ev of events" id="PrimeraFila">
-                                        <td>{{ev.date.getDay()}}/{{ev.date.getMonth()}}/{{ev.date.getFullYear()}}
+                                        <td>{{ev.date.getDate()}}/{{ev.date.getMonth()+1}}/{{ev.date.getFullYear()}}
                                         </td>
                                         <td><a [routerLink]="['Event', {id: ev.id}]">{{ev.name}}</a>
                                         </td>
@@ -215,7 +215,7 @@
                         <div class="panel-footer" id="BlogFooter">
                             <div class="row">
                                 <div class="col-md-6 col-xs-6" id="AutorBlog"><a href="#">{{blog.author.completeName}}</a></div>
-                                <div class="col-md-6 col-xs-6" id="FechaBlog">{{blog.date.getDay()}}/{{blog.date.getMonth()}}/{{blog.date.getFullYear()}}</div>
+                                <div class="col-md-6 col-xs-6" id="FechaBlog">{{blog.date.getDate()}}/{{blog.date.getMonth()+1}}/{{blog.date.getFullYear()}}</div>
                             </div>
                         </div>
                     </div>
