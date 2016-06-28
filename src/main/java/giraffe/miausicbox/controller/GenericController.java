@@ -260,33 +260,33 @@ public class GenericController {
 		indiefest.getGenres().add(indie);
 		
 		// BlogUser
-		BlogUser bu0 = new BlogUser("Tool","http://www.campusghanta.com/wp-content/uploads/2012/03/tool.jpg","Un componente básico del catálogo de Tool es el uso de compases poco comunes.","April 13, 2016 20:16:37",luis);
-		BlogUser bu1 = new BlogUser("Nueva banda!","https://wallpaperscraft.com/image/grunge_guitar_drawing_scratching_18516_3840x2400.jpg","Hoy comienza","January 21, 2016 17:47:40",carlos);
-		BlogUser bu2 = new BlogUser("Indie is life","http://www.musisteria.com/blog/wp-content/uploads/2012/01/indie1.bmp","Desde principios de los años 90, el indie pop ha estado creciendo casi sin cesar en popularidad.","May 10, 2016 17:15:37",soraya);
-		BlogUser bu3 = new BlogUser("Daw","https://blog-static.odesk.com/blog/uploads/sites/4/2012/04/2017_web-e1391526584549.jpg","Las aplicaciones web son populares debido a lo práctico del navegador web como cliente ligero y a la independencia del sistema operativo.","June 2, 2016 9:30:37",thais);
-		BlogUser bu4 = new BlogUser("No está mal","http://hypefreshmag.com/wp-content/uploads/2014/07/Homer-Simpsons-Music-Headphones-Anime.jpg","Pues os está quedando bien la página jeje","June 21, 2016 13:55:20",cesar);
-		BlogUser bu5 = new BlogUser("Seguimos aprendiendo", "", "Metalcore es un género de fusión musical que incorpora elementos del hardcore punk con otros del heavy metal. El término es un acrónimo de heavy metal y hardcore punk.", "June 14, 2016 23:30:20", carlos2);
+		BlogUser bu0 = new BlogUser("Tool","http://www.campusghanta.com/wp-content/uploads/2012/03/tool.jpg","Un componente básico del catálogo de Tool es el uso de compases poco comunes.","Wed Apr 13 2016 20:16:37 GMT+0200 (CEST)",luis);
+		BlogUser bu1 = new BlogUser("Nueva banda!","https://wallpaperscraft.com/image/grunge_guitar_drawing_scratching_18516_3840x2400.jpg","Hoy comienza","Thu Jan 21 2016 17:47:40 GMT+0200 (CEST)",carlos);
+		BlogUser bu2 = new BlogUser("Indie is life","http://www.musisteria.com/blog/wp-content/uploads/2012/01/indie1.bmp","Desde principios de los años 90, el indie pop ha estado creciendo casi sin cesar en popularidad.","Tue May 10 2016 17:15:37 GMT+0200 (CEST)",soraya);
+		BlogUser bu3 = new BlogUser("Daw","https://blog-static.odesk.com/blog/uploads/sites/4/2012/04/2017_web-e1391526584549.jpg","Las aplicaciones web son populares debido a lo práctico del navegador web como cliente ligero y a la independencia del sistema operativo.","Thu Jun 2 2016 9:30:37 GMT+0200 (CEST)",thais);
+		BlogUser bu4 = new BlogUser("No está mal","http://hypefreshmag.com/wp-content/uploads/2014/07/Homer-Simpsons-Music-Headphones-Anime.jpg","Pues os está quedando bien la página jeje","Tue Jun 21 2016 13:55:20 GMT+0200 (CEST)",cesar);
+		BlogUser bu5 = new BlogUser("Seguimos aprendiendo", "", "Metalcore es un género de fusión musical que incorpora elementos del hardcore punk con otros del heavy metal. El término es un acrónimo de heavy metal y hardcore punk.", "Tue Jun 14 2016 23:30:20 GMT+0200 (CEST)", carlos2);
 
 		// BlogBand
-		BlogBand bb0 = new BlogBand("Bella ciao","http://lliureimillor.cat/wp-content/uploads/2016/04/bella-ciao-2.jpg","Bella ciao (Adiós, bella) es el más conocido canto partisano italiano de los grupos resistentes contra el fascismo y nazismo.","March 22, 2016 20:15:37",ransom);
-		BlogBand bb1 = new BlogBand("Bot title [Insert title]","","Bot description [Insert description]","May 1, 2016 10:00:00",botman);
+		BlogBand bb0 = new BlogBand("Bella ciao","http://lliureimillor.cat/wp-content/uploads/2016/04/bella-ciao-2.jpg","Bella ciao (Adiós, bella) es el más conocido canto partisano italiano de los grupos resistentes contra el fascismo y nazismo.","Tue Mar 22 2016 20:15:37 GMT+0200 (CEST)",ransom);
+		BlogBand bb1 = new BlogBand("Bot title [Insert title]","","Bot description [Insert description]","Tue May 1 2016 10:00:00 GMT+0200 (CEST)",botman);
 		
 		// Messages
-		Message mes0 = new Message(carlos, luis, "Ey!", "Acabo de crear una banda, te unes?", "January 9, 2016 03:07:50", true);
-		Message mes1 = new Message(soraya, thais, "Holi", "Viva Cthulhu", "April 1, 2016 18:20:30", true);
-		Message mes2 = new Message(cesar, carlos, "Lol", "Risas", "June 5, 2016 18:10:30", false);
-		Message mes3 = new Message(carlos, luis, "Unete", "necesito peña", "January 10, 2016 13:07:50", true);
-		Message mes4 = new Message(carlos, carlos2, "Ransom Viral es tu destino", "que eso, te apuntas?", "January 9, 2016 04:17:50", true);
-		Message mes5 = new Message(carlos, luis, "Ey!", "Acabo de crear una banda, te unes?", "January 9, 2016 03:07:50", true);
-		Message mes6 = new Message(thais, cesar, "Jajaja, de dónde has salido?", "Bienvenido a MiausicBox :D", "April 24, 2016 20:21:50", false);
-		Message mes7 = new Message(bot, cesar, "Upgrade your account", "For only 99.99$ you can get vip account for new bot accounts!", "June 13, 2016 10:00:00", false);
+		Message mes0 = new Message(carlos, luis, "Ey!", "Acabo de crear una banda, te unes?", "Sat Jan 9 2016 03:07:50 GMT+0200 (CEST)", true);
+		Message mes1 = new Message(soraya, thais, "Holi", "Viva Cthulhu", "Fri Apr 1 2016 18:20:30 GMT+0200 (CEST)", true);
+		Message mes2 = new Message(cesar, carlos, "Lol", "Risas", "Sun Jun 5 2016 18:10:30 GMT+0200 (CEST)", false);
+		Message mes3 = new Message(carlos, luis, "Unete", "necesito peña", "Sun Jan 10 2016 13:07:50 GMT+0200 (CEST)", true);
+		Message mes4 = new Message(carlos, carlos2, "Ransom Viral es tu destino", "que eso, te apuntas?", "Sat Jan 9 2016 04:17:50 GMT+0200 (CEST)", true);
+		Message mes5 = new Message(carlos, luis, "Ey!", "Acabo de crear una banda, te unes?", "Sat Jan 9 2016 03:07:50 GMT+0200 (CEST)", true);
+		Message mes6 = new Message(thais, cesar, "Jajaja, de dónde has salido?", "Sun Bienvenido a MiausicBox :D", "Apr 24 2016 20:21:50 GMT+0200 (CEST)", false);
+		Message mes7 = new Message(bot, cesar, "Upgrade your account", "For only 99.99$ you can get vip account for new bot accounts!", "Mon Jun 13 2016 10:00:00 GMT+0200 (CEST)", false);
 		
 		// Events
-		Event ev0 = new Event("HellFest", "April 1, 2016 18:20:30", luis, "Festival heavy rock en Francia",
+		Event ev0 = new Event("HellFest", "Fri Apr 1 2016 18:20:00 GMT+0200 (CEST)", luis, "Festival heavy rock en Francia",
 				new ArrayList<>(), "Paris, Francia", new ArrayList<>());
-		Event ev1 = new Event("IndieFest",  "April 1, 2016 18:20:30", soraya, "Festival indie tope guachi",
+		Event ev1 = new Event("IndieFest",  "Sat Jul 30 2016 19:00:00 GMT+0200 (CEST)", soraya, "Festival indie tope guachi",
 				new ArrayList<>(), "Madrid", new ArrayList<>());
-		Event ev2 = new Event("Rockola",  "April 1, 2016 18:20:30", carlos, "Arguelles",
+		Event ev2 = new Event("Rockola",  "Mon Sep 5 2016 17:30:00 GMT+0200 (CEST)", carlos, "Arguelles",
 				new ArrayList<>(), "Madrid", new ArrayList<>());
 		
 		ev0.getBands().add(grudge);
@@ -306,16 +306,16 @@ public class GenericController {
 		ev2.getFollowers().add(bot);
 		
 		// Novelties
-		Novelty nov0 = new Novelty(luis, grudge, "January 20, 2016 18:20:30", true);
-		Novelty nov1 = new Novelty(carlos, ransom, "January 21, 2016 16:15:10", true);
-		Novelty nov2 = new Novelty(luis, ransom, "February 6, 2016 10:54:40", true);
-		Novelty nov3 = new Novelty(carlos2, ransom, "February 26, 2016 21:02:00", true);
-		Novelty nov4 = new Novelty(bot, botman, "March 13, 2016 10:00:00", true);
-		Novelty nov5 = new Novelty(carlos, indiefest, "March 30, 2016 18:40:50", true);
-		Novelty nov6 = new Novelty(luis, indiefest, "April 1, 2016 20:33:00", true);
-		Novelty nov7 = new Novelty(luis, indiefest, "April 28, 2016 20:33:00", false);
-		Novelty nov8 = new Novelty(bot, grudge, "May 13, 2016 10:00:00", true);
-		Novelty nov9 = new Novelty(bot, grudge, "March 13, 2016 10:01:00", false);
+		Novelty nov0 = new Novelty(luis, grudge, "Wed Jan 20 2016 18:20:30 GMT+0200 (CEST)", true);
+		Novelty nov1 = new Novelty(carlos, ransom, "Thu Jan 21 2016 16:15:10 GMT+0200 (CEST)", true);
+		Novelty nov2 = new Novelty(luis, ransom, "Sat Feb 6 2016 10:54:40 GMT+0200 (CEST)", true);
+		Novelty nov3 = new Novelty(carlos2, ransom, "Fri Feb 26 2016 21:02:00 GMT+0200 (CEST)", true);
+		Novelty nov4 = new Novelty(bot, botman, "Sun Mar 13 2016 10:00:00 GMT+0200 (CEST)", true);
+		Novelty nov5 = new Novelty(carlos, indiefest, "Wed Mar 30 2016 18:40:50 GMT+0200 (CEST)", true);
+		Novelty nov6 = new Novelty(luis, indiefest, "Fri Apr 1 2016 20:33:00 GMT+0200 (CEST)", true);
+		Novelty nov7 = new Novelty(luis, indiefest, "Thu Apr 28 2016 20:33:00 GMT+0200 (CEST)", false);
+		Novelty nov8 = new Novelty(bot, grudge, "Fri May 13 2016 10:00:00 GMT+0200 (CEST)", true);
+		Novelty nov9 = new Novelty(bot, grudge, "Fri May 13 2016 10:01:00 GMT+0200 (CEST)", false);
 		
 		// Follows
 		Follow fol0 = new Follow(luis, carlos);
