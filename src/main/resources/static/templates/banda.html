@@ -148,7 +148,9 @@
                         <tr>
                             <th id="EsquinaIzqTabla">Perfil</th>
                             <th>Nombre</th>
-                            <th id="EsquinaDerTabla">Instrumento</th>
+                            <th id="EsquinaDerTabla" *ngIf="!isAdmin">Instrumento</th>
+                            <th *ngIf="isAdmin">Nombre</th>
+                            <th id="EsquinaDerTabla" *ngIf="isAdmin">Borrar</th>
                         </tr>
                         </thead>
                         <tbody id="TableBody">
@@ -160,6 +162,11 @@
                                     <li *ngFor="#ins of mem.instruments"><img src="{{ins.image_url_white}}" alt="Instrument" id="InstrumentSimbol">{{ins.name}}
                                     </li>
                                 </ul>
+                            </td>
+                            <td *ngIf="isAdmin">
+                                <button type="button" class="btn btn-default btn-sm" (click)="removeMember(mem.id)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -195,7 +202,7 @@
                             <th>Grupo</th>
                             <th id="EsquinaDerTabla" *ngIf="!isMember">Link</th>
                             <th *ngIf="isMember">Link</th>
-                            <th id="EsquinaDerTabla" *ngIf="isMember">Remove</th>
+                            <th id="EsquinaDerTabla" *ngIf="isMember">Borrar</th>
                         </tr>
                         </thead>
                         <tbody id="TableBody">
@@ -257,7 +264,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image" *ngIf="blog.hasImage()">
-                            <p class="content-panel">{{blog.text}}</p>
+                            <p class="content-panel" *ngIf="blog.hasText()">{{blog.text}}</p>
                         </div>
                     </div>
                 </div>

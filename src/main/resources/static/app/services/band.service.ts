@@ -138,8 +138,14 @@ export class BandService {
     return this.http.post('/band/' + id + '/newtrack', body, options);
   }
 
-  addRemoveTrack(trackId,bandId){
+  /* Http DELETEs */
+  removeTrack(bandId,trackId){
     let url = "/band/" + bandId + "/removetrack/" + trackId;
+    return this.http.delete(url);
+  }
+
+  removeMember(bandId,memberId){
+    let url = "/band/" + bandId + "/removemember/" + memberId;
     return this.http.delete(url);
   }
 

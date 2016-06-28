@@ -55,10 +55,7 @@ export class BandComponent {
     this._bandService.getBandById(this.id).subscribe(
       result => {
         this.band = result;
-        this.isAdmin = this.band.administrador.equals(Info.userLogged);
-        this.isMember = this.band.isMember(Info.userLogged);
-        this.isFollower = this.band.isFollower(Info.userLogged);
-        this.numFollowers = this.band.followers.length;
+        this.setBooleanAttributes();
       }
     );
 
@@ -69,6 +66,13 @@ export class BandComponent {
     this._bandService.getBlogsByBand(this.id).subscribe(
       result => this.blogList = result
     );
+  }
+
+  setBooleanAttributes(){
+    this.isAdmin = this.band.administrador.equals(Info.userLogged);
+    this.isMember = this.band.isMember(Info.userLogged);
+    this.isFollower = this.band.isFollower(Info.userLogged);
+    this.numFollowers = this.band.followers.length;
   }
 
   genres(){
@@ -142,12 +146,31 @@ export class BandComponent {
     );
   }
 
-  removeTrack(id){
-    this._bandService.addRemoveTrack(id, this.id).subscribe(
+  removeTrack(trackId){
+    this._bandService.removeTrack(this.id, trackId).subscribe(
       response => {
         if (response.status == 200) {
           this._bandService.getBandById(this.id).subscribe(
             band => this.band = band,
+            error => alert("getBandById error")
+          );
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
+  removeMember(memberId){
+    this._bandService.removeMember(this.id, memberId).subscribe(
+      response => {
+        if (response.status == 200) {
+          this._bandService.getBandById(this.id).subscribe(
+            band => {
+              this.band = band;
+              this.setBooleanAttributes();
+            },
             error => alert("getBandById error")
           );
         } else {
