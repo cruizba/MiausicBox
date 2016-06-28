@@ -17,7 +17,7 @@
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
                         <div class="col-md-6 col-xs-6" id="AutorBlog"><a href="#">{{one.author.completeName}}</a></div>
-                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}</div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
                         <div class="col-md-6 col-xs-6" id="BandaBlog"><a href="#">{{one.author.groupName}}</a></div>
-                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}</div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                                 <tr>
                                     <td>Fecha
                                     </td>
-                                    <td>{{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}
+                                    <td>{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -88,7 +88,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="panel-body date">
-                            {{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}
+                            {{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}
                             {{one.date.getHours()}}:{{one.date.getMinutes()}}
                         </div>
                     </div>

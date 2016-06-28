@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -115,6 +113,7 @@ public class User {
 			List<Event> events) {
 		this.userName = userName;
 		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		this.completeName = completeName;
 		this.instruments = instruments;
 		this.genres = genres;
 		this.bands = bands;

@@ -118,7 +118,8 @@ public class BlogController {
 		if(!userComponent.isLoggedUser()){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
-		System.out.println("saludos persona 1");
+		System.out.println("Date:");
+		System.out.println(bloguser.getDate());
 		ResponseEntity<BlogUser> response;
 		User user = userRepository.findOne(id);
 		bloguser.setAuthor(user);

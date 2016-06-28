@@ -217,10 +217,6 @@ public class UserController {
 			}
 		}
 		blogs.addAll(blogUserRepository.findBlogUserByAuthorIn(friends));
-		System.out.println("Friends: ");
-		System.out.println(friends);
-		System.out.println("Blogs: ");
-		System.out.println(blogs);
 		return new ResponseEntity<>(Utils.removeDuplicated(blogs), HttpStatus.OK);
 	}
 
@@ -235,7 +231,7 @@ public class UserController {
 		List<Band> allbands = bandRepository.findAll();
 		List<Band> bands = new ArrayList<>();
 		for (Band b : allbands) {
-			if (b.getFollowers().contains(user) || Objects.equals(b.getAdministrador(), user)) {
+			if (b.getFollowers().contains(user) || b.getMembers().contains(user) || b.getAdministrador().equals(user)) {
 				bands.add(b);
 			}
 		}
@@ -375,7 +371,7 @@ public class UserController {
 	@RequestMapping(value = "/artist/{em}/follows/{re}", method = RequestMethod.POST)
 	public ResponseEntity<?> createNewFollow(@PathVariable long em, @PathVariable long re) {
 		ResponseEntity<?> response;
-		Follow newfollow;
+		Follow newFollow;
 		User emisor = userRepository.findOne(em);
 		User receptor = userRepository.findOne(re);
 		Follow follow = followRepository.findUserByEmisorAndReceptor(emisor, receptor);
@@ -383,7 +379,7 @@ public class UserController {
 			response = new ResponseEntity<String>("CONFLICT, USER FOLLOWED", HttpStatus.CONFLICT);
 		}
 		else{
-			Follow newFollow = new Follow(emisor, receptor);
+			newFollow = new Follow(emisor, receptor);
 			Follow folAdded = followRepository.save(newFollow);
 			response = new ResponseEntity<Follow>(folAdded, HttpStatus.OK);
 		}
