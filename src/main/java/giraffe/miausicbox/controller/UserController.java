@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import org.hibernate.jpamodelgen.xml.jaxb.Basic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,10 +60,8 @@ public class UserController {
 	private EventRepository eventRepository;
 	@Autowired
 	private MessageRepository messageRepository;
-	
 	@Autowired
 	private GenreRepository genreRepository;
-	
 	@Autowired
 	private InstrumentRepository instrRepository;
 	
@@ -216,10 +213,14 @@ public class UserController {
 		List<User> friends = new ArrayList<>();
 		for (Follow f : follows) {
 			if (Objects.equals(f.getEmisor(), user)) {
-				friends.add(f.getEmisor());
+				friends.add(f.getReceptor());
 			}
 		}
 		blogs.addAll(blogUserRepository.findBlogUserByAuthorIn(friends));
+		System.out.println("Friends: ");
+		System.out.println(friends);
+		System.out.println("Blogs: ");
+		System.out.println(blogs);
 		return new ResponseEntity<>(Utils.removeDuplicated(blogs), HttpStatus.OK);
 	}
 
