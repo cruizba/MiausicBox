@@ -92,6 +92,7 @@
                                 </button>
                             </td>
                         </tr>
+                        <button *ngIf="isAdmin" (click)="removeBand()" type="button" class="btn btn-default" aria-label="Center Align">Disolver banda</button>
                     </table>
                 </div>
             </div>
@@ -163,7 +164,7 @@
                                     </li>
                                 </ul>
                             </td>
-                            <td *ngIf="isAdmin">
+                            <td *ngIf="isAdmin || itsMe(mem)">
                                 <button type="button" class="btn btn-default btn-sm" (click)="removeMember(mem.id)">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>

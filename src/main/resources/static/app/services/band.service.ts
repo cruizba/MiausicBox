@@ -149,6 +149,11 @@ export class BandService {
     return this.http.delete(url);
   }
 
+  removeBand(bandId){
+    let url = "/band/" + bandId + "/remove";
+    return this.http.delete(url);
+  }
+
 
   
   /* Deserialize Methods (Band List) */

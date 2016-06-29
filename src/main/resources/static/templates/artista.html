@@ -110,7 +110,7 @@
                         </div>
                         <div class="panel-body">
                             <table class="table" id="ListaBandas">
-                                <tr  *ngFor="#ba of user.bands" id="PrimeraFila">
+                                <tr *ngFor="#ba of user.bands" id="PrimeraFila">
                                     <td><a href="#" class="enlaceBanda"><img src="../img/muestra1.jpg" alt="Profile image" class="img-circle" id="ImagenBanda"></a></td>
                                     <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceBanda">{{ba.groupName}}</a></td>
                                 </tr>

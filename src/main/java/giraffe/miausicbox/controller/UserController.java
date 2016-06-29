@@ -231,7 +231,7 @@ public class UserController {
 		List<Band> allbands = bandRepository.findAll();
 		List<Band> bands = new ArrayList<>();
 		for (Band b : allbands) {
-			if (b.getFollowers().contains(user) || b.getMembers().contains(user) || b.getAdministrador().equals(user)) {
+			if (b.getFollowers().contains(user) || b.getMembers().contains(user) || user.equals(b.getAdministrador())) {
 				bands.add(b);
 			}
 		}
@@ -522,8 +522,5 @@ public class UserController {
 		user = userRepository.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-	
-	
-	
 	
 }
