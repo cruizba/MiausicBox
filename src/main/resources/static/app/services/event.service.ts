@@ -10,7 +10,7 @@ import { Info } from "../classes/Info";
 
 import { Injectable } from 'angular2/core';
 
-import { Http, Response, Headers, RequestOptions } from "angular2/http";
+import { Http, Headers, RequestOptions } from "angular2/http";
 import { withObserver, emptyEvent, toInstance, emptyUser, emptyBand } from '../classes/Utils';
 import {Band} from "../classes/Band";
 import 'rxjs/Rx';
@@ -121,7 +121,7 @@ export class EventService {
 
 
   /* Deserialize Methods (Event List) */
-  deserializeAllEvents (json) {
+  deserializeAllEvents(json) {
     /* parse each band in json */
     let events:Event[] = [];
     json.map(

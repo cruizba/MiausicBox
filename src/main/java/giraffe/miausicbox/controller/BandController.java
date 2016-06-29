@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.controller.BlogController.BlogView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.Event;
@@ -165,8 +164,6 @@ public class BandController {
 		}
 		return response;
 	}
-	
-
 
 	@JsonView(BandView.class)
 	@RequestMapping(value="/newBand/{id}", method = RequestMethod.POST)
@@ -180,9 +177,7 @@ public class BandController {
 		response = new ResponseEntity <Band> (newBand, HttpStatus.OK);
 		
 		return response;
-		
-}
-		
+	}
 
 	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/{id}/newtrack", method = RequestMethod.POST)
@@ -239,6 +234,125 @@ public class BandController {
 			noveltyRepository.save(novelty);
 			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		}
+		return response;
+	}
+	
+	/**
+	 * DELETE RequestMethods related to BAND_CONTROLLER
+	 */
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{bandId}/removetrack/{trackId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeTrack(@PathVariable long bandId, @PathVariable long trackId) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		System.out.println("Saludos");
+		ResponseEntity<Band> response;
+		Band newBand;
+		Band band = bandRepository.findOne(bandId);
+		if (band == null) {
+			System.out.println("No existe la banda " + bandId);
+			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
+		}
+		if (!band.getMembers().contains(userComponent.getLoggedUser())){
+			System.out.println("No es miembro");
+			return new ResponseEntity<String>("ERROR - User logged is not member", HttpStatus.UNAUTHORIZED);
+		}
+		Track track = trackRepository.findOne(trackId);
+		if (track == null) {
+			System.out.println("No existe el track " + trackId);
+			return new ResponseEntity<String>("ERROR - Track doesn't exists", HttpStatus.CONFLICT);
+		}
+		if (!band.getTracks().contains(track)) {
+			System.out.println("La banda no tiene el track");
+			return new ResponseEntity<String>("ERROR - Band doesn't have that track", HttpStatus.CONFLICT);
+		}
+		System.out.println("Exito! :D");
+		//trackRepository.delete(trackId);
+		band.getTracks().remove(track);
+		newBand = bandRepository.save(band);
+		response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
+		return response;
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{bandId}/removemember/{memberId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeMember(@PathVariable long bandId, @PathVariable long memberId) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		System.out.println("Saludos");
+		ResponseEntity<Band> response;
+		Band newBand;
+		Band band = bandRepository.findOne(bandId);
+		if (band == null) {
+			System.out.println("No existe la banda " + bandId);
+			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
+		}
+		User user = userRepository.findOne(memberId);
+		if (user == null) {
+			System.out.println("No existe el user " + memberId);
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		if (!band.getAdministrador().equals(userComponent.getLoggedUser())){
+			System.out.println("No es administador");
+			if (!userComponent.getLoggedUser().equals(user)){
+				System.out.println("Ni el user a eliminar ...");
+				return new ResponseEntity<String>("ERROR - User logged is not admin", HttpStatus.UNAUTHORIZED);
+			}
+			System.out.println("Pero sí el user que quiere eliminar jaja");
+		}
+		if (!band.getMembers().contains(user)) {
+			System.out.println("La banda no tiene el user");
+			return new ResponseEntity<String>("ERROR - Band doesn't have that member", HttpStatus.CONFLICT);
+		}
+		System.out.println("Exito! :D");
+		if (band.getAdministrador().equals(user)){
+			band.setAdministrador(null);
+		}
+		band.getMembers().remove(user);
+		if (band.getMembers().size() > 0) {
+			band.setAdministrador(band.getMembers().get(0));
+		}
+		newBand = bandRepository.save(band);
+		response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
+		return response;
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{bandId}/remove", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeBand(@PathVariable long bandId) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		System.out.println("Saludos");
+		ResponseEntity<String> response;
+		Band band = bandRepository.findOne(bandId);
+		if (band == null) {
+			System.out.println("No existe la banda " + bandId);
+			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
+		}
+		if (!band.getAdministrador().equals(userComponent.getLoggedUser())){
+			System.out.println("No es administador");
+			return new ResponseEntity<String>("ERROR - User logged is not admin", HttpStatus.UNAUTHORIZED);
+		}
+		List<Novelty> novelties = noveltyRepository.findNoveltyByBand(band);
+		for (Novelty n : novelties) {
+			noveltyRepository.delete(n);
+		}
+		List<BlogBand> blogs = blogBandRepository.findBlogBandByAuthor(band);
+		for (BlogBand b : blogs) {
+			blogBandRepository.delete(b);
+		}
+		List<Event> events = eventRepository.findEventByBands(band);
+		for (Event e : events) {
+			e.getBands().remove(band);
+			eventRepository.save(e);
+		}
+		System.out.println("Exito! :D");
+		bandRepository.delete(band);
+		response = new ResponseEntity<String>("OK", HttpStatus.OK);
 		return response;
 	}
 	

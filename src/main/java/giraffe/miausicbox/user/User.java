@@ -1,7 +1,6 @@
 package giraffe.miausicbox.user;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -114,6 +113,7 @@ public class User {
 			List<Event> events) {
 		this.userName = userName;
 		this.passwordHash = new BCryptPasswordEncoder().encode(password);
+		this.completeName = completeName;
 		this.instruments = instruments;
 		this.genres = genres;
 		this.bands = bands;

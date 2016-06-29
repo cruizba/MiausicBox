@@ -9,7 +9,7 @@ import { Info } from "../classes/Info";
 import { User } from "../classes/User";
 
 import { Injectable } from "angular2/core";
-import { Http, Response } from "angular2/http";
+import {Http, Response, Headers, RequestOptions} from "angular2/http";
 
 @Injectable()
 export class MessageService{
@@ -40,35 +40,35 @@ export class MessageService{
     }
 
     /* Http POSTs */
-    setRead(id, message){
-        // TODO
-        for(let i = 0; i < messageList.length; i++){
-            if(message.equals(messageList[i])){
-                messageList[i].read = true;
-            }
-        }
-        console.log("Changed");
+    setRead(id){
+        let body = "";
+
+        let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        let options = new RequestOptions({headers});
+
+        return this.http.put('/message/setRead/' + id , body, options);
     }
 
     sendMessage(userName:string, subject: string, day:Date, message: string){
-        // TODO
-        for(let i = 0; i < userList.length; i++){
-            if(userName == userList[i].userName){
-                messageList.push(new Message(0, Info.userLogged, userList[i], subject, message, day, false)); // <-- FixMe: ID
-                console.log("Mensaje enviado");
-                break;
-            }
-        }
+        let body = '{' +
+            '"subject":"' + subject + '",' +
+            '"date":"' + day + '",' +
+            '"message":"' + message + '"' +
+            '}';
+
+        let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        let options = new RequestOptions({headers});
+
+        return this.http.post('/message/sendMesFrom/' + Info.userId + '/to/' + userName, body, options);
     }
     
     deleteMessage(message: Message){
-        // TODO
-        for(let i = 0; i < messageList.length; i++){
-            if(message.equals(messageList[i])){
-                messageList.splice(i, 1);
-                break;
-            }
-        }
+        let body = ""
+
+        let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        let options = new RequestOptions({headers});
+
+        return this.http.post('/message/deleteMessage/' + message.id , body, options);
     }
 
     /* Deserialize Methods */
@@ -79,6 +79,7 @@ export class MessageService{
         response.json().map(
             obj => {
                 let mes:Message = obj;
+                //noinspection TypeScriptValidateTypes
                 mes.date = new Date(obj.date);
                 mes.destiny = new User(0, obj.destiny.userName,"",obj.destiny.completeName,obj.destiny.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
                 mes.sender = new User(0, obj.sender.userName,"",obj.sender.completeName,obj.sender.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
@@ -94,6 +95,7 @@ export class MessageService{
     deserializeMessage(response:Response){
         let body = response.json();
         let mes:Message = body;
+        //noinspection TypeScriptValidateTypes
         mes.date = new Date(body.date);
         mes.destiny = new User(0, body.destiny.userName,"",body.destiny.completeName,body.destiny.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
         mes.sender = new User(0, body.sender.userName,"",body.sender.completeName,body.sender.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID

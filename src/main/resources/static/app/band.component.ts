@@ -6,7 +6,7 @@ import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
 import { Event } from './classes/Event'
-import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import { Info } from "./classes/Info";
 import { Instrument } from "./classes/Instrument";
 import { FollowService } from "./services/follow.service";
@@ -35,14 +35,16 @@ export class BandComponent {
   numFollowers:number;
   followers:User[]=[];
   isFollower:boolean;
+  trackLink:string;
 
-  constructor(private _routeParams: RouteParams, private _bandService: BandService,
-              private _blogService: BlogService, private _noveltyService: NoveltyService){
+  regex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/g;
+
+  constructor(private _router: Router, private _routeParams: RouteParams,
+              private _bandService: BandService, private _blogService: BlogService, private _noveltyService: NoveltyService){
   }
 
   ngOnInit() {
     this.initialization();
-    this.genres();
   }
 
   initialization() {
@@ -52,10 +54,7 @@ export class BandComponent {
     this._bandService.getBandById(this.id).subscribe(
       result => {
         this.band = result;
-        this.isAdmin = this.band.administrador.equals(Info.userLogged);
-        this.isMember = this.band.isMember(Info.userLogged);
-        this.isFollower = this.band.isFollower(Info.userLogged);
-        this.numFollowers = this.band.followers.length;
+        this.setBooleanAttributes();
       }
     );
 
@@ -68,21 +67,12 @@ export class BandComponent {
     );
   }
 
-  genres(){
-    /* TODO: utilizar genre[] en vez de number[]
-    var allGenres:GenreList = new GenreList();
-    for(let i = 0; i < allGenres.genres.length; i++){
-        if(this.band.genres.indexOf(i) != -1){
-            this.genresBand.push(allGenres.genres[i].name);
-            console.log(allGenres.genres[i].name);
-        }
-    }
-    */
-  }
-
-  /*updateFollows(){
+  setBooleanAttributes(){
+    this.isAdmin = this.band.administrador.equals(Info.userLogged);
+    this.isMember = this.band.isMember(Info.userLogged);
+    this.isFollower = this.band.isFollower(Info.userLogged);
     this.numFollowers = this.band.followers.length;
-  }*/
+  }
 
   followBand() {
     this._bandService.addFollowBand(this.id, Info.userId).subscribe(
@@ -116,7 +106,15 @@ export class BandComponent {
   }
 
   newTrack (name, band, link){
-    this._bandService.addNewTrack(name, band, link, this.id).subscribe(
+    let embedLink:string = "";
+    if(link != "") {
+      if(!this.regex.test(link)){
+        alert("Invalid YouTube link. No link will be set.");
+      } else {
+        embedLink = this.parseLink(link);
+      }
+    }
+    this._bandService.addNewTrack(name, band, embedLink, this.id).subscribe(
       response => {
         if (response.status == 200) {
           this._bandService.getBandById(this.id).subscribe(
@@ -125,6 +123,56 @@ export class BandComponent {
           );
         } else {
           console.log(response.status);
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
+  removeTrack(trackId){
+    this._bandService.removeTrack(this.id, trackId).subscribe(
+      response => {
+        if (response.status == 200) {
+          this._bandService.getBandById(this.id).subscribe(
+            band => this.band = band,
+            error => alert("getBandById error")
+          );
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
+  removeMember(memberId){
+    this._bandService.removeMember(this.id, memberId).subscribe(
+      response => {
+        if (response.status == 200) {
+          this._bandService.getBandById(this.id).subscribe(
+            band => {
+              this.band = band;
+              if (band.members.length == 0) {
+                this.goToProfile();
+              } else {
+                this.setBooleanAttributes();
+              }
+            },
+            error => alert("getBandById error")
+          );
+        } else {
+          console.log(response.status);
+        }
+      },
+      error => console.log(error)
+    );
+  }
+
+  removeBand(){
+    this._bandService.removeBand(this.id).subscribe(
+      response => {
+        if (response.status == 200) {
+          this.goToProfile();
         }
       },
       error => console.log(error)
@@ -145,6 +193,29 @@ export class BandComponent {
       },
       error => console.log(error)
     );
+  }
+
+  goToProfile(){
+    this._router.navigate(['Artist', {id: Info.userId}]);
+  }
+
+  parseLink(link){
+    var res:string[] = link.split("/");
+    var response:string = "";
+    for(var i = 0; i < res.length - 1; i++){
+        response += res[i];
+        response += "/";
+    }
+    response += "v/" + res[res.length - 1];
+    return response;
+  }
+
+  setYouTubeTrack(track){
+      this.trackLink = track;
+  }
+
+  itsMe(mem:User):boolean{
+    return mem.equals(Info.userLogged);
   }
 
 }

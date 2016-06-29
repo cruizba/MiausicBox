@@ -7,9 +7,11 @@ import { followsList, userList } from "../classes/memoryDB"
 import { Follow } from "../classes/Follow";
 
 import { Injectable } from "angular2/core";
-import { Http } from "angular2/http";
-import { withObserver } from "../classes/Utils";
+import {Http, Headers, RequestOptions} from "angular2/http";
+import {withObserver, emptyUser, toInstance} from "../classes/Utils";
 import 'rxjs/Rx';
+import {User} from "../classes/User";
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class FollowService{
@@ -25,18 +27,10 @@ export class FollowService{
      * so this implementation is not similar
      */
     getFollowingById(id){
-        // TODO
-        var users = [];
-        var numFollowing:number = 0;
-        for(let i = 0; i < followsList.length; i++){
-            var follow = followsList[i];
-            if(follow.emisor.equals(userList[id])) {
-                users.push({"id": userList.indexOf(follow.receptor), "user": follow.receptor});
-                numFollowing++;
-            }
-        }
-        console.log(users);
-        return withObserver(users);
+        let url = "/artist/" + id + "/following";
+        return this.http.get(url).map(
+            users => this.deserializeAllUsers(users.json())
+        );
     }
 
     /**
@@ -46,95 +40,79 @@ export class FollowService{
      * so this implementation is not similar
      */
     getFollowersById(id){
-        // TODO
-        var users = [];
-        var numFollowers:number = 0;
-        for(let i = 0; i < followsList.length; i++) {
-            var follow = followsList[i];
-            if (follow.receptor.equals(userList[id])) {
-                users.push({"id": userList.indexOf(follow.emisor), "user": follow.emisor});
-                numFollowers++;
-            }
-        }
-        console.log(users);
-        return withObserver(users)
+        let url = "/artist/" + id + "/followers";
+        return this.http.get(url).map(
+            users => this.deserializeAllUsers(users.json())
+        );
     }
 
     /**
      * Get only number of followers
      */
     getNumFollowersById(id){
-        // TODO
-        var numFollowers: number = 0;
-        for(let i = 0; i < followsList.length; i++){
-            var follow = followsList[i];
-            if(follow.receptor.equals(userList[id])){
-                numFollowers++;
-            }
-        }
-        console.log(numFollowers);
-        return withObserver(numFollowers);
+        let url = "/artist/" + id + "/numfollowers";
+        return this.http.get(url).map(
+            response => response.json()
+        );
     }
+
+
 
     /**
      * Get only number of following
      */
     getNumFollowingByID(id){
-        // TODO
-        var numFollowing: number = 0;
-        for(let i = 0; i < followsList.length; i++){
-            var follow = followsList[i];
-            if(follow.emisor.equals(userList[id])){
-                numFollowing++;
-            }
-        }
-        console.log(numFollowing);
-        return withObserver(numFollowing);
+        let url = "/artist/" + id + "/numfollowing"
+        return this.http.get(url).map(
+            response => response.json()
+        );
     }
 
     /**
      * Get if user follows other user
      */
-    isUserFollowedBy(us_emisor, us_receptor) {
-        // TODO
-        for (let i = 0; i < followsList.length; i++){
-            var follow = followsList[i];
-            if (follow.emisor.equals(us_emisor) &&
-                follow.receptor.equals(us_receptor)) {
-                return withObserver(true);
-            }
-        }
-        return withObserver(false);
+    isUserFollowedBy(emisor, receptor) {
+        let url = "/artist/" + receptor + "/isFollowedBy/" + emisor;
+        return this.http.get(url).map(
+            response => response.json()
+        )
     }
 
     /* Http POSTs */
     /**
      * Follow this user
      */
-    setFollow(us_emisor, us_receptor) {
-        // TODO
-      console.log("(service) SETFOLLOW");
-      console.log("(service) Agregando follow " + us_emisor.name + " -> " + us_receptor.name);
-      followsList.push(new Follow(0, us_emisor, us_receptor)); // <-- FixMe: ID
-      console.log(followsList);
+    setFollow(emisor, receptor) {
+        let body = "";
+
+        let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        let options = new RequestOptions({headers});
+
+        return this.http.post('/artist/' + emisor + "/follows/" + receptor, body, options);
     }
 
     /**
      * Unfollow this user
      */
-    setUnfollow(us_emisor, us_receptor) {
-        // TODO
-        console.log("(service) SETUN-FOLLOW");
-        if (this.isUserFollowedBy(us_emisor, us_receptor)) {
-            for (let i = 0; i < followsList.length; i++){
-                var follow = followsList[i];
-                if (follow.emisor.equals(us_emisor) && follow.receptor.equals(us_receptor)) {
-                  console.log("(service) Eliminando follow " + us_emisor.userName + " -> " + us_receptor.userName);
-                  followsList.splice(i, 1);
-                  console.log(followsList);
-                  return;
-                }
-            }
-        }
+    setUnfollow(emisor, receptor) {
+        let body = "";
+
+        let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+        let options = new RequestOptions({headers});
+
+        return this.http.post('/artist/' + emisor + "/unfollow/" + receptor, body, options);
+    }
+
+    /* Deserialize Methods */
+    deserializeAllUsers(json) {
+        let users:User[] = [];
+        json.map(
+            obj => users.push(this.deserializeUser(obj))
+        );
+        return users;
+    }
+
+    deserializeUser(json) {
+        return toInstance(emptyUser(), json);
     }
 }

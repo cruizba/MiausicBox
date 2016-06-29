@@ -23,8 +23,8 @@ import { Info } from "./classes/Info";
 
 export class PrincipalComponent {
 
-  novedades = [];
   id;
+  novedades = [];
 
   constructor(private _principalService: PrincipalService){}
 
@@ -37,14 +37,15 @@ export class PrincipalComponent {
     this._principalService.getHell(Info.userId).subscribe(
       data => {
         // FixMe: move deserializeMethods to principal.service.ts
-        this.deserializeBlogUserList(data[0]);
-        this.deserializeBlogBandList(data[1]);
-        this.deserializeNoveltyList(data[2]);
-        this.deserializeEventList(data[3]);
-        // Deserialize methods push obj to novedades
+        this.saveNovedades(data[0]);
+        this.saveNovedades(data[1]);
+        this.saveNovedades(data[2]);
+        this.saveNovedades(data[3]);
         this.novedades.sort(function(a,b) {
-            return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
+          return new Date(b.date.toString()).valueOf() - new Date(a.date.toString()).valueOf();
         });
+        console.log("Muchas cosas chulas");
+        console.log(this.novedades);
       },
       error => console.log(error)
     );
@@ -64,46 +65,10 @@ export class PrincipalComponent {
     }
   }
 
-    // Deserialize methods FixMe: move deserialize methods to principal service
-    deserializeBlogUserList(list) {
-        list.map(
-            obj => {
-                var blog:BlogUser = new BlogUser(0,obj.name,obj.image,obj.text,obj.date,obj.author); //<--- FixMe: ID
-                blog.date = new Date(obj.date);
-                this.novedades.push(blog);
-            }
-        )
-    }
-
-    deserializeBlogBandList(list) {
-        list.map(
-            obj => {
-                var blog:BlogBand = new BlogBand(0, obj.name,obj.image,obj.text,obj.date,obj.author); //<--- FixMe: ID
-                blog.date = new Date(obj.date);
-                this.novedades.push(blog);
-            }
-        )
-    }
-
-    deserializeNoveltyList(list) {
-        list.map(
-            obj => {
-                var nov:Novelty = new Novelty(0, obj.user,obj.band,obj.date,obj.joined); //<--- FixMe: ID
-                nov.date = new Date(obj.date);
-                this.novedades.push(nov);
-            }
-        )
-    }
-
-    deserializeEventList(list) {
-        list.map(
-            obj => {
-                var eve:Event = new Event(0, obj.name, obj.date, null, obj.description, obj.bands, // <--- FixMe: ID
-                obj.direction,[]);
-                eve.date = new Date(obj.date);
-                this.novedades.push(eve);
-            }
-        )
-    }
+  saveNovedades(list){
+    list.map(
+      obj => this.novedades.push(obj)
+    )
+  }
 
 }

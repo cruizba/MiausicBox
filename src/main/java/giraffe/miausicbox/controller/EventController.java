@@ -51,7 +51,7 @@ public class EventController {
 	
 	interface EventListView extends Event.Basic, Event.Bands {}
 	
-	interface EventView extends Event.Basic, Event.Followers, Event.Bands, Band.Members {}
+	interface EventView extends Event.Basic, Event.Followers, Event.Bands, Band.Members{}
 	
 	/**
 	 * GET RequestMethods related to EVENT_CONTROLLER
@@ -102,7 +102,6 @@ public class EventController {
 		}
 		User user = userRepository.getOne(id);
 		List<Event> events = eventRepository.findEventByCreator(user);
-		events.addAll(eventRepository.findEventByFollowers(user));
 		return new ResponseEntity<>(Utils.removeDuplicated(events), HttpStatus.OK);
 	}
 	

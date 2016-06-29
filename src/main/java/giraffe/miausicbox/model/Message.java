@@ -41,7 +41,7 @@ public class Message {
 	private String date;
 	
 	@JsonView(Basic.class)
-	private Boolean read;
+	private Boolean readd;
 	
 	// Constructor
 	public Message() {}
@@ -52,14 +52,14 @@ public class Message {
 			String subject,
 			String message,
 			String date,
-			Boolean read
+			Boolean readd
 			) {
 		super();
 		this.sender = sender;
 		this.destiny = destinty;
 		this.message = message;
 		this.date = date;
-		this.read = read;
+		this.readd = readd;
 	}
 
 	// Getters & Setters
@@ -107,12 +107,12 @@ public class Message {
 		this.date = date;
 	}
 
-	public Boolean getRead() {
-		return read;
+	public Boolean getReadd() {
+		return readd;
 	}
 
-	public void setRead(Boolean read) {
-		this.read = read;
+	public void setReadd(Boolean readd) {
+		this.readd = readd;
 	}
 
 	// ToString

@@ -84,4 +84,12 @@ export class Blog {
     return (this.image != "");
   }
 
+  /** Return if an Blog has an image
+   *  @method hasText
+   *  @param {} boolean
+   */
+  hasText():boolean {
+    return (this._text != "");
+  }
+
 }

@@ -92,6 +92,7 @@
                                 </button>
                             </td>
                         </tr>
+                        <button *ngIf="isAdmin" (click)="removeBand()" type="button" class="btn btn-default" aria-label="Center Align">Disolver banda</button>
                     </table>
                 </div>
             </div>
@@ -148,7 +149,9 @@
                         <tr>
                             <th id="EsquinaIzqTabla">Perfil</th>
                             <th>Nombre</th>
-                            <th id="EsquinaDerTabla">Instrumento</th>
+                            <th id="EsquinaDerTabla" *ngIf="!isAdmin">Instrumento</th>
+                            <th *ngIf="isAdmin">Nombre</th>
+                            <th id="EsquinaDerTabla" *ngIf="isAdmin">Borrar</th>
                         </tr>
                         </thead>
                         <tbody id="TableBody">
@@ -160,6 +163,11 @@
                                     <li *ngFor="#ins of mem.instruments"><img src="{{ins.image_url_white}}" alt="Instrument" id="InstrumentSimbol">{{ins.name}}
                                     </li>
                                 </ul>
+                            </td>
+                            <td *ngIf="isAdmin || itsMe(mem)">
+                                <button type="button" class="btn btn-default btn-sm" (click)="removeMember(mem.id)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -193,7 +201,9 @@
                         <tr>
                             <th id="EsquinaIzqTabla">Canción</th>
                             <th>Grupo</th>
-                            <th id="EsquinaDerTabla">Link</th>
+                            <th id="EsquinaDerTabla" *ngIf="!isMember">Link</th>
+                            <th *ngIf="isMember">Link</th>
+                            <th id="EsquinaDerTabla" *ngIf="isMember">Borrar</th>
                         </tr>
                         </thead>
                         <tbody id="TableBody">
@@ -201,7 +211,14 @@
                             <td>{{tr.name}}</td>
                             <td>{{tr.band}}</td>
                             <td>
-                                <button class="linkButton">{{tr.link}}</button>
+                                <div data-toggle="modal" data-target="#youtubeVideo" class="row">
+                                    <button class="linkButton" (click)="setYouTubeTrack(tr.link)">Link</button>
+                                </div>
+                            </td>
+                            <td *ngIf="isMember">
+                                <button type="button" class="btn btn-default btn-sm" (click)="removeTrack(tr.id)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
                             </td>
                         </tr>
                         </tbody>
@@ -248,14 +265,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image" *ngIf="blog.hasImage()">
-                            <p class="content-panel">{{blog.text}}</p>
+                            <p class="content-panel" *ngIf="blog.hasText()">{{blog.text}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
                         <div class="col-md-6 col-xs-6" id="BandaBlog"><a href="#">{{blog.author.groupName}}</a></div>
-                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{blog.date.getDay()}}/{{blog.date.getMonth()}}/{{blog.date.getFullYear()}}</div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{blog.date.getDate()}}/{{blog.date.getMonth() + 1}}/{{blog.date.getFullYear()}}</div>
                     </div>
                 </div>
             </div>
@@ -378,5 +395,15 @@
         </div>
     </div>
     <!-- Fin formulario -->
+
+    <!-- YouTube Video -->
+    <div id="youtubeVideo" class="modal fade" role="dialog" (click)="setYouTubeTrack('')">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <iframe src="{{trackLink}}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- Fin YouTube Video -->
 
 </div>

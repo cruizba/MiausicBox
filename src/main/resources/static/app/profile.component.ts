@@ -14,7 +14,11 @@ import { BlogUser } from "./classes/BlogUser";
 import { BlogService } from "./services/blog.service";
 import { BandService } from "./services/band.service";
 import { EventService } from "./services/event.service";
-import {Band} from "./classes/Band";
+import { Genre } from "./classes/Genre";
+import { Instrument } from "./classes/Instrument";
+import { Band } from "./classes/Band";
+import { Event } from "./classes/Event";
+
 
 @Component({
   selector: 'artista',
@@ -31,7 +35,10 @@ export class ArtistaComponent {
   user: User;
   id;
   blogList:BlogUser[] = [];
-    bandList:Band[] = [];
+  genreList:Genre[] = [];
+  instrList:Instrument[] = [];
+  events:Event[] = [];
+  bandList:Band[] = [];
 
   //Follows variables
   numFollowing:number;
@@ -41,7 +48,8 @@ export class ArtistaComponent {
   numMessages:number;
 
   //Variables modify
-  intInstrument;
+  instrument;
+  genre;
 
   constructor(private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
@@ -52,11 +60,6 @@ export class ArtistaComponent {
   ngOnInit() {
 
       this.initialization();
-      if (this.isArtist) {
-          this.instrumentsUser();
-      }
-      this.genres();
-      this.isFollowedBy();
   }
 
     initialization(){
@@ -73,82 +76,89 @@ export class ArtistaComponent {
                 this.user = user;
                 //Check if is an artist
                 this.isArtist = this.user.isArtist;
+                this.isFollowedBy();
             }
-        )
+        );
+
+        this._userService.getAllGenres().subscribe(
+          genres => {
+              this.genreList = genres;
+          }
+        );
+
+        this._userService.getAllInstruments().subscribe(
+            instruments => {
+                this.instrList = instruments;
+                console.log(this.instrList);
+            }
+        );
+
+        this._eventService.getEventsByUserId(this.id).subscribe(
+          events => {
+              this.events = events;
+              console.log(this.events);
+          }
+        );
 
         this.updateFollows();
 
         this._messageService.getNumNonRead(Info.userId).subscribe(
             (num => this.numMessages = num),
             (error => alert("Error notifications"))
-        )
+        );
 
         this._userService.getBlogsByUser(this.id).subscribe(
             blogList => this.blogList = blogList
-        )
+        );
 
     }
 
-    instrumentsUser() {
-      if (this.isArtist){
-          /* TODO utilizar instrument[] en vez de number[]
-          var allInstruments:IntrumentList = new IntrumentList();
-          for (let i = 0; i < allInstruments.instruments.length; i++) {
-              if (this.user.instruments.indexOf(i) != -1) {;
-                  this.instruments.push(allInstruments.instruments[i]);
-                  this.instruments_url.push(allInstruments.instruments[i].image_url);
-              }
-          }
-          */
-      }
-    }
-
-    genres(){
-        /* TODO: utilizar genre[] en vez de number[]
-        var allGenres:GenreList = new GenreList();
-        for(let i = 0; i < allGenres.genres.length; i++){
-            if(this.user.genres.indexOf(i) != -1){
-                this.genresUser.push(allGenres.genres[i].name);
-                console.log(allGenres.genres[i].name);
-            }
-        }
-        */
-    }
-
-    goToURL (){
-      console.log(this.user.twitter);
-        console.log("Entro en click");
-      window.open(this.user.twitter);
+    goToURL (link){
+      window.open(link);
     }
 
     updateFollows(){
         this._followService.getNumFollowersById(this.id).subscribe(
-            (followers => this.numFollowers = followers),
-            (error => alert("numFollowers error"))
-        )
+            (followers => {
+                this.numFollowers = followers;
+                console.log(this.numFollowers);
+            }),
+            error => alert("numFollowers error")
+        );
         this._followService.getNumFollowingByID(this.id).subscribe(
-            (followings => this.numFollowing = followings),
+            (followings => {
+                this.numFollowing = followings;
+                console.log(this.numFollowing);
+            }),
             (error => alert("numFollowings error"))
         );
     }
 
     isFollowedBy() {
-      this._followService.isUserFollowedBy(Info.userLogged, this.user).subscribe(
+      this._followService.isUserFollowedBy(Info.userId, this.id).subscribe(
         (followed => this.isFollowed = followed),
         (error => alert("isUserFollowedBy error"))
       );
     }
 
     setFollow() {
-      this._followService.setFollow(Info.userLogged, this.user);
-      this.isFollowed = true;
-      this.numFollowers++;
+      this._followService.setFollow(Info.userId, this.user.id).subscribe(
+          response => {
+              this.isFollowed = true;
+              this.numFollowers++;
+          },
+          error => alert("Error following")
+      );
     }
 
     setUnfollow() {
-      this._followService.setUnfollow(Info.userLogged, this.user);
-      this.isFollowed = false;
-      this.numFollowers--;
+      this._followService.setUnfollow(Info.userId, this.user.id).subscribe(
+          response => {
+              this.isFollowed = false;
+              this.numFollowers--;
+          },
+          error => alert("Error unfollowing")
+      );
     }
 
     submitBlog(title, img, text){
@@ -189,6 +199,12 @@ export class ArtistaComponent {
             response => {
                 if (response.status == 200){
                     console.log("EVENTO RECIBIDO")
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    );
+                    this._eventService.getEventsByUserId(this.id).subscribe(
+                        events => this.events = events
+                    );
                 }
             }
         );
@@ -206,15 +222,115 @@ export class ArtistaComponent {
         	error => alert("No se ha podido editar el campo")
         );
     }
-    
-    addInstrument(num){
-        this._userService.setInstrument(num);
-        this.instrumentsUser();
+
+    addGenre(genre){
+        let genreAux:Genre = new Genre(genre);
+        this._userService.addGenre(genreAux).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    );
+                }
+                else{
+                    alert("El genero ya está añadido");
+                }
+            },
+            error => alert("El genero ya está añadido")
+        );
     }
 
-    deleteInstrument(num){
-        this._userService.deleteInstrument(num);
-        this.instrumentsUser();
+    deleteGenre(genre){
+        let genreAux:Genre = new Genre(genre);
+        this._userService.deleteGenre(genreAux).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    );
+                }
+                else{
+                    alert("El genero no está añadido");
+                }
+            },
+        error => alert("El genero no está añadido")
+        );
     }
+    
+    addInstrument(inst){
+        this._userService.addInstrument(inst).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    );
+                } 
+            },
+            error => alert("El instrumento ya esta añadido")
+        )
+    }
+
+    deleteInstrument(inst){
+        this._userService.deleteInstrument(inst).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    );
+                }
+            },
+            error => alert("El instrumento no está añadido")
+        )
+    }
+
+    setYoutube(link){
+        this._userService.setYoutube(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        )
+    }
+    
+    setTwitter(link){
+        this._userService.setTwitter(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        )
+    }
+
+    setFacebook(link){
+        this._userService.setFacebook(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        )
+    }
+    
+    
+    //addInstrument(num){
+    //    this._userService.setInstrument(num);
+    //    this.instrumentsUser();
+    //}
+
+    //deleteInstrument(num){
+    //    this._userService.deleteInstrument(num);
+    //    this.instrumentsUser();
+   // }
 
 }

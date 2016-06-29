@@ -95,7 +95,9 @@ public class Track {
 			return false;
 		}
 		return (Objects.equals(this.getName(), other.getName())
-				&& (Objects.equals(this.getBand(), other.getBand())));
+				&& (Objects.equals(this.getBand(), other.getBand())
+				&& (Objects.equals(this.getLink(), other.getLink())
+				&& (Objects.equals(this.getId(), other.getId())))));
 	}
 	
 }

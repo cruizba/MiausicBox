@@ -10,14 +10,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image" *ngIf="one.hasImage()">
-                            <p class="content-panel">{{one.text}}</p>
+                            <p class="content-panel" *ngIf="one.hasText()">{{one.text}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
                         <div class="col-md-6 col-xs-6" id="AutorBlog"><a href="#">{{one.author.completeName}}</a></div>
-                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}</div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
                     </div>
                 </div>
             </div>
@@ -31,14 +31,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image" *ngIf="one.hasImage()">
-                            <p class="content-panel">{{one.text}}</p>
+                            <p class="content-panel" *ngIf="one.hasText()">{{one.text}}</p>
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
                         <div class="col-md-6 col-xs-6" id="BandaBlog"><a href="#">{{one.author.groupName}}</a></div>
-                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}</div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                         <div class="col-md-3">
                             <img  class="img-responsive" id="imagenEvento" src={{one.image}} />
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <!--Informacion localizacion -->
                             <table class="table" id="Informacion">
                                 <h4>Informacion</h4>
@@ -69,14 +69,14 @@
                                 <tr>
                                     <td>Fecha
                                     </td>
-                                    <td>{{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}
+                                    <td>{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <p class="content-panel">{{one.description}}</p>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="panel-body date">
-                            {{one.date.getDay()}}/{{one.date.getMonth()}}/{{one.date.getFullYear()}}
+                            {{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}
                             {{one.date.getHours()}}:{{one.date.getMinutes()}}
                         </div>
                     </div>

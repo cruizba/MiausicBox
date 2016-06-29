@@ -27,10 +27,10 @@
 
                 <tr *ngFor="#us of userList">
                     <td><a [routerLink]="['Artist', {id: us.id}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                    <td><a [routerLink]="['Artist', {id: us.id}]" class="enlaceListaArtista">{{us.user.userName}}</a></td>
+                    <td><a [routerLink]="['Artist', {id: us.id}]" class="enlaceListaArtista">{{us.userName}}</a></td>
 
                     <td>
-                        <div *ngIf="us.user.isArtist">Si</div>
+                        <div *ngIf="us.isArtist">Si</div>
                     </td>
                 </tr>
                 </tbody>
