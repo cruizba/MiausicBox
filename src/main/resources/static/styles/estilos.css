@@ -283,3 +283,22 @@ no tape un trozo de la página */
 .select-form{
     margin-bottom: 20px;
 }
+
+/* Quitar color azul de los links */
+#no_color_link_blog {
+    color: #080808;
+}
+
+#no_color_link_blog:hover {
+    color: #00BC8C;
+    text-decoration: none;
+}
+
+#no_color_link {
+    color: #ffffff;
+}
+
+#no_color_link:hover {
+    color: #00BC8C;
+    text-decoration: none;
+}

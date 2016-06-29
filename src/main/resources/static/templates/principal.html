@@ -16,7 +16,7 @@
                 </div>
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
-                        <div class="col-md-6 col-xs-6" id="AutorBlog"><a href="#">{{one.author.completeName}}</a></div>
+                        <div class="col-md-6 col-xs-6" id="AutorBlog"><a [routerLink]="['Artist', {id: one.author.id}]">{{one.author.completeName}}</a></div>
                         <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
-                        <div class="col-md-6 col-xs-6" id="BandaBlog"><a href="#">{{one.author.groupName}}</a></div>
+                        <div class="col-md-6 col-xs-6" id="BandaBlog"><a [routerLink]="['Artist', {id: one.author.id}]">{{one.author.groupName}}</a></div>
                         <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
                     </div>
                 </div>
@@ -46,12 +46,12 @@
             <!-- Evento -->
             <div *ngIf="parseOne(one) == 2" class="panel panel-default">
                 <div class="panel-head">
-                    <h3 class="content-panel">{{one.name}}</h3>
+                    <h3 class="content-panel"><a id="no_color_link_blog" [routerLink]="['Event', {id: one.id}]">{{one.name}}</a></h3>
                 </div>
                 <div class="panel-body" id="Descripcion">
                     <div class="row">
                         <div class="col-md-3">
-                            <img  class="img-responsive" id="imagenEvento" src={{one.image}} />
+                            <a [routerLink]="['Event', {id: one.id}]"><img  class="img-responsive" id="imagenEvento" src={{one.image}}/></a>
                         </div>
                         <div class="col-md-3">
                             <!--Informacion localizacion -->
@@ -62,7 +62,7 @@
                                     <td>Grupos</td>
                                     <td>
                                         <ul *ngFor="#grupo of one.bands">
-                                            <li>{{grupo.groupName}}</li>
+                                            <li><a [routerLink]="['Band', {id: grupo.id}]">{{grupo.groupName}}</a></li>
                                         </ul>
                                     </td>
                                 </tr>
@@ -95,10 +95,10 @@
                     <div class="col-md-10">
                         <div class="panel-body news">
                             <span class="glyphicon glyphicon-user"></span>
-                            <span class="text-artistname">{{one.user.userName}}</span>
+                            <span class="text-artistname"><a [routerLink]="['Artist', {id: one.user.id}]">{{one.user.userName}}</a></span>
                             <span *ngIf="one.joined"> has joined </span>
                             <span *ngIf="!one.joined"> has left </span>
-                            <span class="text-bandname">{{one.band.groupName}}</span>
+                            <span class="text-bandname"><a [routerLink]="['Band', {id: one.band.id}]">{{one.band.groupName}}</a></span>
                             <span class="glyphicon glyphicon-cd"></span>
                         </div>
                     </div>

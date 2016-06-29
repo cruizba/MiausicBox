@@ -6,7 +6,7 @@ import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
 import { Event } from './classes/Event'
-import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import { Info } from "./classes/Info";
 import { Instrument } from "./classes/Instrument";
 import { FollowService } from "./services/follow.service";
@@ -39,7 +39,7 @@ export class BandComponent {
 
   regex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/g;
 
-  constructor(private _routeParams: RouteParams, private _bandService: BandService,
+  constructor(private _router: Router, private _routeParams: RouteParams, private _bandService: BandService,
               private _blogService: BlogService, private _noveltyService: NoveltyService){
   }
 
@@ -212,4 +212,7 @@ export class BandComponent {
       this.trackLink = track;
   }
 
+    goToWebBand(id){
+        this._router.navigate(['Artist', id]);
+    }
 }
