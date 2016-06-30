@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import giraffe.miausicbox.model.Event;
 import giraffe.miausicbox.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -15,5 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	public List<User> findUserByEmail(String email);
 	
 	public User findOneByUserName(String username);
+	
+
 	
 }

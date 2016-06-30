@@ -259,6 +259,11 @@ export class UserService {
     }
   }
 
+  removeEvent (idUser, idEvent){
+    let url = "/artist/"+idUser+"/removeEvent/"+idEvent;
+    return this.http.delete(url);
+  }
+
   
   /* Deserialize Methods */
   deserializeAllUsers(json) {

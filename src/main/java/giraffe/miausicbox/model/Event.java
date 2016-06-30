@@ -172,8 +172,7 @@ public class Event {
 		if (!Objects.equals(this.getId(), other.getId())) {
 			return false;
 		}
-		return (Objects.equals(this.getName(), other.getName())
-				&& (Objects.equals(this.getDate(), other.getDate())));
+		return true;
 	}
 	
 }

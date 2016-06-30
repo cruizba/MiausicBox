@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.controller.BandController.BandView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
@@ -495,6 +496,30 @@ public class UserController {
 		user = userRepository.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+	
+
+	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/artist/{id}/removeEvent/{idEvent}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeBand (@PathVariable long id, @PathVariable long idEvent){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		User user = userRepository.findOne(id);
+		Event event = eventRepository.findOne(idEvent);
+//		
+//		if (!user.getEvents().contains(event)){
+//			System.out.println("PUTAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+//			return new ResponseEntity<String>("ERROR 401- UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+//		}
+		
+		
+		eventRepository.delete(event);
+		
+		
+		return new ResponseEntity<String> ("OK", HttpStatus.OK);
+	}
+		
 	
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/editYoutubeLink/{id}", method = RequestMethod.PUT)
