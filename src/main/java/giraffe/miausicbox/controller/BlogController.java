@@ -140,8 +140,14 @@ public class BlogController {
 	@JsonView(BlogView.class)
 	@RequestMapping(value = "/newblogband/{id}", method = RequestMethod.POST)
 	public ResponseEntity<?> createNewBlogBand(@PathVariable long id ,@RequestBody BlogBand blogband) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<Long> response;
 		Band band = bandRepository.findOne(id);
+		if(!band.getAdministrador().equals(userComponent.getLoggedUser())){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		blogband.setAuthor(band);
 		blogband.setImage("files/profile_image.png");
 		BlogBand newBlogBand = blogBandRepository.save(blogband);

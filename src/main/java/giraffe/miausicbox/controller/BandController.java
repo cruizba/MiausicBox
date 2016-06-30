@@ -145,6 +145,9 @@ public class BandController {
 	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/{ba}/isFollowedBy/{id}")
 	public ResponseEntity<?> getNumFollows(@PathVariable long ba, @PathVariable long id){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Band band = bandRepository.findOne(ba);
 		User user = userRepository.findOne(id);
 		if(user == null || band == null){
@@ -161,11 +164,11 @@ public class BandController {
 	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/{ba}/tofollow/{us}", method = RequestMethod.POST)
 	public ResponseEntity<?> followBand(@PathVariable long ba, @PathVariable long us) throws Exception {
-		//if(!userComponent.isLoggedUser()){
-		//	return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
-		//}
-		Band band = bandRepository.findOne(ba);
 		User user = userRepository.findOne(us);
+		if(!userComponent.isLoggedUser() || !userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		Band band = bandRepository.findOne(ba);
 		List<User> list = band.getFollowers();
 		boolean follows = list.contains(user);
 		if (follows) {
@@ -198,10 +201,13 @@ public class BandController {
 
 	@JsonView(BandView.class)
 	@RequestMapping(value="/newBand/{id}", method = RequestMethod.POST)
-	public ResponseEntity<Band> createNewBand (@PathVariable long id, @RequestBody Band band){
+	public ResponseEntity<?> createNewBand (@PathVariable long id, @RequestBody Band band){
+		User user= userRepository.findOne(id);
+		if(!userComponent.isLoggedUser() || !userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<Band> response;
 		
-		User user= userRepository.findOne(id);
 		band.setAdministrador(user);
 		band.getMembers().add(user);
 		Band newBand = bandRepository.save(band);

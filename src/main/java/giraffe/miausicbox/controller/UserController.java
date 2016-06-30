@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.controller.BandController.BandView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
@@ -359,6 +358,9 @@ public class UserController {
 	@JsonView(UsersListView.class)
 	@RequestMapping(value = "/getFollowersEvent/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getFollowersEvent(@PathVariable long id) throws Exception{
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Event event = eventRepository.findOne(id);
 		if(event == null){
 			return new ResponseEntity<String>("Event Or User Not Found", HttpStatus.BAD_REQUEST);
@@ -392,10 +394,16 @@ public class UserController {
 	@JsonView(FollowView.class)
 	@RequestMapping(value = "/artist/{em}/follows/{re}", method = RequestMethod.POST)
 	public ResponseEntity<?> createNewFollow(@PathVariable long em, @PathVariable long re) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<?> response;
 		Follow newFollow;
 		User emisor = userRepository.findOne(em);
 		User receptor = userRepository.findOne(re);
+		if(!userComponent.getLoggedUser().equals(emisor)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Follow follow = followRepository.findUserByEmisorAndReceptor(emisor, receptor);
 		if(follow != null){
 			response = new ResponseEntity<String>("CONFLICT, USER FOLLOWED", HttpStatus.CONFLICT);
@@ -410,9 +418,15 @@ public class UserController {
 	
 	@RequestMapping(value = "/artist/{em}/unfollow/{re}", method = RequestMethod.POST)
 	public ResponseEntity<?> removeFollow(@PathVariable long em, @PathVariable long re) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<?> response;
 		User emisor = userRepository.findOne(em);
 		User receptor = userRepository.findOne(re);
+		if(!userComponent.getLoggedUser().equals(emisor)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Follow follow = followRepository.findUserByEmisorAndReceptor(emisor, receptor);
 		if(follow == null){
 			response = new ResponseEntity<String>("CONFLICT, USER NOT FOLLOWED", HttpStatus.CONFLICT);
@@ -438,6 +452,9 @@ public class UserController {
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		user.setCity(city);
 		user = userRepository.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -451,6 +468,9 @@ public class UserController {
 		}
 		User user = userRepository.findOne(id);
 		List<Genre> genres = user.getGenres();
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		if(genres.contains(genre)){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
@@ -467,6 +487,9 @@ public class UserController {
 		}
 		User user = userRepository.findOne(id);
 		List<Genre> genres = user.getGenres();
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		if(!genres.contains(genre)){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
@@ -484,6 +507,9 @@ public class UserController {
 		User user = userRepository.findOne(id);
 		Instrument instrumentAux = instrRepository.findOne(inst);
 		List<Instrument> instList = user.getInstruments();
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		if(instList.contains(instrumentAux)){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
@@ -501,6 +527,9 @@ public class UserController {
 		User user = userRepository.findOne(id);
 		Instrument instrumentAux = instrRepository.findOne(inst);
 		List<Instrument> instList = user.getInstruments();
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		if(!instList.contains(instrumentAux)){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
@@ -518,6 +547,9 @@ public class UserController {
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		User user = userRepository.findOne(id);
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Event event = eventRepository.findOne(idEvent);
 //		
 //		if (!user.getEvents().contains(event)){
@@ -543,6 +575,9 @@ public class UserController {
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		user.setYoutube(link);
 		user = userRepository.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -556,6 +591,9 @@ public class UserController {
 		}
 		User user = userRepository.findOne(id);
 		if(user == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if(!userComponent.getLoggedUser().equals(user)){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		user.setTwitter(link);
@@ -573,6 +611,9 @@ public class UserController {
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		user.setFacebook(link);
 		user = userRepository.save(user);
 		return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -585,7 +626,10 @@ public class UserController {
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		User userAux = userRepository.findOne(id);
-		if(user == null){
+		if(userAux == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if(!userComponent.getLoggedUser().equals(userAux)){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		userAux.setUserName(user.getUserName());
@@ -605,6 +649,9 @@ public class UserController {
 		}
 		User user = userRepository.findOne(id);
 		if(user == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if(!userComponent.getLoggedUser().equals(user)){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		user.setPasswordHash(new BCryptPasswordEncoder().encode(password));

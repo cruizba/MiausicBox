@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import giraffe.miausicbox.model.Band;
-import giraffe.miausicbox.model.Event;
 import giraffe.miausicbox.model.Novelty;
 import giraffe.miausicbox.user.User;
 

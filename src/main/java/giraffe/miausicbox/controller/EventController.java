@@ -128,6 +128,9 @@ public class EventController {
 	
 	@RequestMapping(value = "/eventNumFollow/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getNumFollows(@PathVariable long id){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Event event = eventRepository.findOne(id);
 		if(event == null){
 			return new ResponseEntity<String>("Event Not Found", HttpStatus.BAD_REQUEST);
@@ -137,15 +140,17 @@ public class EventController {
 		return new ResponseEntity<Integer>(numFollow, HttpStatus.OK);
 	}
 	
-	@JsonView()
+	
 	@RequestMapping(value = "/artist/{id}/isFollowerEvent/{ev}", method = RequestMethod.GET)
 	public ResponseEntity<?> isFollowerEvent(@PathVariable long id, @PathVariable long ev){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Event event = eventRepository.findOne(ev);
 		User user = userRepository.findOne(id);
 		if(event == null || user == null){
 			return new ResponseEntity<String>("Event Not Found", HttpStatus.BAD_REQUEST);
 		}
-		
 		boolean isFollow = event.getFollowers().contains(user);
 		return new ResponseEntity<Boolean>(isFollow, HttpStatus.OK);
 	}
@@ -157,10 +162,16 @@ public class EventController {
 	@JsonView(EventView.class)
 	@RequestMapping(value = "/newEvent/{id}", method = RequestMethod.POST)
 	public ResponseEntity<?> createNewEvent(@PathVariable long id ,@RequestBody Event event) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		ResponseEntity<Event> response;
 		//Get the user
 		User user = userRepository.findOne(id);
 		Event newEvent;
+		if(!userComponent.getLoggedUser().equals(user)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		//Create the event
 		List<Event> allevents = eventRepository.findAll();
 		System.out.println("Hola");
@@ -180,8 +191,13 @@ public class EventController {
 	@JsonView(EventView.class)
 	@RequestMapping(value = "/editCityEvent/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editCity(@PathVariable long id ,@RequestBody String city) {
-		
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Event event = eventRepository.findOne(id);
+		if(!userComponent.getLoggedUser().equals(event.getCreator())){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		event.setDirection(city);
 		event = eventRepository.save(event);
 
@@ -191,8 +207,15 @@ public class EventController {
 	@JsonView(EventView.class)
 	@RequestMapping(value = "/editDateEvent/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editDate(@PathVariable long id ,@RequestBody String date) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		
 		Event event = eventRepository.findOne(id);
+		if(!userComponent.getLoggedUser().equals(event.getCreator())){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		
 		event.setString(date);
 		event = eventRepository.save(event);
 
@@ -202,7 +225,13 @@ public class EventController {
 	@JsonView(EventView.class)
 	@RequestMapping(value="/event/{id}/newBand/{name}", method = RequestMethod.POST)
 	public ResponseEntity<?> addNewBand (@PathVariable long id, @PathVariable String name){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Event event = eventRepository.findOne(id);
+		if(!userComponent.getLoggedUser().equals(event.getCreator())){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		List<Band> bands = bandRepository.findBandByGroupName(name);
 	
 		if (!event.getBands().contains(bands)){
@@ -215,6 +244,9 @@ public class EventController {
 	@JsonView(EventView.class)
 	@RequestMapping(value="/event/{ev}/toFollow/{id}", method = RequestMethod.POST)
 	public ResponseEntity<?> followUnfollowEvent(@PathVariable long ev, @PathVariable long id){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Event event = eventRepository.findOne(ev);
 		User user = userRepository.findOne(id);
 		if(event == null || user == null){

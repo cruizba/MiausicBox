@@ -73,7 +73,7 @@ public class MessageController {
 
 	@JsonView(Message.Basic.class)
 	@RequestMapping(value = "/message/new", method = RequestMethod.POST)
-	public ResponseEntity<?> createNewUser(@RequestBody Message message) {
+	public ResponseEntity<?> newMessage(@RequestBody Message message) {
 		if(!userComponent.isLoggedUser()){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
@@ -99,6 +99,9 @@ public class MessageController {
 		if(mes == null){
 			return new ResponseEntity<String>("ERROR, MESSAGE NOT FOUND", HttpStatus.CONFLICT);
 		}
+		if(!userComponent.getLoggedUser().equals(mes.getDestiny())){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		mes.setReadd(true);
 		messageRepository.save(mes);
 		return new ResponseEntity<Message>(mes, HttpStatus.OK);
@@ -107,10 +110,16 @@ public class MessageController {
 	@JsonView(Message.Basic.class)
 	@RequestMapping(value = "/message/sendMesFrom/{id}/to/{userName}", method = RequestMethod.POST)
 	public ResponseEntity<?> sendMessage(@PathVariable long id, @PathVariable String userName, @RequestBody Message message) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User sender = userRepository.findOne(id);
 		User destiny = userRepository.findUserByUserName(userName).get(0);
 		if(sender == null || destiny == null){
 			return new ResponseEntity<String>("ERROR, MESSAGE NOT FOUND", HttpStatus.CONFLICT);
+		}
+		if(!userComponent.getLoggedUser().equals(sender)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
 		message.setSender(sender);
 		message.setDestiny(destiny);
@@ -122,10 +131,17 @@ public class MessageController {
 	@JsonView(Message.Basic.class)
 	@RequestMapping(value = "/message/deleteMessage/{id}", method = RequestMethod.POST)
 	public ResponseEntity<?> deleteMessage(@PathVariable long id) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		Message mes = messageRepository.findOne(id);
 		if(mes == null){
 			return new ResponseEntity<String>("ERROR, MESSAGE NOT FOUND", HttpStatus.CONFLICT);
 		}
+		if(!userComponent.getLoggedUser().equals(mes.getSender())){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		
 		messageRepository.delete(mes);
 		return new ResponseEntity<Message>(mes, HttpStatus.OK);
 	}
