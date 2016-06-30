@@ -21,12 +21,10 @@ export class BlogService {
   constructor(private http:Http){}
 
   /* Http POSTs */
-  addBlogUser(title, img, text, date, user){
-    //img="../img/img6.jpg"; // <--- FixMe?
-
+  addBlogUser(title, text, date, user){
     let body = '{ "name": "' + title +
-        '", "image": "' + img +
-        '", "text": "' + text +
+        '", "image":null' +
+        ', "text": "' + text +
         '", "date": "' + date +
         '", "author":null' +
         '}';
@@ -37,12 +35,10 @@ export class BlogService {
     return this.http.post('/newbloguser/' + user.id, body, options);
   }
 
-  addBlogBand(title, img, text, date, id){
-    //img="../img/img6.jpg"; // <--- FixMe?
-
+  addBlogBand(title, text, date, id){
     let body = '{ "name": "' + title +
-        '", "image": "' + img +
-        '", "text": "' + text +
+        '", "image":null' +
+        ', "text": "' + text +
         '", "date": "' + date +
         '", "author":null' +
         '}';

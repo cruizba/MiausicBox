@@ -2,6 +2,7 @@ package giraffe.miausicbox.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -546,7 +547,8 @@ public class UserController {
 		}
 		String filename = "user-" + user.getId() + ".jpg";
 		File uploadedFile = new File(FILES_FOLDER.toFile(), filename);
-		uploadedFile.delete();
+		//uploadedFile.delete();
+		Files.deleteIfExists(uploadedFile.toPath());
 		file.transferTo(uploadedFile);
 		user.setImage(filename);
 		newUser = userRepository.save(user);

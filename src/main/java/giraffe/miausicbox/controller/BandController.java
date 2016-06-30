@@ -1,5 +1,10 @@
 package giraffe.miausicbox.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -29,6 +35,8 @@ import giraffe.miausicbox.repositories.UserRepository;
 
 @RestController
 public class BandController {
+	
+	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "files");
 
 	/**
 	 * REPOSITORIES related to BAND_CONTROLLER
@@ -326,15 +334,12 @@ public class BandController {
 		if(!userComponent.isLoggedUser()){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
 		}
-		System.out.println("Saludos");
 		ResponseEntity<String> response;
 		Band band = bandRepository.findOne(bandId);
 		if (band == null) {
-			System.out.println("No existe la banda " + bandId);
 			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
 		}
 		if (!band.getAdministrador().equals(userComponent.getLoggedUser())){
-			System.out.println("No es administador");
 			return new ResponseEntity<String>("ERROR - User logged is not admin", HttpStatus.UNAUTHORIZED);
 		}
 		List<Novelty> novelties = noveltyRepository.findNoveltyByBand(band);
@@ -350,10 +355,36 @@ public class BandController {
 			e.getBands().remove(band);
 			eventRepository.save(e);
 		}
-		System.out.println("Exito! :D");
 		bandRepository.delete(band);
 		response = new ResponseEntity<String>("OK", HttpStatus.OK);
 		return response;
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{id}/setimage", method = RequestMethod.POST)
+	public ResponseEntity<?> editImage(@PathVariable long id, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if (file.isEmpty()) {
+			return new ResponseEntity<String>("ERROR - File is empty", HttpStatus.CONFLICT);
+		}
+		Band newBand;
+		Band band = bandRepository.findOne(id);
+		if(band == null){
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		if(!band.getAdministrador().equals(userComponent.getLoggedUser())){
+			return new ResponseEntity<String>("ERROR - User logged is not administrator", HttpStatus.CONFLICT);
+		}
+		String filename = "band-" + band.getId() + ".jpg";
+		File uploadedFile = new File(FILES_FOLDER.toFile(), filename);
+		//uploadedFile.delete();
+		Files.deleteIfExists(uploadedFile.toPath());
+		file.transferTo(uploadedFile);
+		band.setImage(filename);
+		newBand = bandRepository.save(band);
+		return new ResponseEntity<Band>(newBand, HttpStatus.OK);
 	}
 	
 }
