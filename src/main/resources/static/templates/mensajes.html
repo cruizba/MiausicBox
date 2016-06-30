@@ -25,8 +25,8 @@
                                                 <a *ngFor="#mes of messagesShowed" [class.activeMessage]="mes == actualMessage" class="list-group-item" (click)="clickOnMessage(mes)">
                                                     <table>
                                                         <tr>
-                                                            <td><img *ngIf="receivedOption" src="/images/{{mes.sender.image}}" alt="Profile image" id="imagenUsuario"></td>
-                                                            <td><img *ngIf="!receivedOption" src="/images/{{mes.receptor.image}}" alt="Profile image" id="imagenUsuario"></td>
+                                                            <td><img *ngIf="receivedOption" src="/images/{{mes.message.sender.image}}" alt="Profile image" id="imagenUsuario"></td>
+                                                            <td><img *ngIf="!receivedOption" src="/images/{{mes.message.destiny.image}}" alt="Profile image" id="imagenUsuario"></td>
                                                             <td id="alineacionMensajes">
                                                                 <h4 *ngIf="receivedOption" [class.nonReadMessage]="!mes.message.readd" class="list-group-item-heading">{{mes.message.sender.userName}}</h4>
                                                                 <h4 *ngIf="!receivedOption" class="list-group-item-heading">{{mes.message.destiny.userName}}</h4>

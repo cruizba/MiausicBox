@@ -24,47 +24,48 @@ import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 
 
 @Component({
-  selector: 'artista',
-  templateUrl: 'templates/artista.html',
-  providers: [UserService, FollowService, MessageService, BlogService, BandService, EventService],
-  directives: [ROUTER_DIRECTIVES]
+    selector: 'artista',
+    templateUrl: 'templates/artista.html',
+    providers: [UserService, FollowService, MessageService, BlogService, BandService, EventService],
+    directives: [ROUTER_DIRECTIVES]
 })
 
 export class ArtistaComponent {
 
-  id;
-  isUserLogged: boolean;
-  isArtist: boolean;
-  isFollowed: boolean;
-  user: User;
-  blogList:BlogUser[] = [];
-  genreList:Genre[] = [];
-  instrList:Instrument[] = [];
-  events:Event[] = [];
-  bandList:Band[] = [];
-  file: File;
+    id;
+    isUserLogged: boolean;
+    isArtist: boolean;
+    isFollowed: boolean;
+    user: User;
+    blogList:BlogUser[] = [];
+    genreList:Genre[] = [];
+    instrList:Instrument[] = [];
+    events:Event[] = [];
+    bandList:Band[] = [];
+    file: File;
+    blogFile: File;
+    idBlog;
 
-  //Follows variables
-  numFollowing:number;
-  numFollowers:number;
+    //Follows variables
+    numFollowing:number;
+    numFollowers:number;
 
-  //Notification
-  numMessages:number;
+    //Notification
+    numMessages:number;
 
-  //Variables modify
-  instrument;
-  genre;
+    //Variables modify
+    instrument;
+    genre;
 
-  constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService,
+    constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
                 private _bandService:BandService, private _blogService: BlogService,
                 private _eventService:EventService){
-  }
+    }
 
-  ngOnInit() {
-
-      this.initialization();
-  }
+    ngOnInit() {
+        this.initialization();
+    }
 
     initialization(){
 
@@ -85,9 +86,9 @@ export class ArtistaComponent {
         );
 
         this._userService.getAllGenres().subscribe(
-          genres => {
-              this.genreList = genres;
-          }
+            genres => {
+                this.genreList = genres;
+            }
         );
 
         this._userService.getAllInstruments().subscribe(
@@ -98,10 +99,10 @@ export class ArtistaComponent {
         );
 
         this._eventService.getEventsByUserId(this.id).subscribe(
-          events => {
-              this.events = events;
-              console.log(this.events);
-          }
+            events => {
+                this.events = events;
+                console.log(this.events);
+            }
         );
 
         this.updateFollows();
@@ -169,15 +170,15 @@ export class ArtistaComponent {
       );
     }
 
-    submitBlog(title, img, text){
+    submitBlog(title, text){
         var user: User=Info.userLogged;
-        this._blogService.addBlogUser(title, img, text, new Date, user).subscribe(
+        this._blogService.addBlogUser(title, text, new Date, user).subscribe(
             response => {
                 if (response.status == 200){
-                    console.log("ok, vamos a ver si se ha guardado ...")
                     this._userService.getBlogsByUser(this.id).subscribe(
                         blogList => this.blogList = blogList
-                    )
+                    );
+                    this.uploadBlog();
                 } else {
                     console.log(response.status);
                 }
@@ -349,53 +350,77 @@ export class ArtistaComponent {
         )
     }
 
-  selectFile($event) {
-    this.file = $event.target.files[0];
-    console.debug("Selected file: " + this.file.name + " type:" + this.file.size + " size:" + this.file.size);
-  }
-
-  upload() {
-    console.debug("Uploading file...");
-    if (this.file == null) {
-      console.error("No image selected.");
+    
+    
+    // Upload Image
+    setBlogId(id){
+        this.idBlog = id;
     }
 
-    let formData = new FormData();
-    formData.append("file", this.file);
-
-    let url = "/artist/" + Info.userId + "/setimage"
-    let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
-    multipartItem.formData = formData;
-    multipartItem.callback = (data, status, headers) => {
-
-      if (status == 200){
-        console.debug("File has been uploaded");
-        //Get user information
-        this._userService.getUserById(this.id).subscribe(
-          user => {
-            this.user = user;
-            //Check if is an artist
-            this.isArtist = this.user.isArtist;
-            this.isFollowedBy();
-          }
-        );
-      } else {
-        console.error("Error uploading file");
-      }
+    selectFile($event) {
+        this.file = $event.target.files[0];
     }
-    multipartItem.upload();
-  }
 
+    selectBlogFile($event) {
+        this.blogFile = $event.target.files[0];
+    }
 
+    upload() {
+        console.debug("Uploading file...");
+        if (this.file == null) {
+            console.error("No image selected.");
+        }
 
-  //addInstrument(num){
-    //    this._userService.setInstrument(num);
-    //    this.instrumentsUser();
-    //}
+        let formData = new FormData();
+        formData.append("file", this.file);
 
-    //deleteInstrument(num){
-    //    this._userService.deleteInstrument(num);
-    //    this.instrumentsUser();
-   // }
+        let url = "/artist/" + this.id + "/setimage";
+        let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
+        multipartItem.formData = formData;
+        multipartItem.callback = (data, status, headers) => {
+            if (status == 200){
+                console.debug("File has been uploaded");
+                //Get user information
+                this._userService.getUserById(this.id).subscribe(
+                    user => {
+                        this.user = user;
+                        this.isArtist = this.user.isArtist;
+                        this.isFollowedBy();
+                    }
+                );
+                this.file = null;
+            } else {
+                    console.error("Error uploading file");
+            }
+        };
+        multipartItem.upload();
+    }
+
+    uploadBlog() {
+        console.debug("Uploading file...");
+        if (this.blogFile == null) {
+            console.error("No image selected.");
+        }
+
+        let formData = new FormData();
+        formData.append("file", this.blogFile);
+
+        let url = "/artist/" + this.id + "/blog/" + this.idBlog + "/setimage";
+        let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
+        multipartItem.formData = formData;
+        multipartItem.callback = (data, status, headers) => {
+            if (status == 200){
+                console.debug("File has been uploaded");
+                //Get blog information
+                this._userService.getBlogsByUser(this.id).subscribe(
+                    blogList => this.blogList = blogList
+                );
+                this.blogFile = null;
+            } else {
+                console.error("Error uploading file");
+            }
+        };
+        multipartItem.upload();
+    }
 
 }

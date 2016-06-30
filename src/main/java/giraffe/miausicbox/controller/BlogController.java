@@ -1,5 +1,10 @@
 package giraffe.miausicbox.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -26,6 +32,8 @@ import giraffe.miausicbox.user.UserComponent;
 @RestController
 public class BlogController {
 
+	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "files");
+	
 	/**
 	 * REPOSITORIES related to BLOG_CONTROLLER
 	 */
@@ -137,6 +145,65 @@ public class BlogController {
 		BlogBand newBlogBand = blogBandRepository.save(blogband);
 		response = new ResponseEntity<BlogBand>(newBlogBand, HttpStatus.OK);
 		return response;
+	}
+	
+	@JsonView(BlogView.class)
+	@RequestMapping(value = "/band/{idBand}/blog/{idBlog}/setimage", method = RequestMethod.POST)
+	public ResponseEntity<?> editBandBlogImage(@PathVariable long idBand, @PathVariable long idBlog, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if (file.isEmpty()) {
+			return new ResponseEntity<String>("ERROR - File is empty", HttpStatus.CONFLICT);
+		}
+		Band band = bandRepository.findOne(idBand);
+		if(band == null){
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		if(!band.getMembers().contains(userComponent.getLoggedUser())){
+			return new ResponseEntity<String>("ERROR - User logged is not member", HttpStatus.CONFLICT);
+		}
+		BlogBand blog = blogBandRepository.findOne(idBlog);
+		BlogBand newBlog;
+		if(!blog.getAuthor().equals(band)){
+			return new ResponseEntity<String>("ERROR - Band is not the author of the blog", HttpStatus.CONFLICT);
+		}
+		String filename = "blogband-" + blog.getId() + ".jpg";
+		File uploadedFile = new File(FILES_FOLDER.toFile(), filename);
+		//uploadedFile.delete();
+		Files.deleteIfExists(uploadedFile.toPath());
+		file.transferTo(uploadedFile);
+		blog.setImage(filename);
+		newBlog = blogBandRepository.save(blog);
+		return new ResponseEntity<BlogBand>(newBlog, HttpStatus.OK);
+	}
+	
+	@JsonView(BlogView.class)
+	@RequestMapping(value = "/artist/{idUser}/blog/{idBlog}/setimage", method = RequestMethod.POST)
+	public ResponseEntity<?> editUserBlogImage(@PathVariable long idUser, @PathVariable long idBlog, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if (file.isEmpty()) {
+			return new ResponseEntity<String>("ERROR - File is empty", HttpStatus.CONFLICT);
+		}
+		User user = userRepository.findOne(idUser);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		BlogUser blog = blogUserRepository.findOne(idBlog);
+		BlogUser newBlog;
+		if(!blog.getAuthor().equals(user)){
+			return new ResponseEntity<String>("ERROR - User is not the author of the blog", HttpStatus.CONFLICT);
+		}
+		String filename = "bloguser-" + blog.getId() + ".jpg";
+		File uploadedFile = new File(FILES_FOLDER.toFile(), filename);
+		//uploadedFile.delete();
+		Files.deleteIfExists(uploadedFile.toPath());
+		file.transferTo(uploadedFile);
+		blog.setImage(filename);
+		newBlog = blogUserRepository.save(blog);
+		return new ResponseEntity<BlogUser>(newBlog, HttpStatus.OK);
 	}
 
 }

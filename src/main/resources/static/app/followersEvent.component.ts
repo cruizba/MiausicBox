@@ -33,7 +33,6 @@ export class FollowersEvent {
                 alert ("Error");
             }
         );
-        console.log(this.userList[0].user.userName);
     }
 
 }

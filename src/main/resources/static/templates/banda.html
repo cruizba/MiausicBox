@@ -2,7 +2,8 @@
     <div class="row">
         <!-- Información del perfil -->
         <div class="col-md-4" id="profile_details">
-            <img src="/images/{{band.image}}" class="img-responsive img-rounded" alt="Profile image">
+            <img *ngIf="(!isAdmin)" src="/images/{{band.image}}" class="img-responsive img-rounded" alt="Profile image">
+            <img *ngIf="(isAdmin)" data-toggle="modal" data-target="#EditarImagen" src="/images/{{band.image}}" class="img-responsive img-rounded" alt="Profile image">
             <h1>{{band.groupName}}</h1>
 
             <p >
@@ -263,8 +264,9 @@
                 </div>
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
-                        <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image" *ngIf="blog.hasImage()">
+                        <div class="col-md-12" *ngIf="blog.hasImage() && blog.hasText()">
+                            <img *ngIf="(!isMember) && blog.hasImage()" class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image">
+                            <img *ngIf="(isMember) && blog.hasImage()" data-toggle="modal" data-target="#EditarImagenBlog" class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image" (click)="setBlogId(blog.id)">
                             <p class="content-panel" *ngIf="blog.hasText()">{{blog.text}}</p>
                         </div>
                     </div>
@@ -331,8 +333,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
-                                    <div class="col-sm-10">
-                                        <input #imgBlog type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">File input</label> <input id="exampleInputFile" type="file" (change)="selectBlogFile($event)">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -342,8 +344,7 @@
                                     </div>
                                 </div>
                                 <div class="BotonFormulario">
-                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="submitBlog(titleBlog.value, imgBlog.value, textBlog.value); titleBlog.value=null; imgBlog.value=null; textBlog.value=null">
-                                        Enviar</button>
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="submitBlog(titleBlog.value, textBlog.value); titleBlog.value=null; imgBlog.value=null; textBlog.value=null">Enviar</button>
                                 </div>
                             </form>
                         </div>
@@ -405,5 +406,31 @@
         </div>
     </div>
     <!-- Fin YouTube Video -->
+
+    <!-- Formulario editar Imagen -->
+    <div id="EditarImagen" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label> <input id="exampleInputFile" type="file" (change)="selectFile($event)">
+                </div>
+                <button type="submit" class="btn btn-default" (click)="upload()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Formulario editar Blog Imagen -->
+    <div id="EditarImagenBlog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputFileBlog">File input</label> <input id="exampleInputFileBlog" type="file" (change)="selectBlogFile($event)">
+                </div>
+                <button type="submit" class="btn btn-default" (click)="uploadBlog()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
 
 </div>

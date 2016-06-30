@@ -1,5 +1,10 @@
 package giraffe.miausicbox.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,14 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import giraffe.miausicbox.controller.BandController.BandView;
-import giraffe.miausicbox.controller.UserController.UserView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.Event;
-import giraffe.miausicbox.model.Novelty;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
 import giraffe.miausicbox.repositories.UserRepository;
@@ -27,6 +30,8 @@ import giraffe.miausicbox.user.UserComponent;
 
 @RestController
 public class EventController {
+	
+	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "files");
 
 	/**
 	 * REPOSITORIES related to EVENT_CONTROLLER
@@ -55,6 +60,7 @@ public class EventController {
 	interface EventListView extends Event.Basic, Event.Bands {}
 	
 	interface EventView extends Event.Basic, Event.Followers, Event.Bands, Band.Members{}
+	
 	
 	/**
 	 * GET RequestMethods related to EVENT_CONTROLLER
@@ -120,6 +126,30 @@ public class EventController {
 		return new ResponseEntity<>(Utils.removeDuplicated(events), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/eventNumFollow/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getNumFollows(@PathVariable long id){
+		Event event = eventRepository.findOne(id);
+		if(event == null){
+			return new ResponseEntity<String>("Event Not Found", HttpStatus.BAD_REQUEST);
+		}
+		
+		int numFollow = event.getFollowers().size();
+		return new ResponseEntity<Integer>(numFollow, HttpStatus.OK);
+	}
+	
+	@JsonView()
+	@RequestMapping(value = "/artist/{id}/isFollowerEvent/{ev}", method = RequestMethod.GET)
+	public ResponseEntity<?> isFollowerEvent(@PathVariable long id, @PathVariable long ev){
+		Event event = eventRepository.findOne(ev);
+		User user = userRepository.findOne(id);
+		if(event == null || user == null){
+			return new ResponseEntity<String>("Event Not Found", HttpStatus.BAD_REQUEST);
+		}
+		
+		boolean isFollow = event.getFollowers().contains(user);
+		return new ResponseEntity<Boolean>(isFollow, HttpStatus.OK);
+	}
+	
 	/**
 	 * POST RequestMethods related to EVENT_CONTROLLER
 	 */
@@ -168,6 +198,7 @@ public class EventController {
 
 		return new ResponseEntity<Event>(event, HttpStatus.OK);
 	}
+	
 	@JsonView(EventView.class)
 	@RequestMapping(value="/event/{id}/newBand/{name}", method = RequestMethod.POST)
 	public ResponseEntity<?> addNewBand (@PathVariable long id, @PathVariable String name){
@@ -181,7 +212,50 @@ public class EventController {
 		return new ResponseEntity<Event> (event, HttpStatus.OK);
 	}
 	
+	@JsonView(EventView.class)
+	@RequestMapping(value="/event/{ev}/toFollow/{id}", method = RequestMethod.POST)
+	public ResponseEntity<?> followUnfollowEvent(@PathVariable long ev, @PathVariable long id){
+		Event event = eventRepository.findOne(ev);
+		User user = userRepository.findOne(id);
+		if(event == null || user == null){
+			return new ResponseEntity<String>("Event Or User Not Found", HttpStatus.BAD_REQUEST);
+		}
+		boolean follow = event.getFollowers().contains(user);
+		if(!follow){
+			event.getFollowers().add(user);
+		}
+		else{
+			event.getFollowers().remove(user);
+		}
+		eventRepository.save(event);
+		return new ResponseEntity<Boolean> (!follow, HttpStatus.OK);
+	}
 
-	
+	@JsonView(EventView.class)
+	@RequestMapping(value = "/event/{id}/setimage", method = RequestMethod.POST)
+	public ResponseEntity<?> editImage(@PathVariable long id, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if (file.isEmpty()) {
+			return new ResponseEntity<String>("ERROR - File is empty", HttpStatus.CONFLICT);
+		}
+		Event newEvent;
+		Event event = eventRepository.findOne(id);
+		if(event == null){
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		if(!event.getCreator().equals(userComponent.getLoggedUser())){
+			return new ResponseEntity<String>("ERROR - User logged is not creator", HttpStatus.CONFLICT);
+		}
+		String filename = "event-" + event.getId() + ".jpg";
+		File uploadedFile = new File(FILES_FOLDER.toFile(), filename);
+		//uploadedFile.delete();
+		Files.deleteIfExists(uploadedFile.toPath());
+		file.transferTo(uploadedFile);
+		event.setImage(filename);
+		newEvent = eventRepository.save(event);
+		return new ResponseEntity<Event>(newEvent, HttpStatus.OK);
+	}
 	
 }
