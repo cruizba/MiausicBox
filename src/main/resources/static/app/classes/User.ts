@@ -21,6 +21,7 @@ export class User{
   private _facebook: string;
   private _twitter: string;
   private _youtube: string;
+  private _image: string;
   private _instruments: Instrument[] = [];
   private _genres: Genre[] = [];
   private _bands: Band[] = [];
@@ -29,7 +30,7 @@ export class User{
   /* Constructor */
   constructor(id:number, userName:string, password:string, completeName:string,
               email:string, description:string, isArtist:boolean, city:string,
-              facebook:string, twitter:string, youtube:string,
+              facebook:string, twitter:string, youtube:string, image:string,
               instruments:Instrument[], genres:Genre[], bands: Band[], events: Event[]){
     this._id = id;
     this._userName = userName;
@@ -42,6 +43,7 @@ export class User{
     this._facebook = facebook;
     this._twitter = twitter;
     this._youtube = youtube;
+    this._image = image;
     this._instruments = instruments;
     this._genres = genres;
     this._bands = bands;
@@ -99,6 +101,10 @@ export class User{
 
   get youtube():string {
     return this._youtube;
+  }
+
+  get image():string {
+    return this._image;
   }
 
   get bands():Band[] {
@@ -159,6 +165,10 @@ export class User{
 
   set youtube(youtube:string) {
     this._youtube = youtube;
+  }
+
+  set image(image:string) {
+    this._image = image;
   }
 
   set bands(bands:Band[]) {

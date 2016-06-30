@@ -1,5 +1,10 @@
 package giraffe.miausicbox.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -7,14 +12,17 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.controller.BandController.BandView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.BlogUser;
@@ -36,10 +44,13 @@ import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.User;
 import giraffe.miausicbox.user.UserComponent;
+import giraffe.miausicbox.user.UserRegister;
 
 @RestController
 public class UserController {
 
+	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "files");
+	
 	/**
 	 * REPOSITORIES related to USER_CONTROLLER
 	 */
@@ -84,7 +95,7 @@ public class UserController {
 	interface BlogBandListView extends BlogBand.Basic {}
 	interface NoveltyListView extends Novelty.Basic {}
 	interface EventListView extends Event.Basic, Event.Bands {}
-	interface MessageListView extends Message.Basic {}
+	interface MessageListView extends Message.Basic{}
 	interface BandListView extends Band.Basic {}
 	
 	/**
@@ -231,7 +242,7 @@ public class UserController {
 		List<Band> allbands = bandRepository.findAll();
 		List<Band> bands = new ArrayList<>();
 		for (Band b : allbands) {
-			if (b.getFollowers().contains(user) || b.getMembers().contains(user) || b.getAdministrador().equals(user)) {
+			if (b.getFollowers().contains(user) || b.getMembers().contains(user) || user.equals(b.getAdministrador())) {
 				bands.add(b);
 			}
 		}
@@ -343,6 +354,17 @@ public class UserController {
 		}
 		List<Instrument> instruments = instrRepository.findAll();
 		return new ResponseEntity<List<Instrument>>(instruments, HttpStatus.OK);
+	}
+	
+	@JsonView(UsersListView.class)
+	@RequestMapping(value = "/getFollowersEvent/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getFollowersEvent(@PathVariable long id) throws Exception{
+		Event event = eventRepository.findOne(id);
+		if(event == null){
+			return new ResponseEntity<String>("Event Or User Not Found", HttpStatus.BAD_REQUEST);
+		}
+		List<User> followers = event.getFollowers();
+		return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
 	}
 	
 	/**
@@ -487,9 +509,36 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
+
+	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/artist/{id}/removeEvent/{idEvent}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeBand (@PathVariable long id, @PathVariable long idEvent){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		User user = userRepository.findOne(id);
+		Event event = eventRepository.findOne(idEvent);
+//		
+//		if (!user.getEvents().contains(event)){
+//			System.out.println("PUTAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+//			return new ResponseEntity<String>("ERROR 401- UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+//		}
+		
+		
+		eventRepository.delete(event);
+		
+		
+		return new ResponseEntity<String> ("OK", HttpStatus.OK);
+	}
+		
+	
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/editYoutubeLink/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editYoutubeLink(@PathVariable long id, @RequestBody String link){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
@@ -502,6 +551,9 @@ public class UserController {
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/editTwitterLink/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editTwitterLink(@PathVariable long id, @RequestBody String link){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
@@ -514,6 +566,9 @@ public class UserController {
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/editFacebookLink/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editFacebookLink(@PathVariable long id, @RequestBody String link){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
@@ -523,7 +578,76 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/editUser/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editUser(@PathVariable long id, @RequestBody User user){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		User userAux = userRepository.findOne(id);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		userAux.setUserName(user.getUserName());
+		userAux.setCompleteName(user.getCompleteName());
+		userAux.setCompleteName(user.getCompleteName());
+		userAux.setIsArtist(user.getIsArtist());
+		userAux.setDescription(user.getDescription());
+		userRepository.save(userAux);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/editPassword/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editPassword(@PathVariable long id, @RequestBody String password){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		User user = userRepository.findOne(id);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		user.setPasswordHash(new BCryptPasswordEncoder().encode(password));
+		userRepository.save(user);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/registerUser/", method = RequestMethod.POST)
+	public ResponseEntity<?> registerUser(@RequestBody UserRegister user){
+		List<User> listUser= userRepository.findUserByUserName(user.getUserName());
+		if(listUser.size() > 0){
+			return new ResponseEntity<String>("USERNAME EXISTS", HttpStatus.CONFLICT);
+		}
+		User userAux = new User(user.getUserName(), user.getPassword(), user.getCompleteName(), user.getEmail(),"", user.getIsArtist(), 
+				"","","","", "profile_image.png", new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,new ArrayList<Band>(),new ArrayList<Event>());
+		userRepository.save(userAux);
+		return new ResponseEntity<User>(userAux, HttpStatus.OK);
+	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/artist/{id}/setimage", method = RequestMethod.POST)
+	public ResponseEntity<?> editImage(@PathVariable long id, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if (file.isEmpty()) {
+			return new ResponseEntity<String>("ERROR - File is empty", HttpStatus.CONFLICT);
+		}
+		User newUser;
+		User user = userRepository.findOne(id);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		String filename = "user-" + user.getId() + ".jpg";
+		File uploadedFile = new File(FILES_FOLDER.toFile(), filename);
+		//uploadedFile.delete();
+		Files.deleteIfExists(uploadedFile.toPath());
+		file.transferTo(uploadedFile);
+		user.setImage(filename);
+		newUser = userRepository.save(user);
+		return new ResponseEntity<User>(newUser, HttpStatus.OK);
+	}
+
 }

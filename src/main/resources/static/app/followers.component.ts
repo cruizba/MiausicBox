@@ -25,12 +25,10 @@ export class FollowersComponent{
     ngOnInit(){
         this.id = this._routeParams.get('id');
 
-        this._followService.getFollowersById(
-            this.id).subscribe(
+        this._followService.getFollowersById(this.id).subscribe(
             (userList => this.userList = userList),
             (error => alert("Error get following"))
         )
-        console.log(this.userList);
         
     }
     

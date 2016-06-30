@@ -49,6 +49,7 @@ export class PrincipalService{
   deserializeBlogUser(json) {
     let blog:BlogUser = toInstance(emptyBlogUser(), json);
     blog.author = this.deserializeUser(json.author);
+    //noinspection TypeScriptValidateTypes
     blog.date = new Date(json.date);
     return blog;
   }
@@ -69,6 +70,7 @@ export class PrincipalService{
   deserializeBlogBand(json) {
     let blog:BlogBand = toInstance(emptyBlogBand(), json);
     blog.author = this.deserializeBand(json.author);
+    //noinspection TypeScriptValidateTypes
     blog.date = new Date(json.date);
     return blog;
   }
@@ -89,6 +91,7 @@ export class PrincipalService{
   deserializeBasicEvent(json) {
     let event:Event = toInstance(emptyEvent(), json);
     event.bands = this.deserializeAllBands(json.bands);
+    //noinspection TypeScriptValidateTypes
     event.date = new Date(json.date);
     return event;
   }
@@ -114,6 +117,7 @@ export class PrincipalService{
     let novelty:Novelty = toInstance(emptyNovelty(), json);
     novelty.user = this.deserializeUser(json.user);
     novelty.band = this.deserializeBand(json.band);
+    //noinspection TypeScriptValidateTypes
     novelty.date = new Date(json.date);
     return novelty;
   }

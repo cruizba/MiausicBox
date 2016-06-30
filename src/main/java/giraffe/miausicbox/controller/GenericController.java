@@ -101,31 +101,31 @@ public class GenericController {
 		
 		// Users
 		User luis = new User("ice6294","1234","Luis Leon Gamez","luigi6294@gmail.com","Programador y melómano.",true
-				,"Alcorcon","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,"Alcorcon","","","","profile_image.png",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
 		User carlos = new User("carolus","1234","Carlos Ruiz Ballesteros","crbthedevil@gmail.com","Viva el grunch, viva typescript. In the drak side of the moon since 1994",true
-				,"Loranca","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,"Loranca","","","","profile_image.png",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
 		User soraya = new User("sor","a","Soraya Rama","sori@gmail.com","Gatos, gatos ,gatos :D",false
-				,"Orcasitas","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,"Orcasitas","","","","profile_image.png",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
 		User thais = new User("thais","1234","Thais Mendez","thais@gmail.com","Saludos, persona. Esta es mi descripción",false
-				,"Madrid","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,"Madrid","","","", "profile_image.png", new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
 		User bot = new User("mr_bot","1234","Mr. AutoBot","bot@yahoo.es","I'm not a bot, but I'm not human. What am I?",true
-				,"AnonymCity","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,"AnonymCity","","","","profile_image.png",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
 		User cesar = new User("sesar","1234","César Valdés","cesar@gmail.com","Jajaja, soy un intruso.",false
-				,"Alcorcón","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,"Alcorcón","","","","profile_image.png",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
 		User carlos2 = new User("cvaz","1234","Carlos Vázquez","carvaz@gmail.com","Jajaja, soy otro intruso.",true
-				,"Loranca","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,"Loranca","","","","profile_image.png",new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		
 		luis.getGenres().add(rock);
@@ -197,21 +197,21 @@ public class GenericController {
 		Track tr22 = new Track("Get Lucky","Daft Punk","https://youtube.com/v/5NV6Rdv1a3I");
 		
 		// Band
-		Band grudge = new Band(luis, "Our Grudge", "Come and see ...", "Madrid", "www.grudge.es","","",""
-				,new ArrayList<User>(),new ArrayList<User>()
-				,new ArrayList<Genre>(),new ArrayList<Track>());
+		Band grudge = new Band(luis, "Our Grudge", "Come and see ...", "Madrid", "www.grudge.es","","","","profile_image.png",
+				new ArrayList<User>(),new ArrayList<User>(),
+				new ArrayList<Genre>(),new ArrayList<Track>());
 		
-		Band ransom = new Band(carlos,"Ransom Viral","Let the revolution begin. This is our way, there is our fate.","Madrid","www.ransomviral.es","","",""
-				,new ArrayList<User>(),new ArrayList<User>()
-				,new ArrayList<Genre>(),new ArrayList<Track>());
+		Band ransom = new Band(carlos,"Ransom Viral","Let the revolution begin. This is our way, there is our fate.","Madrid","www.ransomviral.es","","","","profile_image.png",
+				new ArrayList<User>(),new ArrayList<User>(),
+				new ArrayList<Genre>(),new ArrayList<Track>());
 		
-		Band botman = new Band(bot,"BotMan0id","To upgrade your bot account for only 999.99$ go to www.botman0id.com","GB","www.botman0id.com","","",""
-				,new ArrayList<User>(),new ArrayList<User>()
-				,new ArrayList<Genre>(),new ArrayList<Track>());
+		Band botman = new Band(bot,"BotMan0id","To upgrade your bot account for only 999.99$ go to www.botman0id.com","GB","www.botman0id.com","","","","profile_image.png",
+				new ArrayList<User>(),new ArrayList<User>(),
+				new ArrayList<Genre>(),new ArrayList<Track>());
 		
-		Band indiefest = new Band(carlos,"Indie Fest","The new wave is comming. Come with us into the indie music limbo.","GB","www.botman0id.com","","",""
-				,new ArrayList<User>(),new ArrayList<User>()
-				,new ArrayList<Genre>(),new ArrayList<Track>());
+		Band indiefest = new Band(carlos,"Indiespensable","The new wave is comming. Come with us into the indie music limbo.","GB","www.botman0id.com","","","","profile_image.png",
+				new ArrayList<User>(),new ArrayList<User>(),
+				new ArrayList<Genre>(),new ArrayList<Track>());
 		
 		grudge.getMembers().add(luis);
 		ransom.getMembers().add(carlos);
@@ -260,15 +260,15 @@ public class GenericController {
 		indiefest.getGenres().add(indie);
 		
 		// BlogUser
-		BlogUser bu0 = new BlogUser("Tool","http://www.campusghanta.com/wp-content/uploads/2012/03/tool.jpg","Un componente básico del catálogo de Tool es el uso de compases poco comunes.","Wed Apr 13 2016 20:16:37 GMT+0200 (CEST)",luis);
-		BlogUser bu1 = new BlogUser("Nueva banda!","https://wallpaperscraft.com/image/grunge_guitar_drawing_scratching_18516_3840x2400.jpg","Hoy comienza","Thu Jan 21 2016 17:47:40 GMT+0200 (CEST)",carlos);
-		BlogUser bu2 = new BlogUser("Indie is life","http://www.musisteria.com/blog/wp-content/uploads/2012/01/indie1.bmp","Desde principios de los años 90, el indie pop ha estado creciendo casi sin cesar en popularidad.","Tue May 10 2016 17:15:37 GMT+0200 (CEST)",soraya);
-		BlogUser bu3 = new BlogUser("Daw","https://blog-static.odesk.com/blog/uploads/sites/4/2012/04/2017_web-e1391526584549.jpg","Las aplicaciones web son populares debido a lo práctico del navegador web como cliente ligero y a la independencia del sistema operativo.","Thu Jun 2 2016 9:30:37 GMT+0200 (CEST)",thais);
-		BlogUser bu4 = new BlogUser("No está mal","http://hypefreshmag.com/wp-content/uploads/2014/07/Homer-Simpsons-Music-Headphones-Anime.jpg","Pues os está quedando bien la página jeje","Tue Jun 21 2016 13:55:20 GMT+0200 (CEST)",cesar);
+		BlogUser bu0 = new BlogUser("Tool","tool.jpg","Un componente básico del catálogo de Tool es el uso de compases poco comunes.","Wed Apr 13 2016 20:16:37 GMT+0200 (CEST)",luis);
+		BlogUser bu1 = new BlogUser("Nueva banda!","gitar.jpg","Hoy comienza","Thu Jan 21 2016 17:47:40 GMT+0200 (CEST)",carlos);
+		BlogUser bu2 = new BlogUser("Indie is life","indie.jpg","Desde principios de los años 90, el indie pop ha estado creciendo casi sin cesar en popularidad.","Tue May 10 2016 17:15:37 GMT+0200 (CEST)",soraya);
+		BlogUser bu3 = new BlogUser("Daw","like.jpg","Las aplicaciones web son populares debido a lo práctico del navegador web como cliente ligero y a la independencia del sistema operativo.","Thu Jun 2 2016 9:30:37 GMT+0200 (CEST)",thais);
+		BlogUser bu4 = new BlogUser("No está mal","homer.jpg","Pues os está quedando bien la página jeje","Tue Jun 21 2016 13:55:20 GMT+0200 (CEST)",cesar);
 		BlogUser bu5 = new BlogUser("Seguimos aprendiendo", "", "Metalcore es un género de fusión musical que incorpora elementos del hardcore punk con otros del heavy metal. El término es un acrónimo de heavy metal y hardcore punk.", "Tue Jun 14 2016 23:30:20 GMT+0200 (CEST)", carlos2);
 
 		// BlogBand
-		BlogBand bb0 = new BlogBand("Bella ciao","http://lliureimillor.cat/wp-content/uploads/2016/04/bella-ciao-2.jpg","Bella ciao (Adiós, bella) es el más conocido canto partisano italiano de los grupos resistentes contra el fascismo y nazismo.","Tue Mar 22 2016 20:15:37 GMT+0200 (CEST)",ransom);
+		BlogBand bb0 = new BlogBand("Bella ciao","ciao.jpg","Bella ciao (Adiós, bella) es el más conocido canto partisano italiano de los grupos resistentes contra el fascismo y nazismo.","Tue Mar 22 2016 20:15:37 GMT+0200 (CEST)",ransom);
 		BlogBand bb1 = new BlogBand("Bot title [Insert title]","","Bot description [Insert description]","Tue May 1 2016 10:00:00 GMT+0200 (CEST)",botman);
 		
 		// Messages
@@ -282,12 +282,12 @@ public class GenericController {
 		Message mes7 = new Message(bot, cesar, "Upgrade your account", "For only 99.99$ you can get vip account for new bot accounts!", "Mon Jun 13 2016 10:00:00 GMT+0200 (CEST)", false);
 		
 		// Events
-		Event ev0 = new Event("HellFest", "Fri Apr 1 2016 18:20:00 GMT+0200 (CEST)", luis, "Festival heavy rock en Francia",
-				new ArrayList<>(), "Paris, Francia", new ArrayList<>());
-		Event ev1 = new Event("IndieFest",  "Sat Jul 30 2016 19:00:00 GMT+0200 (CEST)", soraya, "Festival indie tope guachi",
-				new ArrayList<>(), "Madrid", new ArrayList<>());
-		Event ev2 = new Event("Rockola",  "Mon Sep 5 2016 17:30:00 GMT+0200 (CEST)", carlos, "Arguelles",
-				new ArrayList<>(), "Madrid", new ArrayList<>());
+		Event ev0 = new Event("HellFest", "Fri Apr 1 2016 18:20:00 GMT+0200 (CEST)", luis, "Festival heavy rock en Francia", "Paris, Francia",
+				"profile_image.png", new ArrayList<>(), new ArrayList<>());
+		Event ev1 = new Event("IndieFest",  "Sat Jul 30 2016 19:00:00 GMT+0200 (CEST)", soraya, "Festival indie tope guachi", "Madrid",
+				"profile_image.png", new ArrayList<>(), new ArrayList<>());
+		Event ev2 = new Event("Rockola",  "Mon Sep 5 2016 17:30:00 GMT+0200 (CEST)", carlos, "Arguelles", "Madrid",
+				"profile_image.png", new ArrayList<>(), new ArrayList<>());
 		
 		ev0.getBands().add(grudge);
 		ev0.getBands().add(ransom);
@@ -461,7 +461,6 @@ public class GenericController {
 		followRepository.save(fol19);
 		followRepository.save(fol20);
 		followRepository.save(fol21);
-		
 		
 	}
 	

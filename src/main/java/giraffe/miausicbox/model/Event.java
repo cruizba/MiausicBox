@@ -43,12 +43,15 @@ public class Event {
 	@JsonView(Basic.class)
 	private String description;
 	
+	@JsonView(Basic.class)
+	private String direction;
+	
+	@JsonView(Basic.class)
+	private String image;
+	
 	@JsonView(Bands.class)
 	@ManyToMany
 	private List<Band> bands = new ArrayList<>();
-
-	@JsonView(Basic.class)
-	private String direction;
 
 	@JsonView(Followers.class)
 	@ManyToMany
@@ -62,8 +65,9 @@ public class Event {
 			String date,
 			User creator,
 			String description,
-			List<Band> bands,
 			String direction,
+			String image,
+			List<Band> bands,
 			List<User> followers
 			) {
 		super();
@@ -71,8 +75,9 @@ public class Event {
 		this.date = date;
 		this.creator = creator;
 		this.description = description;
-		this.bands = bands;
 		this.direction = direction;
+		this.image = image;
+		this.bands = bands;
 		this.followers = followers;
 	}
 
@@ -111,6 +116,14 @@ public class Event {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public List<Band> getBands() {
@@ -159,8 +172,7 @@ public class Event {
 		if (!Objects.equals(this.getId(), other.getId())) {
 			return false;
 		}
-		return (Objects.equals(this.getName(), other.getName())
-				&& (Objects.equals(this.getDate(), other.getDate())));
+		return true;
 	}
 	
 }

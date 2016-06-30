@@ -3,7 +3,8 @@
 
                 <!-- Información del perfil -->
                 <div class="col-md-4" id="profile_details">
-                    <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
+                    <img *ngIf="(!isUserLogged)" src="/images/{{user.image}}" class="img-responsive img-rounded" alt="Profile image">
+                    <img *ngIf="(isUserLogged)" data-toggle="modal" data-target="#EditarImagen" src="/images/{{user.image}}" class="img-responsive img-rounded" alt="Profile image">
                         <h1>{{user.completeName}}</h1>
                         <h2>{{user.userName}} </h2>
                         <p>
@@ -110,12 +111,14 @@
                         </div>
                         <div class="panel-body">
                             <table class="table" id="ListaBandas">
-                                <tr  *ngFor="#ba of user.bands" id="PrimeraFila">
-                                    <td><a href="#" class="enlaceBanda"><img src="../img/muestra1.jpg" alt="Profile image" class="img-circle" id="ImagenBanda"></a></td>
+                                <tr *ngFor="#ba of user.bands" id="PrimeraFila">
+                                    <td><a href="#" class="enlaceBanda"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenBanda"></a></td>
                                     <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceBanda">{{ba.groupName}}</a></td>
+
                                 </tr>
+
                             </table>
-                            <div *ngIf="isUserLogged" class="insertarButton">
+                            <div *ngIf="isUserLogged && user.isArtist" class="insertarButton">
                                 <button class="formButton btn btn-default" data-toggle="modal" data-target="#agregarBanda" id="crearBandaButton">
                                 <div class="row">
                                     <div class="col-md-10 textAddBlog">
@@ -143,6 +146,9 @@
                                         <td>{{ev.date.getDate()}}/{{ev.date.getMonth()+1}}/{{ev.date.getFullYear()}}
                                         </td>
                                         <td><a [routerLink]="['Event', {id: ev.id}]">{{ev.name}}</a>
+                                        </td>
+                                        <td>
+                                            <span class="glyphicon glyphicon-trash" id="eliminar" (click)="deleteEvent(ev.id)"></span>
                                         </td>
                                     </tr>
 
@@ -206,8 +212,9 @@
                         </div>
                         <div class="panel-body" id="BlogDescripcion">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image" *ngIf="blog.hasImage()">
+                                <div class="col-md-12" *ngIf="blog.hasImage() && blog.hasText()">
+                                    <img *ngIf="(!isUserLogged) && blog.hasImage()" class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image">
+                                    <img *ngIf="(isUserLogged) && blog.hasImage()" data-toggle="modal" data-target="#EditarImagenBlog" class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image" (click)="setBlogId(blog.id)">
                                     <p class="content-panel" *ngIf="blog.hasText()">{{blog.text}}</p>
                                 </div>
                             </div>
@@ -244,8 +251,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
-                                <div class="col-sm-10">
-                                    <input #imgBlog type="url" class="form-control" id="imagen" placeholder="Introduce el link de tu imagen aquí">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">File input</label> <input id="exampleInputFile" type="file" (change)="selectBlogFile($event)">
                                 </div>
                             </div>
                              <div class="form-group">
@@ -255,8 +262,7 @@
                                 </div>
                             </div>
                             <div class="BotonFormulario">
-                                <button class="btn btn-default" data-dismiss="modal" (click)="submitBlog(titleBlog.value, imgBlog.value, textBlog.value); titleBlog.value=null; imgBlog.value=null; textBlog.value=null">
-                                    Enviar</button>
+                                <button class="btn btn-default" data-dismiss="modal" (click)="submitBlog(titleBlog.value, textBlog.value); titleBlog.value=null; textBlog.value=null">Enviar</button>
                             </div>
                        </form>
                    </div>
@@ -425,38 +431,40 @@
     </div>
     <!-- Fin formulario -->
 
-        <div id="EditarCiudad" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-body">
-                    <div class="formulario" id="formularioCrearBanda">
-                        <div class="formulario" id="Editar instrumentos">
-                            <div class="panel panel-default">
-                                <div class="panel-head">
-                                    <h3 class="content-panel">Editar ciudad</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                                <label class="formLabel control-label col-sm-2" for="imagen">Ciudad:</label>
-                                                 <div class="col-sm-10">
-                                                  <input #ciudadEdit type="text"  class="form-control" id="ciudadEdit" placeholder="Introduce aquí la ciudad">
-                                                 </div>
-                                                <div class="formulButtonModification BotonFormulario">
-                                                    <div class="BotonFormulario">
-                                                        <button data-dismiss="modal" class="btn btn-default" (click)="editCity(ciudadEdit.value)">Editar</button>
-                                                    </div>
+    <!-- Formulario editar Ciudad -->
+    <div id="EditarCiudad" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioCrearBanda">
+                    <div class="formulario" id="Editar instrumentos">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Editar ciudad</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                            <label class="formLabel control-label col-sm-2" for="imagen">Ciudad:</label>
+                                             <div class="col-sm-10">
+                                              <input #ciudadEdit type="text"  class="form-control" id="ciudadEdit" placeholder="Introduce aquí la ciudad">
+                                             </div>
+                                            <div class="formulButtonModification BotonFormulario">
+                                                <div class="BotonFormulario">
+                                                    <button data-dismiss="modal" class="btn btn-default" (click)="editCity(ciudadEdit.value)">Editar</button>
                                                 </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                            </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            <!-- Fin formulario -->
+    </div>
+    <!-- Fin formulario -->
 
+    <!-- Formulario editar YouTube -->
     <div id="EditarYT" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
@@ -489,6 +497,7 @@
     </div>
     <!-- Fin formulario -->
 
+    <!-- Formulario editar Twitter -->
     <div id="EditarTW" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
@@ -521,6 +530,7 @@
     </div>
     <!-- Fin formulario -->
 
+    <!-- Formulario editar Facebook -->
     <div id="EditarF" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-body">
@@ -553,6 +563,28 @@
     </div>
     <!-- Fin formulario -->
 
+    <!-- Formulario editar Imagen -->
+    <div id="EditarImagen" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label> <input id="exampleInputFile" type="file" (change)="selectFile($event)">
+                </div>
+                <button type="submit" class="btn btn-default" (click)="upload()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
 
-
-
+    <!-- Formulario editar Blog Imagen -->
+    <div id="EditarImagenBlog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label> <input id="exampleInputFileBlog" type="file" (change)="selectBlogFile($event)">
+                </div>
+                <button type="submit" class="btn btn-default" (click)="uploadBlog()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->

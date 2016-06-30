@@ -18,13 +18,24 @@ export class LoggedComponent{
 
   password:string;
   password2:string;
-  user:string;
+  userName:string;
   completeName:string;
   email:string;
   isArtist:boolean;
   description:string;
   
   constructor(private _router: Router, private _userService: UserService){}
+
+  ngOnInit(){
+    if(Info.userLogged != null) {
+      this.userName = Info.userLogged.userName;
+      this.completeName = Info.userLogged.completeName;
+      this.email = Info.userLogged.email;
+      this.isArtist = Info.userLogged.isArtist;
+      this.description = Info.userLogged.description;
+    }
+  }
+  
 
   goToProfile(){
     this._router.navigate(['Artist', {id: Info.userId}]);
@@ -35,27 +46,27 @@ export class LoggedComponent{
   }
   
   submitConfiguration(){
-    if (this.user != ""){
-      this._userService.changeUser(this.user);
-    }
-    if (this.completeName != ""){
-      this._userService.changeName(this.completeName);
-    }
-    if (this.email != ""){
-      this._userService.changeEmail(this.email);
-    }
-    if (this.isArtist != Info.userId.isArtist){
-      this._userService.changeIsArtist(this.isArtist);
-    }
-    if (this.description != ""){
-      this._userService.changeDescription(this.description);
-    }
+    this._userService.modifyUser(this.userName, this.completeName, this.email, this.isArtist, this.description).subscribe(
+        response => {
+          alert("Modificación realizada con éxito");
+          this._userService.getUserById(Info.userId).subscribe(
+              response => {
+                Info.userLogged = response;
+                Info.userId = response.id;
+              }
+          );
+
+          //No hagáis esto en casa
+          this._router.navigate(['ListArtist']);
+          this._router.navigate(['Artist', {id: Info.userId}]);
+        }
+    )
   }
   
   submitPass(){
-    if (this.password == this.password2){
-      this._userService.changePassword(this.password);
-    }
+      this._userService.modifyPass(this.password, this.password2).subscribe(
+          response => alert("Contraseña cambiada")
+      )
   }
 
 }

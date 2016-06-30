@@ -4,14 +4,14 @@
         <!-- Contenido página -->
         <div class="container" id="profile-page">
             <div class="row">
-
                 <!-- Información del evento -->
                 <div class="col-md-4" id="profile_details">
-                    <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
+                    <img *ngIf="(!isCreator)" src="/images/{{event.image}}" class="img-responsive img-rounded" alt="Profile image">
+                    <img *ngIf="(isCreator)" data-toggle="modal" data-target="#EditarImagen" src="/images/{{event.image}}" class="img-responsive img-rounded" alt="Profile image">
                     <h1>{{event.name}}</h1>
                     <p >
-                        <a *ngIf="(!isFollower && !isCreator)"  (click)="followEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton" >Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
-                        <a *ngIf="(isFollower && !isCreator)" (click)="unFollowEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus"></span></a>
+                        <a *ngIf="(!isFollower && !isCreator)"  (click)="unFollowFollowEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton" >Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                        <a *ngIf="(isFollower && !isCreator)" (click)="unFollowFollowEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus"></span></a>
                     </p>
                     <!-- Información General -->
                     <div class="panel panel-default profile-info">
@@ -21,33 +21,11 @@
                         <div class="panel-body">
                             <table class="table" id="Informacion">
                                 <tbody>
-                                    <!--<tr>
-                                        <td>Géneros</td>
-                                        <td>
-                                            <ul>
-                                                <li>Indie</li>
-                                                <li>Rock</li>
-                                            </ul>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-default" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <button type="button" class="btn btn-default" aria-label="Left Align">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
-                                    </tr>-->
                                     <tr>
                                         <td>Fecha</td>
                                         <td>{{event.date.getDate()}}/{{event.date.getMonth()+1}}/{{event.date.getFullYear()}}</td>
                                         <td>
-                                            <button *ngIf="isCreator" type="button" class="btn btn-default" aria-label="Left Align">
+                                            <button *ngIf="isCreator" data-toggle="modal" data-target="#EditarFecha" id="" type="button" class="btn btn-default" aria-label="Left Align">
                                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                             </button>
                                         </td>
@@ -55,9 +33,14 @@
                                     <tr>
                                         <td>Dirección</td>
                                         <td>{{event.direction}}</td>
+                                        <td>
+                                            <button *ngIf="isCreator" data-toggle="modal" data-target="#EditarDireccion" id="" type="button" class="btn btn-default" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <tr>
-                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{event.followers.length}}</span></a>
+                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollows}}</span></a>
                                        </td>
                                     </tr>
                                 </tbody>
@@ -105,7 +88,7 @@
                                 <tbody id="TableBody">
                                     <tr *ngFor="#ba of event.bands">
                                         <td>
-                                            <a [routerLink]="['Band', {id: ba.id}]"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
+                                            <a [routerLink]="['Band', {id: ba.id}]"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
                                         </td>
                                         <td><a [routerLink]="['Band', {id: ba.id}]"  class="enlaceListaBanda" >{{ba.groupName}}</a></td>
                                         <td>
@@ -118,6 +101,20 @@
                             </table>
                         </div>
                     </div>
+                    <!--Añadir una nueva banda al evento -->
+                    <div class="insertarButton" *ngIf="isCreator">
+                        <button class="formButton btn btn-default" id="insertMemberButton">
+                            <div data-toggle="modal" data-target="#agregarBanda" class="row">
+                                <div class="col-md-10 textAddBlog">
+                                    Agregar nueva banda
+                                </div>
+                                <div class="col-md-2 iconAddBlog">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
                     <!-- Fin bandas del evento -->
 
                     <!-- Localizacion del evento -->
@@ -176,6 +173,111 @@
         <!-- Fin Contenido página -->
     </div>
 
+    <!---Editar fecha del evento -->
+    <div id="EditarFecha" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioCrearBanda">
+                    <div class="formulario" id="Editar instrumentos">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Editar Fecha</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" >Fecha</label>
+                                        <div class="col-sm-10">
+                                            <input #fechaEdit type="date"  class="form-control" id="fechaEdit" >
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="editFecha(fechaEdit.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Editar ciudad-->
+    <div id="EditarDireccion" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-body">
+            <div class="formulario" id="formularioCrearBanda">
+                <div class="formulario" id="Editar instrumentos">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Editar ciudad</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" >Ciudad:</label>
+                                    <div class="col-sm-10">
+                                        <input #ciudadEdit type="text"  class="form-control" id="ciudadEdit" placeholder="Introduce aquí la ciudad">
+                                    </div>
+                                    <div class="formulButtonModification BotonFormulario">
+                                        <div class="BotonFormulario">
+                                            <button data-dismiss="modal" class="btn btn-default" (click)="editCiudad(ciudadEdit.value)">Editar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!--Agregar una nueva banda -->
+    <div id="agregarBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioBlog">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Nueva banda</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Nombre:</label>
+                                    <div class="col-sm-10">
+                                        <input #bandName type="text" class="form-control" id="imagen" placeholder="Introduce el nombre del nuevo miembro">
+                                    </div>
+                                </div>
+
+                                <div class="BotonFormulario">
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="newBand(bandName.value);bandName.value=null">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario editar Imagen -->
+    <div id="EditarImagen" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label> <input id="exampleInputFile" type="file" (change)="selectFile($event)">
+                </div>
+                <button type="submit" class="btn btn-default" (click)="upload()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
     
 
     

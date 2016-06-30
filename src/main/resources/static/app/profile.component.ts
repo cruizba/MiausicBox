@@ -5,6 +5,8 @@
  */
 import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
+import { MultipartUploader } from './libs/multipart-upload/multipart-uploader';
+
 import { User } from './classes/User'
 import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import { Info } from "./classes/Info";
@@ -18,49 +20,52 @@ import { Genre } from "./classes/Genre";
 import { Instrument } from "./classes/Instrument";
 import { Band } from "./classes/Band";
 import { Event } from "./classes/Event";
+import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 
 
 @Component({
-  selector: 'artista',
-  templateUrl: 'templates/artista.html',
-  providers: [UserService, FollowService, MessageService, BlogService, BandService, EventService],
-  directives: [ROUTER_DIRECTIVES]
+    selector: 'artista',
+    templateUrl: 'templates/artista.html',
+    providers: [UserService, FollowService, MessageService, BlogService, BandService, EventService],
+    directives: [ROUTER_DIRECTIVES]
 })
 
 export class ArtistaComponent {
 
-  isUserLogged: boolean;
-  isArtist: boolean;
-  isFollowed: boolean;
-  user: User;
-  id;
-  blogList:BlogUser[] = [];
-  genreList:Genre[] = [];
-  instrList:Instrument[] = [];
-  events:Event[] = [];
-  bandList:Band[] = [];
+    id;
+    isUserLogged: boolean;
+    isArtist: boolean;
+    isFollowed: boolean;
+    user: User;
+    blogList:BlogUser[] = [];
+    genreList:Genre[] = [];
+    instrList:Instrument[] = [];
+    events:Event[] = [];
+    bandList:Band[] = [];
+    file: File;
+    blogFile: File;
+    idBlog;
 
-  //Follows variables
-  numFollowing:number;
-  numFollowers:number;
+    //Follows variables
+    numFollowing:number;
+    numFollowers:number;
 
-  //Notification
-  numMessages:number;
+    //Notification
+    numMessages:number;
 
-  //Variables modify
-  instrument;
-  genre;
+    //Variables modify
+    instrument;
+    genre;
 
-  constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService,
+    constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
                 private _bandService:BandService, private _blogService: BlogService,
                 private _eventService:EventService){
-  }
+    }
 
-  ngOnInit() {
-
-      this.initialization();
-  }
+    ngOnInit() {
+        this.initialization();
+    }
 
     initialization(){
 
@@ -81,9 +86,9 @@ export class ArtistaComponent {
         );
 
         this._userService.getAllGenres().subscribe(
-          genres => {
-              this.genreList = genres;
-          }
+            genres => {
+                this.genreList = genres;
+            }
         );
 
         this._userService.getAllInstruments().subscribe(
@@ -94,10 +99,10 @@ export class ArtistaComponent {
         );
 
         this._eventService.getEventsByUserId(this.id).subscribe(
-          events => {
-              this.events = events;
-              console.log(this.events);
-          }
+            events => {
+                this.events = events;
+                console.log(this.events);
+            }
         );
 
         this.updateFollows();
@@ -165,15 +170,18 @@ export class ArtistaComponent {
       );
     }
 
-    submitBlog(title, img, text){
+    submitBlog(title, text){
         var user: User=Info.userLogged;
-        this._blogService.addBlogUser(title, img, text, new Date, user).subscribe(
+        this._blogService.addBlogUser(title, text, new Date, user).subscribe(
             response => {
                 if (response.status == 200){
-                    console.log("ok, vamos a ver si se ha guardado ...")
                     this._userService.getBlogsByUser(this.id).subscribe(
                         blogList => this.blogList = blogList
-                    )
+                    );
+                    console.log("PROSTATAAA");
+                    console.log(response);
+                    this.idBlog = response.json();
+                    this.uploadBlog();
                 } else {
                     console.log(response.status);
                 }
@@ -260,6 +268,25 @@ export class ArtistaComponent {
         error => alert("El genero no está añadido")
         );
     }
+    deleteEvent(idEvent){
+        this._userService.removeEvent(this.id, idEvent).subscribe(
+            response =>{
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    );
+                    this._eventService.getEventsByUserId(this.id).subscribe(
+                        events => this.events = events
+                    );
+                }else{
+                    console.log(response.status);
+                }
+            },
+            error => console.log(error)
+        )
+    }
+
+    
     
     addInstrument(inst){
         this._userService.addInstrument(inst).subscribe(
@@ -325,16 +352,79 @@ export class ArtistaComponent {
             error => alert("No se ha podido editar el campo")
         )
     }
-    
-    
-    //addInstrument(num){
-    //    this._userService.setInstrument(num);
-    //    this.instrumentsUser();
-    //}
 
-    //deleteInstrument(num){
-    //    this._userService.deleteInstrument(num);
-    //    this.instrumentsUser();
-   // }
+    
+    
+    // Upload Image
+    setBlogId(id){
+        this.idBlog = id;
+    }
+
+    selectFile($event) {
+        this.file = $event.target.files[0];
+    }
+
+    selectBlogFile($event) {
+        this.blogFile = $event.target.files[0];
+    }
+
+    upload() {
+        console.debug("Uploading file...");
+        if (this.file == null) {
+            console.error("No image selected.");
+        }
+
+        let formData = new FormData();
+        formData.append("file", this.file);
+
+        let url = "/artist/" + this.id + "/setimage";
+        let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
+        multipartItem.formData = formData;
+        multipartItem.callback = (data, status, headers) => {
+            if (status == 200){
+                console.debug("File has been uploaded");
+                //Get user information
+                this._userService.getUserById(this.id).subscribe(
+                    user => {
+                        this.user = user;
+                        this.isArtist = this.user.isArtist;
+                        this.isFollowedBy();
+                    }
+                );
+                this.file = null;
+            } else {
+                    console.error("Error uploading file");
+            }
+        };
+        multipartItem.upload();
+    }
+
+    uploadBlog() {
+        console.debug("Uploading file...");
+        if (this.blogFile == null) {
+            console.error("No image selected.");
+        }
+
+        let formData = new FormData();
+        formData.append("file", this.blogFile);
+        console.log ("HOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        console.log(this.idBlog);
+        let url = "/artist/" + this.id + "/blog/" + this.idBlog + "/setimage";
+        let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
+        multipartItem.formData = formData;
+        multipartItem.callback = (data, status, headers) => {
+            if (status == 200){
+                console.debug("File has been uploaded");
+                //Get blog information
+                this._userService.getBlogsByUser(this.id).subscribe(
+                    blogList => this.blogList = blogList
+                );
+                this.blogFile = null;
+            } else {
+                console.error("Error uploading file");
+            }
+        };
+        multipartItem.upload();
+    }
 
 }

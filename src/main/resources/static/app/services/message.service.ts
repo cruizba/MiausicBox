@@ -81,8 +81,8 @@ export class MessageService{
                 let mes:Message = obj;
                 //noinspection TypeScriptValidateTypes
                 mes.date = new Date(obj.date);
-                mes.destiny = new User(0, obj.destiny.userName,"",obj.destiny.completeName,obj.destiny.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
-                mes.sender = new User(0, obj.sender.userName,"",obj.sender.completeName,obj.sender.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
+                mes.destiny = new User(0, obj.destiny.userName,"",obj.destiny.completeName,obj.destiny.email,"",false,"","","","",obj.destiny.image,[],[],[],[]); // <-- FixMe: ID
+                mes.sender = new User(0, obj.sender.userName,"",obj.sender.completeName,obj.sender.email,"",false,"","","","",obj.sender.image,[],[],[],[]); // <-- FixMe: ID
                 var total = {"msgId":obj.id,"message":mes};
                 result.push(total);
             }
@@ -97,8 +97,8 @@ export class MessageService{
         let mes:Message = body;
         //noinspection TypeScriptValidateTypes
         mes.date = new Date(body.date);
-        mes.destiny = new User(0, body.destiny.userName,"",body.destiny.completeName,body.destiny.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
-        mes.sender = new User(0, body.sender.userName,"",body.sender.completeName,body.sender.email,"",false,"","","","",[],[],[],[]); // <-- FixMe: ID
+        mes.destiny = new User(0, body.destiny.userName,"",body.destiny.completeName,body.destiny.email,"",false,"","","","","",[],[],[],[]); // <-- FixMe: ID
+        mes.sender = new User(0, body.sender.userName,"",body.sender.completeName,body.sender.email,"",false,"","","","","",[],[],[],[]); // <-- FixMe: ID
         var total = {"msgId":body.id,"message":mes};
         return total;
     }

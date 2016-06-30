@@ -64,12 +64,15 @@ public class Band {
 	@JsonView(WebLinks.class)
 	private String youtube;
 	
+	@JsonView(Basic.class)
+	private String image;
+	
 	@JsonView(Members.class)
 	@ManyToMany
 	private List<User> members = new ArrayList<>();
 	
 	@JsonView(Followers.class)
-	@OneToMany
+	@ManyToMany
 	private List<User> followers = new ArrayList<>();
 	
 	@JsonView(Genres.class)
@@ -92,6 +95,7 @@ public class Band {
 			String facebook,
 			String twitter,
 			String youtube,
+			String image,
 			List<User> members,
 			List<User> followers,
 			List<Genre> genres,
@@ -105,6 +109,7 @@ public class Band {
 		this.facebook = facebook;
 		this.twitter = twitter;
 		this.youtube = youtube;
+		this.image = image;
 		this.members = members;
 		this.followers = followers;
 		this.genres = genres;
@@ -178,6 +183,14 @@ public class Band {
 
 	public void setYoutube(String youtube) {
 		this.youtube = youtube;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public List<User> getMembers() {
