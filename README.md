@@ -77,11 +77,20 @@ Principal sin entrar:
 <img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/principalSinLogin.jpg?raw=true" />
 
 
-#6 DIAGRAMA DE CLASES (desactualizado)
+#6 DIAGRAMA DE CLASES - FRONTEND (TypeScript)
 
 <img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/uml.jpg?raw=true" />
 
-#7. INTEGRANTES
+#7. DIAGRAMA DE CLASES DE ENTIDADES DEL SERVIDOR (Spring - Java)
+
+#8. MODELO ENTIDAD RELACION - BBDD 
+
+Decisiones de diseño:
+	- Se decidió tener tablas de Follow, bandas y eventos aparte, para tener un control de paginación en un futuro.
+
+#9. VIDEO DEMOSTRACIÓN
+
+#10. INTEGRANTES
 Thais Méndez Otero - t.mendez@alumnos.urjc.es - ThaisM
 
 Soraya Rama Castaño - s.rama@alumnos.urjc.es - sorayarc
@@ -89,6 +98,8 @@ Soraya Rama Castaño - s.rama@alumnos.urjc.es - sorayarc
 Carlos Ruiz Ballesteros - c.ruizba@alumnos.urjc.es - cruizba
 
 Luis León Gámez - lg.leon@alumnos.urjc.es - ice6294
+
+
   
   
   
