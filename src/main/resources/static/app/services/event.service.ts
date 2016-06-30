@@ -66,6 +66,13 @@ export class EventService {
     )
   }
 
+  getAllBands(id){
+    let url = "/events/allBands"+id;
+    return this.http.get(url).map(
+        result => this.deserializeBands(result.json())
+    )
+  }
+
   /* Http POSTs */
   getIsFollower (id){
     // TODO
@@ -118,6 +125,31 @@ export class EventService {
     return this.http.post('/newEvent/' + Info.userId , body, options);
   }
 
+  addNewBand(name, id){
+    let body = "";
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.post('/event/'+id+'/newBand/'+name, body, options);
+  }
+
+
+  setCity(city, id){
+    let body = city;
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editCityEvent/' + id , body, options);
+  }
+
+  setFecha (date, id){
+    let body = date;
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editDateEvent/'+id, body, options);
+
+  }
 
 
   /* Deserialize Methods (Event List) */
@@ -138,6 +170,7 @@ export class EventService {
     //noinspection TypeScriptValidateTypes
     event.date = new Date(json.date);
     event.bands = this.deserializeBasicBands(json.bands);
+    event.creator = toInstance (emptyUser(), json.creator);
     return event;
   }
 
@@ -159,7 +192,7 @@ export class EventService {
     let event:Event = toInstance(emptyEvent(), json);
     //noinspection TypeScriptValidateTypes
     event.date = new Date(json.date);
-    event.creator = toInstance(emptyUser(), json);
+    event.creator = toInstance(emptyUser(), json.creator);
     event.followers = this.deserializeUsers(json.followers);
     event.bands = this.deserializeBands(json.bands);
     return event;

@@ -115,7 +115,7 @@
                                     <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceBanda">{{ba.groupName}}</a></td>
                                 </tr>
                             </table>
-                            <div *ngIf="isUserLogged" class="insertarButton">
+                            <div *ngIf="isUserLogged && user.isArtist" class="insertarButton">
                                 <button class="formButton btn btn-default" data-toggle="modal" data-target="#agregarBanda" id="crearBandaButton">
                                 <div class="row">
                                     <div class="col-md-10 textAddBlog">
