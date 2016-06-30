@@ -1,5 +1,9 @@
 package giraffe.miausicbox.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -42,6 +47,8 @@ import giraffe.miausicbox.user.UserRegister;
 @RestController
 public class UserController {
 
+	private static final Path FILES_FOLDER = Paths.get(System.getProperty("user.dir"), "files");
+	
 	/**
 	 * REPOSITORIES related to USER_CONTROLLER
 	 */
@@ -233,7 +240,7 @@ public class UserController {
 		List<Band> allbands = bandRepository.findAll();
 		List<Band> bands = new ArrayList<>();
 		for (Band b : allbands) {
-			if (b.getFollowers().contains(user) || b.getMembers().contains(user) || b.getAdministrador().equals(user)) {
+			if (b.getFollowers().contains(user) || b.getMembers().contains(user) || user.equals(b.getAdministrador())) {
 				bands.add(b);
 			}
 		}
@@ -576,10 +583,32 @@ public class UserController {
 			return new ResponseEntity<String>("USERNAME EXISTS", HttpStatus.CONFLICT);
 		}
 		User userAux = new User(user.getUserName(), user.getPassword(), user.getCompleteName(), user.getEmail(),"", user.getIsArtist(), 
-				"","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				"","","","", "profile_image.png", new ArrayList<Instrument>(),new ArrayList<Genre>()
 				,new ArrayList<Band>(),new ArrayList<Event>());
 		userRepository.save(userAux);
 		return new ResponseEntity<User>(userAux, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/artist/{id}/setimage", method = RequestMethod.POST)
+	public ResponseEntity<?> editImage(@PathVariable long id, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		if (file.isEmpty()) {
+			return new ResponseEntity<String>("ERROR - File is empty", HttpStatus.CONFLICT);
+		}
+		User newUser;
+		User user = userRepository.findOne(id);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
+		}
+		String filename = "user-" + user.getId() + ".jpg";
+		File uploadedFile = new File(FILES_FOLDER.toFile(), filename);
+		uploadedFile.delete();
+		file.transferTo(uploadedFile);
+		user.setImage(filename);
+		newUser = userRepository.save(user);
+		return new ResponseEntity<User>(newUser, HttpStatus.OK);
+	}
+
 }

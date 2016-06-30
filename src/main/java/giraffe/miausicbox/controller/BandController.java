@@ -267,13 +267,12 @@ public class BandController {
 		if (!band.getTracks().contains(track)) {
 			System.out.println("La banda no tiene el track");
 			return new ResponseEntity<String>("ERROR - Band doesn't have that track", HttpStatus.CONFLICT);
-		} else {
-			System.out.println("Exito! :D");
-			//trackRepository.delete(trackId);
-			band.getTracks().remove(track);
-			newBand = bandRepository.save(band);
-			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		}
+		System.out.println("Exito! :D");
+		//trackRepository.delete(trackId);
+		band.getTracks().remove(track);
+		newBand = bandRepository.save(band);
+		response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		return response;
 	}
 	
@@ -291,35 +290,69 @@ public class BandController {
 			System.out.println("No existe la banda " + bandId);
 			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
 		}
-		if (!band.getAdministrador().equals(userComponent.getLoggedUser())){
-			System.out.println("No es administador");
-			return new ResponseEntity<String>("ERROR - User logged is not admin", HttpStatus.UNAUTHORIZED);
-		}
 		User user = userRepository.findOne(memberId);
 		if (user == null) {
 			System.out.println("No existe el user " + memberId);
 			return new ResponseEntity<String>("ERROR - User doesn't exists", HttpStatus.CONFLICT);
 		}
+		if (!band.getAdministrador().equals(userComponent.getLoggedUser())){
+			System.out.println("No es administador");
+			if (!userComponent.getLoggedUser().equals(user)){
+				System.out.println("Ni el user a eliminar ...");
+				return new ResponseEntity<String>("ERROR - User logged is not admin", HttpStatus.UNAUTHORIZED);
+			}
+			System.out.println("Pero sí el user que quiere eliminar jaja");
+		}
 		if (!band.getMembers().contains(user)) {
 			System.out.println("La banda no tiene el user");
 			return new ResponseEntity<String>("ERROR - Band doesn't have that member", HttpStatus.CONFLICT);
-		} else {
-			if (band.getAdministrador().equals(user)){
-				if (band.getMembers().size() == 1) {
-					//bandRepository.delete(band);
-					band.setAdministrador(null);
-					band.getMembers().remove(user);
-				} else {
-					band.getMembers().remove(user);
-					band.setAdministrador(band.getMembers().get(0));
-				}
-			} else {
-				System.out.println("Exito! :D");
-				band.getMembers().remove(user);
-			}
-			newBand = bandRepository.save(band);
-			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		}
+		System.out.println("Exito! :D");
+		if (band.getAdministrador().equals(user)){
+			band.setAdministrador(null);
+		}
+		band.getMembers().remove(user);
+		if (band.getMembers().size() > 0) {
+			band.setAdministrador(band.getMembers().get(0));
+		}
+		newBand = bandRepository.save(band);
+		response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
+		return response;
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{bandId}/remove", method = RequestMethod.DELETE)
+	public ResponseEntity<?> removeBand(@PathVariable long bandId) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		System.out.println("Saludos");
+		ResponseEntity<String> response;
+		Band band = bandRepository.findOne(bandId);
+		if (band == null) {
+			System.out.println("No existe la banda " + bandId);
+			return new ResponseEntity<String>("ERROR - Band doesn't exists", HttpStatus.CONFLICT);
+		}
+		if (!band.getAdministrador().equals(userComponent.getLoggedUser())){
+			System.out.println("No es administador");
+			return new ResponseEntity<String>("ERROR - User logged is not admin", HttpStatus.UNAUTHORIZED);
+		}
+		List<Novelty> novelties = noveltyRepository.findNoveltyByBand(band);
+		for (Novelty n : novelties) {
+			noveltyRepository.delete(n);
+		}
+		List<BlogBand> blogs = blogBandRepository.findBlogBandByAuthor(band);
+		for (BlogBand b : blogs) {
+			blogBandRepository.delete(b);
+		}
+		List<Event> events = eventRepository.findEventByBands(band);
+		for (Event e : events) {
+			e.getBands().remove(band);
+			eventRepository.save(e);
+		}
+		System.out.println("Exito! :D");
+		bandRepository.delete(band);
+		response = new ResponseEntity<String>("OK", HttpStatus.OK);
 		return response;
 	}
 	

@@ -41,7 +41,6 @@ export class SignInComponent{
   goToIndex(){
     this._router.navigate(['Index']);
   }
-
     logIn(event: any){
     
         event.preventDefault();

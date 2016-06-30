@@ -25,7 +25,8 @@
                                                 <a *ngFor="#mes of messagesShowed" [class.activeMessage]="mes == actualMessage" class="list-group-item" (click)="clickOnMessage(mes)">
                                                     <table>
                                                         <tr>
-                                                            <td><img src="../img/profile_image.png" alt="Profile image" id="imagenUsuario"></td>
+                                                            <td><img *ngIf="receivedOption" src="/images/{{mes.sender.image}}" alt="Profile image" id="imagenUsuario"></td>
+                                                            <td><img *ngIf="!receivedOption" src="/images/{{mes.receptor.image}}" alt="Profile image" id="imagenUsuario"></td>
                                                             <td id="alineacionMensajes">
                                                                 <h4 *ngIf="receivedOption" [class.nonReadMessage]="!mes.message.readd" class="list-group-item-heading">{{mes.message.sender.userName}}</h4>
                                                                 <h4 *ngIf="!receivedOption" class="list-group-item-heading">{{mes.message.destiny.userName}}</h4>
@@ -36,7 +37,7 @@
                                                 </a>
                                               </div>
                                               <!--Paginas-->
-                                              <ul class="pagination" id="paginas">
+                                              <!--<ul class="pagination" id="paginas">
                                                 <li><a href="#">Prev</a></li>
                                                 <li><a href="#">1</a></li>
                                                 <li><a href="#">2</a></li>
@@ -44,7 +45,7 @@
                                                 <li><a href="#">4</a></li>
                                                 <li><a href="#">5</a></li>
                                                 <li><a href="#">Next</a></li>
-                                              </ul>
+                                              </ul>-->
                                           </div>
                                           <!--Contenido del mensaje-->
                                           <div class="col-md-8">

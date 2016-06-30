@@ -32,6 +32,8 @@ public class User {
 	
 	public interface WebLinks {}
 	
+	public interface Image {}
+	
 	public interface InstGenres extends Instrument.Basic, Genre.Basic {}
 	
 	public interface Bands extends Band.Basic {}
@@ -77,6 +79,9 @@ public class User {
 	@JsonView(WebLinks.class)
 	private String youtube;
 	
+	@JsonView(Basic.class)
+	private String image;
+	
 	@JsonView(InstGenres.class)
 	@ManyToMany
 	private List<Instrument> instruments = new ArrayList<>();
@@ -107,6 +112,7 @@ public class User {
 			String facebook,
 			String twitter,
 			String youtube,
+			String image,
 			List<Instrument> instruments,
 			List<Genre> genres,
 			List<Band> bands,
@@ -125,6 +131,11 @@ public class User {
 		this.facebook = facebook;
 		this.twitter = twitter;
 		this.youtube = youtube;
+		this.image = image;
+		this.instruments = instruments;
+		this.genres = genres;
+		this.bands = bands;
+		this.events = events;
 	}
 
 	public Boolean getIsArtist() {
@@ -218,6 +229,14 @@ public class User {
 
 	public void setYoutube(String youtube) {
 		this.youtube = youtube;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public List<Instrument> getInstruments() {

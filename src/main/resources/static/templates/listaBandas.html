@@ -49,7 +49,7 @@
                         <tbody>
                             <tr *ngFor="#ba of bands; #i = index">
                                 <td>
-                                    <a  class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
+                                    <a  class="enlaceListaBanda"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
                                 </td>
                                 <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceListaBanda">{{ba.groupName}}</a></td>
                                 <td>
@@ -66,7 +66,7 @@
                         </tbody>
                     </table>
                     <!--Paginas-->
-                    <ul class="pagination" id="paginasBandas">
+                    <!--<ul class="pagination" id="paginasBandas">
                         <li><a href="#">Prev</a></li>
                         <li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
@@ -74,7 +74,7 @@
                         <li><a href="#">4</a></li>
                         <li><a href="#">5</a></li>
                         <li><a href="#">Next</a></li>
-                    </ul>
+                    </ul>-->
                 </div>
                 <!--Fin Lista de Artistas-->
 

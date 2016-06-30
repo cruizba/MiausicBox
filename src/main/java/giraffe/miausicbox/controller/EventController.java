@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.controller.BandController.BandView;
+import giraffe.miausicbox.controller.UserController.UserView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Novelty;
 import giraffe.miausicbox.repositories.BandRepository;
 import giraffe.miausicbox.repositories.EventRepository;
 import giraffe.miausicbox.repositories.UserRepository;
@@ -143,6 +146,42 @@ public class EventController {
 		}
 		return response;
 	}
+	
+	@JsonView(EventView.class)
+	@RequestMapping(value = "/editCityEvent/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editCity(@PathVariable long id ,@RequestBody String city) {
+		
+		Event event = eventRepository.findOne(id);
+		event.setDirection(city);
+		event = eventRepository.save(event);
+
+		return new ResponseEntity<Event>(event, HttpStatus.OK);
+	}
+	
+	@JsonView(EventView.class)
+	@RequestMapping(value = "/editDateEvent/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editDate(@PathVariable long id ,@RequestBody String date) {
+		
+		Event event = eventRepository.findOne(id);
+		event.setString(date);
+		event = eventRepository.save(event);
+
+		return new ResponseEntity<Event>(event, HttpStatus.OK);
+	}
+	@JsonView(EventView.class)
+	@RequestMapping(value="/event/{id}/newBand/{name}", method = RequestMethod.POST)
+	public ResponseEntity<?> addNewBand (@PathVariable long id, @PathVariable String name){
+		Event event = eventRepository.findOne(id);
+		List<Band> bands = bandRepository.findBandByGroupName(name);
+	
+		if (!event.getBands().contains(bands)){
+			event.getBands().addAll(bands);
+			event = eventRepository.save(event);
+		}
+		return new ResponseEntity<Event> (event, HttpStatus.OK);
+	}
+	
+
 	
 	
 }
