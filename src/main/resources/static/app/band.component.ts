@@ -15,6 +15,7 @@ import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
 import { Band } from './classes/Band'
 import { NoveltyService } from "./services/novelty.service";
+import {Genre} from "./classes/Genre";
 import {MultipartUploader} from "./libs/multipart-upload/multipart-uploader";
 import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 
@@ -26,7 +27,6 @@ import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 })
 
 export class BandComponent {
-
     id;
     isAdmin:boolean;
     isMember:boolean;
@@ -80,6 +80,105 @@ export class BandComponent {
         );
         this._bandService.getNumFollows(this.band.id).subscribe(
             num => this.numFollowers = num
+        );
+    }
+
+    addGenre(genre){
+        let genreAux:Genre = new Genre(genre);
+        this._bandService.addGenre(genreAux).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    );
+                }
+                else{
+                    alert("El genero ya está añadido");
+                }
+            },
+            error => alert("El genero ya está añadido")
+        );
+    }
+
+    deleteGenre(genre){
+        let genreAux:Genre = new Genre(genre);
+        this._bandService.deleteGenre(genreAux).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    );
+                }
+                else{
+                    alert("El genero no está añadido");
+                }
+            },
+            error => alert("El genero no está añadido")
+        );
+    }
+
+    editCity(city){
+        this._bandService.setCity(city).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setWeb(link){
+        this._bandService.setWeb(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setFacebook(link){
+        this._bandService.setFacebook(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setYoutube(link){
+        this._bandService.setYoutube(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setTwitter(link){
+        this._bandService.setTwitter(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
         );
     }
 
@@ -228,7 +327,6 @@ export class BandComponent {
     goToWebBand(id){
         this._router.navigate(['Artist', id]);
     }
-
 
 
     // Upload Image

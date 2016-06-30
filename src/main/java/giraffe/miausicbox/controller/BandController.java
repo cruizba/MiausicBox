@@ -19,9 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.controller.UserController.UserView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.BlogBand;
 import giraffe.miausicbox.model.Event;
+import giraffe.miausicbox.model.Genre;
+import giraffe.miausicbox.model.Instrument;
 import giraffe.miausicbox.model.Novelty;
 import giraffe.miausicbox.model.Track;
 import giraffe.miausicbox.user.User;
@@ -272,6 +275,101 @@ public class BandController {
 			response = new ResponseEntity<Band>(newBand, HttpStatus.OK);
 		}
 		return response;
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/addGenreBand/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> addGenre(@PathVariable long id, @RequestBody Genre genre){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		Band band = bandRepository.findOne(id);
+		List<Genre> genres = band.getGenres();
+		if(genres.contains(genre)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		band.getGenres().add(genre);
+		band = bandRepository.save(band);
+		return new ResponseEntity<Band>(band, HttpStatus.OK);
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/deleteGenreBand/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> deleteGenre(@PathVariable long id, @RequestBody Genre genre){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		Band band = bandRepository.findOne(id);
+		List<Genre> genres = band.getGenres();
+		if(!genres.contains(genre)){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		band.getGenres().remove(genre);
+		band = bandRepository.save(band);
+		return new ResponseEntity<Band>(band, HttpStatus.OK);
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/editCityBand/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editCity(@PathVariable long id, @RequestBody String city) {
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		Band band = bandRepository.findOne(id);
+		if(band == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		band.setCity(city);
+		band = bandRepository.save(band);
+		return new ResponseEntity<Band>(band, HttpStatus.OK);
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/editWebLinkBand/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editWebLink(@PathVariable long id, @RequestBody String link){
+		Band band = bandRepository.findOne(id);
+		if(band == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		band.setWeb(link);
+		band = bandRepository.save(band);
+		return new ResponseEntity<Band>(band, HttpStatus.OK);
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/editFacebookLinkBand/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editFacebookLink(@PathVariable long id, @RequestBody String link){
+		Band band = bandRepository.findOne(id);
+		if(band == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		band.setFacebook(link);
+		band = bandRepository.save(band);
+		return new ResponseEntity<Band>(band, HttpStatus.OK);
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/editYoutubeLinkBand/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editYoutubeLink(@PathVariable long id, @RequestBody String link){
+		Band band = bandRepository.findOne(id);
+		if(band == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		band.setYoutube(link);
+		band = bandRepository.save(band);
+		return new ResponseEntity<Band>(band, HttpStatus.OK);
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/editTwitterLinkBand/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editTwitterLink(@PathVariable long id, @RequestBody String link){
+		Band band = bandRepository.findOne(id);
+		if(band == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		band.setFacebook(link);
+		band = bandRepository.save(band);
+		return new ResponseEntity<Band>(band, HttpStatus.OK);
 	}
 	
 	/**
