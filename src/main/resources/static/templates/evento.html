@@ -123,6 +123,20 @@
                             </table>
                         </div>
                     </div>
+                    <!--Añadir una nueva banda al evento -->
+                    <div class="insertarButton" *ngIf="isCreator">
+                        <button class="formButton btn btn-default" id="insertMemberButton">
+                            <div data-toggle="modal" data-target="#agregarBanda" class="row">
+                                <div class="col-md-10 textAddBlog">
+                                    Agregar nueva banda
+                                </div>
+                                <div class="col-md-2 iconAddBlog">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
                     <!-- Fin bandas del evento -->
 
                     <!-- Localizacion del evento -->
@@ -243,6 +257,35 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <!--Agregar una nueva banda -->
+    <div id="agregarBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioBlog">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Nueva banda</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Nombre:</label>
+                                    <div class="col-sm-10">
+                                        <input #bandName type="text" class="form-control" id="imagen" placeholder="Introduce el nombre del nuevo miembro">
+                                    </div>
+                                </div>
+
+                                <div class="BotonFormulario">
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="newBand(bandName.value);bandName.value=null">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
 

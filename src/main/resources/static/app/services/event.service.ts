@@ -66,6 +66,13 @@ export class EventService {
     )
   }
 
+  getAllBands(id){
+    let url = "/events/allBands"+id;
+    return this.http.get(url).map(
+        result => this.deserializeBands(result.json())
+    )
+  }
+
   /* Http POSTs */
   getIsFollower (id){
     // TODO
@@ -117,6 +124,14 @@ export class EventService {
 
     return this.http.post('/newEvent/' + Info.userId , body, options);
   }
+
+  addNewBand(name, id){
+    let body = "";
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.post('/event/'+id+'/newBand/'+name, body, options);
+  }
+
 
   setCity(city, id){
     let body = city;
