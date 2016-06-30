@@ -128,22 +128,24 @@ public class BlogController {
 		}
 		System.out.println("Date:");
 		System.out.println(bloguser.getDate());
-		ResponseEntity<BlogUser> response;
+		ResponseEntity<Long> response;
 		User user = userRepository.findOne(id);
 		bloguser.setAuthor(user);
+		bloguser.setImage("files/profile_image.png");
 		BlogUser newBlogUser = blogUserRepository.save(bloguser);
-		response = new ResponseEntity<BlogUser>(newBlogUser, HttpStatus.OK);
+		response = new ResponseEntity<Long>(newBlogUser.getId(), HttpStatus.OK);
 		return response;
 	}
 	
 	@JsonView(BlogView.class)
 	@RequestMapping(value = "/newblogband/{id}", method = RequestMethod.POST)
-	public ResponseEntity<BlogBand> createNewBlogBand(@PathVariable long id ,@RequestBody BlogBand blogband) {
-		ResponseEntity<BlogBand> response;
+	public ResponseEntity<?> createNewBlogBand(@PathVariable long id ,@RequestBody BlogBand blogband) {
+		ResponseEntity<Long> response;
 		Band band = bandRepository.findOne(id);
 		blogband.setAuthor(band);
+		blogband.setImage("files/profile_image.png");
 		BlogBand newBlogBand = blogBandRepository.save(blogband);
-		response = new ResponseEntity<BlogBand>(newBlogBand, HttpStatus.OK);
+		response = new ResponseEntity<Long>(newBlogBand.getId(), HttpStatus.OK);
 		return response;
 	}
 	

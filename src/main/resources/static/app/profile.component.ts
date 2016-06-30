@@ -178,6 +178,9 @@ export class ArtistaComponent {
                     this._userService.getBlogsByUser(this.id).subscribe(
                         blogList => this.blogList = blogList
                     );
+                    console.log("PROSTATAAA");
+                    console.log(response);
+                    this.idBlog = response.json();
                     this.uploadBlog();
                 } else {
                     console.log(response.status);
@@ -404,7 +407,8 @@ export class ArtistaComponent {
 
         let formData = new FormData();
         formData.append("file", this.blogFile);
-
+        console.log ("HOLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        console.log(this.idBlog);
         let url = "/artist/" + this.id + "/blog/" + this.idBlog + "/setimage";
         let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
         multipartItem.formData = formData;

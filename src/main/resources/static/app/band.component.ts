@@ -192,6 +192,7 @@ export class BandComponent {
                         blogList => this.blogList = blogList,
                         error => alert("getBandById error")
                     );
+                    this.idBlog = response.json();
                     this.uploadBlog();
                 } else {
                     console.log(response.status);
@@ -280,7 +281,7 @@ export class BandComponent {
         let formData = new FormData();
         formData.append("file", this.blogFile);
 
-        let url = "/band/" + this.id + "/blog/" + this.idBlog + "setimage";
+        let url = "/band/" + this.id + "/blog/" + this.idBlog + "/setimage";
         let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
         multipartItem.formData = formData;
         multipartItem.callback = (data, status, headers) => {
