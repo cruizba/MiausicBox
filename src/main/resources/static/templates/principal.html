@@ -1,0 +1,111 @@
+<div class="content-page container-fluid">
+    <div class="row">
+        <div *ngFor="#one of novedades" class="col-md-12" id="profile_blog">
+            <!-- Blog artista -->
+            <div *ngIf="parseOne(one) == 0" class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">{{one.name}}</h3>
+                </div>
+                <div class="panel-body" id="BlogDescripcion">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img class="image-blog img-responsive img-rounded" src="/images/{{one.image}}" alt="Profile image" *ngIf="one.hasImage()">
+                            <p class="content-panel" *ngIf="one.hasText()">{{one.text}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" id="BlogFooter">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6" id="AutorBlog"><a [routerLink]="['Artist', {id: one.author.id}]">{{one.author.completeName}}</a></div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Blog artista -->
+            <!-- Blog banda -->
+            <div *ngIf="parseOne(one) == 1" class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">{{one.name}}</h3>
+                </div>
+                <div class="panel-body" id="BlogDescripcion">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img class="image-blog img-responsive img-rounded" src="/images/{{one.image}}" alt="Profile image" *ngIf="one.hasImage()">
+                            <p class="content-panel" *ngIf="one.hasText()">{{one.text}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" id="BlogFooter">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6" id="BandaBlog"><a [routerLink]="['Artist', {id: one.author.id}]">{{one.author.groupName}}</a></div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Blog banda -->
+            <!-- Evento -->
+            <div *ngIf="parseOne(one) == 2" class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel"><a id="no_color_link_blog" [routerLink]="['Event', {id: one.id}]">{{one.name}}</a></h3>
+                </div>
+                <div class="panel-body" id="Descripcion">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a [routerLink]="['Event', {id: one.id}]"><img  class="img-responsive" id="imagenEvento" src="/images/{{one.image}}"/></a>
+                        </div>
+                        <div class="col-md-4">
+                            <!--Informacion localizacion -->
+                            <table class="table" id="Informacion">
+                                <h4>Informacion</h4>
+                                <tbody>
+                                <tr>
+                                    <td>Grupos</td>
+                                    <td>
+                                        <ul *ngFor="#grupo of one.bands">
+                                            <li><a [routerLink]="['Band', {id: grupo.id}]">{{grupo.groupName}}</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fecha
+                                    </td>
+                                    <td>{{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-md-5">
+                            <p class="content-panel">{{one.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin evento -->
+            <!-- Novelty -->
+            <div *ngIf="parseOne(one) == 3" class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="panel-body date">
+                            {{one.date.getDate()}}/{{one.date.getMonth()+1}}/{{one.date.getFullYear()}}
+                            {{one.date.getHours()}}:{{one.date.getMinutes()}}
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="panel-body news">
+                            <span class="glyphicon glyphicon-user"></span>
+                            <span class="text-artistname"><a [routerLink]="['Artist', {id: one.user.id}]">{{one.user.userName}}</a></span>
+                            <span *ngIf="one.joined"> has joined </span>
+                            <span *ngIf="!one.joined"> has left </span>
+                            <span class="text-bandname"><a [routerLink]="['Band', {id: one.band.id}]">{{one.band.groupName}}</a></span>
+                            <span class="glyphicon glyphicon-cd"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- End novelty -->
+        </div>
+    </div>
+</div>

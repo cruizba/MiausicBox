@@ -1,0 +1,83 @@
+  <div class="content-page container">
+            <div class="row">
+
+                <!--Titulo contenido -->
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h1><span class="glyphicon glyphicon-cd"></span> Bandas<small> Follow them!</small></h1>
+                    </div>
+                </div>
+
+                <!--Menu Lateral. Filtro de busqueda-->
+                <div class="col-md-4">
+
+                    <div class="panel panel-default profile-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Busqueda</h3>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="col-lg-12">
+                                <h4 id="BusquedaBanda">Nombre:</h4>
+                                <div class="input-group">
+                                    <input #name type="text" class="form-control" placeholder="Nombre de la banda">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" id="BotonBusqueda" (click)="findName(name.value); name.value=null">Buscar!</button>
+                                    </span>
+                                </div>
+                                <!-- /input-group -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Lista de Bandas-->
+                <div class="col-md-8">
+
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th id="esquinaTablaBandas1">Perfil</th>
+                                <th>Nombre </th>
+                                <th>Miembros</th>
+                                <th id="esquinaTablaBandas2">Genero</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="#ba of bands; #i = index">
+                                <td>
+                                    <a  class="enlaceListaBanda"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
+                                </td>
+                                <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceListaBanda">{{ba.groupName}}</a></td>
+                                <td>
+                                    <ul>
+                                        <li *ngFor="#mem of ba.members" ><a [routerLink]="['Artist',  {id: mem.id}]" class="enlacePerfilArtista">{{mem.userName}}</a></li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li *ngFor="#gen of ba.genres">{{gen.name}}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--Paginas-->
+                    <!--<ul class="pagination" id="paginasBandas">
+                        <li><a href="#">Prev</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>-->
+                </div>
+                <!--Fin Lista de Artistas-->
+
+
+            </div>
+        </div>

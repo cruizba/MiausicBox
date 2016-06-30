@@ -1,0 +1,94 @@
+/***********************************Mensajes***********************************/
+
+#panelHeading {
+    background-color: #00BC8C;
+}
+
+.nav-tabs > li.active > a > h3 {
+    color: #00BC8C;
+}
+
+.nav-tabs > li > a > h3 {
+    color: aliceblue;
+}
+
+.nav-tabs > li > a:hover {
+    background-color: #00A379;
+}
+
+#writeButton {
+    background-color: #00BC8C;
+    color: aliceblue;
+}
+
+#botonRedactar:hover {
+   background-color: #00A379;
+}
+
+#imagenUsuario {
+    height: 5em;
+}
+
+#alineacionMensajes {
+    padding-left: 1em;
+    color:dimgrey;
+}
+
+#responder {
+    padding-right: 0.5em;
+    position: right;
+    color: dimgray;
+}
+
+#reenviar {
+    padding-left: 41em;
+    padding-right: 0.5em;
+    position: right;
+    color: dimgray;
+}
+
+#eliminar {
+    position: right;
+}
+
+#responder:hover {
+    color: #00A379;
+}
+
+#reenviar:hover {
+    color: #00A379;
+}
+
+#eliminar:hover {
+    color: #00A379;
+}
+
+#origencorreo {
+    color: black;
+}
+
+#correo {
+    color: dimgrey;
+    padding-bottom: 16em;
+}
+
+#paginas {
+    padding-left: 2.5em;
+}
+
+#paginas a {
+    background-color: #00BC8C;
+    color:white;
+}
+
+#paginas a:hover{
+    background-color: #00A379;
+}
+
+.nonReadMessage{
+    font-weight: 900;
+}
+
+.activeMessage{
+    background: #f5f5f5;
+}

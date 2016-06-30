@@ -1,0 +1,635 @@
+<div *ngIf="band != null" class="content-page container" id="profile-page">
+    <div class="row">
+        <!-- Información del perfil -->
+        <div class="col-md-4" id="profile_details">
+            <img *ngIf="(!isAdmin)" src="/images/{{band.image}}" class="img-responsive img-rounded" alt="Profile image">
+            <img *ngIf="(isAdmin)" data-toggle="modal" data-target="#EditarImagen" src="/images/{{band.image}}" class="img-responsive img-rounded" alt="Profile image">
+            <h1>{{band.groupName}}</h1>
+
+            <p >
+                <a *ngIf="(!isFollower)"  (click)="followBand()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton" >Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                <a *ngIf="(isFollower)" (click)="followBand()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus"></span></a>
+                <a [routerLink]="['Followers', {id: id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollowers}}</span></a>
+            </p>
+
+            <!-- Información General -->
+            <div class="panel panel-default profile-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Información</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table" id="Informacion">
+                        <tbody>
+                        <tr id="PrimeraFila">
+                            <td>Géneros
+                            </td>
+                            <td>
+                                <span *ngFor="#genre of band.genres">{{genre.name + "  "}}</span>
+                            </td>
+                            <td *ngIf="isAdmin">
+                                <button data-toggle="modal" data-target="#EditarGeneroBanda" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ciudad
+                            </td>
+                            <td>{{band.city}}
+                            </td>
+                            <td *ngIf="isAdmin">
+                                <button data-toggle="modal" data-target="#EditarCiudadBanda" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Web
+                            </td>
+                            <td><a  href="{{band.web}}" class="enlaceInfo">{{band.web}}</a>
+                            </td>
+                            <td *ngIf="isAdmin">
+                                <button data-toggle="modal" data-target="#EditarWebBanda" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" id="TablaSites">
+                        <tr>
+                            <td>
+                                <a href="{{band.facebook}}" class="btn btn-block btn-social btn-facebook">
+                                    <span class="fa fa-facebook"></span>Follow in Facebook
+                                </a>
+                            </td>
+                            <td *ngIf="isAdmin">
+                                <button data-toggle="modal" data-target="#EditarFBanda" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a  href="{{band.twitter}}" class="btn btn-block btn-social btn-twitter">
+                                    <span class="fa fa-twitter"></span>Follow in Twitter
+                                </a>
+                            </td>
+                            <td *ngIf="isAdmin">
+                                <button data-toggle="modal" data-target="#EditarTWBanda" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="{{band.youtube}}" class="btn btn-block btn-social btn-pinterest">
+                                    <span class="fa fa-youtube"></span>Follow in Youtube
+                                </a>
+                            </td >
+                            <td *ngIf="isAdmin">
+                                <button data-toggle="modal" data-target="#EditarYTBanda" type="button" class="btn btn-default" aria-label="Left Align">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        <button *ngIf="isAdmin" (click)="removeBand()" type="button" class="btn btn-default" aria-label="Center Align">Disolver banda</button>
+                    </table>
+                </div>
+            </div>
+            <!-- Fin Información General -->
+
+            <!-- Eventos próximos -->
+            <div class="panel panel-default profile-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Eventos próximos</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table" id="Eventos">
+                        <tbody>
+                        <tr id="PrimeraFila" *ngFor ="#ev of events">
+
+                            <td><a [routerLink]="['Event', {id: ev.id}]">{{ev.name}}</a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Fin Eventos próximos -->
+        </div>
+        <!-- Fin Información del perfil -->
+
+        <!-- Información banda -->
+        <div class="col-md-8" id="profile_blog">
+
+            <!-- Descripción banda -->
+            <div class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">Descripción</h3>
+                </div>
+                <div class="panel-body" id="Descripcion">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="content-panel">{{band.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Descripción banda -->
+
+            <!-- Miembros banda -->
+            <div class="panel panel-default" id="Lista">
+                <div class="panel-head">
+                    <h3 class="content-panel">Miembros</h3>
+                </div>
+                <div class="panel-body" id="ListaItems">
+                    <table class="table">
+                        <thead id="TableHead">
+                        <tr>
+                            <th id="EsquinaIzqTabla">Perfil</th>
+                            <th>Nombre</th>
+                            <th id="EsquinaDerTabla" *ngIf="!isAdmin">Instrumento</th>
+                            <th *ngIf="isAdmin">Nombre</th>
+                            <th id="EsquinaDerTabla" *ngIf="isAdmin">Borrar</th>
+                        </tr>
+                        </thead>
+                        <tbody id="TableBody">
+                        <tr *ngFor="#mem of band.members">
+                            <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista"><img src="/images/{{mem.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                            <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista">{{mem.userName}}</a></td>
+                            <td>
+                                <ul>
+                                    <li *ngFor="#ins of mem.instruments"><img src="{{ins.image_url_white}}" alt="Instrument" id="InstrumentSimbol">{{ins.name}}
+                                    </li>
+                                </ul>
+                            </td>
+                            <td *ngIf="isAdmin || itsMe(mem)">
+                                <button type="button" class="btn btn-default btn-sm" (click)="removeMember(mem.id)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Fin Miembros banda -->
+            <!-- Boton Añadir Miembro -->
+            <div class="insertarButton" *ngIf="isAdmin">
+                <button class="formButton btn btn-default" id="insertMemberButton">
+                    <div data-toggle="modal" data-target="#agregarMiembro" class="row">
+                        <div class="col-md-10 textAddBlog">
+                            Agregar nuevo miembro
+                        </div>
+                        <div class="col-md-2 iconAddBlog">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <!-- Fin Boton Añadir Miembro -->
+
+            <!-- Tracklist banda -->
+            <div class="panel panel-default" id="Lista">
+                <div class="panel-head">
+                    <h3 class="content-panel">Tracklist</h3>
+                </div>
+                <div class="panel-body" id="ListaItems">
+                    <table class="table">
+                        <thead id="TableHead">
+                        <tr>
+                            <th id="EsquinaIzqTabla">Canción</th>
+                            <th>Grupo</th>
+                            <th id="EsquinaDerTabla" *ngIf="!isMember">Link</th>
+                            <th *ngIf="isMember">Link</th>
+                            <th id="EsquinaDerTabla" *ngIf="isMember">Borrar</th>
+                        </tr>
+                        </thead>
+                        <tbody id="TableBody">
+                        <tr *ngFor="#tr of band.tracks">
+                            <td>{{tr.name}}</td>
+                            <td>{{tr.band}}</td>
+                            <td>
+                                <div data-toggle="modal" data-target="#youtubeVideo" class="row">
+                                    <button class="linkButton" (click)="setYouTubeTrack(tr.link)">Link</button>
+                                </div>
+                            </td>
+                            <td *ngIf="isMember">
+                                <button type="button" class="btn btn-default btn-sm" (click)="removeTrack(tr.id)">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Fin Tracklist banda -->
+            <!-- Boton Añadir Track -->
+            <div class="insertarButton" *ngIf="isMember">
+                <button class="formButton btn btn-default" id="insertMemberButton">
+                    <div data-toggle="modal" data-target="#agregarTrack" class="row">
+                        <div class="col-md-10 textAddBlog">
+                            Agregar nueva cancion
+                        </div>
+                        <div class="col-md-2 iconAddBlog">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </div>
+                    </div>
+                </button>
+            </div>
+            <!-- Fin Boton Añadir Track -->
+
+            <!-- Boton Añadir Blog -->
+            <div class="insertarButton" *ngIf="isMember">
+                <button class="formButton btn btn-default" id="insertBlogButton">
+                <div data-toggle="modal" data-target="#agregarBlog" class="row">
+                    <div class="col-md-10 textAddBlog">
+                        Insertar nuevo Blog
+                    </div>
+                    <div class="col-md-2 iconAddBlog">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+                </div>
+                </button>
+            </div>
+            <!-- Fin Boton Añadir Blog -->
+
+            <!-- Blog banda -->
+            <div *ngFor="#blog of blogList" class="panel panel-default">
+                <div class="panel-head">
+                    <h3 class="content-panel">{{blog.name}}</h3>
+                </div>
+                <div class="panel-body" id="BlogDescripcion">
+                    <div class="row">
+                        <div class="col-md-12" *ngIf="blog.hasImage() && blog.hasText()">
+                            <img *ngIf="(!isMember) && blog.hasImage()" class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image">
+                            <img *ngIf="(isMember) && blog.hasImage()" data-toggle="modal" data-target="#EditarImagenBlog" class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image" (click)="setBlogId(blog.id)">
+                            <p class="content-panel" *ngIf="blog.hasText()">{{blog.text}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer" id="BlogFooter">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6" id="BandaBlog"><p>{{blog.author.groupName}}</p></div>
+                        <div class="col-md-6 col-xs-6" id="FechaBlog">{{blog.date.getDate()}}/{{blog.date.getMonth() + 1}}/{{blog.date.getFullYear()}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Blog banda -->
+        </div>
+        <!-- Fin Información banda -->
+    </div>
+    <!-- Fin Contenido página -->
+
+    <!-- Formulario Agregar Miembro -->
+    <div id="agregarMiembro" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioBlog">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Nuevo Miembro</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Nombre:</label>
+                                    <div class="col-sm-10">
+                                        <input #username type="text" class="form-control" id="imagen" placeholder="Introduce el nombre del nuevo miembro">
+                                    </div>
+                                </div>
+
+                                <div class="BotonFormulario">
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="newMember(username.value);username.value=null">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Formulario agregar blog -->
+    <div id="agregarBlog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioBlog">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Nuevo Blog</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Titulo:</label>
+                                    <div class="col-sm-10">
+                                        <input #titleBlog type="text" class="form-control" id="imagen" placeholder="Introduce el título de tu blog aquí">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Link Imagen:</label>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">File input</label> <input id="exampleInputFile" type="file" (change)="selectBlogFile($event)">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="texto">Texto</label>
+                                    <div class="col-sm-10">
+                                        <textarea #textBlog class="form-control" rows="5" id="texto" placeholder="Introduce el texto de tu blog aquí."></textarea>
+                                    </div>
+                                </div>
+                                <div class="BotonFormulario">
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="submitBlog(titleBlog.value, textBlog.value); titleBlog.value=null; textBlog.value=null">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Formulario Agregar Track -->
+    <div id="agregarTrack" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioBlog">
+                    <div class="panel panel-default">
+                        <div class="panel-head">
+                            <h3 class="content-panel">Nueva Cancion</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Nombre de la cancion:</label>
+                                    <div class="col-sm-10">
+                                        <input #nameSong type="text" class="form-control" id="imagen" placeholder="Introduce nombre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Grupo</label>
+                                    <div class="col-sm-10">
+                                        <input #nameGroup type="text" class="form-control" id="imagen" placeholder="Introduce nombre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="formLabel control-label col-sm-2" for="imagen">Link</label>
+                                    <div class="col-sm-10">
+                                        <input #link type="text" class="form-control" id="imagen" placeholder="Introduce nombre">
+                                    </div>
+                                </div>
+
+                                <div class="BotonFormulario">
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" (click)="newTrack(nameSong.value, nameGroup.value, link.value); nameSong.value=null; nameGroup.value=null; link.value=null">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- YouTube Video -->
+    <div id="youtubeVideo" class="modal fade" role="dialog" (click)="setYouTubeTrack('')">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <iframe src="{{trackLink}}" width="100%" height="360" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <!-- Fin YouTube Video -->
+
+    <!-- Ventana Editar Generos -->
+    <div id="EditarGeneroBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarGenero">
+                    <div class="formulario" id="Editar Genero">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Editar Géneros</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="nombreBanda">Agregar / Eliminar Género</label>
+                                        <div class="col-sm-10">
+                                            <select #selectedGen class="form-control select-form" id="genre">
+                                                <option *ngFor="#gen of genres" value="{{gen.name}}">{{gen.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" type="submit" class="btn btn-default" (click)="addGenre(selectedGen.value)">Añadir</button>
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="deleteGenre(selectedGen.value)">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario editar Imagen -->
+    <div id="EditarImagen" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputFile">File input</label> <input id="exampleInputFile" type="file" (change)="selectFile($event)">
+                </div>
+                <button type="submit" class="btn btn-default" (click)="upload()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Ventana Editar Ciudad -->
+    <div id="EditarCiudadBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioCrearBanda">
+                    <div class="formulario" id="Editar instrumentos">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Editar ciudad</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Ciudad:</label>
+                                        <div class="col-sm-10">
+                                            <input #ciudadEdit type="text"  class="form-control" id="ciudadEdit" placeholder="Introduce aquí la ciudad">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="editCity(ciudadEdit.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Editar Ciudad -->
+
+    <!-- Ventana Editar Web -->
+    <div id="EditarWebBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarWeb">
+                    <div class="formulario" id="Editar Web">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Link Twitter</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Link:</label>
+                                        <div class="col-sm-10">
+                                            <input #linkw type="text"  class="form-control" id="linkw" placeholder="Introduce aquí el link">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="setWeb(linkw.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Ventana Editar Twitter -->
+    <div id="EditarTWBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarTW">
+                    <div class="formulario" id="Editar TW">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Link Twitter</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Link:</label>
+                                        <div class="col-sm-10">
+                                            <input #linktw type="text"  class="form-control" id="linktw" placeholder="Introduce aquí el link">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="setTwitter(linktw.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Ventana Editar Facebook -->
+    <div id="EditarFBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarF">
+                    <div class="formulario" id="Editar F">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Link Facebook</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Link:</label>
+                                        <div class="col-sm-10">
+                                            <input #linkf type="text"  class="form-control" id="linkf" placeholder="Introduce aquí el link">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="setFacebook(linkf.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+    <!-- Ventana Editar Youtube -->
+    <div id="EditarYTBanda" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="formulario" id="formularioEditarYT">
+                    <div class="formulario" id="Editar YT">
+                        <div class="panel panel-default">
+                            <div class="panel-head">
+                                <h3 class="content-panel">Link Youtube</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                        <label class="formLabel control-label col-sm-2" for="imagen">Link:</label>
+                                        <div class="col-sm-10">
+                                            <input #linkyt type="text"  class="form-control" id="linkyt" placeholder="Introduce aquí el link">
+                                        </div>
+                                        <div class="formulButtonModification BotonFormulario">
+                                            <div class="BotonFormulario">
+                                                <button data-dismiss="modal" class="btn btn-default" (click)="setYoutube(linkyt.value)">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario editar Blog Imagen -->
+    <div id="EditarImagenBlog" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputFileBlog">File input</label> <input id="exampleInputFileBlog" type="file" (change)="selectBlogFile($event)">
+                </div>
+                <button type="submit" class="btn btn-default" (click)="uploadBlog()">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin formulario -->
+
+</div>
