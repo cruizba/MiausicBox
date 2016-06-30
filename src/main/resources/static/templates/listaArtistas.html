@@ -82,7 +82,7 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#band of us.bands" [routerLink]="['Band', {id: band.id}]" >{{band.groupName}}</li>
+                                        <li *ngFor="#band of us.bands"><a id="no_color_link" [routerLink]="['Band', {id: band.id}]">{{band.groupName}}</a></li>
                                     </ul>
                                 </td>
 
@@ -90,7 +90,7 @@
                         </tbody>
                     </table>
                     <!--Paginas-->
-                    <ul class="pagination" id="paginasArtistas">
+                    <!--<ul class="pagination" id="paginasArtistas">
                         <li><a href="#">Prev</a></li>
                         <li><a href="#">1</a></li>
                         <li><a href="#">2</a></li>
@@ -98,7 +98,7 @@
                         <li><a href="#">4</a></li>
                         <li><a href="#">5</a></li>
                         <li><a href="#">Next</a></li>
-                    </ul>
+                    </ul>-->
                 </div>
                 <!--Fin Lista de Artistas-->
 

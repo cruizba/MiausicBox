@@ -3,7 +3,7 @@
  * @component EventComponent
  */
 import { Component } from 'angular2/core';
-import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import { Event } from './classes/Event';
 import { EventService } from "./services/event.service";
 import { BandService } from "./services/band.service";
@@ -24,7 +24,7 @@ export class EventComponent {
     isFollower:boolean;
     isCreator:boolean;
     
-    constructor (private _eventService:EventService, private _bandService:BandService,
+    constructor (private _router: Router, private _eventService:EventService, private _bandService:BandService,
                  private _routerParams:RouteParams){}
 
     ngOnInit(){
