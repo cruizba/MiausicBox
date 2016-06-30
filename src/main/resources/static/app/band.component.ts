@@ -15,11 +15,12 @@ import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
 import { Band } from './classes/Band'
 import { NoveltyService } from "./services/novelty.service";
+import {Genre} from "./classes/Genre";
 
 @Component({
   selector: 'band',
   templateUrl: 'templates/banda.html',
-  providers: [BandService, UserService, FollowService, BlogService, NoveltyService],
+  providers: [BandService, UserService, FollowService, BlogService, NoveltyService ],
   directives: [ROUTER_DIRECTIVES]
 })
 
@@ -30,6 +31,7 @@ export class BandComponent {
   isMember:boolean;
   band:Band;
   events: Event[] = [];
+  genres: Genre[] = [];
   blogList:BlogBand[] = [];
   instruments: Instrument[] = [];
   numFollowers:number;
@@ -40,12 +42,11 @@ export class BandComponent {
   regex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/g;
 
   constructor(private _router: Router, private _routeParams: RouteParams, private _bandService: BandService,
-              private _blogService: BlogService, private _noveltyService: NoveltyService){
+              private _blogService: BlogService, private _userService: UserService ){
   }
 
   ngOnInit() {
     this.initialization();
-    this.genres();
   }
 
   initialization() {
@@ -66,6 +67,11 @@ export class BandComponent {
     this._bandService.getBlogsByBand(this.id).subscribe(
       result => this.blogList = result
     );
+      
+    this._userService.getAllGenres().subscribe(
+        genres => this.genres = genres
+    ) 
+      
   }
 
   setBooleanAttributes(){
@@ -75,17 +81,104 @@ export class BandComponent {
     this.numFollowers = this.band.followers.length;
   }
 
-  genres(){
-    /* TODO: utilizar genre[] en vez de number[]
-    var allGenres:GenreList = new GenreList();
-    for(let i = 0; i < allGenres.genres.length; i++){
-        if(this.band.genres.indexOf(i) != -1){
-            this.genresBand.push(allGenres.genres[i].name);
-            console.log(allGenres.genres[i].name);
-        }
+    addGenre(genre){
+        let genreAux:Genre = new Genre(genre);
+        this._bandService.addGenre(genreAux).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    );
+                }
+                else{
+                    alert("El genero ya está añadido");
+                }
+            },
+            error => alert("El genero ya está añadido")
+        );
     }
-    */
-  }
+
+    deleteGenre(genre){
+        let genreAux:Genre = new Genre(genre);
+        this._bandService.deleteGenre(genreAux).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    );
+                }
+                else{
+                    alert("El genero no está añadido");
+                }
+            },
+            error => alert("El genero no está añadido")
+        );
+    }
+
+    editCity(city){
+        this._bandService.setCity(city).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setWeb(link){
+        this._bandService.setWeb(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setFacebook(link){
+        this._bandService.setFacebook(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setYoutube(link){
+        this._bandService.setYoutube(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
+
+    setTwitter(link){
+        this._bandService.setTwitter(link).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._bandService.getBandById(this.id).subscribe(
+                        band => this.band = band
+                    )
+                }
+            },
+            error => alert("No se ha podido editar el campo")
+        );
+    }
 
   /*updateFollows(){
     this.numFollowers = this.band.followers.length;

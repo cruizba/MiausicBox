@@ -8,6 +8,9 @@ import { Band } from "../classes/Band";
 import { BlogBand } from "../classes/BlogBand";
 import { User } from "../classes/User";
 import { Event } from "../classes/Event";
+import { Info } from "../classes/Info";
+
+import {Genre} from "../classes/Genre";
 
 import { Injectable } from 'angular2/core';
 
@@ -96,7 +99,6 @@ export class BandService {
   }
 
   getBandsByUsers(user){
-
     let url = "/artist/" + user.getId() + "/mybands";
     return this.http.get(url).map(
         response => this.deserializableBands(response)
@@ -149,7 +151,54 @@ export class BandService {
     return this.http.delete(url);
   }
 
+  addGenre(genre:Genre){
+    let body = '{ "name": "' + genre.name + '"}';
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.put('/addGenreBand/' + Info.userId, body, options);
+  }
 
+  deleteGenre(genre:Genre){
+    let body = '{ "name": "' + genre.name + '"}';
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.put('/deleteGenreBand/' + Info.userId, body, options);
+  }
+
+  setCity(city){
+    let body = city;
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.put('/editCityBand/' + Info.userId , body, options);
+  }
+
+  setWeb(link){
+    let body = link;
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.put('/editWebLinkBand/' + Info.userId , body, options);
+  }
+
+  setFacebook(link){
+    let body = link;
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.put('/editFacebookLinkBand/' + Info.userId , body, options);
+  }
+
+  setYoutube(link){
+    let body = link;
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.put('/editYoutubeLinkBand/' + Info.userId , body, options);
+  }
+
+  setTwitter(link){
+    let body = link;
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+    return this.http.put('/editTwitterLinkBand/' + Info.userId , body, options);
+  }
   
   /* Deserialize Methods (Band List) */
   deserializeAllBands (json) {
