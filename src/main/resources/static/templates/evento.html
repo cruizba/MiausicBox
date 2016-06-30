@@ -10,8 +10,8 @@
                     <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
                     <h1>{{event.name}}</h1>
                     <p >
-                        <a *ngIf="(!isFollower && !isCreator)"  (click)="followEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton" >Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
-                        <a *ngIf="(isFollower && !isCreator)" (click)="unFollowEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus"></span></a>
+                        <a *ngIf="(!isFollower && !isCreator)"  (click)="unFollowFollowEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton" >Seguir <span class="glyphicon glyphicon-plus-sign"></span></a>
+                        <a *ngIf="(isFollower && !isCreator)" (click)="unFollowFollowEvent()" class="btn btn-default btn-lg"  data-toggle="modal" data-target="" id="followButton">Dejar de seguir <span class="glyphicon glyphicon-minus"></span></a>
                     </p>
                     <!-- Información General -->
                     <div class="panel panel-default profile-info">
@@ -62,7 +62,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{event.followers.length}}</span></a>
+                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollows}}</span></a>
                                        </td>
                                     </tr>
                                 </tbody>

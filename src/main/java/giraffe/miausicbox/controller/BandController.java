@@ -124,11 +124,38 @@ public class BandController {
 	}
 	
 	@JsonView(BandView.class)
-	@RequestMapping(value = "/band/{ba}/tofollow/{us}", method = RequestMethod.GET)
-	public ResponseEntity<?> getFollowsBand(@PathVariable long ba, @PathVariable long us) throws Exception {
-		if(!userComponent.isLoggedUser()){
-			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+	@RequestMapping(value = "/getNumFollowsBand/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getNumFollows(@PathVariable long id){
+		Band band = bandRepository.findOne(id);
+		if(band == null){
+			return new ResponseEntity<String>("Band Not Found", HttpStatus.BAD_REQUEST);
 		}
+		int numFollows = band.getFollowers().size();
+		return new ResponseEntity<Integer>(numFollows, HttpStatus.OK);
+	}
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{ba}/isFollowedBy/{id}")
+	public ResponseEntity<?> getNumFollows(@PathVariable long ba, @PathVariable long id){
+		Band band = bandRepository.findOne(ba);
+		User user = userRepository.findOne(id);
+		if(user == null || band == null){
+			return new ResponseEntity<String>("Band OR User Not Found", HttpStatus.BAD_REQUEST);
+		}
+		boolean follows = band.getFollowers().contains(user);
+		return new ResponseEntity<Boolean>(follows, HttpStatus.OK);
+	}
+	
+	/**
+	 * POST RequestMethods related to BAND_CONTROLLER
+	 */
+	
+	@JsonView(BandView.class)
+	@RequestMapping(value = "/band/{ba}/tofollow/{us}", method = RequestMethod.POST)
+	public ResponseEntity<?> followBand(@PathVariable long ba, @PathVariable long us) throws Exception {
+		//if(!userComponent.isLoggedUser()){
+		//	return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		//}
 		Band band = bandRepository.findOne(ba);
 		User user = userRepository.findOne(us);
 		List<User> list = band.getFollowers();
@@ -142,10 +169,6 @@ public class BandController {
 		bandRepository.save(band);
 		return new ResponseEntity<>(!follows, HttpStatus.OK);
 	}
-	
-	/**
-	 * POST RequestMethods related to BAND_CONTROLLER
-	 */
 	
 	@JsonView(BandView.class)
 	@RequestMapping(value = "/band/new", method = RequestMethod.POST)

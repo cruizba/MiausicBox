@@ -23,6 +23,7 @@ export class EventComponent {
     members = [[]];
     isFollower:boolean;
     isCreator:boolean;
+    numFollows:number;
     
     constructor (private _router: Router, private _eventService:EventService, private _bandService:BandService,
                  private _routerParams:RouteParams){}
@@ -37,7 +38,13 @@ export class EventComponent {
             event => {
                 this.event = event;
                 this.isCreator = this.event.creator.equals(Info.userLogged);
-                this.isFollower = this.event.isFollower(Info.userLogged);
+                this._eventService.getIsFollower(this.id, Info.userId).subscribe(
+                    isFol => this.isFollower = isFol
+                )
+                
+                this._eventService.getNumberOfFollowers(this.id).subscribe(
+                    number => this.numFollows = number
+                )
             },
             error =>{
                 this.event = null;
@@ -58,16 +65,10 @@ export class EventComponent {
         return result;
     }
     
-    unFollowEvent(){
-        this._eventService.unFollow(this.id);
-        this.isFollower = false;
-        this.event.followers.slice(this.event.followers.indexOf(Info.userLogged),1);
-    }
-
-    followEvent(){
-        this._eventService.follow(this.id);
-        this.isFollower = true;
-        this.event.followers.push(Info.userLogged);
+    unFollowFollowEvent(){
+        this._eventService.unFollowFollow(this.id, Info.userId).subscribe(
+            init => this.inizialitationEvent()
+        )
     }
     
     editFecha(newFecha){

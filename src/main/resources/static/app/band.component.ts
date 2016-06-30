@@ -70,21 +70,22 @@ export class BandComponent {
   setBooleanAttributes(){
     this.isAdmin = this.band.administrador.equals(Info.userLogged);
     this.isMember = this.band.isMember(Info.userLogged);
-    this.isFollower = this.band.isFollower(Info.userLogged);
-    this.numFollowers = this.band.followers.length;
+    this._bandService.getIsFollower(this.band.id, Info.userId).subscribe(
+        isFol => this.isFollower = isFol
+    )
+    this._bandService.getNumFollows(this.band.id).subscribe(
+        num => this.numFollowers = num
+    )
+
   }
 
   followBand() {
-    this._bandService.addFollowBand(this.id, Info.userId).subscribe(
+    this._bandService.FollowUnfollowBand(this.id, Info.userId).subscribe(
       result => {
         console.log("Veamos>");
-        console.log(result.json());
-        this.isFollower = result.json();
-        if(!result) {
-          this.band.followers.push(Info.userLogged);
-        } else {
-          this.band.followers.splice(this.band.followers.indexOf(Info.userLogged),-1);
-        }
+        console.log(result);
+        this.isFollower = result;
+        this.setBooleanAttributes();
       }
     );
   }

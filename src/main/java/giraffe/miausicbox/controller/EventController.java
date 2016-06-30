@@ -56,6 +56,7 @@ public class EventController {
 	
 	interface EventView extends Event.Basic, Event.Followers, Event.Bands, Band.Members{}
 	
+	
 	/**
 	 * GET RequestMethods related to EVENT_CONTROLLER
 	 */
@@ -120,6 +121,30 @@ public class EventController {
 		return new ResponseEntity<>(Utils.removeDuplicated(events), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/eventNumFollow/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getNumFollows(@PathVariable long id){
+		Event event = eventRepository.findOne(id);
+		if(event == null){
+			return new ResponseEntity<String>("Event Not Found", HttpStatus.BAD_REQUEST);
+		}
+		
+		int numFollow = event.getFollowers().size();
+		return new ResponseEntity<Integer>(numFollow, HttpStatus.OK);
+	}
+	
+	@JsonView()
+	@RequestMapping(value = "/artist/{id}/isFollowerEvent/{ev}", method = RequestMethod.GET)
+	public ResponseEntity<?> isFollowerEvent(@PathVariable long id, @PathVariable long ev){
+		Event event = eventRepository.findOne(ev);
+		User user = userRepository.findOne(id);
+		if(event == null || user == null){
+			return new ResponseEntity<String>("Event Not Found", HttpStatus.BAD_REQUEST);
+		}
+		
+		boolean isFollow = event.getFollowers().contains(user);
+		return new ResponseEntity<Boolean>(isFollow, HttpStatus.OK);
+	}
+	
 	/**
 	 * POST RequestMethods related to EVENT_CONTROLLER
 	 */
@@ -181,6 +206,24 @@ public class EventController {
 		return new ResponseEntity<Event> (event, HttpStatus.OK);
 	}
 	
+	@JsonView(EventView.class)
+	@RequestMapping(value="/event/{ev}/toFollow/{id}", method = RequestMethod.POST)
+	public ResponseEntity<?> followUnfollowEvent(@PathVariable long ev, @PathVariable long id){
+		Event event = eventRepository.findOne(ev);
+		User user = userRepository.findOne(id);
+		if(event == null || user == null){
+			return new ResponseEntity<String>("Event Or User Not Found", HttpStatus.BAD_REQUEST);
+		}
+		boolean follow = event.getFollowers().contains(user);
+		if(!follow){
+			event.getFollowers().add(user);
+		}
+		else{
+			event.getFollowers().remove(user);
+		}
+		eventRepository.save(event);
+		return new ResponseEntity<Boolean> (!follow, HttpStatus.OK);
+	}
 
 	
 	

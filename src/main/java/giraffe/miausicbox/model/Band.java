@@ -72,7 +72,7 @@ public class Band {
 	private List<User> members = new ArrayList<>();
 	
 	@JsonView(Followers.class)
-	@OneToMany
+	@ManyToMany
 	private List<User> followers = new ArrayList<>();
 	
 	@JsonView(Genres.class)

@@ -38,18 +38,20 @@ export class EventService {
   }
 
   getNumberOfFollowers(id){
-    // TODO
-    return withObserver (eventList[id].followers.length);
+    let url = "/eventNumFollow/" + id
+
+    return this.http.get(url).map(
+        result => result.json()
+    )
   }
+
+
     
   getFollowers (id){
-    // TODO
-    var result = [];
-    var users:User[] = eventList[id].followers;
-    for(let i = 0; i < users.length; i++){
-      result.push({"id":i, "user":users[i]});
-    }
-    return withObserver(result);
+    let url = "getFollowersEvent/" + id;
+    return this.http.get(url).map(
+        result => this.deserializeUsers(result.json())
+    )
   }
 
   getEventsByName (name:String){
@@ -73,36 +75,11 @@ export class EventService {
     )
   }
 
-  /* Http POSTs */
-  getIsFollower (id){
-    // TODO
-    /*
-    var isFollower = false;
-    var followers = eventList[id].followers;
-    for (let i = 0; i < followers.length; i++) {
-        if (Info.userLogged.equals(followers[i])) {
-            isFollower = true;
-        }
-    }
-    return withObserver(isFollower);*/
-  }
-    
-  unFollow (id){
-    // TODO
-    /*
-    for(let i = 0; i < eventList[id].followers.length; i++){
-        if(eventList[id].followers[i].equals(Info.userLogged)){
-            eventList[id].followers.splice(i, 1);
-        }
-    }
-    console.log(eventList[id].followers);*/
-  }
-
-  follow (id){
-    // TODO
-    /*
-    eventList[id].followers.push(Info.userLogged);
-    */
+  getIsFollower (ev, id){
+    let url = "/artist/" + id + "/isFollowerEvent/" + ev
+    return this.http.get(url).map(
+        result => result.json()
+    )
   }
 
   getEventsByUserId(id){
@@ -110,6 +87,21 @@ export class EventService {
     return this.http.get(url).map(
         result => this.deserializeAllEvents(result.json())
     )
+  }
+
+  /* Http POSTs */
+
+
+    
+  unFollowFollow (ev, id){
+    let body = "";
+
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.post("/event/"+ ev + "/toFollow/" + id, body, options).map(
+        results => results.json()
+    );
   }
 
   addNewEvent(name, date, direction, description){

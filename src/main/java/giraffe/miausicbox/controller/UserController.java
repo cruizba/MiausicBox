@@ -93,7 +93,7 @@ public class UserController {
 	interface BlogBandListView extends BlogBand.Basic {}
 	interface NoveltyListView extends Novelty.Basic {}
 	interface EventListView extends Event.Basic, Event.Bands {}
-	interface MessageListView extends Message.Basic {}
+	interface MessageListView extends Message.Basic{}
 	interface BandListView extends Band.Basic {}
 	
 	/**
@@ -354,6 +354,17 @@ public class UserController {
 		return new ResponseEntity<List<Instrument>>(instruments, HttpStatus.OK);
 	}
 	
+	@JsonView(UsersListView.class)
+	@RequestMapping(value = "/getFollowersEvent/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getFollowersEvent(@PathVariable long id) throws Exception{
+		Event event = eventRepository.findOne(id);
+		if(event == null){
+			return new ResponseEntity<String>("Event Or User Not Found", HttpStatus.BAD_REQUEST);
+		}
+		List<User> followers = event.getFollowers();
+		return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
+	}
+	
 	/**
 	 * POST RequestMethods related to USER_CONTROLLER
 	 */
@@ -589,6 +600,7 @@ public class UserController {
 		return new ResponseEntity<User>(userAux, HttpStatus.OK);
 	}
 	
+	@JsonView(UserView.class)
 	@RequestMapping(value = "/artist/{id}/setimage", method = RequestMethod.POST)
 	public ResponseEntity<?> editImage(@PathVariable long id, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
 		if(!userComponent.isLoggedUser()){

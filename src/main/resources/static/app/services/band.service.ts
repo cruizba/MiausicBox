@@ -61,16 +61,16 @@ export class BandService {
   }
 
   getIsFollower (ba,us){
-    let url = "/band/"+ba+"/followedby/" + us;
+    let url = "/band/" + ba + "/isFollowedBy/" + us;
     return this.http.get(url).map (
-      response => response
+      response => response.json()
     )
   }
 
-  addFollowBand(ba,us){
-    let url = "/band/" + ba + "/tofollow/" + us;
+  getNumFollows(ba){
+    let url = "/getNumFollowsBand/" + ba;
     return this.http.get(url).map(
-      response => response
+        response => response.json()
     )
   }
 
@@ -105,6 +105,19 @@ export class BandService {
   }
 
   /* Http POSTs */
+
+  FollowUnfollowBand(ba,us){
+
+    let body = "";
+
+    let headers = new Headers ({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.post("/band/" + ba + "/tofollow/" + us, body, options).map(
+        response => response.json()
+    );
+  }
+
   addNewBand(user, nameBand, description){
 
     let body = '{"groupName": "' + nameBand +
