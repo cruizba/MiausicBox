@@ -210,6 +210,54 @@ export class UserService {
     return this.http.put('/deleteInstr/' + Info.userId, body, options);
   }
 
+  modifyUser(userName, completeName, email, isArtist, description){
+    let body = '{' +
+            '"userName":"' + userName + '",' +
+            '"completeName":"' + completeName + '",' +
+            '"email":"' + email + '",' +
+            '"isArtist":"' + isArtist + '",' +
+            '"description":"' + description + '"' +
+            '}';
+
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editUser/' + Info.userId, body, options);
+  }
+
+  modifyPass(password1, password2){
+    if(password1 != password2){
+      alert("Las contraseñas no coinciden")
+    }
+    else{
+      let body = password1;
+
+      let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+      let options = new RequestOptions({headers});
+
+      return this.http.put('/editPassword/' + Info.userId, body, options);
+    }
+  }
+
+  registerUser(userName, completeName, email, isArtist, password1, password2){
+    if(password1 != password2){
+      alert("Las contraseñas no coinciden");
+    }
+    else{
+      let body = '{' +
+          '"userName":"' + userName + '",' +
+          '"completeName":"' + completeName + '",' +
+          '"email":"' + email + '",' +
+          '"artist":"' + isArtist + '",' +
+          '"password":"' + password1 + '"' +
+          '}';
+      let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+      let options = new RequestOptions({headers});
+
+      return this.http.post('/registerUser/', body, options);
+    }
+  }
 
   
   /* Deserialize Methods */

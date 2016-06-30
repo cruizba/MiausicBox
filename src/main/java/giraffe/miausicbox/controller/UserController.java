@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ import giraffe.miausicbox.repositories.NoveltyRepository;
 import giraffe.miausicbox.repositories.UserRepository;
 import giraffe.miausicbox.user.User;
 import giraffe.miausicbox.user.UserComponent;
+import giraffe.miausicbox.user.UserRegister;
 
 @RestController
 public class UserController {
@@ -490,6 +492,9 @@ public class UserController {
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/editYoutubeLink/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editYoutubeLink(@PathVariable long id, @RequestBody String link){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
@@ -502,6 +507,9 @@ public class UserController {
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/editTwitterLink/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editTwitterLink(@PathVariable long id, @RequestBody String link){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
@@ -514,6 +522,9 @@ public class UserController {
 	@JsonView(UserView.class)
 	@RequestMapping(value = "/editFacebookLink/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> editFacebookLink(@PathVariable long id, @RequestBody String link){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
 		User user = userRepository.findOne(id);
 		if(user == null){
 			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
@@ -523,7 +534,52 @@ public class UserController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/editUser/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editUser(@PathVariable long id, @RequestBody User user){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		User userAux = userRepository.findOne(id);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		userAux.setUserName(user.getUserName());
+		userAux.setCompleteName(user.getCompleteName());
+		userAux.setCompleteName(user.getCompleteName());
+		userAux.setIsArtist(user.getIsArtist());
+		userAux.setDescription(user.getDescription());
+		userRepository.save(userAux);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/editPassword/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editPassword(@PathVariable long id, @RequestBody String password){
+		if(!userComponent.isLoggedUser()){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		User user = userRepository.findOne(id);
+		if(user == null){
+			return new ResponseEntity<String>("ERROR 401 - UNAUTHORIZED", HttpStatus.UNAUTHORIZED);
+		}
+		user.setPasswordHash(new BCryptPasswordEncoder().encode(password));
+		userRepository.save(user);
+		return new ResponseEntity<User>(user, HttpStatus.OK);
+	}
 	
+	@JsonView(UserView.class)
+	@RequestMapping(value = "/registerUser/", method = RequestMethod.POST)
+	public ResponseEntity<?> registerUser(@RequestBody UserRegister user){
+		List<User> listUser= userRepository.findUserByUserName(user.getUserName());
+		if(listUser.size() > 0){
+			return new ResponseEntity<String>("USERNAME EXISTS", HttpStatus.CONFLICT);
+		}
+		User userAux = new User(user.getUserName(), user.getPassword(), user.getCompleteName(), user.getEmail(),"", user.getIsArtist(), 
+				"","","","",new ArrayList<Instrument>(),new ArrayList<Genre>()
+				,new ArrayList<Band>(),new ArrayList<Event>());
+		userRepository.save(userAux);
+		return new ResponseEntity<User>(userAux, HttpStatus.OK);
+	}
 	
 }

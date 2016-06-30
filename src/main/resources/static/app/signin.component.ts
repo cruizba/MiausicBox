@@ -7,24 +7,30 @@ import { Router, ROUTER_DIRECTIVES } from 'angular2/router';
 import { Info } from "./classes/Info";
 import { UserService } from "./services/user.service";
 import { User } from "./classes/User";
+import {emptyUser, toInstance} from "./classes/Utils";
+import {LoginService} from "./services/login.service";
 
 @Component({
   selector: 'signin',
   templateUrl: 'templates/signin.html',
-  providers: [UserService],
+  providers: [UserService, LoginService],
   directives: [ROUTER_DIRECTIVES]
 })
 
 export class SignInComponent{
 
-  username:string;
+  userName:string;
+  completeName:string;
+  email:string;
   password:string;
   password2:string;
-  free:boolean;
-  newUser:User;
+  isArtist:boolean;
+  userLogged;
+  userInfo: User;
   id:number;
 
-  constructor(private _router: Router,  private _userService: UserService){}
+  constructor(private _router: Router,  private _userService: UserService,
+    private _loginService: LoginService){}
 
   ngOnInit(){
     this.initialization();
@@ -36,28 +42,47 @@ export class SignInComponent{
     this._router.navigate(['Index']);
   }
 
-  signin() {
-    this._userService.checkUserByUsername(this.username).subscribe(
-        (free => this.free= free),
-        (error => alert("Username not available"))
-    );
-    if (this.password.length < 1 || this.password != this.password2) {
-      alert("Passwords not equals");
-      return;
+    logIn(event: any){
+    
+        event.preventDefault();
+    
+        this._loginService.logIn(this.userName, this.password).subscribe(
+            user => {
+                this.userLogged = user;
+    
+                console.log(this.userLogged);
+                //Save the user id
+                Info.userId = this.userLogged.realId;
+    
+                // Save user info
+    
+                this._userService.getUserById(Info.userId).subscribe(
+                    userInfo => {
+                        this.userInfo = userInfo;
+                        Info.userLogged = userInfo;
+                        console.log(Info.userLogged);
+                        this._router.navigate(['Artist', {id: Info.userId}])
+                    },
+                    error => {
+                        alert("Error recibiendo información del usuario" + error)
+                    }
+                );
+                console.log(Info.userLogged);
+            },
+            error => alert("Invalid user or password")
+        );
     }
-    if(this.free){
-      this.newUser = new User(0, this.username,this.password, this.username, "", "", false, "", "", "", "", [], [], [], []); // <--- FixMe: ID
-      this._userService.addUser(this.newUser).subscribe(
-          (id => this.id = id),
-          (error => alert("addUser error"))
-      )
-      Info.userLogged = this.newUser;
-      Info.userId = this.id;
-      this._router.navigate(['Artist', {id: Info.userId}]);
-    }
-    else{
-      $("#userLoginError").fadeIn(1000);
-    }
+
+  signin(event: any) {
+    this._userService.registerUser(this.userName, this.completeName,
+        this.email, this.isArtist, this.password, this.password2).subscribe(
+        response => {
+          if(response.status == 200){
+            this.logIn(event);
+          }
+        }
+    )
   }
+
 
 }
