@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import giraffe.miausicbox.controller.UserController.UserView;
 import giraffe.miausicbox.model.Band;
 import giraffe.miausicbox.model.Event;
 import giraffe.miausicbox.repositories.BandRepository;
@@ -142,6 +143,17 @@ public class EventController {
 			response = new ResponseEntity<Event>(newEvent, HttpStatus.OK);
 		}
 		return response;
+	}
+	
+	@JsonView(EventView.class)
+	@RequestMapping(value = "/editCityEvent/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editCity(@PathVariable long id ,@RequestBody String city) {
+		
+		Event event = eventRepository.findOne(id);
+		event.setDirection(city);
+		event = eventRepository.save(event);
+
+		return new ResponseEntity<Event>(event, HttpStatus.OK);
 	}
 	
 	
