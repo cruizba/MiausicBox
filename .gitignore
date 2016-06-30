@@ -4,3 +4,8 @@
 target/
 .idea/
 .pom.xml.swp
+files/user-*.jpg
+files/band-*.jpg
+files/event-*.jpg
+files/blogband-*.jpg
+files/bloguser-*.jpg

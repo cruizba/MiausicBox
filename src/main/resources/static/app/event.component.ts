@@ -8,6 +8,8 @@ import { Event } from './classes/Event';
 import { EventService } from "./services/event.service";
 import { BandService } from "./services/band.service";
 import { Info } from "./classes/Info";
+import {MultipartUploader} from "./libs/multipart-upload/multipart-uploader";
+import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 
 @Component ({
     selector: 'Event',
@@ -17,13 +19,14 @@ import { Info } from "./classes/Info";
 })
 
 export class EventComponent {
-    
-    event: Event;
+
     id;
+    event: Event;
     members = [[]];
     isFollower:boolean;
     isCreator:boolean;
     numFollows:number;
+    file: File;
     
     constructor (private _router: Router, private _eventService:EventService, private _bandService:BandService,
                  private _routerParams:RouteParams){}
@@ -109,8 +112,41 @@ export class EventComponent {
             },
             error => console.log(error)
         );
-
     }
-    
-    
+
+
+
+    // Upload Image
+    selectFile($event) {
+        this.file = $event.target.files[0];
+    }
+
+    upload() {
+        console.debug("Uploading file...");
+        if (this.file == null) {
+            console.error("No image selected.");
+        }
+
+        let formData = new FormData();
+        formData.append("file", this.file);
+
+        let url = "/event/" + Info.userId + "/setimage";
+        let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
+        multipartItem.formData = formData;
+        multipartItem.callback = (data, status, headers) => {
+            if (status == 200){
+                console.debug("File has been uploaded");
+                //Get event information
+                this._eventService.getEventByID(this.id).subscribe(
+                    event => {
+                        this.event = event;
+                    }
+                );
+            } else {
+                console.error("Error uploading file");
+            }
+        };
+        multipartItem.upload();
+    }
+
 }
