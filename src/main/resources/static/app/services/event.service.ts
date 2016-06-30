@@ -127,6 +127,14 @@ export class EventService {
     return this.http.put('/editCityEvent/' + id , body, options);
   }
 
+  setFecha (date, id){
+    let body = date;
+    let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
+    let options = new RequestOptions({headers});
+
+    return this.http.put('/editDateEvent/'+id, body, options);
+
+  }
 
 
   /* Deserialize Methods (Event List) */

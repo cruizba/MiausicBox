@@ -70,7 +70,18 @@ export class EventComponent {
         this.event.followers.push(Info.userLogged);
     }
     
-    editFecha(){};
+    editFecha(newFecha){
+        this._eventService.setFecha(newFecha, this.id).subscribe(
+            response => {
+                if(response.status == 200){
+                    this._eventService.getEventByID(this.id).subscribe(
+                        event => this.event = event
+                    )
+                }
+            },
+            error => alert ("No se ha podido modificar la fecha")
+        );
+    };
     
     editCiudad(nuevaCiudad){
         this._eventService.setCity(nuevaCiudad, this.id).subscribe(

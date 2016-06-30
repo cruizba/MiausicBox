@@ -156,5 +156,16 @@ public class EventController {
 		return new ResponseEntity<Event>(event, HttpStatus.OK);
 	}
 	
+	@JsonView(EventView.class)
+	@RequestMapping(value = "/editDateEvent/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> editDate(@PathVariable long id ,@RequestBody String date) {
+		
+		Event event = eventRepository.findOne(id);
+		event.setString(date);
+		event = eventRepository.save(event);
+
+		return new ResponseEntity<Event>(event, HttpStatus.OK);
+	}
+	
 	
 }
