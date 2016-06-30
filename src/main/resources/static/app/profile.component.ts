@@ -264,6 +264,25 @@ export class ArtistaComponent {
         error => alert("El genero no está añadido")
         );
     }
+    deleteEvent(idEvent){
+        this._userService.removeEvent(this.id, idEvent).subscribe(
+            response =>{
+                if(response.status == 200){
+                    this._userService.getUserById(this.id).subscribe(
+                        user => this.user = user
+                    );
+                    this._eventService.getEventsByUserId(this.id).subscribe(
+                        events => this.events = events
+                    );
+                }else{
+                    console.log(response.status);
+                }
+            },
+            error => console.log(error)
+        )
+    }
+
+    
     
     addInstrument(inst){
         this._userService.addInstrument(inst).subscribe(
