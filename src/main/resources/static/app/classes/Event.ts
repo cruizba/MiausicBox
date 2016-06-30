@@ -13,18 +13,20 @@ export class Event {
   private _date:Date;
   private _creator:User;
   private _description:string;
+  private _image:string;
   private _bands:Band[];
   private _direction:string;
   private _followers:User[];
 
   /* Constructor */
-  constructor(id:number, name:string, date:Date, creator:User, description:string,
+  constructor(id:number, name:string, date:Date, creator:User, description:string, image:string,
               bands:Band[], direction:string, followers:User[]) {
     this._id = id;
     this._name = name;
     this._date = date;
     this._creator = creator;
     this._description = description;
+    this._image = image;
     this._bands = bands;
     this._direction=direction;
     this._followers=followers;
@@ -59,6 +61,10 @@ export class Event {
     return this._direction;
   }
 
+  get image():string {
+    return this._image;
+  }
+
   set id(id:number) {
     this._id = id;
   }
@@ -80,6 +86,10 @@ export class Event {
 
   set description(description:string) {
     this._description = description;
+  }
+
+  set image(image:string) {
+    this._image = image;
   }
 
   set bands(value:Band[]){

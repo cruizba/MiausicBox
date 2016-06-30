@@ -13,10 +13,10 @@ var blog1:string = "Blog 1 de Muestra. Lorem ipsum dolor sit amet, consectetur a
 var blog2:string = "Blog 2 de Muestra. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.";
 
 export var userList:User[] = [
-  new User(1, "DarwinTB", "1234", "Carlos Ruiz Ballesteros", "user1@email.com", description, true, "Fuenlabrada, Madrid","","","", [], [], [], []),
-  new User(2, "ice6294", "9876", "Luis León Gámez", "user2@email.com", description, true, "Alcorcón, Madrid","","","", [],[], [], []),
-  new User(3, "sor", "a", "Soraya Rama", "user3@email.com", description, false, "Orcasitas City","","twitter.com/Soryrc","", [],[], [], []),
-  new User(4, "thais", "prueba1234", "Thais Méndez", "user4@email.com", description, false, "Madrid","","","", [],[],[], [])
+  new User(1, "DarwinTB", "1234", "Carlos Ruiz Ballesteros", "user1@email.com", description, true, "Fuenlabrada, Madrid","","","", "", [], [], [], []),
+  new User(2, "ice6294", "9876", "Luis León Gámez", "user2@email.com", description, true, "Alcorcón, Madrid","","","", "", [],[], [], []),
+  new User(3, "sor", "a", "Soraya Rama", "user3@email.com", description, false, "Orcasitas City","","twitter.com/Soryrc","", "", [],[], [], []),
+  new User(4, "thais", "prueba1234", "Thais Méndez", "user4@email.com", description, false, "Madrid","","","", "", [],[],[], [])
 ];
 
 var banda1:User[] = [userList[0], userList[2]];
@@ -49,9 +49,9 @@ var track2:Track = new Track(2, "10.000", "Tool", "");
 var track3:Track = new Track(3, "Paint It Black", "The Rolling Stones", "");
 
 export var bandList:Band[] = [
-    new Band (1, userList[3],"Arctic Monkeys", description, "Sevilla", "www.arcticmonkeys.com", "", "", "", banda1, followers1, [], [track1]),
-    new Band (2, userList[3], "Strokes", description, "Toledo", "www.thestrokes.com", "", "", "", banda2, followers2, [], [track2]),
-    new Band (3, userList[3], "Flower Power", description, "Parla", "", "", "","", banda3, followers3, [],[track1,track2,track3])
+    new Band (1, userList[3],"Arctic Monkeys", description, "Sevilla", "www.arcticmonkeys.com", "", "", "", "", banda1, followers1, [], [track1]),
+    new Band (2, userList[3], "Strokes", description, "Toledo", "www.thestrokes.com", "", "", "", "", banda2, followers2, [], [track2]),
+    new Band (3, userList[3], "Flower Power", description, "Parla", "", "", "","", "", banda3, followers3, [],[track1,track2,track3])
 ];
 
 export var blogBandList:BlogBand[] = [
@@ -75,9 +75,9 @@ export var followsList:Follow[] = [
 ];
 
 export var eventList: Event [] = [
-    new Event (1, "Indie Week", new Date("April 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie", [bandList[0], bandList[1]],"Calle de la piruleta",[userList[0], userList[1], userList[2], userList[3]]),
-    new Event (2, "Trash toor", new Date("April 14, 2016 20:16:37"), userList[1], "lolololololololo", [bandList[2]], "Wonderland",[userList[0], userList[1]]),
-    new Event (3, "Pinkicide", new Date("April 15, 2016 20:16:37"), userList[0], "asdfasdfasdf", [bandList[1], bandList[2]], "Es un mundo maravilloso", [userList[2], userList[3]])
+    new Event (1, "Indie Week", new Date("April 13, 2016 20:16:37"), userList[0], "Musica indie para gente indie", "", [bandList[0], bandList[1]],"Calle de la piruleta",[userList[0], userList[1], userList[2], userList[3]]),
+    new Event (2, "Trash toor", new Date("April 14, 2016 20:16:37"), userList[1], "lolololololololo", "", [bandList[2]], "Wonderland",[userList[0], userList[1]]),
+    new Event (3, "Pinkicide", new Date("April 15, 2016 20:16:37"), userList[0], "asdfasdfasdf", "", [bandList[1], bandList[2]], "Es un mundo maravilloso", [userList[2], userList[3]])
 ];
 
 export var messageList:Message[] = [

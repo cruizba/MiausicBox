@@ -69,7 +69,7 @@
 
 
                             <tr *ngFor="#us of userList; #i = index">
-                                <td><a [routerLink]="['Artist', {id: us.id}]" class="enlaceListaArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['Artist', {id: us.id}]" class="enlaceListaArtista"><img src="/images/{{us.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
                                 <td><a [routerLink]="['Artist', {id: us.id}]" class="enlaceListaArtista">{{us.userName}}</a></td>
 
                                 <td>

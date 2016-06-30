@@ -9,7 +9,7 @@
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image" *ngIf="one.hasImage()">
+                            <img class="image-blog img-responsive img-rounded" src="/images/{{one.image}}" alt="Profile image" *ngIf="one.hasImage()">
                             <p class="content-panel" *ngIf="one.hasText()">{{one.text}}</p>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src={{one.image}} alt="Profile image" *ngIf="one.hasImage()">
+                            <img class="image-blog img-responsive img-rounded" src="/images/{{one.image}}" alt="Profile image" *ngIf="one.hasImage()">
                             <p class="content-panel" *ngIf="one.hasText()">{{one.text}}</p>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                 <div class="panel-body" id="Descripcion">
                     <div class="row">
                         <div class="col-md-3">
-                            <a [routerLink]="['Event', {id: one.id}]"><img  class="img-responsive" id="imagenEvento" src={{one.image}}/></a>
+                            <a [routerLink]="['Event', {id: one.id}]"><img  class="img-responsive" id="imagenEvento" src="/images/{{one.image}}"/></a>
                         </div>
                         <div class="col-md-4">
                             <!--Informacion localizacion -->
@@ -106,98 +106,6 @@
                 </div>
             </div>
             <!-- End novelty -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- blog y acciones de los grupos en la red
-            <div class="col-md-12" id="profile_blog">
-                <!-- blog / novedad -->
-            <!-- <div class="panel panel-default">
-                <div class="panel-head">
-                    <h3 class="content-panel">Blog #1</h3>
-                </div>
-                <div class="panel-body" id="BlogDescripcion">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src="../img/muestra3.jpg" alt="Profile image">
-                            <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-footer" id="BlogFooter">
-                    <div class="row">
-                        <div class="col-md-4 col-xs-4" id="AutorBlog">Artista</div>
-                        <div class="col-md-4 col-xs-4" id="BandaBlog">Arctic Monkets</div>
-                        <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
-                    </div>
-                </div>
-            </div>
-            <!-- fin blog / novedad -->
-
-            <!-- blog / novedad -->
-
-            <!-- <div class="panel panel-default">
-                  <div class="panel-head">
-                        <h3 class="content-panel">Blog #2</h3>
-                  </div>
-                  <div class="panel-body" id="BlogDescripcion" >
-                      <div class="row">
-                          <div class="col-md-12">
-                              <img src="../img/muestra2.jpg" class="image-blog img-responsive img-rounded" alt="Profile image">
-                              <p class="content-panel">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.t</p>
-                          </div>
-                      </div>
-                    </div>
-                    <div class="panel-footer" id="BlogFooter">
-                        <div class="row">
-                            <div class="col-md-4 col-xs-4" id="AutorBlog">Artista</div>
-                            <div class="col-md-4 col-xs-4" id="BandaBlog">Arctic Monkets</div>
-                            <div class="col-md-4 col-xs-4" id="FechaBlog">24/3/2016</div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-                <div class="panel panel-default">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="panel-body date">
-                                24/03/2014
-                                17:00
-                            </div>
-                        </div>
-                        <div class="col-md-10">
-                            <div class="panel-body news">
-                                <span class="glyphicon glyphicon-user"></span>
-                                <span class="text-artistname">Slash</span> has left <span class="text-bandname">Gun's and Roses</span>
-                                <span class="glyphicon glyphicon-cd"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
-            <!-- Fin blog y acciones de los grupos en la red -->
         </div>
     </div>
+</div>

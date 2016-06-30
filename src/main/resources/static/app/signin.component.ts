@@ -46,7 +46,7 @@ export class SignInComponent{
       return;
     }
     if(this.free){
-      this.newUser = new User(0, this.username,this.password, this.username, "", "", false, "", "", "", "", [], [], [], []); // <--- FixMe: ID
+      this.newUser = new User(0, this.username,this.password, this.username, "", "", false, "", "", "", "", "", [], [], [], []); // <--- FixMe: ID
       this._userService.addUser(this.newUser).subscribe(
           (id => this.id = id),
           (error => alert("addUser error"))

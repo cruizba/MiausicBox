@@ -31,12 +31,12 @@ export function withObserver<T>(data: T): Observable<T> {
  *  @method emptyObject
  *  @returns {object} Object
  */
-export function emptyUser():User{return new User(0, "","","","","",false,"","","","",[],[],[],[]);}
-export function emptyBand():Band{return new Band(0, emptyUser(),"","","","","","","",[],[],[],[]);}
+export function emptyUser():User{return new User(0, "","","","","",false,"","","","","",[],[],[],[]);}
+export function emptyBand():Band{return new Band(0, emptyUser(),"","","","","","","","",[],[],[],[]);}
 export function emptyGenre():Genre{return new Genre("");}
 export function emptyBlogBand():BlogBand{return new BlogBand(0,"","","",new Date(),emptyBand());}
 export function emptyBlogUser():BlogUser{return new BlogUser(0,"","","",new Date(),emptyUser());}
-export function emptyEvent():Event{return new Event(0,"",new Date(),emptyUser(),"",[],"",[]);}
+export function emptyEvent():Event{return new Event(0,"",new Date(), emptyUser(),"","",[],"",[]);}
 export function emptyFollow():Follow{return new Follow(0,emptyUser(),emptyUser());}
 export function emptyInstrument():Instrument{return new Instrument("","","");}
 export function emptyMessage():Message{return new Message(0,emptyUser(),emptyUser(),"","",new Date(),false);}
