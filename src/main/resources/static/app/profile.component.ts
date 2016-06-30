@@ -5,6 +5,8 @@
  */
 import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
+import { MultipartUploader } from './libs/multipart-upload/multipart-uploader';
+
 import { User } from './classes/User'
 import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
 import { Info } from "./classes/Info";
@@ -18,6 +20,7 @@ import { Genre } from "./classes/Genre";
 import { Instrument } from "./classes/Instrument";
 import { Band } from "./classes/Band";
 import { Event } from "./classes/Event";
+import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 
 
 @Component({
@@ -29,16 +32,17 @@ import { Event } from "./classes/Event";
 
 export class ArtistaComponent {
 
+  id;
   isUserLogged: boolean;
   isArtist: boolean;
   isFollowed: boolean;
   user: User;
-  id;
   blogList:BlogUser[] = [];
   genreList:Genre[] = [];
   instrList:Instrument[] = [];
   events:Event[] = [];
   bandList:Band[] = [];
+  file: File;
 
   //Follows variables
   numFollowing:number;
@@ -321,9 +325,47 @@ export class ArtistaComponent {
             error => alert("No se ha podido editar el campo")
         )
     }
-    
-    
-    //addInstrument(num){
+
+  selectFile($event) {
+    this.file = $event.target.files[0];
+    console.debug("Selected file: " + this.file.name + " type:" + this.file.size + " size:" + this.file.size);
+  }
+
+  upload() {
+    console.debug("Uploading file...");
+    if (this.file == null) {
+      console.error("No image selected.");
+    }
+
+    let formData = new FormData();
+    formData.append("file", this.file);
+
+    let url = "/artist/" + Info.userId + "/setimage"
+    let multipartItem = new MultipartItem(new MultipartUploader({url: url}));
+    multipartItem.formData = formData;
+    multipartItem.callback = (data, status, headers) => {
+
+      if (status == 200){
+        console.debug("File has been uploaded");
+        //Get user information
+        this._userService.getUserById(this.id).subscribe(
+          user => {
+            this.user = user;
+            //Check if is an artist
+            this.isArtist = this.user.isArtist;
+            this.isFollowedBy();
+          }
+        );
+      } else {
+        console.error("Error uploading file");
+      }
+    }
+    multipartItem.upload();
+  }
+
+
+
+  //addInstrument(num){
     //    this._userService.setInstrument(num);
     //    this.instrumentsUser();
     //}

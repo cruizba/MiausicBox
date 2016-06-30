@@ -17,7 +17,7 @@ import { MessageService } from "./services/message.service";
 
 export class MessagesComponent {
 
-  receivedOption: boolean;
+  receivedOption: boolean; // true-> recibidos , false-> enviados
   id: string;
   receivedMessages:Message[];
   sendedMessages:Message[];

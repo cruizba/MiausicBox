@@ -2,7 +2,7 @@
     <div class="row">
         <!-- Información del perfil -->
         <div class="col-md-4" id="profile_details">
-            <img src="../img/profile_image.png" class="img-responsive img-rounded" alt="Profile image">
+            <img src="/images/{{band.image}}" class="img-responsive img-rounded" alt="Profile image">
             <h1>{{band.groupName}}</h1>
 
             <p >
@@ -156,7 +156,7 @@
                         </thead>
                         <tbody id="TableBody">
                         <tr *ngFor="#mem of band.members">
-                            <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                            <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista"><img src="/images/{{mem.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
                             <td><a [routerLink]="['Artist', {id: mem.id}]" class="enlaceArtista">{{mem.userName}}</a></td>
                             <td>
                                 <ul>
@@ -264,7 +264,7 @@
                 <div class="panel-body" id="BlogDescripcion">
                     <div class="row">
                         <div class="col-md-12">
-                            <img class="image-blog img-responsive img-rounded" src={{blog.image}} alt="Profile image" *ngIf="blog.hasImage()">
+                            <img class="image-blog img-responsive img-rounded" src="/images/{{blog.image}}" alt="Profile image" *ngIf="blog.hasImage()">
                             <p class="content-panel" *ngIf="blog.hasText()">{{blog.text}}</p>
                         </div>
                     </div>

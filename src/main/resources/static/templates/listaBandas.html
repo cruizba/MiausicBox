@@ -49,7 +49,7 @@
                         <tbody>
                             <tr *ngFor="#ba of bands; #i = index">
                                 <td>
-                                    <a  class="enlaceListaBanda"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
+                                    <a  class="enlaceListaBanda"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
                                 </td>
                                 <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceListaBanda">{{ba.groupName}}</a></td>
                                 <td>
