@@ -105,12 +105,12 @@
                                 <tbody id="TableBody">
                                     <tr *ngFor="#ba of event.bands">
                                         <td>
-                                            <a href="#" ><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
+                                            <a [routerLink]="['Band', {id: ba.id}]"><img src="../img/profile_image.png" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
                                         </td>
-                                        <td><a href="#"  class="enlaceListaBanda" >{{ba.groupName}}</a></td>
+                                        <td><a [routerLink]="['Band', {id: ba.id}]"  class="enlaceListaBanda" >{{ba.groupName}}</a></td>
                                         <td>
                                             <ul>
-                                                <li *ngFor="#mem of ba.members"><a class="enlacePerfilArtista">{{mem.userName}}</a></li>
+                                                <li *ngFor="#mem of ba.members"><a class="enlacePerfilArtista" id="no_color_link" [routerLink]="['Artist', {id: mem.id}]">{{mem.userName}}</a></li>
                                             </ul>
                                         </td>
                                     </tr>

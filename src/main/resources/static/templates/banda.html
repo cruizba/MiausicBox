@@ -45,7 +45,7 @@
                         <tr>
                             <td>Web
                             </td>
-                            <td><a href="#" class="enlaceInfo">{{band.web}}</a>
+                            <td><a (click) = "goToWebBand(band.id)" class="enlaceInfo">{{band.web}}</a>
                             </td>
                             <td *ngIf="isAdmin">
                                 <button type="button" class="btn btn-default" aria-label="Left Align">
@@ -108,7 +108,7 @@
                         <tbody>
                         <tr id="PrimeraFila" *ngFor ="#ev of events">
 
-                            <td><a href="#">{{ev.name}}</a>
+                            <td><a [routerLink]="['Event', {id: ev.id}]">{{ev.name}}</a>
                             </td>
                         </tr>
 
@@ -271,7 +271,7 @@
                 </div>
                 <div class="panel-footer" id="BlogFooter">
                     <div class="row">
-                        <div class="col-md-6 col-xs-6" id="BandaBlog"><a href="#">{{blog.author.groupName}}</a></div>
+                        <div class="col-md-6 col-xs-6" id="BandaBlog"><p>{{blog.author.groupName}}</p></div>
                         <div class="col-md-6 col-xs-6" id="FechaBlog">{{blog.date.getDate()}}/{{blog.date.getMonth() + 1}}/{{blog.date.getFullYear()}}</div>
                     </div>
                 </div>

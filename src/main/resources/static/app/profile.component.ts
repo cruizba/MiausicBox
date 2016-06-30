@@ -6,7 +6,7 @@
 import { Component } from 'angular2/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
-import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
 import { Info } from "./classes/Info";
 import { FollowService } from "./services/follow.service";
 import { MessageService } from "./services/message.service";
@@ -51,7 +51,7 @@ export class ArtistaComponent {
   instrument;
   genre;
 
-  constructor(private _routeParams: RouteParams, private _userService: UserService,
+  constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
                 private _bandService:BandService, private _blogService: BlogService,
                 private _eventService:EventService){
@@ -115,6 +115,10 @@ export class ArtistaComponent {
 
     goToURL (link){
       window.open(link);
+    }
+
+    goToAuthor(id){
+        this._router.navigate(['Artist', id]);
     }
 
     updateFollows(){

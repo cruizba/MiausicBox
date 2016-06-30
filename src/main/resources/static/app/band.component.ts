@@ -218,4 +218,7 @@ export class BandComponent {
     return mem.equals(Info.userLogged);
   }
 
+    goToWebBand(id){
+        this._router.navigate(['Artist', id]);
+    }
 }
