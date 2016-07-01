@@ -85,7 +85,11 @@ El diagrama actual es similar al de entidades del servidor.
 
 #7. DIAGRAMA DE CLASES DE ENTIDADES DEL SERVIDOR (Spring - Java)
 
+<img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/UML%20clases%20Java.jpg?raw=true" />
+
 #8. MODELO ENTIDAD RELACION - BBDD 
+
+<a href="https://github.com/cruizba/PracticaDAW/blob/master/capturas/Modelo%20Base%20de%20Datos.pdf">Link al documento</a>
 
 Decisiones de diseño:
 	- Se decidió tener tablas de Follow, bandas y eventos aparte, para tener un control de paginación en un futuro.
