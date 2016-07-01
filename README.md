@@ -78,8 +78,10 @@ Principal sin entrar:
 
 
 #6 DIAGRAMA DE CLASES - FRONTEND (TypeScript)
-
+El diagrama se corresponde con una simulación del funcionamiento de la página en Frontend.
 <img class="imageClass" src="https://github.com/cruizba/PracticaDAW/blob/master/capturas/uml.jpg?raw=true" />
+
+El diagrama actual es similar al de entidades del servidor.
 
 #7. DIAGRAMA DE CLASES DE ENTIDADES DEL SERVIDOR (Spring - Java)
 
