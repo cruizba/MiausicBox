@@ -2,14 +2,13 @@
  * MiausicBox band component.
  * @component BandComponent
  */
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
 import { User } from './classes/User'
 import { Event } from './classes/Event'
-import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Info } from "./classes/Info";
 import { Instrument } from "./classes/Instrument";
-import { FollowService } from "./services/follow.service";
 import { BlogBand } from "./classes/BlogBand";
 import { BlogService } from "./services/blog.service"
 import { BandService } from './services/band.service'
@@ -18,12 +17,11 @@ import { NoveltyService } from "./services/novelty.service";
 import {Genre} from "./classes/Genre";
 import {MultipartUploader} from "./libs/multipart-upload/multipart-uploader";
 import {MultipartItem} from "./libs/multipart-upload/multipart-item";
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'band',
-    templateUrl: 'templates/banda.html',
-    providers: [BandService, UserService, FollowService, BlogService, NoveltyService],
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'templates/banda.html'
 })
 
 export class BandComponent {
@@ -37,15 +35,18 @@ export class BandComponent {
     numFollowers:number;
     followers:User[]=[];
     isFollower:boolean;
-    trackLink:string;
+    trackLink:SafeResourceUrl;
     file: File;
     blogFile: File;
     idBlog;
 
     regex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/g;
 
-    constructor(private _router: Router, private _routeParams: RouteParams,
-                private _bandService: BandService, private _blogService: BlogService, private _noveltyService: NoveltyService){
+    constructor(private _router: Router, private _routeParams: ActivatedRoute,
+                private _bandService: BandService, private _blogService: BlogService,
+                private _noveltyService: NoveltyService, private _sanitizer: DomSanitizer){
+
+        this.trackLink = this._sanitizer.bypassSecurityTrustResourceUrl('');
     }
 
     ngOnInit() {
@@ -54,7 +55,9 @@ export class BandComponent {
 
     initialization() {
         // Get id from route
-        this.id = this._routeParams.get('id')
+        this._routeParams.params.subscribe(params => {
+          this.id = params['id'];
+        });
 
         this._bandService.getBandById(this.id).subscribe(
           result => {
@@ -192,7 +195,7 @@ export class BandComponent {
             }
         );
     }
-    
+
     newMember(userName){
         this._bandService.addNewMember(userName, new Date(), this.id).subscribe(
             response => {
@@ -317,7 +320,7 @@ export class BandComponent {
     }
 
     setYouTubeTrack(track){
-        this.trackLink = track;
+        this.trackLink = this._sanitizer.bypassSecurityTrustResourceUrl(track);
     }
 
     itsMe(mem:User):boolean{

@@ -8,9 +8,9 @@ import { Event } from '../classes/Event'
 import { User } from "../classes/User";
 import { Info } from "../classes/Info";
 
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 
-import { Http, Headers, RequestOptions } from "angular2/http";
+import { Http, Headers, RequestOptions } from "@angular/http";
 import { withObserver, emptyEvent, toInstance, emptyUser, emptyBand } from '../classes/Utils';
 import {Band} from "../classes/Band";
 import 'rxjs/Rx';
@@ -23,14 +23,14 @@ export class EventService {
 
   /* Http GETs */
   getAllEvents (){
-    var url = "/events";
+    var url =  Info.host + "/events";
     return this.http.get(url).map(
       result => this.deserializeAllEvents(result.json())
     )
   }
-    
+
   getEventByID (id){
-    let url = "/event/" + id;
+    let url =  Info.host + "/event/" + id;
     console.log("Hacemos peticion a" + url);
     return this.http.get(url).map(
       result => this.deserializeEvent(result.json())
@@ -38,7 +38,7 @@ export class EventService {
   }
 
   getNumberOfFollowers(id){
-    let url = "/eventNumFollow/" + id
+    let url =  Info.host + "/eventNumFollow/" + id;
 
     return this.http.get(url).map(
         result => result.json()
@@ -46,44 +46,44 @@ export class EventService {
   }
 
 
-    
+
   getFollowers (id){
-    let url = "getFollowersEvent/" + id;
+    let url =  Info.host + "getFollowersEvent/" + id;
     return this.http.get(url).map(
         result => this.deserializeUsers(result.json())
     )
   }
 
   getEventsByName (name:String){
-    let url = "/events/name:" + name;
+    let url =  Info.host + "/events/name:" + name;
     return this.http.get(url).map(
       result => this.deserializeAllEvents(result.json())
     )
   }
 
   getEventsByBandName (name:String){
-    let url = "/events/bandName:" + name;
+    let url =  Info.host + "/events/bandName:" + name;
     return this.http.get(url).map(
       result => this.deserializeAllEvents(result.json())
     )
   }
 
   getAllBands(id){
-    let url = "/events/allBands"+id;
+    let url =  Info.host + "/events/allBands"+id;
     return this.http.get(url).map(
         result => this.deserializeBands(result.json())
     )
   }
 
   getIsFollower (ev, id){
-    let url = "/artist/" + id + "/isFollowerEvent/" + ev
+    let url = Info.host + "/artist/" + id + "/isFollowerEvent/" + ev
     return this.http.get(url).map(
         result => result.json()
     )
   }
 
   getEventsByUserId(id){
-    let url = "/events/userId:" + id;
+    let url = Info.host + "/events/userId:" + id;
     return this.http.get(url).map(
         result => this.deserializeAllEvents(result.json())
     )
@@ -92,14 +92,14 @@ export class EventService {
   /* Http POSTs */
 
 
-    
+
   unFollowFollow (ev, id){
     let body = "";
 
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post("/event/"+ ev + "/toFollow/" + id, body, options).map(
+    return this.http.post( Info.host + "/event/"+ ev + "/toFollow/" + id, body, options).map(
         results => results.json()
     );
   }
@@ -114,14 +114,14 @@ export class EventService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post('/newEvent/' + Info.userId , body, options);
+    return this.http.post(Info.host +  '/newEvent/' + Info.userId , body, options);
   }
 
   addNewBand(name, id){
     let body = "";
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.post('/event/'+id+'/newBand/'+name, body, options);
+    return this.http.post( Info.host + '/event/'+id+'/newBand/'+name, body, options);
   }
 
 
@@ -131,7 +131,7 @@ export class EventService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/editCityEvent/' + id , body, options);
+    return this.http.put( Info.host + '/editCityEvent/' + id , body, options);
   }
 
   setFecha (date, id){
@@ -139,7 +139,7 @@ export class EventService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/editDateEvent/'+id, body, options);
+    return this.http.put( Info.host + '/editDateEvent/'+id, body, options);
 
   }
 

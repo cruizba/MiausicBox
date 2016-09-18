@@ -9,10 +9,11 @@ import { BlogBand } from "../classes/BlogBand";
 import { BlogUser } from "../classes/BlogUser";
 import { User } from '../classes/User'
 
-import { Injectable } from 'angular2/core';
-import { Headers, RequestOptions, Http } from "angular2/http";
+import { Injectable } from '@angular/core';
+import { Headers, RequestOptions, Http } from "@angular/http";
 import { withObserver } from '../classes/Utils';
 import 'rxjs/Rx';
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class BlogService {
@@ -32,7 +33,7 @@ export class BlogService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post('/newbloguser/' + user.id, body, options);
+    return this.http.post(Info.host +  '/newbloguser/' + user.id, body, options);
   }
 
   addBlogBand(title, text, date, id){
@@ -46,7 +47,7 @@ export class BlogService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post('/newblogband/' + id, body, options);
+    return this.http.post(Info.host +  '/newblogband/' + id, body, options);
   }
 
   /* Deserialize Methods */

@@ -10,7 +10,7 @@ import org.springframework.web.context.WebApplicationContext;
 public class UserComponent {
 
 	private User user;
-	
+
 	public UserComponent(){}
 
 	public User getLoggedUser() {
@@ -24,5 +24,7 @@ public class UserComponent {
 	public boolean isLoggedUser() {
 		return this.user != null;
 	}
+	
+	
 
 }

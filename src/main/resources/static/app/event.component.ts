@@ -2,8 +2,8 @@
  * MiausicBox event component.
  * @component EventComponent
  */
-import { Component } from 'angular2/core';
-import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import { Component } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import { Event } from './classes/Event';
 import { EventService } from "./services/event.service";
 import { BandService } from "./services/band.service";
@@ -13,9 +13,7 @@ import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 
 @Component ({
     selector: 'Event',
-    templateUrl: 'templates/evento.html',
-    providers: [EventService, BandService],
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'templates/evento.html'
 })
 
 export class EventComponent {
@@ -28,11 +26,13 @@ export class EventComponent {
     numFollows:number;
     file: File;
     
-    constructor (private _router: Router, private _eventService:EventService, private _bandService:BandService,
-                 private _routerParams:RouteParams){}
+    constructor (private _eventService:EventService, private _bandService:BandService,
+                 private _routeParams:ActivatedRoute){}
 
     ngOnInit(){
-        this.id = this._routerParams.get('id');
+        this._routeParams.params.subscribe(params => {
+            this.id = params['id'];
+        });
         this.inizialitationEvent();
     }
 
@@ -54,18 +54,6 @@ export class EventComponent {
                 alert(error);
             }
         );
-    }
-
-    membersBand(i) {
-        var result = [];
-        this._bandService.getMembers(i).subscribe(
-            mem => result = mem,
-            error => {
-                result = null;
-                alert(error);
-            }
-        );
-        return result;
     }
     
     unFollowFollowEvent(){

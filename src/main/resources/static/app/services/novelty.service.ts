@@ -8,8 +8,8 @@ import { Band } from "../classes/Band";
 import { Novelty } from "../classes/Novelty";
 import { User } from '../classes/User'
 
-import { Injectable } from 'angular2/core';
-import { Http } from "angular2/http";
+import { Injectable } from '@angular/core';
+import { Http } from "@angular/http";
 
 @Injectable()
 export class NoveltyService {

@@ -3,12 +3,12 @@
  * MiausicBox profile component.
  * @component ProfileComponent
  */
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
 import { MultipartUploader } from './libs/multipart-upload/multipart-uploader';
 
 import { User } from './classes/User'
-import {RouteParams, ROUTER_DIRECTIVES, Router} from 'angular2/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { Info } from "./classes/Info";
 import { FollowService } from "./services/follow.service";
 import { MessageService } from "./services/message.service";
@@ -25,9 +25,7 @@ import {MultipartItem} from "./libs/multipart-upload/multipart-item";
 
 @Component({
     selector: 'artista',
-    templateUrl: 'templates/artista.html',
-    providers: [UserService, FollowService, MessageService, BlogService, BandService, EventService],
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'templates/artista.html'
 })
 
 export class ArtistaComponent {
@@ -57,20 +55,24 @@ export class ArtistaComponent {
     instrument;
     genre;
 
-    constructor(private _router: Router, private _routeParams: RouteParams, private _userService: UserService,
+    constructor(private _router: Router, private _routeParams: ActivatedRoute, private _userService: UserService,
                 private _followService: FollowService, private _messageService: MessageService,
                 private _bandService:BandService, private _blogService: BlogService,
                 private _eventService:EventService){
     }
 
     ngOnInit() {
-        this.initialization();
+      this.initialization();
     }
+
 
     initialization(){
 
         //Get id from route
-        this.id = this._routeParams.get('id')
+        this._routeParams.params.subscribe(params => {
+          this.id = params['id'];
+        });
+        console.log(this.id);
 
         //Check if is userLogged to show edit buttons
         this.isUserLogged = (this.id == Info.userId);
@@ -123,7 +125,7 @@ export class ArtistaComponent {
     }
 
     goToAuthor(id){
-        this._router.navigate(['Artist', id]);
+        this._router.navigate(['artist', id]);
     }
 
     updateFollows(){
@@ -189,7 +191,7 @@ export class ArtistaComponent {
             error => console.log(error)
         );
     }
-    
+
     newBand (nameBand, description){
         var user: User=Info.userLogged;
         this._bandService.addNewBand(user, nameBand,description).subscribe(
@@ -221,7 +223,7 @@ export class ArtistaComponent {
             }
         );
     }
-    
+
     editCity(city){
         this._userService.setCity(city).subscribe(
         	response => {
@@ -229,7 +231,7 @@ export class ArtistaComponent {
         			this._userService.getUserById(this.id).subscribe(
                         user => this.user = user
                     )
-        		}	
+        		}
         	},
         	error => alert("No se ha podido editar el campo")
         );
@@ -286,8 +288,8 @@ export class ArtistaComponent {
         )
     }
 
-    
-    
+
+
     addInstrument(inst){
         this._userService.addInstrument(inst).subscribe(
             response => {
@@ -295,7 +297,7 @@ export class ArtistaComponent {
                     this._userService.getUserById(this.id).subscribe(
                         user => this.user = user
                     );
-                } 
+                }
             },
             error => alert("El instrumento ya esta añadido")
         )
@@ -326,7 +328,7 @@ export class ArtistaComponent {
             error => alert("No se ha podido editar el campo")
         )
     }
-    
+
     setTwitter(link){
         this._userService.setTwitter(link).subscribe(
             response => {
@@ -353,8 +355,8 @@ export class ArtistaComponent {
         )
     }
 
-    
-    
+
+
     // Upload Image
     setBlogId(id){
         this.idBlog = id;

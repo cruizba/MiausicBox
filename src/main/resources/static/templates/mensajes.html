@@ -22,7 +22,7 @@
                                               <p><a class="btn btn-default btn-lg btn-block"  data-toggle="modal" data-target="#sendMessage" id="writeButton">Redactar</a></p>
                                               <div class="list-group">
                                                 <!--Bandeja de entrada-->
-                                                <a *ngFor="#mes of messagesShowed" [class.activeMessage]="mes == actualMessage" class="list-group-item" (click)="clickOnMessage(mes)">
+                                                <a *ngFor="let mes of messagesShowed" [class.activeMessage]="mes == actualMessage" class="list-group-item" (click)="clickOnMessage(mes)">
                                                     <table>
                                                         <tr>
                                                             <td><img *ngIf="receivedOption" src="/images/{{mes.message.sender.image}}" alt="Profile image" id="imagenUsuario"></td>

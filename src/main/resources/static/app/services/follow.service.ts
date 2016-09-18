@@ -6,8 +6,8 @@ import { followsList, userList } from "../classes/memoryDB"
 
 import { Follow } from "../classes/Follow";
 
-import { Injectable } from "angular2/core";
-import {Http, Headers, RequestOptions} from "angular2/http";
+import { Injectable } from "@angular/core";
+import {Http, Headers, RequestOptions} from "@angular/http";
 import {withObserver, emptyUser, toInstance} from "../classes/Utils";
 import 'rxjs/Rx';
 import {User} from "../classes/User";
@@ -27,7 +27,7 @@ export class FollowService{
      * so this implementation is not similar
      */
     getFollowingById(id){
-        let url = "/artist/" + id + "/following";
+        let url = Info.host +  "/artist/" + id + "/following";
         return this.http.get(url).map(
             users => this.deserializeAllUsers(users.json())
         );
@@ -40,7 +40,7 @@ export class FollowService{
      * so this implementation is not similar
      */
     getFollowersById(id){
-        let url = "/artist/" + id + "/followers";
+        let url = Info.host +  "/artist/" + id + "/followers";
         return this.http.get(url).map(
             users => this.deserializeAllUsers(users.json())
         );
@@ -50,7 +50,7 @@ export class FollowService{
      * Get only number of followers
      */
     getNumFollowersById(id){
-        let url = "/artist/" + id + "/numfollowers";
+        let url = Info.host +  "/artist/" + id + "/numfollowers";
         return this.http.get(url).map(
             response => response.json()
         );
@@ -62,7 +62,7 @@ export class FollowService{
      * Get only number of following
      */
     getNumFollowingByID(id){
-        let url = "/artist/" + id + "/numfollowing"
+        let url = Info.host +  "/artist/" + id + "/numfollowing"
         return this.http.get(url).map(
             response => response.json()
         );
@@ -72,7 +72,7 @@ export class FollowService{
      * Get if user follows other user
      */
     isUserFollowedBy(emisor, receptor) {
-        let url = "/artist/" + receptor + "/isFollowedBy/" + emisor;
+        let url = Info.host +  "/artist/" + receptor + "/isFollowedBy/" + emisor;
         return this.http.get(url).map(
             response => response.json()
         )
@@ -88,7 +88,7 @@ export class FollowService{
         let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
         let options = new RequestOptions({headers});
 
-        return this.http.post('/artist/' + emisor + "/follows/" + receptor, body, options);
+        return this.http.post(Info.host +  '/artist/' + emisor + "/follows/" + receptor, body, options);
     }
 
     /**
@@ -100,7 +100,7 @@ export class FollowService{
         let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
         let options = new RequestOptions({headers});
 
-        return this.http.post('/artist/' + emisor + "/unfollow/" + receptor, body, options);
+        return this.http.post(Info.host +  '/artist/' + emisor + "/unfollow/" + receptor, body, options);
     }
 
     /* Deserialize Methods */

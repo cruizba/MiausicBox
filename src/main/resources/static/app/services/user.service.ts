@@ -8,9 +8,9 @@ import { User } from '../classes/User'
 import { Info } from "../classes/Info";
 import { BlogUser} from "../classes/BlogUser";
 
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 
-import {Http, Response, Headers, RequestOptions} from 'angular2/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {withObserver, emptyUser, toInstance, emptyBlogUser, emptyGenre, emptyInstrument} from '../classes/Utils';
 
 import 'rxjs/Rx';
@@ -18,6 +18,7 @@ import {Genre} from "../classes/Genre";
 import {Instrument} from "../classes/Instrument";
 
 @Injectable()
+
 export class UserService {
 
   /* Constructor */
@@ -25,15 +26,15 @@ export class UserService {
 
   /* Http GETs */
   getAllUsers(){
-    let url = "/artists";
+    let url = Info.host +  "/artists";
     console.log("Peticion a " + url);
     return this.http.get(url).map(
       response => this.deserializeAllUsers(response.json())
     );
   }
-  
+
   getUsersByName(name){
-    let url = "/artists/name:" + name;
+    let url = Info.host +  "/artists/name:" + name;
     console.log("Peticion a " + url);
     return this.http.get(url).map(
       response => this.deserializeAllUsers(response.json())
@@ -41,7 +42,7 @@ export class UserService {
   }
 
   getUserById(id){
-    let url = "/artist/" + id;
+    let url = Info.host +  "/artist/" + id;
     console.log("Peticion a " + url);
     return this.http.get(url).map(
       response => this.deserializeUser(response.json())
@@ -87,14 +88,14 @@ export class UserService {
   }
 
   getAllGenres(){
-    let url = "/getAllGenres";
+    let url =  "/getAllGenres";
     return this.http.get(url).map(
         response => this.deserializeAllGenres(response.json())
     );
   }
-  
+
   getAllInstruments(){
-    let url = "/getAllInstr";
+    let url =  "/getAllInstr";
     return this.http.get(url).map(
         response => this.deserializeAllInstr(response.json())
     )
@@ -143,7 +144,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/editCity/' + Info.userId , body, options);
+    return this.http.put(Info.host +  '/editCity/' + Info.userId , body, options);
   }
 
   setYoutube(link){
@@ -152,7 +153,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/editYoutubeLink/' + Info.userId , body, options);
+    return this.http.put(Info.host +  '/editYoutubeLink/' + Info.userId , body, options);
   }
 
   setTwitter(link){
@@ -161,7 +162,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/editTwitterLink/' + Info.userId , body, options);
+    return this.http.put(Info.host +  '/editTwitterLink/' + Info.userId , body, options);
   }
 
   setFacebook(link){
@@ -170,7 +171,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/editFacebookLink/' + Info.userId , body, options);
+    return this.http.put(Info.host +  '/editFacebookLink/' + Info.userId , body, options);
   }
 
   addGenre(genre:Genre){
@@ -179,7 +180,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/addGenre/' + Info.userId, body, options);
+    return this.http.put(Info.host +  '/addGenre/' + Info.userId, body, options);
 
   }
 
@@ -189,7 +190,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/deleteGenre/' + Info.userId, body, options);
+    return this.http.put(Info.host +  '/deleteGenre/' + Info.userId, body, options);
   }
 
   addInstrument(inst){
@@ -198,7 +199,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/addInstr/' + Info.userId, body, options);
+    return this.http.put(Info.host +  '/addInstr/' + Info.userId, body, options);
   }
 
   deleteInstrument(inst){
@@ -207,7 +208,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/deleteInstr/' + Info.userId, body, options);
+    return this.http.put(Info.host +  '/deleteInstr/' + Info.userId, body, options);
   }
 
   modifyUser(userName, completeName, email, isArtist, description){
@@ -223,7 +224,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.put('/editUser/' + Info.userId, body, options);
+    return this.http.put(Info.host +  '/editUser/' + Info.userId, body, options);
   }
 
   modifyPass(password1, password2){
@@ -236,7 +237,7 @@ export class UserService {
       let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
       let options = new RequestOptions({headers});
 
-      return this.http.put('/editPassword/' + Info.userId, body, options);
+      return this.http.put(Info.host +  '/editPassword/' + Info.userId, body, options);
     }
   }
 
@@ -255,16 +256,16 @@ export class UserService {
       let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
       let options = new RequestOptions({headers});
 
-      return this.http.post('/registerUser/', body, options);
+      return this.http.post(Info.host +  '/registerUser/', body, options);
     }
   }
 
   removeEvent (idUser, idEvent){
-    let url = "/artist/"+idUser+"/removeEvent/"+idEvent;
+    let url =  Info.host + "/artist/"+idUser+"/removeEvent/"+idEvent;
     return this.http.delete(url);
   }
 
-  
+
   /* Deserialize Methods */
   deserializeAllUsers(json) {
     let users:User[] = [];
@@ -313,7 +314,7 @@ export class UserService {
     );
     return genres;
   }
-  
+
   deserializeInstrument(json){
     return toInstance(emptyInstrument(), json);
   }

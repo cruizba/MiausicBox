@@ -2,16 +2,13 @@
  * MiausicBox followers component.
  * @component FollowersComponent
  */
-import { UserService } from "./services/user.service";
 import { FollowService } from "./services/follow.service";
-import { Component } from "angular2/core";
-import { ROUTER_DIRECTIVES, RouteParams } from "angular2/router";
+import { Component } from "@angular/core";
+import {ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'followers',
-    templateUrl: 'templates/followers.html',
-    providers: [UserService, FollowService],
-    directives: [ROUTER_DIRECTIVES]
+    templateUrl: 'templates/followers.html'
 })
 
 export class FollowersComponent{
@@ -20,10 +17,12 @@ export class FollowersComponent{
     id;
 
     constructor(private _followService: FollowService,
-                private _routeParams: RouteParams){}
+                private _routeParams: ActivatedRoute){}
 
     ngOnInit(){
-        this.id = this._routeParams.get('id');
+        this._routeParams.params.subscribe(params => {
+            this.id = params['id'];
+        });
 
         this._followService.getFollowersById(this.id).subscribe(
             (userList => this.userList = userList),

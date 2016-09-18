@@ -2,8 +2,8 @@
  * MiausicBox visitor component.
  * @component VisitorComponent
  */
-import { Component } from 'angular2/core';
-import { Router } from 'angular2/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'visitor',
@@ -15,7 +15,7 @@ export class VisitorComponent{
   constructor(private _router: Router){}
 
   goToPrincipal(){
-    this._router.navigate(['Index']);
+    this._router.navigate(['/']);
   }
 
 }

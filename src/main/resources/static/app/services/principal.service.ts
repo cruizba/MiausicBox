@@ -2,8 +2,8 @@
  * Service of MiausicBox messages users for petitions to Api Rest
  * @class MessageService
  */
-import { Injectable } from "angular2/core";
-import { Http } from "angular2/http";
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { BlogBand } from "../classes/BlogBand";
 import {
@@ -14,6 +14,7 @@ import { BlogUser } from "../classes/BlogUser";
 import { Band } from "../classes/Band";
 import { Novelty } from "../classes/Novelty";
 import { Event } from "../classes/Event";
+import {Info} from "../classes/Info";
 
 @Injectable()
 export class PrincipalService{
@@ -23,10 +24,10 @@ export class PrincipalService{
 
   /* Http GETs */ // FixMe: deserialize responses?
   getHell(id) {
-    let url0 = "/artist/" + id + "/allusersblogs";
-    let url1 = "/artist/" + id + "/allbandsblogs";
-    let url2 = "/artist/" + id + "/novelties";
-    let url3 = "/artist/" + id + "/events";
+    let url0 =  Info.host + "/artist/" + id + "/allusersblogs";
+    let url1 =  Info.host + "/artist/" + id + "/allbandsblogs";
+    let url2 =  Info.host + "/artist/" + id + "/novelties";
+    let url3 =  Info.host +  "/artist/" + id + "/events";
     return Observable.forkJoin(
       this.http.get(url0).map(res => this.deserializeAllUserBlogs(res.json())),
       this.http.get(url1).map(res => this.deserializeAllBandBlogs(res.json())),

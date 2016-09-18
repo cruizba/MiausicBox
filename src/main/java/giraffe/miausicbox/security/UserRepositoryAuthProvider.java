@@ -32,6 +32,7 @@ public class UserRepositoryAuthProvider implements AuthenticationProvider{
 
 		String username = authentication.getName();
 		String password = (String) authentication.getCredentials();
+		
 
 		List<User> users = userRepository.findUserByUserName(username);
 		User user = users.get(0);

@@ -9,5 +9,6 @@ export class Info {
   /* Attributes */
   static userLogged:User = null;
   static userId = null;
+  static host = ""
 
 }

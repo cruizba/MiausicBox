@@ -2,17 +2,14 @@
  * MiausicBox followers event component.
  * @component FollowersEventComponent
  */
-///<reference path="../node_modules/angular2/router.d.ts"/>
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { EventService } from './services/event.service';
 
-import {ROUTER_DIRECTIVES, RouteParams} from "angular2/router";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
     selector: 'followersEvent',
-    templateUrl:'templates/followers.html',
-    providers: [EventService],
-    directives:[ROUTER_DIRECTIVES]
+    templateUrl:'templates/followers.html'
 })
 
 export class FollowersEvent {
@@ -20,10 +17,12 @@ export class FollowersEvent {
     userList = [];
     id;
 
-    constructor (private _eventService:EventService, private _routeParams: RouteParams){}
+    constructor (private _eventService:EventService, private _routeParams: ActivatedRoute){}
 
     ngOnInit() {
-        this.id = this._routeParams.get('id');
+        this._routeParams.params.subscribe(params => {
+            this.id = params['id'];
+        });
 
         this._eventService.getFollowers(this.id).subscribe(
             

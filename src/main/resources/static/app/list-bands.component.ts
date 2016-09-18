@@ -2,15 +2,12 @@
  * MiausicBox list bands component.
  * @component ListBandsComponent
  */
-import { Component } from 'angular2/core';
-import { ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component } from '@angular/core';
 import { BandService } from './services/band.service';
 
 @Component({
   selector: 'list-bands',
-  templateUrl: 'templates/listaBandas.html',
-  providers: [BandService], 
-  directives: [ROUTER_DIRECTIVES]
+  templateUrl: 'templates/listaBandas.html'
 })
 
 export class ListBandsComponent {

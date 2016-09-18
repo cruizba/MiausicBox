@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid fade-in">
   <div class="row">
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
           <!-- Indicators -->
@@ -34,7 +34,7 @@
                 Si eres artista o miembro de una banda, ¡únete a la comunidad y promociónate!<br>
                 ¡SI TE GUSTA LA MÚSICA,  ESTE ES TU SITIO!</p>
                 <br>
-                <a (click)="goTo(['Visitor'])" class="btn btn-default btn-lg" role="button" id="botonEntrar">Enter</a>
+                <a (click)="goTo(['/visitor'])" class="btn btn-default btn-lg" role="button" id="botonEntrar">Enter</a>
                 <br>
             </div>
         </div>
@@ -54,7 +54,7 @@
                         </div>
 
                         <div>
-                            <a (click)="goTo(['SignIn'])" id="registro">No estoy registrado</a>
+                            <a routerLink='/visitor'  id="registro">No estoy registrado</a>
                             <button (click)="logIn($event)" class="btn btn-default" role="button" id="buttonLogin">Log in</button>
                         </div>
                         <div id="userLoginError">

@@ -2,16 +2,14 @@
  * MiausicBox logged component.
  * @component LoggedComponent
  */
-import { Component } from 'angular2/core';
-import { ROUTER_DIRECTIVES, Router } from 'angular2/router';
-import { Info } from "./classes/Info";
-import { UserService } from "./services/user.service";
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import {UserService} from "./services/user.service";
+import {Info} from "./classes/Info";
 
 @Component({
   selector: 'logged',
   templateUrl: 'templates/nav-template.html',
-  providers: [UserService],
-  directives: [ROUTER_DIRECTIVES]
 })
 
 export class LoggedComponent{
@@ -23,7 +21,7 @@ export class LoggedComponent{
   email:string;
   isArtist:boolean;
   description:string;
-  
+
   constructor(private _router: Router, private _userService: UserService){}
 
   ngOnInit(){
@@ -35,16 +33,20 @@ export class LoggedComponent{
       this.description = Info.userLogged.description;
     }
   }
-  
+
 
   goToProfile(){
-    this._router.navigate(['Artist', {id: Info.userId}]);
+
+    //Components can't be reloaded, this is a temporal trick
+    this._router.navigate(['/']).then(() => {
+      this._router.navigate(['/artist', Info.userId]);
+    });
   }
 
   goToMessage(){
-    this._router.navigate(['Messages', {id: Info.userId}]);
+    this._router.navigate(['messages', Info.userId]);
   }
-  
+
   submitConfiguration(){
     this._userService.modifyUser(this.userName, this.completeName, this.email, this.isArtist, this.description).subscribe(
         response => {
@@ -57,12 +59,12 @@ export class LoggedComponent{
           );
 
           //No hagáis esto en casa
-          this._router.navigate(['ListArtist']);
-          this._router.navigate(['Artist', {id: Info.userId}]);
+          this._router.navigate(['listArtist']);
+          this._router.navigate(['artist', Info.userId]);
         }
     )
   }
-  
+
   submitPass(){
       this._userService.modifyPass(this.password, this.password2).subscribe(
           response => alert("Contraseña cambiada")

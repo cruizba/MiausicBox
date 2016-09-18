@@ -2,10 +2,11 @@
  * Service of MiausicBox logged users for petitions to Api Rest
  * @class EventService
  */
-import { Injectable } from 'angular2/core';
-import { Http, RequestOptions, Headers } from 'angular2/http';
+import { Injectable } from '@angular/core';
+import { Http, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/Rx';
 import {emptyUser, toInstance} from "../classes/Utils";
+import {Info} from "../classes/Info";
 
 // FixMe?
 export interface UserLogged {
@@ -20,7 +21,7 @@ export class LoginService {
     /* Attributes */
     isLogged = false;
     isAdmin = false;
-    user;
+    user = null;
 
     /* Constructor */
     constructor(private http: Http){
@@ -36,8 +37,11 @@ export class LoginService {
 
         let options = new RequestOptions({headers});
 
-        this.http.get('logIn', options).subscribe(
-            response => this.processLogInResponse(response),
+        return this.http.get(Info.host +  'logIn', options).map(
+            response => {
+              this.processLogInResponse(response);
+              return this.user;
+            },
             error => {
                 if(error.status != 401){
                     console.error("Error when asking if logged: "+
@@ -50,6 +54,7 @@ export class LoginService {
     private processLogInResponse(response){
         this.isLogged = true;
         this.user = toInstance(emptyUser(), response.json());
+        console.log(this.user);
         this.isAdmin = this.user.roles.indexOf("ROLE_ADMIN") !== -1;
     }
 
@@ -64,7 +69,7 @@ export class LoginService {
 
         let options = new RequestOptions({headers});
 
-        return this.http.get('logIn', options).map(
+        return this.http.get(Info.host +  'logIn', options).map(
             response => {
                 this.processLogInResponse(response);
                 return this.user;
@@ -74,7 +79,7 @@ export class LoginService {
 
     logOut(){
 
-        return this.http.get('logOut').map(
+        return this.http.get(Info.host +  'logOut').map(
             response => {
                 this.isLogged = false;
                 this.isAdmin = false;

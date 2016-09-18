@@ -1,6 +1,7 @@
 package giraffe.miausicbox.security;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ public class LoginController {
 	private UserComponent userComponent;
 
 	@RequestMapping("/logIn")
-	public ResponseEntity<UserLogged> logIn() {
+	public ResponseEntity<UserLogged> logIn(HttpServletRequest request) {
 
 		if (!userComponent.isLoggedUser()) {
 			log.info("Not user logged");

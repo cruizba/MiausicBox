@@ -38,27 +38,27 @@
                       <form role="form">
                           <div class="form-group">
                               <label for="exampleInputEmail1">Nombre de Usuario</label>
-                              <input [(ngModel)]="userName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre de usuario">
+                              <input [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre de usuario">
                           </div>
                           <div class="form-group">
                               <label for="exampleInputEmail1">Nombre Completo</label>
-                              <input [(ngModel)]="completeName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre completo">
+                              <input [(ngModel)]="completeName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" id="exampleInputEmail1" placeholder="Insertar nombre completo">
                           </div>
                           <div class="form-group">
                               <label for="exampleInputEmail1">Email</label>
-                              <input [(ngModel)]="email" type="email" class="form-control" id="exampleInputEmail1" placeholder="Insertar email" >
+                              <input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" type="email" class="form-control" id="exampleInputEmail1" placeholder="Insertar email" >
                           </div>
                           <div class="form-group">
                               <label for="exampleInputPassword1">¿Eres artista?</label>
-                              <input [(ngModel)]="isArtist" value="{{isArtist}}" type="checkbox" class="form-control" id="exampleInputPassword1" checked>
+                              <input [(ngModel)]="isArtist" [ngModelOptions]="{standalone: true}" value="{{isArtist}}" type="checkbox" class="form-control" id="exampleInputPassword1" checked>
                           </div>
                           <div class="form-group">
                               <label for="exampleInputPassword1">Password</label>
-                              <input [(ngModel)]="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Insertar password">
+                              <input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password" class="form-control" id="exampleInputPassword1" placeholder="Insertar password">
                           </div>
                           <div class="form-group">
                               <label for="exampleInputPassword1">Confirmar Password</label>
-                              <input [(ngModel)]="password2" type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmar pasword">
+                              <input [(ngModel)]="password2" [ngModelOptions]="{standalone: true}" type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmar pasword">
                           </div>
 
                           <div class="pull-right">

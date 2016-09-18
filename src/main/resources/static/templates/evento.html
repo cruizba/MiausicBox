@@ -40,7 +40,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                       <td><a [routerLink]="['FollowersEvent', {id:id}]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollows}}</span></a>
+                                       <td><a [routerLink]="['/followersEvent', id]" class="btn btn-default btn-lg" id="followButton">Seguidores <span class="badge">{{numFollows}}</span></a>
                                        </td>
                                     </tr>
                                 </tbody>
@@ -86,14 +86,14 @@
                                     </tr>
                                 </thead>
                                 <tbody id="TableBody">
-                                    <tr *ngFor="#ba of event.bands">
+                                    <tr *ngFor="let ba of event.bands">
                                         <td>
-                                            <a [routerLink]="['Band', {id: ba.id}]"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
+                                            <a [routerLink]="['/band', ba.id]"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a>
                                         </td>
-                                        <td><a [routerLink]="['Band', {id: ba.id}]"  class="enlaceListaBanda" >{{ba.groupName}}</a></td>
+                                        <td><a [routerLink]="['/band', ba.id]"  class="enlaceListaBanda" >{{ba.groupName}}</a></td>
                                         <td>
                                             <ul>
-                                                <li *ngFor="#mem of ba.members"><a class="enlacePerfilArtista" id="no_color_link" [routerLink]="['Artist', {id: mem.id}]">{{mem.userName}}</a></li>
+                                                <li *ngFor="let mem of ba.members"><a class="enlacePerfilArtista" id="no_color_link" [routerLink]="['/artist', mem.id]">{{mem.userName}}</a></li>
                                             </ul>
                                         </td>
                                     </tr>

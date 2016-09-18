@@ -1,10 +1,12 @@
 /**
+ * Created by Carlos on 24/08/2016.
+ */
+/**
  * MiausicBox index component.
  * @component IndexComponent
  */
-/// <reference path="classes/Info.ts"/>
-import { Component } from 'angular2/core';
-import { Router } from 'angular2/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from './classes/User';
 
@@ -12,73 +14,83 @@ import { UserService } from './services/user.service';
 import { Info } from './classes/Info';
 import { LoginService } from "./services/login.service";
 
+
 @Component({
-    selector: 'index-app',
-    templateUrl: 'templates/index_app.html',
-    providers: [UserService, LoginService]
+  selector: 'index-app',
+  templateUrl: 'templates/index_app.html'
 })
 
 export class IndexComponent {
 
-    //variables from login form
-    username: string;
-    password: string;
-    userLogged;
-    userInfo: User;
+  //variables from login form
+  username: string;
+  password: string;
+  userLogged;
+  userInfo: User;
 
-    constructor(private _router: Router, private _loginService: LoginService,
-                private _userService: UserService) {}
+  constructor(private _router: Router, private _loginService: LoginService,
+              private _userService: UserService) {
+  }
 
-    goTo(paramsRoute: any[]){
-        this._router.navigate(paramsRoute);
-    }
+  ngOnInit(){
+    this._loginService.reqIsLogged().subscribe(
+      user => {
+      if (user != null) {
+        this.getUserInfo(user);
+      }
+    });
+  }
 
-    logIn(event: any){
+  goTo(paramsRoute: any[]){
+    this._router.navigate(paramsRoute);
+  }
 
-        event.preventDefault();
+  logIn(event: any){
 
-        this._loginService.logIn(this.username, this.password).subscribe(
-            user => {
-                this.userLogged = user;
 
-                console.log(this.userLogged);
-                //Save the user id
-                Info.userId = this.userLogged.realId;
+    event.preventDefault();
 
-                // Save user info
+    this._loginService.logIn(this.username, this.password).subscribe(
+      user => {
+        this.getUserInfo(user);
+      },
+      error => alert("Invalid user or password")
+    );
 
-                this._userService.getUserById(Info.userId).subscribe(
-                    userInfo => {
-                       this.userInfo = userInfo;
-                       Info.userLogged = userInfo;
-                       console.log(Info.userLogged);
-                        this._router.navigate(['Artist', {id: Info.userId}])
-                    },
-                    error => {
-                        alert("Error recibiendo información del usuario" + error)
-                    }
-                );
-                console.log(Info.userLogged);
-            },
-            error => alert("Invalid user or password")
-        );
-    }
+  }
 
-    logOut(){
-        this._loginService.logOut().subscribe(
-            response => {},
-            error => console.log("Error when trying to log out: "+error)
-        );
-    }
-    
-    /*
-    logOut() {
-        this._loginService.logOut().subscribe(
-            response => {
-            },
-            error => console.log("Error when trying to log out: " + error)
-        );
-    }
-    */
+
+
+  logOut(){
+    this._loginService.logOut().subscribe(
+      response => {},
+      error => console.log("Error when trying to log out: "+error)
+    );
+
+  }
+
+  getUserInfo(user){
+    this.userLogged = user;
+
+    console.log(this.userLogged);
+    //Save the user id
+    Info.userId = this.userLogged.realId;
+
+    // Save user info
+
+    this._userService.getUserById(Info.userId).subscribe(
+      userInfo => {
+        this.userInfo = userInfo;
+        Info.userLogged = userInfo;
+        console.log(Info.userLogged);
+        this._router.navigate(['artist', Info.userId])
+      },
+      error => {
+        alert("Error recibiendo información del usuario" + error)
+      }
+    );
+    console.log(Info.userLogged);
+  }
+
 
 }

@@ -12,9 +12,9 @@ import { Info } from "../classes/Info";
 
 import {Genre} from "../classes/Genre";
 
-import { Injectable } from 'angular2/core';
+import { Injectable } from '@angular/core';
 
-import {Http, Response, RequestOptions, Headers} from "angular2/http";
+import {Http, Response, RequestOptions, Headers} from "@angular/http";
 import {withObserver, toInstance, emptyBand, emptyUser, emptyEvent, emptyBlogBand} from '../classes/Utils';
 
 import 'rxjs/Rx';
@@ -27,21 +27,21 @@ export class BandService {
 
   /* Http GETs */
   getAllBands (){
-    var url = "/bands";
+    var url =  Info.host + "/bands";
     return this.http.get(url).map(
       response => this.deserializeAllBands(response.json())
     )
   }
-  
+
   getBandByName(name){
-    var url= "/bands/name:" + name;
+    var url=  Info.host +  "/bands/name:" + name;
     return this.http.get(url).map(
       response => this.deserializeAllBands(response.json())
     )
   }
 
   getBandById (id){
-    let url = "/band/"+id;
+    let url = Info.host +  "/band/"+id;
     console.log("Hacemos petciccion a " + url);
     return this.http.get(url).map(
       response => this.deserializeBand(response.json())
@@ -49,7 +49,7 @@ export class BandService {
   }
 
   getEventByBandById (id){
-    let url = "/band/"+id+"/events";
+    let url =  Info.host + "/band/"+id+"/events";
     return this.http.get(url).map(
       response => this.deserializeEvents(response.json())
     )
@@ -57,28 +57,28 @@ export class BandService {
 
   // FixMe: move this method to blog.service.ts
   getBlogsByBand(id) {
-    let url = "/band/"+id+"/bandblog";
+    let url =  Info.host + "/band/"+id+"/bandblog";
     return this.http.get(url).map(
       response => this.deserializableAllBlogs(response.json())
     );
   }
 
   getIsFollower (ba,us){
-    let url = "/band/" + ba + "/isFollowedBy/" + us;
+    let url =  Info.host + "/band/" + ba + "/isFollowedBy/" + us;
     return this.http.get(url).map (
       response => response.json()
     )
   }
 
   getNumFollows(ba){
-    let url = "/getNumFollowsBand/" + ba;
+    let url =  Info.host + "/getNumFollowsBand/" + ba;
     return this.http.get(url).map(
         response => response.json()
     )
   }
 
   getMembers (id){
-    let url = "/band/" + id + "/members";
+    let url =  Info.host + "/band/" + id + "/members";
     return this.http.get(url).map(
         response => this.deserializeUsers(response)
     )
@@ -99,7 +99,7 @@ export class BandService {
   }
 
   getBandsByUsers(user){
-    let url = "/artist/" + user.getId() + "/mybands";
+    let url =  Info.host + "/artist/" + user.getId() + "/mybands";
     return this.http.get(url).map(
         response => this.deserializableBands(response)
     );
@@ -115,7 +115,7 @@ export class BandService {
     let headers = new Headers ({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post("/band/" + ba + "/tofollow/" + us, body, options).map(
+    return this.http.post( Info.host + "/band/" + ba + "/tofollow/" + us, body, options).map(
         response => response.json()
     );
   }
@@ -128,7 +128,7 @@ export class BandService {
     let headers = new Headers ({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
 
-    return this.http.post('/newBand/'+user.id, body, options);
+    return this.http.post( Info.host + '/newBand/'+user.id, body, options);
   }
 
 
@@ -137,7 +137,7 @@ export class BandService {
     console.log(body);
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.post('/band/' + id + '/newmember/' + userName, body, options);
+    return this.http.post(Info.host +  '/band/' + id + '/newmember/' + userName, body, options);
 
   }
 
@@ -150,17 +150,17 @@ export class BandService {
     console.log(body);
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.post('/band/' + id + '/newtrack', body, options);
+    return this.http.post( Info.host + '/band/' + id + '/newtrack', body, options);
   }
 
   /* Http DELETEs */
   removeTrack(bandId,trackId){
-    let url = "/band/" + bandId + "/removetrack/" + trackId;
+    let url =  Info.host + "/band/" + bandId + "/removetrack/" + trackId;
     return this.http.delete(url);
   }
 
   removeMember(bandId,memberId){
-    let url = "/band/" + bandId + "/removemember/" + memberId;
+    let url =  Info.host + "/band/" + bandId + "/removemember/" + memberId;
     return this.http.delete(url);
   }
 
@@ -168,39 +168,39 @@ export class BandService {
     let body = '{ "name": "' + genre.name + '"}';
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.put('/addGenreBand/' + Info.userId, body, options);
+    return this.http.put( Info.host + '/addGenreBand/' + Info.userId, body, options);
   }
 
   deleteGenre(genre:Genre){
     let body = '{ "name": "' + genre.name + '"}';
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.put('/deleteGenreBand/' + Info.userId, body, options);
+    return this.http.put(Info.host +  '/deleteGenreBand/' + Info.userId, body, options);
   }
 
   setCity(city){
     let body = city;
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.put('/editCityBand/' + Info.userId , body, options);
+    return this.http.put( Info.host + '/editCityBand/' + Info.userId , body, options);
   }
 
   setWeb(link){
     let body = link;
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.put('/editWebLinkBand/' + Info.userId , body, options);
+    return this.http.put(Info.host +  '/editWebLinkBand/' + Info.userId , body, options);
   }
 
   setFacebook(link){
     let body = link;
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.put('/editFacebookLinkBand/' + Info.userId , body, options);
+    return this.http.put(Info.host + '/editFacebookLinkBand/' + Info.userId , body, options);
   }
 
   removeBand(bandId){
-    let url = "/band/" + bandId + "/remove";
+    let url = Info.host +  "/band/" + bandId + "/remove";
     return this.http.delete(url);
   }
 
@@ -208,16 +208,16 @@ export class BandService {
     let body = link;
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.put('/editYoutubeLinkBand/' + Info.userId , body, options);
+    return this.http.put(Info.host +  '/editYoutubeLinkBand/' + Info.userId , body, options);
   }
 
   setTwitter(link){
     let body = link;
     let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
     let options = new RequestOptions({headers});
-    return this.http.put('/editTwitterLinkBand/' + Info.userId , body, options);
+    return this.http.put(Info.host +  '/editTwitterLinkBand/' + Info.userId , body, options);
   }
-  
+
   /* Deserialize Methods (Band List) */
   deserializeAllBands (json) {
     /* parse each band in json */
@@ -265,6 +265,7 @@ export class BandService {
     json.map(
       obj => {
         let blogBand:BlogBand = toInstance(emptyBlogBand(), obj);
+        //noinspection TypeScriptValidateTypes
         blogBand.date = new Date (obj.date);
         blogs.push(blogBand)
       }

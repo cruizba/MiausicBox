@@ -8,8 +8,8 @@ import { Message } from "../classes/Message";
 import { Info } from "../classes/Info";
 import { User } from "../classes/User";
 
-import { Injectable } from "angular2/core";
-import {Http, Response, Headers, RequestOptions} from "angular2/http";
+import { Injectable } from "@angular/core";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
 
 @Injectable()
 export class MessageService{
@@ -19,21 +19,21 @@ export class MessageService{
 
     /* Http GETs */
     getSendedMessagesById(id){
-        let url = "/artist/" + id + "/sendedMessages";
+        let url = Info.host +  "/artist/" + id + "/sendedMessages";
         return this.http.get(url).map(
             response => this.deserializeAllMessages(response)
         );
     }
 
     getReceivedMessages(id){
-        let url = "/artist/" + id + "/receivedMessages";
+        let url = Info.host +  "/artist/" + id + "/receivedMessages";
         return this.http.get(url).map(
             response => this.deserializeAllMessages(response)
         );
     }
 
     getNumNonRead(id){
-        let url = "/artist/" + id + "/numNoRead"
+        let url = Info.host +  "/artist/" + id + "/numNoRead"
         return this.http.get(url).map(
             response => response.json()
         )
@@ -46,7 +46,7 @@ export class MessageService{
         let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
         let options = new RequestOptions({headers});
 
-        return this.http.put('/message/setRead/' + id , body, options);
+        return this.http.put(Info.host +  '/message/setRead/' + id , body, options);
     }
 
     sendMessage(userName:string, subject: string, day:Date, message: string){
@@ -59,16 +59,16 @@ export class MessageService{
         let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
         let options = new RequestOptions({headers});
 
-        return this.http.post('/message/sendMesFrom/' + Info.userId + '/to/' + userName, body, options);
+        return this.http.post(Info.host +  '/message/sendMesFrom/' + Info.userId + '/to/' + userName, body, options);
     }
-    
+
     deleteMessage(message: Message){
         let body = ""
 
         let headers = new Headers({'Content-Type': 'application/json;charset=UTF-8'});
         let options = new RequestOptions({headers});
 
-        return this.http.post('/message/deleteMessage/' + message.id , body, options);
+        return this.http.post(Info.host +  '/message/deleteMessage/' + message.id , body, options);
     }
 
     /* Deserialize Methods */

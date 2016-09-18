@@ -7,15 +7,15 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a [routerLink]="['Principal']" class="navbar-brand" href="principal.html">MiausicBox</a>
+          <a [routerLink]="['principal']" class="navbar-brand" href="principal.html">MiausicBox</a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
           <ul class="nav navbar-nav">
               <li><a (click)="goToProfile()"><span class="glyphicon glyphicon-user"></span>Perfil</a></li>
               <li><a (click)="goToMessage()"><span class="glyphicon glyphicon-envelope"></span>Mensajes</a></li>
-              <li><a [routerLink]="['Events']"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a></li>
-              <li><a [routerLink]="['ListArtist']"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
-              <li><a [routerLink]="['ListBands']"><span class="glyphicon glyphicon-cd"></span>Bandas</a></li>
+              <li><a [routerLink]="['/events']"><span class="glyphicon glyphicon-pushpin"></span>Eventos</a></li>
+              <li><a [routerLink]="['/listArtist']"><span class="glyphicon glyphicon-text-background"></span>rtistas</a></li>
+              <li><a [routerLink]="['/listBands']"><span class="glyphicon glyphicon-cd"></span>Bandas</a></li>
           </ul>
           <form class="navbar-form navbar-left" role="search">
               <div class="form-group">
@@ -53,31 +53,31 @@
                       <div class="form-group">
                           <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre de usuario</label>
                           <div class="col-sm-10">
-                              <input [(ngModel)]="userName" value="{{userName}}" type="text" class="form-control" id="nombrePerfil" placeholder="">
+                              <input [(ngModel)]="userName" [ngModelOptions]="{standalone: true}" value="{{userName}}" type="text" class="form-control" id="nombrePerfil" placeholder="">
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="formLabel control-label col-sm-2" for="nombrePerfil">Nombre completo</label>
                           <div class="col-sm-10">
-                              <input [(ngModel)]="completeName" value="{{completeName}}"  type="text" class="form-control" id="nombrePerfil" placeholder="">
+                              <input [(ngModel)]="completeName" [ngModelOptions]="{standalone: true}"value="{{completeName}}"  type="text" class="form-control" id="nombrePerfil" placeholder="">
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="formLabel control-label col-sm-2" for="email">Email</label>
                           <div class="col-sm-10">
-                              <input [(ngModel)]="email" value="{{email}}" type="email" class="form-control" id="email" placeholder="">
+                              <input [(ngModel)]="email"  [ngModelOptions]="{standalone: true}"  value="{{email}}" type="email" class="form-control" id="email" placeholder="">
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="formLabel control-label col-sm-2" for="nombrePerfil">Artista</label>
                           <div class="col-sm-10">
-                              <input type="checkbox" value="{{isArtist}}" [(ngModel)]="isArtist" id="check" checked>
+                              <input type="checkbox" value="{{isArtist}}" [(ngModel)]="isArtist"  [ngModelOptions]="{standalone: true}" id="check" checked>
                           </div>
                       </div>
                       <div class="form-group">
                           <label class="formLabel control-label col-sm-2" for="descripcion">Descripcion</label>
                           <div class="col-sm-10">
-                              <textarea [(ngModel)]="description" value="{{description}}" class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
+                              <textarea [(ngModel)]="description"  [ngModelOptions]="{standalone: true}" value="{{description}}" class="form-control" rows="5" id="descripcion" placeholder=""></textarea>
                           </div>
                       </div>
                       <div class="BotonFormulario">
@@ -106,13 +106,13 @@
                        <div class="form-group">
                           <label class="formLabel control-label col-sm-2" for="contraseña">Contraseña</label>
                           <div class="col-sm-10">
-                              <input [(ngModel)]="password" type="password" class="form-control" id="contraseña" placeholder="">
+                              <input [(ngModel)]="password"  [ngModelOptions]="{standalone: true}" type="password" class="form-control" id="contraseña" placeholder="">
                           </div>
                       </div>
                        <div class="form-group">
                           <label class="formLabel control-label col-sm-2" for="contraseña">Confirmar contraseña</label>
                           <div class="col-sm-10">
-                              <input [(ngModel)]="password2" type="password" class="form-control" id="contraseña" placeholder="">
+                              <input [(ngModel)]="password2" [ngModelOptions]="{standalone: true}"  type="password" class="form-control" id="contraseña" placeholder="">
                           </div>
                       </div>
                       <div class="BotonFormulario">

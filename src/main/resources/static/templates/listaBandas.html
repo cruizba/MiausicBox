@@ -47,19 +47,19 @@
                         </thead>
 
                         <tbody>
-                            <tr *ngFor="#ba of bands; #i = index">
+                            <tr *ngFor="let ba of bands; let i = index">
                                 <td>
                                     <a  class="enlaceListaBanda"><img src="/images/{{ba.image}}" alt="Profile image" class="img-circle" id="ImagenBandaList"></a>
                                 </td>
-                                <td><a [routerLink]="['Band', {id: ba.id}]" class="enlaceListaBanda">{{ba.groupName}}</a></td>
+                                <td><a [routerLink]="['/band', ba.id]" class="enlaceListaBanda">{{ba.groupName}}</a></td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#mem of ba.members" ><a [routerLink]="['Artist',  {id: mem.id}]" class="enlacePerfilArtista">{{mem.userName}}</a></li>
+                                        <li *ngFor="let mem of ba.members" ><a [routerLink]="['/artist',  mem.id]" class="enlacePerfilArtista">{{mem.userName}}</a></li>
                                     </ul>
                                 </td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#gen of ba.genres">{{gen.name}}</li>
+                                        <li *ngFor="let gen of ba.genres">{{gen.name}}</li>
                                     </ul>
                                 </td>
                             </tr>

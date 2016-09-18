@@ -1,8 +1,6 @@
-typings/
-node_modules/
-jspm_packages/
-bower_components/
-.idea/
+typings
 app/**/*.js
-app/**/*.js.map
-npm-debug*
+app/**/*.map
+node_modules
+jspm_packages
+bower_components

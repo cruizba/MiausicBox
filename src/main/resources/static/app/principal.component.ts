@@ -1,9 +1,11 @@
 /**
+ * Created by Carlos on 24/08/2016.
+ */
+/**
  * MiausicBox principal component.
  * @component PrincipalComponent
  */
-import { Component } from 'angular2/core';
-import { RouteParams, ROUTER_DIRECTIVES } from 'angular2/router';
+import { Component } from '@angular/core';
 import { BandService } from './services/band.service';
 import { UserService } from "./services/user.service";
 import { BlogService } from "./services/blog.service";
@@ -16,9 +18,7 @@ import { Info } from "./classes/Info";
 
 @Component({
   selector: 'principal',
-  templateUrl: 'templates/principal.html',
-  providers: [BandService, UserService, BlogService, PrincipalService],
-  directives: [ROUTER_DIRECTIVES]
+  templateUrl: 'templates/principal.html'
 })
 
 export class PrincipalComponent {

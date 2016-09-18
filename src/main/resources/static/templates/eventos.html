@@ -131,12 +131,12 @@
                         </thead>
 
                         <tbody>
-                            <tr *ngFor="#ev of events">
-                                <td><a [routerLink]="['Event', {id: ev.id}]" class="enlaceListaArtista"><img src="/images/{{ev.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
-                                <td><a [routerLink]="['Event', {id: ev.id}]" class="enlaceListaArtista">{{ev.name}}</a></td>
+                            <tr *ngFor="let ev of events">
+                                <td><a [routerLink]="['/event', ev.id]" class="enlaceListaArtista"><img src="/images/{{ev.image}}" alt="Profile image" class="img-circle" id="ImagenArtistList"></a></td>
+                                <td><a [routerLink]="['/event',  ev.id]" class="enlaceListaArtista">{{ev.name}}</a></td>
                                 <td>
                                     <ul>
-                                        <li *ngFor="#ba of ev.bands"><a id="no_color_link" [routerLink]="['Band', {id: ba.id}]">{{ba.groupName}}</a></li>
+                                        <li *ngFor="let ba of ev.bands"><a id="no_color_link" [routerLink]="['/band', ba.id]">{{ba.groupName}}</a></li>
                                     </ul>
                                 </td>
                                 <td>

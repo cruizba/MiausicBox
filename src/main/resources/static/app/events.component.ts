@@ -2,15 +2,12 @@
  * MiausicBox events component.
  * @component EventsComponent
  */
-import { Component } from 'angular2/core';
+import { Component } from '@angular/core';
 import { EventService } from './services/event.service';
-import { ROUTER_DIRECTIVES } from "angular2/router";
 
 @Component({
   selector: 'events',
-  templateUrl: 'templates/eventos.html',
-  providers: [EventService],
-  directives: [ROUTER_DIRECTIVES]
+  templateUrl: 'templates/eventos.html'
 })
 
 export class EventsComponent {
@@ -54,7 +51,7 @@ export class EventsComponent {
         )
       }
     }
-    
+
     findEventsByBand(name:String){
       this.events = [];
       if (0==name.length){

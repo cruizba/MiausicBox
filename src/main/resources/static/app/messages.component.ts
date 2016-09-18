@@ -2,17 +2,15 @@
  * MiausicBox messages component.
  * @component MessagesComponent
  */
-import { Component } from 'angular2/core';
-import { ROUTER_DIRECTIVES, RouteParams } from 'angular2/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Info } from "./classes/Info";
 import { Message } from "./classes/Message";
 import { MessageService } from "./services/message.service";
 
 @Component({
   selector: 'messages',
-  templateUrl: 'templates/mensajes.html',
-  directives: [ROUTER_DIRECTIVES],
-  providers: [MessageService]
+  templateUrl: 'templates/mensajes.html'
 })
 
 export class MessagesComponent {
@@ -28,13 +26,16 @@ export class MessagesComponent {
   actualMessage;
   actualUserMessage;
 
-  constructor(private _routeParams: RouteParams, private _messageService: MessageService){}
+  constructor(private _routeParams: ActivatedRoute, private _messageService: MessageService){}
+
 
   ngOnInit(){
-    this.id = this._routeParams.get('id');
+    this._routeParams.params.subscribe(params => {
+      this.id = params['id'];
+    });
     this.receivedOption = true;
     this.updateData();
-    $("#receivedButton").click();
+    document.getElementById("receivedButton").click();
   }
 
   updateMessages(){
